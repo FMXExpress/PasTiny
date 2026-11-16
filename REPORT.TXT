@@ -1,0 +1,127 @@
+TINY 2.1P implementation and validation report
+============================================
+
+Delivered implementation
+------------------------
+One TP-mode Pascal code base, with default integer A-C inference and a
+FLOATMATH comparison engine; unchanged TINY.BIN; native host plain mode;
+DOS shadow-screen interface, neural monitor, neon palette, original speaker
+patterns and robot voice; plain redirection detection; all requested DOS
+options and keys; benchmark; TP7/BP7 and FPC build files; reproducible tests.
+TNYUI.INC contains the interface implementation included by TINY.PAS.
+Repository: https://github.com/FMXExpress/PasTiny .
+
+Original source revision: 1d5cf54677addf188a090ca1c91acb3d02989a1d
+TINY.BIN bytes: 381808
+TINY.BIN SHA256:
+4b603237070ad9084433537bf8d6c7470d0fc583e6a4f1f03c00cd17264e7095
+
+Acceptance results
+------------------
+Reference C float vs Appendix A integer C:       60/60, full transcript match
+Pascal HOST float vs C:                         60/60, full transcript match
+Pascal HOST integer vs C:                       60/60, full transcript match
+HOST DEBUG (range/overflow checks):             60/60; no runtime errors
+HOST NOASM:                                    60/60, full transcript match
+HOST creativity 5 and 9:                       all 60 questions; no errors
+Malformed model statuses and messages vs C:    all 6 cases pass
+Original Turbo C DOS executable vs C host:     60/60, full transcript match
+FPC go32v2 integer vs C host:                   60/60, full transcript match
+FPC go32v2 float vs C host:                     60/60, full transcript match
+DOS BOOT.DMP:                                  only 13 version cells differ
+DOS SCREEN.DMP, final integer build:            only 17 time/speed cells differ
+Deterministic SOUND.LOG suffix:                all 279 events match
+
+Random rain/logo settling and scanner pitches use different random generators.
+The sound comparison starts at the fixed boot arpeggio and normalizes only
+scanner pitches; the event sequence, durations and speech sounds then match.
+Raw reference and Pascal dumps and logs are included, along with comparison
+scripts that print every differing cell or assert allowed regions.
+
+Additional DOS smoke tests
+--------------------------
+/DUMP /MONO /QUIET completed; resulting attributes are exactly 07, 0F or 70.
+/DUMPALL /CLASSIC /QUIET completed all twelve demo turns and wrote 4000-byte
+screen dumps. A scripted keyboard session entered F1/F2/F3/F4, CLS, HELP,
+Backspace, a question, Up recall, and Esc; the program exited with
+'TINY: goodbye!' and no runtime failure. This was a smoke test, not a manual
+visual assertion for each intermediate screen. The script and exit capture
+are supplied in tests/evidence.
+
+Build environment
+-----------------
+HOST: Debian x86-64 Linux, Free Pascal 3.2.2, TP mode, -O2.
+DOS: Free Pascal 3.2.2, i386 go32v2, -O3 -Cp80386 -XX -Xs; CWSDPMI release 7.
+Cross compiler built locally from the official FPC 3.2.2 compiler sources;
+target RTL taken from the official dos322full.zip distribution. The native
+DOS compiler was also able to build the program under DOSBox-X.
+DOS regressions: DOSBox-X 2025.02.01, 16 MB, cycles=max, FPU enabled.
+
+Important deviations from the plan
+---------------------------------
+-Cp80386 replaces invalid -Cp386 in FPC build commands.
+Table offsets use Longint even in CLASSIC to avoid wrapping above 32767.
+The TP7 int8/int16 BASM kernel is also used by attention query/key dots;
+all targets retain a pure Pascal kernel. CLASSIC assembly remains untested.
+FPC links Emu387 and includes WMEMU387.DXE, but no-FPU acceptance is pending.
+Optional /PROFILE and conditional stage D were not implemented. Stage D
+requires a valid no-FPU timing profile and regression validation first.
+
+Outstanding verification
+------------------------
+Commercial Turbo Pascal 7 / Borland Pascal 7 compilers were not supplied.
+Therefore real-mode, BP7 DPMI and CLASSIC ASM/NOASM equivalence have not been
+compiled or measured. A 16-bit FPC toolchain was not installed. TP7 syntax,
+64 KB blocks and 8086 assembly were reviewed but not independently compiled.
+No claim is made for a measured 540 KB real-mode footprint or a 2 MB minimum.
+Windows HOST, physical Pocket386 and Pentium hardware were not tested.
+
+No-FPU verification blocker
+--------------------------
+The supplied FPC Emu387 support is configured, and the expected emulator
+filename is confirmed as WMEMU387.DXE. However DOSBox-X 2025.02.01 with
+fpu=false returned NaN for 2*3 in an independent minimal program using only
+the stock Emu387 unit; the network consequently cannot pass in that setup.
+SET 387=N did not fix it. The same minimal program produces 6.00 with FPU on.
+The reproducer and its failure output are supplied in tests/evidence.
+
+The emulator version's normal core skips ESC instructions when fpu=false:
+https://github.com/joncampbell123/dosbox-x/blob/dosbox-x-v2025.02.01/src/cpu/core_normal/prefix_none.h
+(handlers around lines 1088-1157). This setup cannot be treated as proof of
+working physical coprocessor-exception emulation. No successful no-FPU run,
+no no-FPU performance measurement, and no Pocket386 readiness are claimed.
+A suitable emulator with working traps, or physical hardware, is still needed.
+
+Debian DOSBox 0.74-3 also corrupted long strings in an independent simple
+32-bit Pascal test and failed to start the native DOS compiler. Those runs
+were discarded. The reported successful DOS tests all use DOSBox-X.
+
+To finish hardware acceptance, run on the intended no-FPU machine with the
+runtime files beside TINY.EXE:
+  TINY 0 /P < Q.TXT > A.TXT
+  TINY /BENCH > BENCH.TXT
+Compare A.TXT using tests/verify_dos.py and record BENCH.TXT. Do not use the
+FPU-enabled emulator measurements below as no-FPU estimates.
+
+Measured benchmark (FPU enabled)
+-------------------------------
+DOSBox-X 2025.02.01; normal core; cputype=386; cycles=8000; 16 MB.
+Both runs process the same 189 tokens and produce the five expected answers.
+
+Engine       Tokens/second   Average seconds/answer
+INTEGER      2.350            16.084
+FLOAT        1.297            29.142
+
+Integer throughput is 1.81 times float throughput in this FPU-enabled
+emulator configuration. This is not a no-FPU or physical hardware result.
+HOST benchmark output is also supplied, but its sub-second durations and
+millisecond timer make it less useful for hardware performance predictions.
+
+Delivery layout
+---------------
+Source and original reference files: repository root (PASTINY/ in the full source archive).
+New runnable DOS builds: BIN/DOS/ (includes model, DPMI host, emulator file
+and third-party notices). New static x86-64 Linux build: BIN/LINUX/.
+Keep each binary with its model. Source tests require FPC, GCC and Python 3;
+DOS regression additionally requires DOSBox-X and DOS runtime files.
+SHA256.TXT records the checksums of every other delivered file.

@@ -1,0 +1,6 @@
+DOS: complete transcript matches all 60 C reference answers
+DOS: complete transcript matches all 60 C reference answers
+DOS: complete transcript matches all 60 C reference answers
+BOOT.DMP: only permitted time/version cells differ (13 cells)
+SCREEN.DMP: only permitted time/version cells differ (17 cells)
+SOUND.LOG: 279 deterministic events match

@@ -1,0 +1,11 @@
+int: 60/60 reference answers match
+float: 60/60 reference answers match
+debug: 60/60 reference answers match
+noasm: 60/60 reference answers match
+empty: C/Pascal rejection matches
+magic: C/Pascal rejection matches
+header: C/Pascal rejection matches
+truncated: C/Pascal rejection matches
+extra: C/Pascal rejection matches
+dimension: C/Pascal rejection matches
+Host checks passed; DOS and commercial TP7 checks are separate.

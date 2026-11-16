@@ -1,2 +1,18 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+*.PAS text eol=crlf
+*.INC text eol=crlf
+*.BAT text eol=crlf
+*.EXE binary
+*.BIN binary
+*.DXE binary
+*.DMP binary
+*.ZIP binary
+BIN/LINUX/TINY binary
+*.TXT text eol=crlf
+*.C text eol=crlf
+tests/evidence/*.txt -text
+BIN/DOS/COPYING -text
+tests/evidence/*.LOG -text
+SHA256.TXT -text

@@ -1,0 +1,188 @@
+TINY 2 - a neural network that answers questions.
+Loading TINY.BIN ...
+Ready: 4 layers, 96 wide. Creativity 0 (TINY 0 to TINY 9).
+Ask about countries, animals, space, the body, nature, science, food,
+sums, numbers, spelling, words, shapes, history, music or computers.
+Type QUIT to stop.
+
+>   Lima.
+   [5 letters in 1.7 seconds]
+
+>   No, a whale is a mammal.
+   [24 letters in 1.5 seconds]
+
+>   It is in France.
+   [16 letters in 2.4 seconds]
+
+>   It is Austin.
+   [13 letters in 1.8 seconds]
+
+>   People there speak English and French.
+   [38 letters in 4.7 seconds]
+
+>   The Japanese yen.
+   [17 letters in 2.3 seconds]
+
+>   Latvia and Russia.
+   [18 letters in 1.9 seconds]
+
+>   Yes, France borders Spain.
+   [26 letters in 1.9 seconds]
+
+>   7 times 8 is 56.
+   [16 letters in 2.1 seconds]
+
+>   It is 200.
+   [10 letters in 1.1 seconds]
+
+>   450 is bigger.
+   [14 letters in 2.0 seconds]
+
+>   Forty-seven.
+   [12 letters in 1.5 seconds]
+
+>   31 is odd.
+   [10 letters in 1.3 seconds]
+
+>   XIV.
+   [4 letters in 1.5 seconds]
+
+>   E-L-E-P-H-A-N-T.
+   [16 letters in 1.2 seconds]
+
+>   Tac.
+   [4 letters in 1.1 seconds]
+
+>   L.
+   [2 letters in 1.1 seconds]
+
+>   Mice.
+   [5 letters in 0.8 seconds]
+
+>   It is went.
+   [11 letters in 2.0 seconds]
+
+>   It is cold.
+   [11 letters in 1.6 seconds]
+
+>   Large.
+   [6 letters in 1.8 seconds]
+
+>   It is best.
+   [11 letters in 2.5 seconds]
+
+>   A cow says moo.
+   [15 letters in 1.6 seconds]
+
+>   A joey.
+   [7 letters in 1.3 seconds]
+
+>   Eight.
+   [6 letters in 1.5 seconds]
+
+>   An owl.
+   [7 letters in 1.2 seconds]
+
+>   A pride.
+   [8 letters in 1.7 seconds]
+
+>   The cheetah.
+   [12 letters in 2.3 seconds]
+
+>   It is Au.
+   [9 letters in 1.8 seconds]
+
+>   Two.
+   [4 letters in 1.4 seconds]
+
+>   In Spanish it is gracias.
+   [25 letters in 2.9 seconds]
+
+>   Alexander Graham Bell.
+   [22 letters in 1.9 seconds]
+
+>   The Pacific Ocean.
+   [18 letters in 1.8 seconds]
+
+>   Paris, France.
+   [14 letters in 1.9 seconds]
+
+>   Six.
+   [4 letters in 3.4 seconds]
+
+>   Disk Operating System.
+   [22 letters in 1.8 seconds]
+
+>   I cannot see a clock. Try the TIME command.
+   [43 letters in 3.6 seconds]
+
+>   Why did the PC go to the doctor? It had a virus.
+   [48 letters in 4.4 seconds]
+
+>   15 minus 6 is 9.
+   [16 letters in 2.3 seconds]
+
+>   In German it is danke.
+   [22 letters in 4.6 seconds]
+
+>   The capital of Estonia is Tallinn.
+   [34 letters in 3.7 seconds]
+
+>   C-O-M-P-U-T-E-R.
+   [16 letters in 1.3 seconds]
+
+>   In Spanish it is gracias.
+   [25 letters in 4.2 seconds]
+
+>   Africa, Antarctica, Asia, Australia, Europe, North America and South America.
+   [77 letters in 8.0 seconds]
+
+>   12 times 11 is 132.
+   [19 letters in 2.7 seconds]
+
+>   It is 22.
+   [9 letters in 1.9 seconds]
+
+>   William Shakespeare.
+   [20 letters in 2.8 seconds]
+
+>   The capital of Australia is Canberra.
+   [37 letters in 4.1 seconds]
+
+>   It has two legs.
+   [16 letters in 3.4 seconds]
+
+>   Small.
+   [6 letters in 1.8 seconds]
+
+>   God.
+   [4 letters in 1.1 seconds]
+
+>   XCIX.
+   [5 letters in 1.4 seconds]
+
+>   Three hundred and fifteen.
+   [26 letters in 3.1 seconds]
+
+>   The capital of Mongolia is Ulan Bator.
+   [38 letters in 5.4 seconds]
+
+>   27 is smaller.
+   [14 letters in 3.2 seconds]
+
+>   It is children.
+   [15 letters in 3.4 seconds]
+
+>   It is Fe.
+   [9 letters in 3.7 seconds]
+
+>   In Africa.
+   [10 letters in 2.7 seconds]
+
+>   Portuguese.
+   [11 letters in 2.9 seconds]
+
+>   Ottawa.
+   [7 letters in 1.8 seconds]
+
+> Goodbye!

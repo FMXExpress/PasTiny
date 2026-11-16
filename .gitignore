@@ -1,0 +1,17 @@
+build/
+*.o
+*.ppu
+*.DMP
+SOUND.LOG
+TINY
+TINYFLT
+UISIM*
+COMPILE.LOG
+COMPTEST.BAT
+INFO.LOG
+REFTEST.BAT
+Q.TXT
+GOLD_EXE.TXT
+tests/actual_*.txt
+tests/tiny_ref
+tests/tiny_int
