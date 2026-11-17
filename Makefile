@@ -2,7 +2,7 @@ FPC ?= fpc
 CC ?= gcc
 FLAGS = -Mtp -O2 -B
 
-.PHONY: all host float debug test go32v2 go32v2-float test-dos clean
+.PHONY: all host float debug test go32v2 go32v2-float test-dos test-tp7 clean
 all: host
 host:
 	mkdir -p build/int
@@ -23,5 +23,7 @@ go32v2-float:
 	$(FPC) -Tgo32v2 -Mtp -O3 -Cp80386 -XX -Xs -B -dFLOATMATH -FUbuild/dosfloat -FEbuild/dosfloat -oTNYFLT.EXE TINY.PAS
 test-dos:
 	sh tests/run_dos.sh
+test-tp7:
+	sh tests/run_tp7.sh
 clean:
 	rm -rf build

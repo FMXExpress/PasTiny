@@ -1,0 +1,22 @@
+Load seconds: 0.041
+> what is the capital of peru
+  Lima.
+  tokens: 33 seconds: 0.407
+> is a whale a fish
+  No, a whale is a mammal.
+  tokens: 42 seconds: 0.540
+> what is 7 times 8
+  7 times 8 is 56.
+  tokens: 34 seconds: 0.405
+> which countries border estonia
+  Latvia and Russia.
+  tokens: 49 seconds: 0.608
+> spell elephant
+  E-L-E-P-H-A-N-T.
+  tokens: 31 seconds: 0.437
+Total tokens: 189
+Tokens/second: 78.849
+Seconds/answer: 0.479
+Engine: INTEGER ASM
+Build: TP7 real mode
+FPU found: yes

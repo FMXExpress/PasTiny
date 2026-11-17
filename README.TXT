@@ -55,8 +55,8 @@ CLASSIC: Turbo Pascal 7 / Borland Pascal 7, commercial tools supplied by you.
 Put TPC.EXE or BPC.EXE on PATH. BP7 protected mode also needs RTM.EXE and
 DPMI16BI.OVL. No Crt unit is used, avoiding the TP7 runtime error 200 startup
 problem. Source uses TP syntax, ShortString, small heap blocks and an 8086
-BASM dot product for TP7; FPC uses Pascal integer loops. Commercial TP7/BP7
-and 16-bit FPC builds have NOT been run, so their compatibility is provisional.
+BASM dot product for TP7; FPC uses Pascal integer loops. Turbo Pascal 7 real-mode builds have now been compiled and tested.
+BP7 DPMI and 16-bit FPC builds remain unverified.
 
 Runtime and memory
 ------------------
@@ -88,7 +88,7 @@ explicitly to Single, including intermediate products on x87 targets.
 
 NOASM disables the CLASSIC BASM dot product. FAST/HOST always use Pascal
 loops; no unmeasured assembly optimization is enabled there. No fixed-point
-residual 'stage D' was implemented: no valid no-FPU profile is available to
+residual 'stage D' was implemented: no no-FPU timing breakdown is available to
 justify and validate that further algorithm change.
 
 Options and interaction
@@ -140,16 +140,16 @@ engines and the original (after building both Pascal DOS engines):
 
 Known validation limits
 -----------------------
-No commercial TP7/BP7 compiler, 16-bit build, Pocket386, Pentium hardware,
+No BP7 DPMI compiler, 16-bit FPC build, Pocket386 or Pentium hardware,
 Windows host build or manual visual session was tested here.
 
-DOSBox-X 2025.02.01 with fpu=false is NOT a successful no-FPU test environment:
+For the FPC go32v2 build, DOSBox-X 2025.02.01 with fpu=false failed:
 a minimal independent program using only the stock FPC Emu387 unit computes
 2*3 as NaN, and the network then fails. Forcing SET 387=N did not fix it.
 Inspection of this emulator version's core_normal/prefix_none.h shows that
 its fpu=false ESC handlers skip the floating-point instructions. A working
 coprocessor-exception/emulation environment or physical no-FPU machine is
-still required. No no-FPU throughput or stage-D speedup is claimed.
+still required for FPC. No FPC no-FPU throughput or stage-D speedup is claimed.
 
 Debian DOSBox 0.74-3 was also unsuitable here: long string output from even
 a minimal independent 32-bit Pascal program was corrupted, and the DOS
@@ -159,3 +159,26 @@ Use DOSBox-X for the documented regression results.
 Upstream does not supply a project license. The Pascal port targets the FMXExpress/PasTiny repository. The repository MIT
 license applies to its contributions, not to third-party upstream files.
 Upstream files retain their provenance; no new license is asserted over them.
+
+Turbo Pascal 7 update (2026-11-17)
+---------------------------------
+The actual Borland Turbo Pascal 7 compiler supplied at
+https://archive.org/details/turbopascal7.0 was used in DOSBox-X. The compiler
+itself and TURBO.TPL are not redistributed in this project.
+
+A missing far-callback directive was corrected by enabling {$F+} under VER70.
+The source still retains the original {$M 16384,0,655360} directive, accepted
+by the actual Borland compiler. TPC16's free compatible demo rejected that
+heap directive; a small floating-expression probe also exposed FPU-stack
+leakage in TPC16 that was absent with Borland's compiler. TPC16 has not been
+validated as a replacement compiler for this port.
+
+BIN/TP7 contains the real-mode integer, float and NOASM builds. TP7TINY.ZIP
+is a separate flat, uppercase 8.3 archive containing these builds, the model,
+source and BUILD.BAT. Its built-in {$N+}{$E+} floating-point emulation needs
+neither CWSDPMI.EXE nor WMEMU387.DXE. Physical no-FPU hardware remains untested.
+The five-question benchmark passed with DOSBox-X fpu=false and FPU found: no.
+For reproducible classic checks with your own TPC.EXE and TURBO.TPL:
+  TP7_DIR=/path/to/compiler/bin make test-tp7
+The test runner converts questions to DOS CRLF text and checks both engines,
+NOASM, and the no-FPU benchmark. See REPORT.TXT and tests/evidence/tp7_*.

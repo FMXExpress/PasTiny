@@ -9,7 +9,9 @@ A Pascal port of [TINY 2.1](https://github.com/WollyMonjac/Tiny-2.1), a small ch
 
 ## Run on DOS
 
-Download [TINYPAS.ZIP](https://github.com/FMXExpress/PasTiny/raw/refs/heads/main/dist/TINYPAS.ZIP) and extract it into a DOS directory. The archive is flat and **every entry uses uppercase 8.3 filenames**. It includes the Pascal integer and float executables, unchanged model, runtime files, Pascal source, and build commands.
+For a 386 without a coprocessor, use **[TP7TINY.ZIP](https://github.com/FMXExpress/PasTiny/raw/refs/heads/main/dist/TP7TINY.ZIP)**: the Turbo Pascal 7 real-mode build with built-in floating-point emulation. It has passed all 60 reference answers with the FPU enabled, plus the five-question benchmark with `fpu=false`. Physical Pocket386 hardware remains untested. No CWSDPMI or WMEMU387 file is needed for this build.
+
+For the Free Pascal 32-bit DOS build, download [TINYPAS.ZIP](https://github.com/FMXExpress/PasTiny/raw/refs/heads/main/dist/TINYPAS.ZIP) and extract it into a DOS directory. The archive is flat and **every entry uses uppercase 8.3 filenames**. It includes the Pascal integer and float executables, unchanged model, runtime files, Pascal source, and build commands.
 
 ```dos
 TINY 0
@@ -17,7 +19,7 @@ TINY 0 /P
 TINY /BENCH > BENCH.TXT
 ```
 
-Keep `TINY.BIN` in the working directory and `CWSDPMI.EXE` beside the DOS executable. `WMEMU387.DXE` is included for the linked Free Pascal emulator support. **No-FPU/Pocket386 acceptance remains unverified**; see the test limitations below.
+Keep `TINY.BIN` in the working directory and `CWSDPMI.EXE` beside the DOS executable. `WMEMU387.DXE` is included for the linked Free Pascal emulator support. **FPC no-FPU operation and physical Pocket386 acceptance remain unverified**; see the test limitations below.
 
 The repository root `TINY.EXE` is the original Turbo C reference executable. The new Pascal builds are [`BIN/DOS/TINY.EXE`](BIN/DOS/TINY.EXE) (integer) and [`BIN/DOS/TNYFLT.EXE`](BIN/DOS/TNYFLT.EXE) (float). `TINYPAS.ZIP` contains only the Pascal executables.
 
@@ -36,11 +38,15 @@ A static x86-64 Linux build and model are also included in `BIN/LINUX`.
 
 For native Free Pascal DOS builds, run `BUILDFPC.BAT`; for a configured go32v2 cross compiler, use `make go32v2` and `make go32v2-float`. The CPU flag is `-Cp80386`.
 
-`BUILD.BAT` supplies Turbo Pascal 7 and Borland Pascal 7 real-mode and BP7 protected-mode commands. Keep `TNYUI.INC` with the Pascal units. Those commercial toolchains have not been verified.
+`BUILD.BAT` supplies Turbo Pascal 7 and Borland Pascal 7 real-mode and BP7 protected-mode commands. Keep `TNYUI.INC` with the Pascal units. Turbo Pascal 7 real mode is now verified; BP7 protected mode remains unverified. To reproduce the TP7 checks with your own compiler files:
+
+```sh
+TP7_DIR=/path/to/compiler/bin make test-tp7
+```
 
 ## Validation and benchmarks
 
-Both Pascal engines match **60/60 reference answers on Linux and DOSBox-X**. Debug and NOASM host builds pass; malformed model errors match C. Screen dump comparisons pass outside the documented clock/speed/version cells, and 279 deterministic sound events match.
+Both Pascal engines match **60/60 reference answers on Linux and DOSBox-X**. The actual Borland Turbo Pascal 7 real-mode integer and float builds also match 60/60; the classic integer ASM and NOASM variants are compared separately. Debug and NOASM host builds pass; malformed model errors match C. Screen dump comparisons pass outside the documented clock/speed/version cells, and 279 deterministic sound events match.
 
 DOSBox-X 2025.02.01, normal core, emulated 386, 8,000 cycles, FPU enabled:
 
@@ -51,7 +57,7 @@ DOSBox-X 2025.02.01, normal core, emulated 386, 8,000 cycles, FPU enabled:
 
 Tokens are characters, including the question and separator. These are **FPU-enabled emulator results, not Pocket386 speed estimates**.
 
-No-FPU verification is blocked in the tested emulator configuration: even a minimal independent program using the stock FPC `Emu387` unit returned NaN with `fpu=false`. Physical Pocket386/Pentium, TP7/BP7, 16-bit FPC, and Windows host builds remain unverified. See [REPORT.TXT](REPORT.TXT) for details, reproducible tests, and [test evidence](tests/evidence).
+The TP7 real-mode integer build passes the five-question no-FPU benchmark (189 tokens, `FPU found: no`) using its built-in software floating point. This is an emulator test, not a physical Pocket386 timing prediction. No-FPU verification of the **FPC go32v2** build is still blocked: an independent program using stock FPC `Emu387` returned NaN with `fpu=false`. Physical Pocket386/Pentium, BP7 DPMI, 16-bit FPC, and Windows host builds remain unverified. See [REPORT.TXT](REPORT.TXT) for details, reproducible tests, and [test evidence](tests/evidence).
 
 ## Documentation and attribution
 

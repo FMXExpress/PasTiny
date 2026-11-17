@@ -1,0 +1,11 @@
+TINY 2 - a neural network that answers questions.
+Loading TINY.BIN ...
+Ready: 4 layers, 96 wide. Creativity 0 (TINY 0 to TINY 9).
+Ask about countries, animals, space, the body, nature, science, food,
+sums, numbers, spelling, words, shapes, history, music or computers.
+Type QUIT to stop.
+
+>   Lima.
+   [5 letters in 11.5 seconds]
+
+> Goodbye!

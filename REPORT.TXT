@@ -1,3 +1,63 @@
+Turbo Pascal 7 validation update - 2026-11-17
+=============================================
+
+The actual Borland Turbo Pascal 7.0 compiler from the user-supplied archive
+https://archive.org/details/turbopascal7.0 was run in DOSBox-X 2025.02.01.
+TPC.EXE and TURBO.TPL were used only locally and are NOT redistributed.
+
+One source correction was required: {$F+} under VER70 so callbacks in the
+main program use far procedure references. The original heap/stack directive
+{$M 16384,0,655360} is accepted by Borland's compiler and remains unchanged.
+The conditional correction does not change FPC builds; the host was rebuilt
+and its benchmark still gives the expected five answers.
+
+TPC /B TINY.PAS (integer/ASM):             60/60, complete transcript match
+TPC /B /DFLOATMATH TINY.PAS:               60/60, complete transcript match
+TPC /B /DNOASM TINY.PAS:                   60/60, complete transcript match
+Classic ASM vs NOASM:                     identical transcripts
+Classic BOOT.DMP:                         only 18 permitted version cells differ
+Classic SCREEN.DMP:                       only 19 permitted timing cells differ
+Classic deterministic sound suffix:       all 279 events match
+
+With DOSBox-X fpu=false, normal core, cputype=386, cycles=max, 16 MB:
+- Real-mode integer benchmark: all five answers correct; 189 tokens.
+- Reported FPU found: no; no external DPMI or emulator runtime was present.
+- Measured 3.093 tokens/second, 12.222 seconds/answer in this run.
+- TP7's built-in {$N+}{$E+} software floating point supplies the math.
+These cycles=max emulator timings are not fixed-clock Pocket386 estimates
+and are not directly comparable with the older 8000-cycle FPC measurements.
+The full 60-question run was performed with the FPU enabled. No-FPU coverage
+here consists of the five-question benchmark and a separate plain-mode smoke
+question; physical no-FPU hardware has not been tested.
+
+A separate BIN/TP7 directory and flat 8.3 TP7TINY.ZIP contain the real-mode
+integer, float and NOASM applications, unchanged model, source and build files.
+The TP7 package needs neither CWSDPMI.EXE nor WMEMU387.DXE. FPC's go32v2
+no-FPU verification issue remains separate and unresolved.
+
+Reproduce with your own compiler:
+  TP7_DIR=/path/containing/TPC.EXE/and/TURBO.TPL make test-tp7
+The runner uses DOS CRLF questions and checks all three transcripts plus the
+FPU-disabled benchmark. Manual test run logs and raw screen/sound evidence
+are under tests/evidence/tp7_*.
+
+Turbo51 findings
+----------------
+https://turbo51.com/turbo-pascal-download links free TPC16/TPC32 compiler demos;
+Turbo51 itself targets 8051 microcontrollers. The TPC16 demo compiled a
+scratch port after omitting its rejected heap directive and enabling far
+callbacks, but its results failed. A minimal floating-expression argument
+probe reproduced an FPU-stack leak with TPC16; the same probe passed with
+Borland TP7. No claim of validated TPC16 compatibility is made. The compiler
+probe source and outputs are retained as evidence; no compiler binaries are
+included. The paid compiler source packages were not purchased.
+
+Current outstanding checks: BP7 DPMI, physical Pocket386/Pentium hardware,
+16-bit FPC and Windows host. The initial report below records the earlier
+v2.1p.0-preview state; its TP7-unverified statements are superseded above.
+
+--- Initial preview report follows ---
+
 TINY 2.1P implementation and validation report
 ============================================
 
