@@ -1,0 +1,226 @@
+{
+  "date": "2026-11-17",
+  "dosbox_x": "2025.02.01",
+  "cpu": "386",
+  "core": "normal",
+  "fixed_cycles": 50000,
+  "memory_mb": 16,
+  "measurement": "whole child process, model load and redirected output included",
+  "model_sha256": "4b603237070ad9084433537bf8d6c7470d0fc583e6a4f1f03c00cd17264e7095",
+  "results": [
+    {
+      "fpu": "on",
+      "version": "Original C",
+      "runs": 3,
+      "questions": 5,
+      "tokens": 189,
+      "median_seconds": 45.319,
+      "tokens_per_second": 4.170436240870275,
+      "seconds_per_answer": 9.0638,
+      "min_seconds": 45.316,
+      "max_seconds": 45.319,
+      "raw_ms": [
+        45319,
+        45319,
+        45316
+      ],
+      "raw_inference_seconds": [
+        44.9,
+        44.9,
+        44.9
+      ],
+      "exe_sha256": "c271eae89de3dedbdef90794a017a1f4d452d52a14d90e3cebebf9ace39022d8"
+    },
+    {
+      "fpu": "on",
+      "version": "FPC integer",
+      "runs": 3,
+      "questions": 5,
+      "tokens": 189,
+      "median_seconds": 13.094,
+      "tokens_per_second": 14.434091950511686,
+      "seconds_per_answer": 2.6188,
+      "min_seconds": 13.043,
+      "max_seconds": 13.095,
+      "raw_ms": [
+        13094,
+        13043,
+        13095
+      ],
+      "raw_inference_seconds": [
+        12.6,
+        12.5,
+        12.5
+      ],
+      "exe_sha256": "ae6a0609b83d9b169da57422cbf28a67d3355a269de7ffe867fc3ffcdea1dd68"
+    },
+    {
+      "fpu": "on",
+      "version": "FPC float",
+      "runs": 3,
+      "questions": 5,
+      "tokens": 189,
+      "median_seconds": 23.491,
+      "tokens_per_second": 8.045634498318504,
+      "seconds_per_answer": 4.6982,
+      "min_seconds": 23.488,
+      "max_seconds": 23.547,
+      "raw_ms": [
+        23491,
+        23488,
+        23547
+      ],
+      "raw_inference_seconds": [
+        23.1,
+        23.0,
+        23.099999999999998
+      ],
+      "exe_sha256": "ef5b5f601aef1771b94721c303bd290504bff6caf0ee2294238f750506d2643e"
+    },
+    {
+      "fpu": "on",
+      "version": "TP7 integer ASM",
+      "runs": 3,
+      "questions": 5,
+      "tokens": 189,
+      "median_seconds": 15.283,
+      "tokens_per_second": 12.366681934175228,
+      "seconds_per_answer": 3.0566,
+      "min_seconds": 15.274,
+      "max_seconds": 15.329,
+      "raw_ms": [
+        15274,
+        15283,
+        15329
+      ],
+      "raw_inference_seconds": [
+        14.9,
+        14.8,
+        14.9
+      ],
+      "exe_sha256": "9e1978593980d56fc867acecd9076882012a4e1df20533bae3b22697f9c863b8"
+    },
+    {
+      "fpu": "on",
+      "version": "TP7 integer Pascal",
+      "runs": 3,
+      "questions": 5,
+      "tokens": 189,
+      "median_seconds": 48.139,
+      "tokens_per_second": 3.9261305801948523,
+      "seconds_per_answer": 9.6278,
+      "min_seconds": 48.137,
+      "max_seconds": 48.193,
+      "raw_ms": [
+        48137,
+        48139,
+        48193
+      ],
+      "raw_inference_seconds": [
+        47.7,
+        47.6,
+        47.7
+      ],
+      "exe_sha256": "fd4a5e7b3709403a2bae1ea9e558a3787b2afa23395e3a4efdf0088c12d917ab"
+    },
+    {
+      "fpu": "on",
+      "version": "TP7 float",
+      "runs": 3,
+      "questions": 5,
+      "tokens": 189,
+      "median_seconds": 53.64,
+      "tokens_per_second": 3.523489932885906,
+      "seconds_per_answer": 10.728,
+      "min_seconds": 53.585,
+      "max_seconds": 53.644,
+      "raw_ms": [
+        53585,
+        53640,
+        53644
+      ],
+      "raw_inference_seconds": [
+        53.2,
+        53.2,
+        53.2
+      ],
+      "exe_sha256": "558e0c797a392e23c909fc5b426c0cc62c71404a384ac692075f6cd877f32242"
+    },
+    {
+      "fpu": "off",
+      "version": "Original C",
+      "runs": 1,
+      "questions": 1,
+      "tokens": 34,
+      "median_seconds": 245.99,
+      "tokens_per_second": 0.138217000691085,
+      "seconds_per_answer": 245.99,
+      "min_seconds": 245.99,
+      "max_seconds": 245.99,
+      "raw_ms": [
+        245990
+      ],
+      "raw_inference_seconds": [
+        245.8
+      ],
+      "exe_sha256": "c271eae89de3dedbdef90794a017a1f4d452d52a14d90e3cebebf9ace39022d8"
+    },
+    {
+      "fpu": "off",
+      "version": "TP7 integer ASM",
+      "runs": 1,
+      "questions": 1,
+      "tokens": 34,
+      "median_seconds": 17.469,
+      "tokens_per_second": 1.9463048829354856,
+      "seconds_per_answer": 17.469,
+      "min_seconds": 17.469,
+      "max_seconds": 17.469,
+      "raw_ms": [
+        17469
+      ],
+      "raw_inference_seconds": [
+        17.1
+      ],
+      "exe_sha256": "9e1978593980d56fc867acecd9076882012a4e1df20533bae3b22697f9c863b8"
+    },
+    {
+      "fpu": "off",
+      "version": "TP7 integer Pascal",
+      "runs": 1,
+      "questions": 1,
+      "tokens": 34,
+      "median_seconds": 23.436,
+      "tokens_per_second": 1.4507595152756443,
+      "seconds_per_answer": 23.436,
+      "min_seconds": 23.436,
+      "max_seconds": 23.436,
+      "raw_ms": [
+        23436
+      ],
+      "raw_inference_seconds": [
+        23.0
+      ],
+      "exe_sha256": "fd4a5e7b3709403a2bae1ea9e558a3787b2afa23395e3a4efdf0088c12d917ab"
+    },
+    {
+      "fpu": "off",
+      "version": "TP7 float",
+      "runs": 1,
+      "questions": 1,
+      "tokens": 34,
+      "median_seconds": 274.446,
+      "tokens_per_second": 0.12388593748861342,
+      "seconds_per_answer": 274.446,
+      "min_seconds": 274.446,
+      "max_seconds": 274.446,
+      "raw_ms": [
+        274446
+      ],
+      "raw_inference_seconds": [
+        274.0
+      ],
+      "exe_sha256": "558e0c797a392e23c909fc5b426c0cc62c71404a384ac692075f6cd877f32242"
+    }
+  ]
+}

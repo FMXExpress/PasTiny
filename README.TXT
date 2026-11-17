@@ -182,3 +182,34 @@ For reproducible classic checks with your own TPC.EXE and TURBO.TPL:
   TP7_DIR=/path/to/compiler/bin make test-tp7
 The test runner converts questions to DOS CRLF text and checks both engines,
 NOASM, and the no-FPU benchmark. See REPORT.TXT and tests/evidence/tp7_*.
+
+Controlled version comparison (2026-11-17)
+-----------------------------------------
+BENCH/ contains the new common-timer results, raw logs and graphs. The
+SVG/PNG charts use separate workloads for FPU-on and FPU-off results.
+All runs use DOSBox-X 2025.02.01, normal core, 386, 50000 fixed cycles,
+16 MB, one emulator at a time. Times INCLUDE model load, startup and output.
+
+FPU on: five questions, median of 3 runs; average seconds per answer:
+  FPC integer            2.62
+  TP7 integer ASM        3.06
+  FPC float              4.70
+  Original C             9.06
+  TP7 integer Pascal     9.63
+  TP7 float             10.73
+
+FPU off: what is 7 times 8, one run per version; seconds for that question:
+  TP7 integer ASM       17.47
+  TP7 integer Pascal    23.44
+  Original C           245.99
+  TP7 float            274.45
+
+No-FPU integer ASM was 14.1 times faster than original C, and 15.7 times
+faster than TP7 float. All timed answers matched. FPC no-FPU was not ranked
+because stock Emu387 failed in this emulator setup. These results are not
+physical Pocket386 predictions; do not compare between the two workloads
+or mix them with the earlier 8000-cycle or cycles=max /BENCH timings.
+
+See BENCH/README.TXT, BENCH/BENCH.CSV and BENCH/META.JSN for details.
+Regenerate SVG/PNG charts with Python 3 and Matplotlib:
+  python3 BENCH/PLOT.PY

@@ -1,0 +1,23 @@
+TINY 2 - a neural network that answers questions.
+Loading TINY.BIN ...
+Ready: 4 layers, 96 wide. Creativity 0 (TINY 0 to TINY 9).
+Ask about countries, animals, space, the body, nature, science, food,
+sums, numbers, spelling, words, shapes, history, music or computers.
+Type QUIT to stop.
+
+>   Lima.
+   [5 letters in 7.8 seconds]
+
+>   No, a whale is a mammal.
+   [24 letters in 10.0 seconds]
+
+>   7 times 8 is 56.
+   [16 letters in 8.0 seconds]
+
+>   Latvia and Russia.
+   [18 letters in 11.8 seconds]
+
+>   E-L-E-P-H-A-N-T.
+   [16 letters in 7.3 seconds]
+
+> Goodbye!

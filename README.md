@@ -48,16 +48,43 @@ TP7_DIR=/path/to/compiler/bin make test-tp7
 
 Both Pascal engines match **60/60 reference answers on Linux and DOSBox-X**. The actual Borland Turbo Pascal 7 real-mode integer and float builds also match 60/60; the classic integer ASM and NOASM variants are compared separately. Debug and NOASM host builds pass; malformed model errors match C. Screen dump comparisons pass outside the documented clock/speed/version cells, and 279 deterministic sound events match.
 
-DOSBox-X 2025.02.01, normal core, emulated 386, 8,000 cycles, FPU enabled:
+DOSBox-X 2025.02.01, normal core, emulated 386, **50,000 fixed cycles**, 16 MB. Every executable runs in plain mode with the same input within each comparison. A shared external timer measures the complete process, including startup, model loading, and output. All timed runs returned the expected answers.
 
-| Engine | Tokens/second | Average seconds/answer |
+### FPU enabled
+
+Five questions, 189 character tokens per run; median of three runs. Average seconds per answer is the median whole-program time divided by five.
+
+![FPU-enabled comparison: FPC integer is fastest at 2.62 seconds per answer, followed by TP7 integer ASM at 3.06 seconds.](BENCH/FPUON.SVG)
+
+| Version | Average seconds/answer | Tokens/second |
 |---|---:|---:|
-| Integer | 2.350 | 16.084 |
-| Float | 1.297 | 29.142 |
+| FPC integer | 2.62 | 14.434 |
+| TP7 integer ASM | 3.06 | 12.367 |
+| FPC float | 4.70 | 8.046 |
+| Original C | 9.06 | 4.170 |
+| TP7 integer, pure Pascal | 9.63 | 3.926 |
+| TP7 float | 10.73 | 3.523 |
 
-Tokens are characters, including the question and separator. These are **FPU-enabled emulator results, not Pocket386 speed estimates**.
+### FPU disabled
 
-The TP7 real-mode integer build passes the five-question no-FPU benchmark (189 tokens, `FPU found: no`) using its built-in software floating point. This is an emulator test, not a physical Pocket386 timing prediction. No-FPU verification of the **FPC go32v2** build is still blocked: an independent program using stock FPC `Emu387` returned NaN with `fpu=false`. Physical Pocket386/Pentium, BP7 DPMI, 16-bit FPC, and Windows host builds remain unverified. See [REPORT.TXT](REPORT.TXT) for details, reproducible tests, and [test evidence](tests/evidence).
+One run per version of **“what is 7 times 8”**, 34 character tokens. This shorter workload keeps the software-float runs practical. These are seconds for that single question, not the five-question averages above.
+
+![No-FPU comparison: TP7 integer ASM takes 17.47 seconds, pure Pascal integer 23.44 seconds, original C 245.99 seconds, and TP7 float 274.45 seconds.](BENCH/FPUOFF.SVG)
+
+| Version | Seconds for the test question | Tokens/second |
+|---|---:|---:|
+| TP7 integer ASM | 17.47 | 1.946 |
+| TP7 integer, pure Pascal | 23.44 | 1.451 |
+| Original C | 245.99 | 0.138 |
+| TP7 float | 274.45 | 0.124 |
+
+**TP7 integer ASM was 14.1× faster than the original C executable and 15.7× faster than TP7 float without an FPU.** Built-in software floating point supplies compatibility; the integer engine and assembly dot products provide the main speed gain. The FPC integer build was fastest with the FPU enabled.
+
+These are **emulator comparisons, not physical Pocket386 timing predictions**. The FPU-on and FPU-off workloads differ, so compare versions within each table. The earlier `/BENCH` results in [REPORT.TXT](REPORT.TXT) use different settings and exclude startup; they are not directly comparable to this complete-process measurement.
+
+[Raw CSV](BENCH/BENCH.CSV), [methodology](BENCH/README.TXT), [per-run logs and executable checksums](BENCH), and [chart generation script](BENCH/PLOT.PY) are included. SVG and PNG versions of both charts are available in `BENCH`; regenerate them with `python3 BENCH/PLOT.PY` after installing Matplotlib. Every benchmark asset and path component uses an 8.3 filename.
+
+The TP7 real-mode integer build also passes the separate five-question no-FPU benchmark (189 tokens, `FPU found: no`) using its built-in software floating point. No-FPU verification of the **FPC go32v2** build remains blocked in this emulator configuration: an independent program using stock FPC `Emu387` returned NaN with `fpu=false`, so FPC no-FPU timings are omitted. Physical Pocket386/Pentium, BP7 DPMI, 16-bit FPC, and Windows host builds remain unverified. See [REPORT.TXT](REPORT.TXT) for the earlier validation details and [test evidence](tests/evidence).
 
 ## Documentation and attribution
 

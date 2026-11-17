@@ -16,3 +16,6 @@ tests/evidence/*.txt -text
 BIN/DOS/COPYING -text
 tests/evidence/*.LOG -text
 SHA256.TXT -text
+
+# Preserve benchmark transcripts, input line endings and recorded data.
+BENCH/** -text

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="849.6pt" height="410.4pt" viewBox="0 0 849.6 410.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>PasTiny benchmark plotter</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 410.4
+L 849.6 410.4
+L 849.6 0
+L 0 0
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 229.392 299.592
+L 819.864 299.592
+L 819.864 98.496
+L 229.392 98.496
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 229.392 299.592
+L 229.392 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2"/>
+     <g id="text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="229.392" y="315.950281" transform="rotate(-0 229.392 315.950281)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 324.629419 299.592
+L 324.629419 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4"/>
+     <g id="text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="324.629419" y="315.950281" transform="rotate(-0 324.629419 315.950281)">2</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 419.866839 299.592
+L 419.866839 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6"/>
+     <g id="text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="419.866839" y="315.950281" transform="rotate(-0 419.866839 315.950281)">4</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 515.104258 299.592
+L 515.104258 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8"/>
+     <g id="text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="515.104258" y="315.950281" transform="rotate(-0 515.104258 315.950281)">6</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 610.341677 299.592
+L 610.341677 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10"/>
+     <g id="text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="610.341677" y="315.950281" transform="rotate(-0 610.341677 315.950281)">8</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 705.579097 299.592
+L 705.579097 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12"/>
+     <g id="text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="705.579097" y="315.950281" transform="rotate(-0 705.579097 315.950281)">10</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_13">
+      <path d="M 800.816516 299.592
+L 800.816516 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #e2e8f0; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14"/>
+     <g id="text_7">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #64748b" x="800.816516" y="315.950281" transform="rotate(-0 800.816516 315.950281)">12</text>
+     </g>
+    </g>
+    <g id="text_8">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #334155" x="524.628" y="340.596219" transform="rotate(-0 524.628 340.596219)">Average seconds per answer (lower is faster)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_15"/>
+     <g id="text_9">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #172033" x="217.392" y="121.754983" transform="rotate(-0 217.392 121.754983)">FPC integer</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_16"/>
+     <g id="text_10">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #172033" x="217.392" y="154.342246" transform="rotate(-0 217.392 154.342246)">TP7 integer ASM</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_17"/>
+     <g id="text_11">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #172033" x="217.392" y="186.929509" transform="rotate(-0 217.392 186.929509)">FPC float</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_18"/>
+     <g id="text_12">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #172033" x="217.392" y="219.516772" transform="rotate(-0 217.392 219.516772)">Original C</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_19"/>
+     <g id="text_13">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #172033" x="217.392" y="252.104035" transform="rotate(-0 217.392 252.104035)">TP7 integer (pure Pascal)</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_20"/>
+     <g id="text_14">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #172033" x="217.392" y="284.691298" transform="rotate(-0 217.392 284.691298)">TP7 float</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_21">
+    <path d="M 229.392 299.592
+L 229.392 98.496
+" clip-path="url(#p716de6d55e)" style="fill: none; stroke: #cbd5e1; stroke-linecap: square"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 229.392 107.636727
+L 354.095877 107.636727
+L 354.095877 127.514958
+L 229.392 127.514958
+z
+" clip-path="url(#p716de6d55e)" style="fill: #0072b2"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 229.392 140.22399
+L 374.943348 140.22399
+L 374.943348 160.102221
+L 229.392 160.102221
+z
+" clip-path="url(#p716de6d55e)" style="fill: #009e73"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 229.392 172.811253
+L 453.114222 172.811253
+L 453.114222 192.689484
+L 229.392 192.689484
+z
+" clip-path="url(#p716de6d55e)" style="fill: #56b4e9"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 229.392 205.398516
+L 660.998461 205.398516
+L 660.998461 225.276747
+L 229.392 225.276747
+z
+" clip-path="url(#p716de6d55e)" style="fill: #87919f"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 229.392 237.985779
+L 687.855413 237.985779
+L 687.855413 257.86401
+L 229.392 257.86401
+z
+" clip-path="url(#p716de6d55e)" style="fill: #e69f00"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 229.392 270.573042
+L 740.245517 270.573042
+L 740.245517 290.451273
+L 229.392 290.451273
+z
+" clip-path="url(#p716de6d55e)" style="fill: #cc79a7"/>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="362.952957" y="120.611155" transform="rotate(-0 362.952957 120.611155)">2.62 s</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="383.800428" y="153.198418" transform="rotate(-0 383.800428 153.198418)">3.06 s</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="461.971302" y="185.785681" transform="rotate(-0 461.971302 185.785681)">4.70 s</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="669.855541" y="218.372944" transform="rotate(-0 669.855541 218.372944)">9.06 s</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="696.712493" y="250.960207" transform="rotate(-0 696.712493 250.960207)">9.63 s</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="749.102597" y="283.54747" transform="rotate(-0 749.102597 283.54747)">10.73 s</text>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-weight: 700; font-size: 23px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="38.232" y="30.78" transform="rotate(-0 38.232 30.78)">FPU enabled</text>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="38.232" y="55.404" transform="rotate(-0 38.232 55.404)">Five questions | median of three runs | 189 character tokens per run</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="38.232" y="359.1" transform="rotate(-0 38.232 359.1)">DOSBox-X 2025.02.01 | normal core | emulated 386 | 50,000 fixed cycles | 16 MB</text>
+  </g>
+  <g id="text_24">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="38.232" y="377.568" transform="rotate(-0 38.232 377.568)">Median whole-program time divided by five answers. Startup, model load and output included.</text>
+  </g>
+  <g id="text_25">
+   <text style="font-size: 9px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="38.232" y="396.036" transform="rotate(-0 38.232 396.036)">Emulator comparison, not a physical Pocket386 timing prediction. All timed answers matched.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p716de6d55e">
+   <rect x="229.392" y="98.496" width="590.472" height="201.096"/>
+  </clipPath>
+ </defs>
+</svg>
