@@ -37,6 +37,11 @@ def evaluate(exe, runtime, rows, mode, baseline=1):
             raise ValueError(run.stdout)
         timings=[(i,re.fullmatch(r"answer ms=(\d+) chars=(\d+)",line)) for i,line in enumerate(lines)]
         timings=[(i,m) for i,m in timings if m]
+        if mode=="auto" and not timings and any(s.startswith("Choose an expert") for s in lines):
+            records.append(dict(question=row["question"],expected=row["answer"],answer=None,
+                                mode=mode,active=0,intended=row["expert"],exact=False,similarity=0,
+                                timing=[],answer_ms=None,characters=0,group=row.get("group","all")))
+            continue
         if len(timings)!=1:
             raise ValueError(f"expected one completed answer: {run.stdout}")
         index,measured=timings[0]
@@ -53,10 +58,11 @@ def summarize(records):
     """Summarize each comparison mode by question count and evaluation slice."""
     def metrics(rows):
         count=len(rows)
-        return dict(questions=count, exact=sum(r["exact"] for r in rows),
+        measured=[r["answer_ms"] for r in rows if r["answer_ms"] is not None]
+        return dict(clarifications=count-len(measured),questions=count, exact=sum(r["exact"] for r in rows),
                     exact_rate=sum(r["exact"] for r in rows)/count,
                     intended_expert_selected=sum(r["active"]==r["intended"] for r in rows),
-                    median_host_answer_ms=statistics.median(r["answer_ms"] for r in rows))
+                    median_host_answer_ms=statistics.median(measured) if measured else None)
     result={}
     for mode in ("baseline","oracle","auto"):
         rows=[r for r in records if r["mode"]==mode]

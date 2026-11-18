@@ -1,0 +1,20 @@
+catalog/init ms=4
+FPU no
+heap=532608 largest=532608 stack=15860
+load/recovery ms=266
+active 1 DOS Guide
+heap=48408 largest=48408 stack=15860
+load/recovery ms=316
+active 2 Turbo Pascal Coach
+route ms=1
+div.
+answer ms=21545 chars=4
+first char ms=19233 output span ms=1696
+route ms=1
+div.
+answer ms=21545 chars=4
+first char ms=19234 output span ms=1750
+route ms=0
+div.
+answer ms=21600 chars=4
+first char ms=19289 output span ms=1695

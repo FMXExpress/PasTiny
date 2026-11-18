@@ -1,3 +1,7 @@
 evidence/** -text
 tests/CHECK.* -text
 dist/*.IMG binary
+specialists/routing/*.LOG -text
+specialists/routing/*.IN -text
+specialists/runtime/*.IN -text
+specialists/routing/*/*.LOG -text

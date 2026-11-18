@@ -5,12 +5,12 @@
 | Specialist | ID | Four facts in the pilot | Manual selection | AUTO | Original general model |
 |---|---:|---|---:|---:|---:|
 | DOS Guide | 1 | DIR, CD, CLS, TYPE | 6/8 | 6/8 | 0/8 |
-| Turbo Pascal Coach | 2 | div, mod, begin, end | 5/8 | 3/8 | 0/8 |
-| Pocket Naturalist | 51 | Adult insect and spider leg counts and main body divisions | 8/8 | 4/8 | 0/8 |
+| Turbo Pascal Coach | 2 | div, mod, begin, end | 5/8 | 5/8 | 0/8 |
+| Pocket Naturalist | 51 | Adult insect and spider leg counts and main body divisions | 8/8 | 8/8 | 0/8 |
 
-Each cell counts exact answers on eight unseen wordings of the four trained facts, using greedy generation in a host build of the Pascal runtime. Each fact has one domain-tagged probe and one bare question. AUTO recognizes the words dos, pascal and animal and defaults to DOS Guide. IDs 1 and 2 are provisional pilot assignments pending the missing catalog rows. USE is the more reliable way to select a specialist.
+Each cell counts exact answers on eight unseen wordings of the four trained facts, using greedy generation in a host build of the Pascal runtime. Each fact has one domain-tagged probe and one bare question. AUTO matches whole words from the three pilot syllabi. With zero or multiple matching domains it asks the user to select an expert. IDs 1 and 2 are provisional pilot assignments pending the missing catalog rows. [Paired router benchmark and DOS timing](routing/README.md)
 
-The original model was scored with its own weights on the identical prompts. Exact string matching includes capitalization and punctuation. The sample is small and measures rewording within this syllabus. For example, the Pascal specialist sometimes answered “div.” for a remainder. The no-FPU DOS smoke also reproduced this mistake. The answer-level records include every miss. [Results](evidence/answers.jsonl)
+The original model was scored with its own weights on the identical prompts. Exact string matching includes capitalization and punctuation. The sample is small and measures rewording within this syllabus. For example, the Pascal specialist sometimes answered “div.” for a remainder. The no-FPU DOS smoke also reproduced this mistake. The answer-level records include every miss. [Current router results](routing/after.jsonl) · [Initial pilot results](evidence/answers.jsonl)
 
 ## Fact sources and data
 

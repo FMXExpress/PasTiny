@@ -8,6 +8,7 @@ function ReadCatalog:Boolean;
 function FindId(Id:Integer):Integer;
 function Route(Q:String):Integer;
 implementation
+{$IFDEF SPEC3}uses PILOTRT;{$ENDIF}
 function FindId(Id:Integer):Integer;
 var J:Integer;
 begin FindId:=0; for J:=1 to Count do if Items[J].Id=Id then FindId:=J end;
@@ -40,7 +41,9 @@ begin
 end;
 function Route(Q:String):Integer;
 var J,Hit:Integer;
-begin Hit:=0; Q:=' '+Q+' ';
+begin
+ {$IFDEF SPEC3}Route:=FindId(PilotDomain(Q)); Exit;{$ENDIF}
+ Hit:=0; Q:=' '+Q+' ';
  for J:=1 to Count do if Items[J].Keyword<>'' then
   if Pos(' '+Items[J].Keyword+' ',Q)>0 then begin
    if Hit<>0 then begin Route:=1; Exit end; Hit:=J

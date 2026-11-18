@@ -1,4 +1,7 @@
 @echo off
+TPC /B /DSPEC3 EXPERT.PAS > SPEC3.LOG
+if errorlevel 1 goto fail
+copy EXPERT.EXE SPEC3.EXE
 TPC /B /DNOASM EXPERT.PAS > NOASM.LOG
 if errorlevel 1 goto fail
 copy EXPERT.EXE EXPNO.EXE

@@ -53,7 +53,9 @@ begin
    Val(Copy(Q,5,255),K,Code); J:=0; if Code=0 then J:=FindId(K);
    if J=0 then WriteLn('unknown id') else begin Switch(J); Pinned:=Active=J end
   end else if Q<>'' then begin
-   if not Pinned then begin T:=NowMs; J:=Route(Q); WriteLn('route ms=',NowMs-T); Switch(J);
+   if not Pinned then begin T:=NowMs; J:=Route(Q); WriteLn('route ms=',NowMs-T);
+    if J=0 then WriteLn('Choose an expert with LIST and USE, or rephrase the question.')
+    else Switch(J);
     if Active<>J then J:=0 end else J:=Active;
    if (J<>0) and Ready then begin
     First:=-1; T:=NowMs; Think(Q,A,Tokens,PollEscape,Letter); Elapsed:=NowMs-T; WriteLn;

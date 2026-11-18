@@ -1,0 +1,265 @@
+catalog/init ms=5
+FPU yes
+heap=532608 largest=532608 stack=15860
+load/recovery ms=874
+active 1 DOS Guide
+heap=48408 largest=48408 stack=15860
+route ms=1
+TYPE.
+answer ms=702 chars=5
+first char ms=582 output span ms=85
+TYPE.
+answer ms=518 chars=5
+first char ms=413 output span ms=73
+route ms=0
+CPD.
+answer ms=462 chars=4
+first char ms=407 output span ms=69
+CPD.
+answer ms=527 chars=4
+first char ms=451 output span ms=43
+route ms=0
+load/recovery ms=85
+active 2 Turbo Pascal Coach
+digxen.
+answer ms=1036 chars=7
+first char ms=849 output span ms=128
+digxen.
+answer ms=1153 chars=7
+first char ms=1025 output span ms=89
+route ms=0
+end.
+answer ms=707 chars=4
+first char ms=592 output span ms=72
+end.
+answer ms=617 chars=4
+first char ms=590 output span ms=48
+route ms=0
+load/recovery ms=140
+active 51 Pocket Naturalist
+Eight.
+answer ms=815 chars=6
+first char ms=673 output span ms=99
+Eight.
+answer ms=772 chars=6
+first char ms=593 output span ms=133
+route ms=1
+Three.
+answer ms=816 chars=6
+first char ms=703 output span ms=131
+Three.
+answer ms=740 chars=6
+first char ms=643 output span ms=62
+route ms=0
+load/recovery ms=83
+active 1 DOS Guide
+DIS.
+answer ms=538 chars=4
+first char ms=519 output span ms=41
+DIS.
+answer ms=538 chars=4
+first char ms=515 output span ms=45
+route ms=0
+load/recovery ms=123
+active 2 Turbo Pascal Coach
+div.
+answer ms=758 chars=4
+first char ms=735 output span ms=44
+div.
+answer ms=596 chars=4
+first char ms=580 output span ms=38
+route ms=0
+load/recovery ms=176
+active 51 Pocket Naturalist
+Six.
+answer ms=1090 chars=4
+first char ms=1006 output span ms=49
+Six.
+answer ms=636 chars=4
+first char ms=569 output span ms=37
+route ms=1
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+load/recovery ms=128
+active 1 DOS Guide
+DIR.
+answer ms=655 chars=4
+first char ms=589 output span ms=35
+DIR.
+answer ms=686 chars=4
+first char ms=619 output span ms=37
+route ms=0
+TYPE.
+answer ms=532 chars=5
+first char ms=494 output span ms=63
+TYPE.
+answer ms=668 chars=5
+first char ms=592 output span ms=40
+route ms=0
+CD.
+answer ms=470 chars=3
+first char ms=378 output span ms=61
+CD.
+answer ms=410 chars=3
+first char ms=376 output span ms=4
+route ms=0
+CDIR.
+answer ms=573 chars=5
+first char ms=479 output span ms=65
+CDIR.
+answer ms=592 chars=5
+first char ms=500 output span ms=62
+route ms=0
+CLS.
+answer ms=488 chars=4
+first char ms=421 output span ms=37
+CLS.
+answer ms=434 chars=4
+first char ms=373 output span ms=87
+route ms=0
+CLS.
+answer ms=436 chars=4
+first char ms=375 output span ms=87
+CLS.
+answer ms=437 chars=4
+first char ms=378 output span ms=85
+route ms=0
+TYPE.
+answer ms=608 chars=5
+first char ms=569 output span ms=64
+TYPE.
+answer ms=605 chars=5
+first char ms=566 output span ms=64
+route ms=0
+TYPE.
+answer ms=476 chars=5
+first char ms=392 output span ms=56
+TYPE.
+answer ms=404 chars=5
+first char ms=320 output span ms=56
+route ms=0
+load/recovery ms=94
+active 2 Turbo Pascal Coach
+div.
+answer ms=1073 chars=4
+first char ms=998 output span ms=78
+div.
+answer ms=981 chars=4
+first char ms=955 output span ms=48
+route ms=0
+div.
+answer ms=673 chars=4
+first char ms=587 output span ms=51
+div.
+answer ms=1093 chars=4
+first char ms=990 output span ms=85
+route ms=0
+div.
+answer ms=1251 chars=4
+first char ms=1209 output span ms=52
+div.
+answer ms=1047 chars=4
+first char ms=1021 output span ms=47
+route ms=1
+30.
+answer ms=407 chars=3
+first char ms=330 output span ms=51
+30.
+answer ms=298 chars=3
+first char ms=230 output span ms=45
+route ms=0
+begin.
+answer ms=544 chars=6
+first char ms=463 output span ms=58
+begin.
+answer ms=500 chars=6
+first char ms=475 output span ms=57
+route ms=0
+end.
+answer ms=361 chars=4
+first char ms=335 output span ms=6
+end.
+answer ms=366 chars=4
+first char ms=283 output span ms=62
+route ms=0
+end.
+answer ms=546 chars=4
+first char ms=503 output span ms=18
+end.
+answer ms=482 chars=4
+first char ms=447 output span ms=67
+route ms=0
+end.
+answer ms=391 chars=4
+first char ms=363 output span ms=7
+end.
+answer ms=430 chars=4
+first char ms=386 output span ms=74
+route ms=0
+load/recovery ms=113
+active 51 Pocket Naturalist
+Six.
+answer ms=844 chars=4
+first char ms=806 output span ms=53
+Six.
+answer ms=830 chars=4
+first char ms=779 output span ms=24
+route ms=0
+Six.
+answer ms=486 chars=4
+first char ms=448 output span ms=14
+Six.
+answer ms=428 chars=4
+first char ms=395 output span ms=65
+route ms=0
+Eight.
+answer ms=539 chars=6
+first char ms=514 output span ms=57
+Eight.
+answer ms=547 chars=6
+first char ms=522 output span ms=57
+route ms=0
+Eight.
+answer ms=387 chars=6
+first char ms=372 output span ms=49
+Eight.
+answer ms=403 chars=6
+first char ms=328 output span ms=53
+route ms=0
+Three.
+answer ms=689 chars=6
+first char ms=633 output span ms=80
+Three.
+answer ms=2253 chars=6
+first char ms=1983 output span ms=255
+route ms=0
+Three.
+answer ms=2039 chars=6
+first char ms=1814 output span ms=185
+Three.
+answer ms=2168 chars=6
+first char ms=1887 output span ms=198
+route ms=1
+Two.
+answer ms=2900 chars=4
+first char ms=2646 output span ms=137
+Two.
+answer ms=2308 chars=4
+first char ms=2066 output span ms=168
+route ms=1
+Two.
+answer ms=1945 chars=4
+first char ms=1777 output span ms=150
+Two.
+answer ms=1931 chars=4
+first char ms=1752 output span ms=168

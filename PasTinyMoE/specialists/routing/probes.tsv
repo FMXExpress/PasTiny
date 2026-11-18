@@ -1,0 +1,16 @@
+kind	expert	answer	question
+bare	1	DIR.	what command lists my files
+bare	1	CLS.	how can i empty the screen
+bare	2	div.	which operator computes an integer quotient
+bare	2	end.	how do i close a compound statement
+bare	51	Eight.	how many walking legs has a spider
+bare	51	Three.	count the main body regions of an insect
+tagged	1	TYPE.	dos how do i display a text file
+tagged	2	mod.	pascal give me the remainder operator
+tagged	51	Six.	animal count the legs of an adult insect
+ambiguous	0		which one has more memory
+ambiguous	0		what is a string
+ambiguous	0		compare a directory and a compound statement
+unknown	0		who painted the mona lisa
+unknown	0		what color is mars
+unknown	0		how tall is a giraffe
