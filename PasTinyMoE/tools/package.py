@@ -38,6 +38,7 @@ def build(entries, exe, dest):
     (dest / "EXPERTS.CAT").write_bytes(records)
     for name in ("CHECK.BAT","CHECK.IN"):
         shutil.copyfile(Path(__file__).resolve().parents[1] / "tests" / name, dest / name)
+    shutil.copyfile(Path(__file__).resolve().parents[1] / "NOTICE.TXT", dest / "NOTICE.TXT")
     with ZipFile(dest.with_suffix(".ZIP"),"w",ZIP_DEFLATED) as archive:
         for path in sorted(dest.iterdir()):
             archive.write(path,path.name)

@@ -1,0 +1,22 @@
+--- baseline/TINY.PAS
++++ instrumented/TINY.PAS
+@@ -14,7 +14,9 @@
+ var Line,Q,Answer:String; Tokens,T0,Tenths:Longint;
+ begin
+  WriteLn('TINY 2 - a neural network that answers questions.');
++ WriteLn('startup heap=',MemAvail,' largest=',MaxAvail,' sp=',Sptr);
+  WriteLn('Loading TINY.BIN ...'); LoadModel('TINY.BIN'); AllocMemory;
++ WriteLn('loaded heap=',MemAvail,' largest=',MaxAvail,' sp=',Sptr);
+  WriteLn('Ready: ',L,' layers, ',D,' wide. Creativity ',Creativity,' (TINY 0 to TINY 9).');
+  WriteLn('Ask about countries, animals, space, the body, nature, science, food,');
+  WriteLn('sums, numbers, spelling, words, shapes, history, music or computers.');
+@@ -27,7 +29,8 @@
+   if Q<>'' then begin
+    Write('  '); T0:=NowMs;
+    Think(Q,Answer,Tokens,nil,PlainLetter); Tenths:=(NowMs-T0) div 100;
+-   WriteLn; WriteLn('   [',Length(Answer),' letters in ',Tenths div 10,'.',Tenths mod 10,' seconds]')
++   WriteLn('after query heap=',MemAvail,' largest=',MaxAvail,' sp=',Sptr);
++ WriteLn; WriteLn('   [',Length(Answer),' letters in ',Tenths div 10,'.',Tenths mod 10,' seconds]')
+   end
+  until False;
+  WriteLn('Goodbye!'); ReleaseMemory

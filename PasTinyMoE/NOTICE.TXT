@@ -1,0 +1,4 @@
+PasTinyMoE for real-mode DOS, from FMXExpress/PasTiny.
+The neural network and original Tiny program are from WollyMonjac/Tiny-2.1.
+The supplied model files are copies of one general model for capacity tests.
+See ORIGINAL.TXT and LICENSE in the source tree for attribution and terms.

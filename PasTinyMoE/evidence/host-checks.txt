@@ -1,0 +1,1 @@
+Host: 60/60 exact, catalog rejection, seven replacement failures and first-load recovery passed.

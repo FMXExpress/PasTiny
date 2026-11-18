@@ -4,8 +4,8 @@ PasTinyMoE runs one complete TNY2 network at a time on a 386 with conventional m
 
 | Download | Runtime bytes before ZIP compression | Contents |
 |---|---:|---|
-| [FLOPPY3.ZIP](dist/FLOPPY3.ZIP) or [FAT12 data disk image](dist/FLOPPY3.IMG) | 1,176,090 | Three model files |
-| [SD100.ZIP](dist/SD100.ZIP) | 38,218,062 | 100 model files, 38,180,800 bytes of weights |
+| [FLOPPY3.ZIP](dist/FLOPPY3.ZIP) or [FAT12 data disk image](dist/FLOPPY3.IMG) | 1,176,377 | Three model files |
+| [SD100.ZIP](dist/SD100.ZIP) | 38,218,349 | 100 model files, 38,180,800 bytes of weights |
 | [Comparison builds](dist/COMPARE.ZIP) | | Pure Pascal integer, float and debug executables |
 
 **Trained specialists delivered: 0.** Every model file in these packages is an explicitly labeled copy of the same general model. The editions exercise DOS storage, selection, and recovery. The source materials available here include the general weights and 60 reference questions. No approved specialist training or held-out corpora accompanied them. The five-bank shared-core edition is deferred.
@@ -25,9 +25,7 @@ On a host, run the following from this directory with fresh output paths.
 ```sh
 python3 tools/package.py bin/EXPERT.EXE build/FLOPPY3 --fixtures 3
 python3 tools/package.py bin/EXPERT.EXE build/SD100 --fixtures 100
-truncate -s 1474560 build/FLOPPY3.IMG
-mkfs.fat -F 12 build/FLOPPY3.IMG
-mcopy -i build/FLOPPY3.IMG build/FLOPPY3/* ::
+tools/floppy.sh build/FLOPPY3 build/FLOPPY3.IMG
 ```
 
 The supplied image was formatted and copied back out with dosfstools and mtools. Every extracted file matched its source byte for byte. For the host regression, extract dist/FLOPPY3.ZIP into dist/FLOPPY3/, build with `fpc -Mtp -B EXPERT.PAS` and run `python3 tests/test_runtime.py ./EXPERT`.

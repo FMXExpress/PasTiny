@@ -1,0 +1,17 @@
+catalog/init ms=0
+FPU unknown
+load/recovery ms=42
+active 1 Baseline fixture 1
+load failed E002.BIN read failure
+load/recovery ms=10
+active 1 Baseline fixture 1
+
+catalog/init ms=2
+FPU unknown
+load/recovery ms=24
+active 1 Baseline fixture 1
+load failed E002.BIN read failure
+recovery failed read failure
+load/recovery ms=8
+unloaded
+

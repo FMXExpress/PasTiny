@@ -1,0 +1,6 @@
+catalog/init ms=1
+FPU no
+heap=508800 largest=508800 stack=15860
+load/recovery ms=262
+active 1 Baseline fixture 1
+heap=24600 largest=24600 stack=15860

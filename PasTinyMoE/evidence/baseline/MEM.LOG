@@ -1,0 +1,14 @@
+TINY 2 - a neural network that answers questions.
+startup heap=531632 largest=531632 sp=15078
+Loading TINY.BIN ...
+loaded heap=47432 largest=47432 sp=15078
+Ready: 4 layers, 96 wide. Creativity 0 (TINY 0 to TINY 9).
+Ask about countries, animals, space, the body, nature, science, food,
+sums, numbers, spelling, words, shapes, history, music or computers.
+Type QUIT to stop.
+
+>   Lima.after query heap=47432 largest=47432 sp=15078
+
+   [5 letters in 22.2 seconds]
+
+> Goodbye!
