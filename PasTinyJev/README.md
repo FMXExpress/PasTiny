@@ -9,7 +9,7 @@ scores and generates no text, so an answer cannot be off-schema.
 - Same engine as [PasTinyMoE](../PasTinyMoE/): Turbo Pascal 7, integer inference with the
   assembly dot product, built-in software floating point, one model resident at a time.
 - Same model format: every model is a 381,808-byte `TNY2` file (96 wide, 4 layers, 4 heads,
-  128 letters of context). The whole edition is 804,207 bytes and fits on a 1.44 MB floppy.
+  128 letters of context). The whole edition is 804,268 bytes and fits on a 1.44 MB floppy.
 - One trained decision model, `TRIAGE.BIN`, for short customer-support messages. The unchanged
   TINY 2.1 model rides along as `GENERAL.BIN` for text answers.
 
@@ -133,12 +133,12 @@ emulated 386 with the FPU disabled. Verified here with DOSBox-X 2024.03.01:
 | `JEVNO.EXE`, integer, pure Pascal | 36,912 | identical to the host integer build |
 | `JEVFLT.EXE`, float | 35,968 | identical to the host float build |
 
-The three executables are in [`bin/`](bin/) and the transcripts, compiler logs and training log
+The three executables are in [`bin/`](bin/) and the transcripts, compiler logs and both training logs
 in [`evidence/`](evidence/).
 
 Not measured or tested: speed at a fixed cycle count, physical 386 hardware, and the Free Pascal
 go32v2 build. With the emulated FPU off, the first question of the demo (a 70-letter state and a
-45-letter question) took about 56 seconds at DOSBox-X `cycles=max`; that is one emulator
+45-letter question) took about 50 seconds at DOSBox-X `cycles=max`; that is one emulator
 setting, not a hardware prediction.
 
 To package: `python3 tools/package.py bin/JEV.EXE build/JEV1` then
