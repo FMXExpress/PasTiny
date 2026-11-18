@@ -1,0 +1,72 @@
+{"kind": "bare", "expert": "1", "answer": "DIR.", "question": "what command lists my files", "mode": "auto", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": false}
+{"kind": "bare", "expert": "1", "answer": "DIR.", "question": "what command lists my files", "mode": "pinned", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": false}
+{"kind": "bare", "expert": "1", "answer": "CLS.", "question": "how can i empty the screen", "mode": "auto", "selected": 1, "output": "CPD.", "correct_route": true, "exact": false}
+{"kind": "bare", "expert": "1", "answer": "CLS.", "question": "how can i empty the screen", "mode": "pinned", "selected": 1, "output": "CPD.", "correct_route": true, "exact": false}
+{"kind": "bare", "expert": "2", "answer": "div.", "question": "which operator computes an integer quotient", "mode": "auto", "selected": 2, "output": "div.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "2", "answer": "div.", "question": "which operator computes an integer quotient", "mode": "pinned", "selected": 2, "output": "div.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "2", "answer": "end.", "question": "how do i close a compound statement", "mode": "auto", "selected": 2, "output": "end.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "2", "answer": "end.", "question": "how do i close a compound statement", "mode": "pinned", "selected": 2, "output": "end.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "51", "answer": "Eight.", "question": "how many walking legs has a spider", "mode": "auto", "selected": 51, "output": "Eight.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "51", "answer": "Eight.", "question": "how many walking legs has a spider", "mode": "pinned", "selected": 51, "output": "Eight.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "51", "answer": "Three.", "question": "count the main body regions of an insect", "mode": "auto", "selected": 51, "output": "Three.", "correct_route": true, "exact": true}
+{"kind": "bare", "expert": "51", "answer": "Three.", "question": "count the main body regions of an insect", "mode": "pinned", "selected": 51, "output": "Three.", "correct_route": true, "exact": true}
+{"kind": "tagged", "expert": "1", "answer": "TYPE.", "question": "dos how do i display a text file", "mode": "auto", "selected": 1, "output": "DIS.", "correct_route": true, "exact": false}
+{"kind": "tagged", "expert": "1", "answer": "TYPE.", "question": "dos how do i display a text file", "mode": "pinned", "selected": 1, "output": "DIS.", "correct_route": true, "exact": false}
+{"kind": "tagged", "expert": "2", "answer": "mod.", "question": "pascal give me the remainder operator", "mode": "auto", "selected": 2, "output": "mod.", "correct_route": true, "exact": true}
+{"kind": "tagged", "expert": "2", "answer": "mod.", "question": "pascal give me the remainder operator", "mode": "pinned", "selected": 2, "output": "mod.", "correct_route": true, "exact": true}
+{"kind": "tagged", "expert": "51", "answer": "Six.", "question": "animal count the legs of an adult insect", "mode": "auto", "selected": 51, "output": "Six.", "correct_route": true, "exact": true}
+{"kind": "tagged", "expert": "51", "answer": "Six.", "question": "animal count the legs of an adult insect", "mode": "pinned", "selected": 51, "output": "Six.", "correct_route": true, "exact": true}
+{"kind": "ambiguous", "expert": "0", "answer": "", "question": "which one has more memory", "mode": "auto", "selected": 0, "output": null, "correct_route": true, "exact": false}
+{"kind": "ambiguous", "expert": "0", "answer": "", "question": "what is a string", "mode": "auto", "selected": 0, "output": null, "correct_route": true, "exact": false}
+{"kind": "ambiguous", "expert": "0", "answer": "", "question": "compare a directory and a compound statement", "mode": "auto", "selected": 0, "output": null, "correct_route": true, "exact": false}
+{"kind": "unknown", "expert": "0", "answer": "", "question": "who painted the mona lisa", "mode": "auto", "selected": 0, "output": null, "correct_route": true, "exact": false}
+{"kind": "unknown", "expert": "0", "answer": "", "question": "what color is mars", "mode": "auto", "selected": 0, "output": null, "correct_route": true, "exact": false}
+{"kind": "unknown", "expert": "0", "answer": "", "question": "how tall is a giraffe", "mode": "auto", "selected": 0, "output": null, "correct_route": true, "exact": false}
+{"kind": "original", "expert": 1, "question": "dos how can i see the files in this directory", "answer": "DIR.", "mode": "auto", "selected": 1, "output": "DIR.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "dos how can i see the files in this directory", "answer": "DIR.", "mode": "pinned", "selected": 1, "output": "DIR.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "which command displays a file listing", "answer": "DIR.", "mode": "auto", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 1, "question": "which command displays a file listing", "answer": "DIR.", "mode": "pinned", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 1, "question": "dos how do i change folders", "answer": "CD.", "mode": "auto", "selected": 1, "output": "CD.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "dos how do i change folders", "answer": "CD.", "mode": "pinned", "selected": 1, "output": "CD.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "move to a different working directory", "answer": "CD.", "mode": "auto", "selected": 1, "output": "CDIR.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 1, "question": "move to a different working directory", "answer": "CD.", "mode": "pinned", "selected": 1, "output": "CDIR.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 1, "question": "dos how can i clear my screen", "answer": "CLS.", "mode": "auto", "selected": 1, "output": "CLS.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "dos how can i clear my screen", "answer": "CLS.", "mode": "pinned", "selected": 1, "output": "CLS.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "wipe the text off my display", "answer": "CLS.", "mode": "auto", "selected": 1, "output": "CLS.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "wipe the text off my display", "answer": "CLS.", "mode": "pinned", "selected": 1, "output": "CLS.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "dos how do i read a text file on screen", "answer": "TYPE.", "mode": "auto", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "dos how do i read a text file on screen", "answer": "TYPE.", "mode": "pinned", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "show the text inside a file", "answer": "TYPE.", "mode": "auto", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 1, "question": "show the text inside a file", "answer": "TYPE.", "mode": "pinned", "selected": 1, "output": "TYPE.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "pascal what operator gives the whole number quotient", "answer": "div.", "mode": "auto", "selected": 2, "output": "div.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "pascal what operator gives the whole number quotient", "answer": "div.", "mode": "pinned", "selected": 2, "output": "div.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "how do i divide without the remainder", "answer": "div.", "mode": "auto", "selected": 2, "output": "mod.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 2, "question": "how do i divide without the remainder", "answer": "div.", "mode": "pinned", "selected": 2, "output": "mod.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 2, "question": "pascal what operator returns the division remainder", "answer": "mod.", "mode": "auto", "selected": 2, "output": "mod.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "pascal what operator returns the division remainder", "answer": "mod.", "mode": "pinned", "selected": 2, "output": "mod.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "how do i take a remainder", "answer": "mod.", "mode": "auto", "selected": 2, "output": "mod.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "how do i take a remainder", "answer": "mod.", "mode": "pinned", "selected": 2, "output": "mod.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "pascal what keyword opens a compound statement", "answer": "begin.", "mode": "auto", "selected": 2, "output": "end.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 2, "question": "pascal what keyword opens a compound statement", "answer": "begin.", "mode": "pinned", "selected": 2, "output": "end.", "correct_route": true, "exact": false}
+{"kind": "original", "expert": 2, "question": "how do i start a statement block", "answer": "begin.", "mode": "auto", "selected": 2, "output": "begin.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "how do i start a statement block", "answer": "begin.", "mode": "pinned", "selected": 2, "output": "begin.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "pascal what keyword ends a compound statement", "answer": "end.", "mode": "auto", "selected": 2, "output": "end.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "pascal what keyword ends a compound statement", "answer": "end.", "mode": "pinned", "selected": 2, "output": "end.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "how do i finish a statement block", "answer": "end.", "mode": "auto", "selected": 2, "output": "end.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 2, "question": "how do i finish a statement block", "answer": "end.", "mode": "pinned", "selected": 2, "output": "end.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many legs would a typical adult insect have", "answer": "Six.", "mode": "auto", "selected": 51, "output": "Six.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many legs would a typical adult insect have", "answer": "Six.", "mode": "pinned", "selected": 51, "output": "Six.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the leg count for an adult insect", "answer": "Six.", "mode": "auto", "selected": 51, "output": "Six.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the leg count for an adult insect", "answer": "Six.", "mode": "pinned", "selected": 51, "output": "Six.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many walking legs would a spider have", "answer": "Eight.", "mode": "auto", "selected": 51, "output": "Eight.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many walking legs would a spider have", "answer": "Eight.", "mode": "pinned", "selected": 51, "output": "Eight.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the leg count for a spider", "answer": "Eight.", "mode": "auto", "selected": 51, "output": "Eight.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the leg count for a spider", "answer": "Eight.", "mode": "pinned", "selected": 51, "output": "Eight.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many major body regions form an adult insect", "answer": "Three.", "mode": "auto", "selected": 51, "output": "Three.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many major body regions form an adult insect", "answer": "Three.", "mode": "pinned", "selected": 51, "output": "Three.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the number of main insect body sections", "answer": "Three.", "mode": "auto", "selected": 51, "output": "Three.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the number of main insect body sections", "answer": "Three.", "mode": "pinned", "selected": 51, "output": "Three.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many major body regions form a spider", "answer": "Two.", "mode": "auto", "selected": 51, "output": "Two.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "animal how many major body regions form a spider", "answer": "Two.", "mode": "pinned", "selected": 51, "output": "Two.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the number of main spider body sections", "answer": "Two.", "mode": "auto", "selected": 51, "output": "Two.", "correct_route": true, "exact": true}
+{"kind": "original", "expert": 51, "question": "tell me the number of main spider body sections", "answer": "Two.", "mode": "pinned", "selected": 51, "output": "Two.", "correct_route": true, "exact": true}

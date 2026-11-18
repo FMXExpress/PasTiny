@@ -1,0 +1,23 @@
+{"split": "fresh", "fact": "div", "question": "what word gives only the whole part of integer division", "output": "div.", "exact": true}
+{"split": "fresh", "fact": "mod", "question": "what word gives only the leftover part of integer division", "output": "mod.", "exact": true}
+{"split": "fresh", "fact": "begin", "question": "which pascal word marks the opening of a group of statements", "output": "begin.", "exact": true}
+{"split": "fresh", "fact": "end", "question": "which pascal word marks the closing of a group of statements", "output": "end.", "exact": true}
+{"split": "fresh", "fact": "div", "question": "fill the blank so 19 blank 4 evaluates to 4", "output": "Vanuatu.", "exact": false}
+{"split": "fresh", "fact": "mod", "question": "fill the blank so 19 blank 4 evaluates to 3", "output": "dilly is 95.", "exact": false}
+{"split": "fresh", "fact": "begin", "question": "what keyword do i put before the statements of a compound statement", "output": "begin.", "exact": true}
+{"split": "fresh", "fact": "end", "question": "what keyword do i put after the statements of a compound statement", "output": "end.", "exact": true}
+{"split": "fresh", "fact": "div", "question": "pascal choose the operator for the integer quotient of two values", "output": "div.", "exact": true}
+{"split": "fresh", "fact": "mod", "question": "pascal choose the operator for the remainder of two values", "output": "mod.", "exact": true}
+{"split": "fresh", "fact": "begin", "question": "i need the keyword that introduces a block of statements", "output": "end.", "exact": false}
+{"split": "fresh", "fact": "end", "question": "i need the keyword that terminates a block of statements", "output": "end.", "exact": true}
+{"split": "original", "fact": "div", "question": "pascal what operator gives the whole number quotient", "output": "div.", "exact": true}
+{"split": "original", "fact": "div", "question": "how do i divide without the remainder", "output": "mod.", "exact": false}
+{"split": "original", "fact": "mod", "question": "pascal what operator returns the division remainder", "output": "mod.", "exact": true}
+{"split": "original", "fact": "mod", "question": "how do i take a remainder", "output": "mod.", "exact": true}
+{"split": "original", "fact": "begin", "question": "pascal what keyword opens a compound statement", "output": "end.", "exact": false}
+{"split": "original", "fact": "begin", "question": "how do i start a statement block", "output": "begin.", "exact": true}
+{"split": "original", "fact": "end", "question": "pascal what keyword ends a compound statement", "output": "end.", "exact": true}
+{"split": "original", "fact": "end", "question": "how do i finish a statement block", "output": "end.", "exact": true}
+{"split": "routing", "fact": "div", "question": "which operator computes an integer quotient", "output": "div.", "exact": true}
+{"split": "routing", "fact": "end", "question": "how do i close a compound statement", "output": "end.", "exact": true}
+{"split": "routing", "fact": "mod", "question": "pascal give me the remainder operator", "output": "mod.", "exact": true}

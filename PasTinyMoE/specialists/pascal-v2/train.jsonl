@@ -1,0 +1,120 @@
+{"question": "which operator gives an integer quotient", "answer": "div.", "fact": "div"}
+{"question": "pascal which operator gives an integer quotient", "answer": "div.", "fact": "div"}
+{"question": "in pascal which operator gives an integer quotient", "answer": "div.", "fact": "div"}
+{"question": "integer division operator", "answer": "div.", "fact": "div"}
+{"question": "pascal integer division operator", "answer": "div.", "fact": "div"}
+{"question": "in pascal integer division operator", "answer": "div.", "fact": "div"}
+{"question": "divide two integers and discard the remainder", "answer": "div.", "fact": "div"}
+{"question": "pascal divide two integers and discard the remainder", "answer": "div.", "fact": "div"}
+{"question": "in pascal divide two integers and discard the remainder", "answer": "div.", "fact": "div"}
+{"question": "which operator gives the remainder", "answer": "mod.", "fact": "mod"}
+{"question": "pascal which operator gives the remainder", "answer": "mod.", "fact": "mod"}
+{"question": "in pascal which operator gives the remainder", "answer": "mod.", "fact": "mod"}
+{"question": "remainder after integer division", "answer": "mod.", "fact": "mod"}
+{"question": "pascal remainder after integer division", "answer": "mod.", "fact": "mod"}
+{"question": "in pascal remainder after integer division", "answer": "mod.", "fact": "mod"}
+{"question": "find the leftover part of a division", "answer": "mod.", "fact": "mod"}
+{"question": "pascal find the leftover part of a division", "answer": "mod.", "fact": "mod"}
+{"question": "in pascal find the leftover part of a division", "answer": "mod.", "fact": "mod"}
+{"question": "which keyword starts a compound statement", "answer": "begin.", "fact": "begin"}
+{"question": "pascal which keyword starts a compound statement", "answer": "begin.", "fact": "begin"}
+{"question": "in pascal which keyword starts a compound statement", "answer": "begin.", "fact": "begin"}
+{"question": "open a statement block", "answer": "begin.", "fact": "begin"}
+{"question": "pascal open a statement block", "answer": "begin.", "fact": "begin"}
+{"question": "in pascal open a statement block", "answer": "begin.", "fact": "begin"}
+{"question": "which word begins a block of statements", "answer": "begin.", "fact": "begin"}
+{"question": "pascal which word begins a block of statements", "answer": "begin.", "fact": "begin"}
+{"question": "in pascal which word begins a block of statements", "answer": "begin.", "fact": "begin"}
+{"question": "which keyword closes a compound statement", "answer": "end.", "fact": "end"}
+{"question": "pascal which keyword closes a compound statement", "answer": "end.", "fact": "end"}
+{"question": "in pascal which keyword closes a compound statement", "answer": "end.", "fact": "end"}
+{"question": "close a statement block", "answer": "end.", "fact": "end"}
+{"question": "pascal close a statement block", "answer": "end.", "fact": "end"}
+{"question": "in pascal close a statement block", "answer": "end.", "fact": "end"}
+{"question": "which word finishes a block of statements", "answer": "end.", "fact": "end"}
+{"question": "pascal which word finishes a block of statements", "answer": "end.", "fact": "end"}
+{"question": "in pascal which word finishes a block of statements", "answer": "end.", "fact": "end"}
+{"question": "which operator calculates the integer quotient", "fact": "div", "answer": "div."}
+{"question": "pascal operator for the integer quotient", "fact": "div", "answer": "div."}
+{"question": "i want the integer quotient of two integers", "fact": "div", "answer": "div."}
+{"question": "which symbol should i use for the integer quotient", "fact": "div", "answer": "div."}
+{"question": "give me the integer quotient which operator do i use", "fact": "div", "answer": "div."}
+{"question": "which operator calculates the whole part of division", "fact": "div", "answer": "div."}
+{"question": "pascal operator for the whole part of division", "fact": "div", "answer": "div."}
+{"question": "i want the whole part of division of two integers", "fact": "div", "answer": "div."}
+{"question": "which symbol should i use for the whole part of division", "fact": "div", "answer": "div."}
+{"question": "give me the whole part of division which operator do i use", "fact": "div", "answer": "div."}
+{"question": "which operator calculates the number of complete groups", "fact": "div", "answer": "div."}
+{"question": "pascal operator for the number of complete groups", "fact": "div", "answer": "div."}
+{"question": "i want the number of complete groups of two integers", "fact": "div", "answer": "div."}
+{"question": "which symbol should i use for the number of complete groups", "fact": "div", "answer": "div."}
+{"question": "give me the number of complete groups which operator do i use", "fact": "div", "answer": "div."}
+{"question": "which operator calculates the integer remainder", "fact": "mod", "answer": "mod."}
+{"question": "pascal operator for the integer remainder", "fact": "mod", "answer": "mod."}
+{"question": "i want the integer remainder of two integers", "fact": "mod", "answer": "mod."}
+{"question": "which symbol should i use for the integer remainder", "fact": "mod", "answer": "mod."}
+{"question": "give me the integer remainder which operator do i use", "fact": "mod", "answer": "mod."}
+{"question": "which operator calculates the leftover after division", "fact": "mod", "answer": "mod."}
+{"question": "pascal operator for the leftover after division", "fact": "mod", "answer": "mod."}
+{"question": "i want the leftover after division of two integers", "fact": "mod", "answer": "mod."}
+{"question": "which symbol should i use for the leftover after division", "fact": "mod", "answer": "mod."}
+{"question": "give me the leftover after division which operator do i use", "fact": "mod", "answer": "mod."}
+{"question": "which operator calculates the part left over", "fact": "mod", "answer": "mod."}
+{"question": "pascal operator for the part left over", "fact": "mod", "answer": "mod."}
+{"question": "i want the part left over of two integers", "fact": "mod", "answer": "mod."}
+{"question": "which symbol should i use for the part left over", "fact": "mod", "answer": "mod."}
+{"question": "give me the part left over which operator do i use", "fact": "mod", "answer": "mod."}
+{"question": "which word is used to start a block", "fact": "begin", "answer": "begin."}
+{"question": "pascal keyword to start several statements", "fact": "begin", "answer": "begin."}
+{"question": "how can i start the compound statement", "fact": "begin", "answer": "begin."}
+{"question": "which token will start a statement group", "fact": "begin", "answer": "begin."}
+{"question": "which word is used to open a block", "fact": "begin", "answer": "begin."}
+{"question": "pascal keyword to open several statements", "fact": "begin", "answer": "begin."}
+{"question": "how can i open the compound statement", "fact": "begin", "answer": "begin."}
+{"question": "which token will open a statement group", "fact": "begin", "answer": "begin."}
+{"question": "which word is used to introduce a block", "fact": "begin", "answer": "begin."}
+{"question": "pascal keyword to introduce several statements", "fact": "begin", "answer": "begin."}
+{"question": "how can i introduce the compound statement", "fact": "begin", "answer": "begin."}
+{"question": "which token will introduce a statement group", "fact": "begin", "answer": "begin."}
+{"question": "which word is used to finish a block", "fact": "end", "answer": "end."}
+{"question": "pascal keyword to finish several statements", "fact": "end", "answer": "end."}
+{"question": "how can i finish the compound statement", "fact": "end", "answer": "end."}
+{"question": "which token will finish a statement group", "fact": "end", "answer": "end."}
+{"question": "which word is used to close a block", "fact": "end", "answer": "end."}
+{"question": "pascal keyword to close several statements", "fact": "end", "answer": "end."}
+{"question": "how can i close the compound statement", "fact": "end", "answer": "end."}
+{"question": "which token will close a statement group", "fact": "end", "answer": "end."}
+{"question": "which word is used to terminate a block", "fact": "end", "answer": "end."}
+{"question": "pascal keyword to terminate several statements", "fact": "end", "answer": "end."}
+{"question": "how can i terminate the compound statement", "fact": "end", "answer": "end."}
+{"question": "which token will terminate a statement group", "fact": "end", "answer": "end."}
+{"question": "which keyword goes before a statement group", "fact": "begin", "answer": "begin."}
+{"question": "which keyword goes before the body of a compound statement", "fact": "begin", "answer": "begin."}
+{"question": "which keyword goes before the statements in a block", "fact": "begin", "answer": "begin."}
+{"question": "which keyword goes after a statement group", "fact": "end", "answer": "end."}
+{"question": "which keyword goes after the body of a compound statement", "fact": "end", "answer": "end."}
+{"question": "which keyword goes after the statements in a block", "fact": "end", "answer": "end."}
+{"question": "which operator makes 11 blank 4 equal 2", "fact": "div", "answer": "div."}
+{"question": "fill in 11 ? 4 = 2 with an integer operator", "fact": "div", "answer": "div."}
+{"question": "which operator makes 11 blank 4 equal 3", "fact": "mod", "answer": "mod."}
+{"question": "fill in 11 ? 4 = 3 with an integer operator", "fact": "mod", "answer": "mod."}
+{"question": "which operator makes 17 blank 5 equal 3", "fact": "div", "answer": "div."}
+{"question": "fill in 17 ? 5 = 3 with an integer operator", "fact": "div", "answer": "div."}
+{"question": "which operator makes 17 blank 5 equal 2", "fact": "mod", "answer": "mod."}
+{"question": "fill in 17 ? 5 = 2 with an integer operator", "fact": "mod", "answer": "mod."}
+{"question": "which operator makes 20 blank 6 equal 3", "fact": "div", "answer": "div."}
+{"question": "fill in 20 ? 6 = 3 with an integer operator", "fact": "div", "answer": "div."}
+{"question": "which operator makes 20 blank 6 equal 2", "fact": "mod", "answer": "mod."}
+{"question": "fill in 20 ? 6 = 2 with an integer operator", "fact": "mod", "answer": "mod."}
+{"question": "which operator makes 31 blank 7 equal 4", "fact": "div", "answer": "div."}
+{"question": "fill in 31 ? 7 = 4 with an integer operator", "fact": "div", "answer": "div."}
+{"question": "which operator makes 31 blank 7 equal 3", "fact": "mod", "answer": "mod."}
+{"question": "fill in 31 ? 7 = 3 with an integer operator", "fact": "mod", "answer": "mod."}
+{"question": "which operator makes 13 blank 3 equal 4", "fact": "div", "answer": "div."}
+{"question": "fill in 13 ? 3 = 4 with an integer operator", "fact": "div", "answer": "div."}
+{"question": "which operator makes 13 blank 3 equal 1", "fact": "mod", "answer": "mod."}
+{"question": "fill in 13 ? 3 = 1 with an integer operator", "fact": "mod", "answer": "mod."}
+{"question": "which operator makes 22 blank 4 equal 5", "fact": "div", "answer": "div."}
+{"question": "fill in 22 ? 4 = 5 with an integer operator", "fact": "div", "answer": "div."}
+{"question": "which operator makes 22 blank 4 equal 2", "fact": "mod", "answer": "mod."}
+{"question": "fill in 22 ? 4 = 2 with an integer operator", "fact": "mod", "answer": "mod."}

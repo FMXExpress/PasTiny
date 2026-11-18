@@ -1,0 +1,77 @@
+catalog/init ms=9
+FPU no
+heap=532608 largest=532608 stack=15860
+load/recovery ms=897
+active 1 DOS Guide
+heap=48408 largest=48408 stack=15860
+load/recovery ms=158
+active 2 Turbo Pascal Coach
+div.
+answer ms=14625 chars=4
+first char ms=13425 output span ms=895
+mod.
+answer ms=15183 chars=4
+first char ms=14004 output span ms=863
+begin.
+answer ms=16582 chars=6
+first char ms=14802 output span ms=1496
+end.
+answer ms=17581 chars=4
+first char ms=16262 output span ms=990
+Vanuatu.
+answer ms=14213 chars=8
+first char ms=11873 output span ms=2042
+dilly is 95.
+answer ms=13308 chars=12
+first char ms=9987 output span ms=3033
+begin.
+answer ms=19337 chars=6
+first char ms=17350 output span ms=1653
+end.
+answer ms=18846 chars=4
+first char ms=17658 output span ms=919
+div.
+answer ms=17574 chars=4
+first char ms=16377 output span ms=919
+mod.
+answer ms=16145 chars=4
+first char ms=14982 output span ms=843
+end.
+answer ms=15639 chars=4
+first char ms=14483 output span ms=851
+end.
+answer ms=16789 chars=4
+first char ms=15661 output span ms=859
+div.
+answer ms=13724 chars=4
+first char ms=12600 output span ms=841
+mod.
+answer ms=9616 chars=4
+first char ms=8509 output span ms=833
+mod.
+answer ms=13719 chars=4
+first char ms=12569 output span ms=863
+mod.
+answer ms=6556 chars=4
+first char ms=5569 output span ms=732
+end.
+answer ms=12460 chars=4
+first char ms=11381 output span ms=804
+begin.
+answer ms=9294 chars=6
+first char ms=7795 output span ms=1220
+end.
+answer ms=12023 chars=4
+first char ms=10971 output span ms=791
+end.
+answer ms=9406 chars=4
+first char ms=8357 output span ms=774
+div.
+answer ms=11499 chars=4
+first char ms=10451 output span ms=799
+end.
+answer ms=10152 chars=4
+first char ms=9155 output span ms=761
+mod.
+answer ms=9561 chars=4
+first char ms=8362 output span ms=838

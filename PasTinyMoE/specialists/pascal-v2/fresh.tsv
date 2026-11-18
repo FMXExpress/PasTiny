@@ -1,0 +1,13 @@
+fact	question
+div	what word gives only the whole part of integer division
+mod	what word gives only the leftover part of integer division
+begin	which pascal word marks the opening of a group of statements
+end	which pascal word marks the closing of a group of statements
+div	fill the blank so 19 blank 4 evaluates to 4
+mod	fill the blank so 19 blank 4 evaluates to 3
+begin	what keyword do i put before the statements of a compound statement
+end	what keyword do i put after the statements of a compound statement
+div	pascal choose the operator for the integer quotient of two values
+mod	pascal choose the operator for the remainder of two values
+begin	i need the keyword that introduces a block of statements
+end	i need the keyword that terminates a block of statements

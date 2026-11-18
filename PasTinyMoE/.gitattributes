@@ -5,3 +5,5 @@ specialists/routing/*.LOG -text
 specialists/routing/*.IN -text
 specialists/runtime/*.IN -text
 specialists/routing/*/*.LOG -text
+specialists/pascal-v2/*.IN -text
+specialists/pascal-v2/*.LOG -text

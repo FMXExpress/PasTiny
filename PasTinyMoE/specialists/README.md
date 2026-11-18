@@ -5,12 +5,12 @@
 | Specialist | ID | Four facts in the pilot | Manual selection | AUTO | Original general model |
 |---|---:|---|---:|---:|---:|
 | DOS Guide | 1 | DIR, CD, CLS, TYPE | 6/8 | 6/8 | 0/8 |
-| Turbo Pascal Coach | 2 | div, mod, begin, end | 5/8 | 5/8 | 0/8 |
+| Turbo Pascal Coach | 2 | div, mod, begin, end | 6/8 | 6/8 | 0/8 |
 | Pocket Naturalist | 51 | Adult insect and spider leg counts and main body divisions | 8/8 | 8/8 | 0/8 |
 
 Each cell counts exact answers on eight unseen wordings of the four trained facts, using greedy generation in a host build of the Pascal runtime. Each fact has one domain-tagged probe and one bare question. AUTO matches whole words from the three pilot syllabi. With zero or multiple matching domains it asks the user to select an expert. IDs 1 and 2 are provisional pilot assignments pending the missing catalog rows. [Paired router benchmark and DOS timing](routing/README.md)
 
-The original model was scored with its own weights on the identical prompts. Exact string matching includes capitalization and punctuation. The sample is small and measures rewording within this syllabus. For example, the Pascal specialist sometimes answered “div.” for a remainder. The no-FPU DOS smoke also reproduced this mistake. The answer-level records include every miss. [Current router results](routing/after.jsonl) · [Initial pilot results](evidence/answers.jsonl)
+The original model was scored with its own weights on the identical prompts. Exact string matching includes capitalization and punctuation. The sample is small and measures rewording within this syllabus. The revised Pascal expert still sometimes answers “mod.” for a quotient when the question mentions discarding the remainder. The answer-level records include every miss. [Current results](pascal-v2/integration.jsonl) · [Pascal training and no-FPU verification](pascal-v2/README.md) · [Router-only experiment](routing/after.jsonl) · [Initial pilot results](evidence/answers.jsonl)
 
 ## Fact sources and data
 
@@ -22,7 +22,7 @@ The JSONL files contain original short prompts written for this pilot. The fact 
 
 ## Reproduction
 
-Run from PasTinyMoE with Python 3.12, CPU PyTorch 2.15.0 and WEBTINY set to a checkout at a1a36720ed558d6998e5beed9d4dbdd792626056. All three models started independently from the original TINY.BIN. Each run used the WebTiny trainer's default seed 42 and 10% validation split. [Pinned trainer](https://github.com/FMXExpress/WebTiny/blob/a1a36720ed558d6998e5beed9d4dbdd792626056/training/train.py)
+Run from PasTinyMoE with Python 3.12, CPU PyTorch 2.15.0 and WEBTINY set to a checkout at a1a36720ed558d6998e5beed9d4dbdd792626056. All three initial models started independently from the original TINY.BIN. The current Turbo Pascal Coach adds the [second training stage](pascal-v2/README.md). Each run used the WebTiny trainer's default seed 42 and 10% validation split. [Pinned trainer](https://github.com/FMXExpress/WebTiny/blob/a1a36720ed558d6998e5beed9d4dbdd792626056/training/train.py)
 
 ```sh
 for model in DOS PASCAL NATURE; do
@@ -36,4 +36,4 @@ tools/floppy.sh build/SPEC3 build/SPEC3.IMG
 
 The packager reads the pinned exports in specialists/models and verifies their hashes against manifest.json. To replay scoring, supply a native EXPERT executable, the unpacked specialist runtime and the unpacked FLOPPY3 baseline fixture directory to specialists/score.py. Input data, full training logs, model SHA-256 values and per-question outputs are committed. The FAT12 package passed a byte-for-byte file copy-back check. Physical Pocket386 measurements are pending.
 
-The released TP7 executable reproduced all 24 manually routed host outputs under DOSBox-X with the emulated FPU enabled. Its separate no-FPU smoke loaded each specialist, answered one question per model, and ended with 49,160 bytes free. [Full TP7 transcript](evidence/TP7-ON.LOG) · [No-FPU smoke](evidence/TP7-OFF.LOG)
+The initial specialist release reproduced all 24 manually routed host outputs under DOSBox-X with the emulated FPU enabled. Its separate no-FPU smoke loaded each specialist, answered one question per model, and ended with 49,160 bytes free. [Full TP7 transcript](evidence/TP7-ON.LOG) · [No-FPU smoke](evidence/TP7-OFF.LOG)

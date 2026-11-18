@@ -1,0 +1,16 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 108, "validation_pairs": 12, "device": "cpu"}
+{"step": 1, "train_loss": 1.31611, "validation_loss": 1.37564}
+{"step": 50, "train_loss": 0.00362, "validation_loss": 0.54076}
+{"step": 100, "train_loss": 0.07498, "validation_loss": 0.56672}
+{"step": 150, "train_loss": 0.00019, "validation_loss": 0.74983}
+{"step": 200, "train_loss": 4e-05, "validation_loss": 0.75714}
+{"step": 250, "train_loss": 4e-05, "validation_loss": 0.75458}
+{"step": 300, "train_loss": 1e-05, "validation_loss": 0.76087}
+{"step": 350, "train_loss": 1e-05, "validation_loss": 0.75998}
+{"step": 400, "train_loss": 3e-05, "validation_loss": 0.76314}
+{"step": 450, "train_loss": 2e-05, "validation_loss": 0.78271}
+{"step": 500, "train_loss": 2e-05, "validation_loss": 0.78906}
+{"step": 550, "train_loss": 1e-05, "validation_loss": 0.79198}
+{"step": 600, "train_loss": 2e-05, "validation_loss": 0.81129}
+{"step": 650, "train_loss": 1e-05, "validation_loss": 0.81258}
+Exported /tmp/pasv2/PASCAL.BIN and /tmp/pasv2/PASCAL.pt
