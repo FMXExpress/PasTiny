@@ -1,0 +1,13 @@
+LIST
+STATE Everything is down and we have a demo with our biggest client at noon.
+NOUL urgent | Does the customer need a reply within the hour?
+CHOICE team | Which team should handle it? | outage=service down ; billing=charges, refunds ; feature=requests, how-to
+SCORE tone | How upset is the customer? | calm ; annoyed ; furious
+STATE The invoice looks wrong again. Second time this quarter.
+NOUL urgent | Does the customer need a reply within the hour?
+CHOICE team | Which team should handle it? | outage=service down ; billing=charges, refunds ; feature=requests, how-to
+SCORE tone | How upset is the customer? | calm ; annoyed ; furious
+MEM
+ASK what is 7 times 8
+NOUL spam | Is this spam?
+QUIT

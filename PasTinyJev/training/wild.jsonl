@@ -1,0 +1,40 @@
+{"state":"Everything is down and we have a demo with our biggest client at noon.","type":"noul","instructions":"Does the customer need a reply within the hour?","expect":true}
+{"state":"Everything is down and we have a demo with our biggest client at noon.","type":"choice","instructions":"Which team should handle it?","criteria":{"outage":"service down","billing":"charges, refunds","feature":"requests, how-to"},"expect":"outage"}
+{"state":"Everything is down and we have a demo with our biggest client at noon.","type":"score","instructions":"How upset is the customer?","criteria":["calm","annoyed","furious"],"expect":1}
+{"state":"The invoice looks wrong again. Second time this quarter.","type":"noul","instructions":"Is this urgent?","expect":false}
+{"state":"The invoice looks wrong again. Second time this quarter.","type":"choice","instructions":"Which team should handle it?","criteria":{"outage":"service down","billing":"charges, refunds","feature":"requests, how-to"},"expect":"billing"}
+{"state":"The invoice looks wrong again. Second time this quarter.","type":"score","instructions":"How upset is the customer?","criteria":["calm","annoyed","furious"],"expect":1}
+{"state":"I was charged twice this month.","type":"noul","instructions":"Is this a billing issue?","expect":true}
+{"state":"I was charged twice this month.","type":"noul","instructions":"Is this spam?","expect":false}
+{"state":"Hello, I can't remember my password and the reset mail isn't showing up.","type":"choice","instructions":"What is this about?","criteria":{"login":"account access","shipping":"delivery","billing":"payments"},"expect":"login"}
+{"state":"Hello, I can't remember my password and the reset mail isn't showing up.","type":"noul","instructions":"Is the customer upset?","expect":false}
+{"state":"Where on earth is my package?? It was due last Friday!","type":"choice","instructions":"Topic","criteria":{"billing":"money","shipping":"parcels","praise":"thanks","cancel":"leaving"},"expect":"shipping"}
+{"state":"Where on earth is my package?? It was due last Friday!","type":"noul","instructions":"Does the customer ask a question?","expect":true}
+{"state":"Where on earth is my package?? It was due last Friday!","type":"noul","instructions":"Is the customer upset?","expect":true}
+{"state":"Honestly the best customer service I've had in years. Thank you Maria!","type":"noul","instructions":"Is the customer happy?","expect":true}
+{"state":"Honestly the best customer service I've had in years. Thank you Maria!","type":"choice","instructions":"Category","criteria":{"praise":"compliments","outage":"downtime","spam":"junk"},"expect":"praise"}
+{"state":"Honestly the best customer service I've had in years. Thank you Maria!","type":"score","instructions":"How upset is the customer?","criteria":["calm","annoyed","furious"],"expect":0}
+{"state":"CONGRATULATIONS!!! You have been selected to receive a FREE holiday. Click now.","type":"noul","instructions":"Is this spam?","expect":true}
+{"state":"CONGRATULATIONS!!! You have been selected to receive a FREE holiday. Click now.","type":"choice","instructions":"What kind of message is this?","criteria":{"spam":"ads, scams","billing":"charges","feature":"ideas"},"expect":"spam"}
+{"state":"Please close my account, we've moved to a competitor.","type":"noul","instructions":"Does the user want to cancel?","expect":true}
+{"state":"Please close my account, we've moved to a competitor.","type":"choice","instructions":"Route to","criteria":{"cancel":"cancellations","login":"passwords","shipping":"orders"},"expect":"cancel"}
+{"state":"Please close my account, we've moved to a competitor.","type":"noul","instructions":"Is the customer furious?","expect":false}
+{"state":"Would be lovely if the editor could remember my font size.","type":"choice","instructions":"Which team?","criteria":{"feature":"product ideas","outage":"incidents","billing":"invoices"},"expect":"feature"}
+{"state":"Would be lovely if the editor could remember my font size.","type":"noul","instructions":"Is this urgent?","expect":false}
+{"state":"Would be lovely if the editor could remember my font size.","type":"noul","instructions":"Is something broken?","expect":false}
+{"state":"API has been returning 503 for twenty minutes, our checkout is dead. Fix this NOW.","type":"noul","instructions":"Is this urgent?","expect":true}
+{"state":"API has been returning 503 for twenty minutes, our checkout is dead. Fix this NOW.","type":"choice","instructions":"Which team should handle it?","criteria":{"outage":"errors, downtime","shipping":"delivery","praise":"kind words","login":"access"},"expect":"outage"}
+{"state":"API has been returning 503 for twenty minutes, our checkout is dead. Fix this NOW.","type":"score","instructions":"How urgent is this?","criteria":["low","normal","high"],"expect":2}
+{"state":"You people are useless. Third time I've been double billed. I want a refund today!","type":"score","instructions":"How angry is the customer?","criteria":["calm","annoyed","furious"],"expect":2}
+{"state":"You people are useless. Third time I've been double billed. I want a refund today!","type":"choice","instructions":"Department","criteria":{"billing":"charges, refunds","feature":"how-to","spam":"junk mail"},"expect":"billing"}
+{"state":"You people are useless. Third time I've been double billed. I want a refund today!","type":"noul","instructions":"Is the customer calm?","expect":false}
+{"state":"hey, no rush at all, but could you tell me how to export my notes to pdf?","type":"score","instructions":"Priority","criteria":["low","normal","high"],"expect":0}
+{"state":"hey, no rush at all, but could you tell me how to export my notes to pdf?","type":"noul","instructions":"Is there a question?","expect":true}
+{"state":"hey, no rush at all, but could you tell me how to export my notes to pdf?","type":"choice","instructions":"What is this about?","criteria":{"feature":"requests, how-to","cancel":"closing accounts","outage":"site is down"},"expect":"feature"}
+{"state":"My parcel turned up with the lid smashed in. Not impressed.","type":"choice","instructions":"Topic","criteria":{"shipping":"orders, parcels","login":"sign in problems","praise":"happy feedback"},"expect":"shipping"}
+{"state":"My parcel turned up with the lid smashed in. Not impressed.","type":"score","instructions":"Tone","criteria":["calm","annoyed","furious"],"expect":1}
+{"state":"I keep getting kicked back to the sign-in screen. I need access before my 3pm call.","type":"noul","instructions":"Is this urgent?","expect":true}
+{"state":"I keep getting kicked back to the sign-in screen. I need access before my 3pm call.","type":"choice","instructions":"Which team?","criteria":{"login":"account access","billing":"payments","spam":"spam"},"expect":"login"}
+{"state":"Stop emailing me. Take me off every list you have.","type":"choice","instructions":"Category","criteria":{"cancel":"cancel, unsubscribe","feature":"feature requests","shipping":"shipping"},"expect":"cancel"}
+{"state":"Stop emailing me. Take me off every list you have.","type":"noul","instructions":"Is this praise?","expect":false}
+{"state":"Make $$$ from your sofa! Thousands already joined. Limited places!","type":"noul","instructions":"Is this a real customer message?","expect":false}

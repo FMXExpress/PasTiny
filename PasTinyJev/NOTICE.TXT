@@ -1,0 +1,7 @@
+PasTinyJev for real-mode DOS, built on FMXExpress/PasTiny and PasTinyMoE.
+The network design, the original Tiny program and GENERAL.BIN (the unchanged
+TINY 2.1 model) are from WollyMonjac/Tiny-2.1.
+TRIAGE.BIN was trained from that model on synthetic support messages.
+The request format follows TypeSafe's Jev and razorback16/openjev; this
+project is not affiliated with or endorsed by either.
+See ORIGINAL.TXT and LICENSE in the source tree for attribution and terms.
