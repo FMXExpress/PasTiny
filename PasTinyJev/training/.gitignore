@@ -1,4 +1,3 @@
 .export_check.bin
 __pycache__/
 distill.jsonl
-jev2.pt
