@@ -1,0 +1,10 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 33, "validation_pairs": 3, "device": "cpu"}
+{"step": 1, "train_loss": 10.63352, "validation_loss": 5.53209}
+{"step": 50, "train_loss": 0.00295, "validation_loss": 0.00352}
+{"step": 100, "train_loss": 0.00062, "validation_loss": 0.00098}
+{"step": 150, "train_loss": 0.00036, "validation_loss": 0.00062}
+{"step": 200, "train_loss": 0.00026, "validation_loss": 0.00045}
+{"step": 250, "train_loss": 0.00019, "validation_loss": 0.00034}
+{"step": 300, "train_loss": 0.00015, "validation_loss": 0.00026}
+{"step": 320, "train_loss": 0.00013, "validation_loss": 0.00024}
+Exported /tmp/moe-models/NATURE.BIN and /tmp/moe-models/NATURE.pt

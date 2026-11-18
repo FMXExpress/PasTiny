@@ -1,0 +1,20 @@
+catalog/init ms=10
+FPU no
+heap=533360 largest=533360 stack=15860
+load/recovery ms=848
+active 1 DOS Guide
+heap=49160 largest=49160 stack=15860
+DIR.
+answer ms=12083 chars=4
+first char ms=10132 output span ms=1238
+load/recovery ms=281
+active 2 Turbo Pascal Coach
+div.
+answer ms=12178 chars=4
+first char ms=10628 output span ms=1168
+load/recovery ms=213
+active 51 Pocket Naturalist
+Eight.
+answer ms=11440 chars=6
+first char ms=9698 output span ms=1424
+heap=49160 largest=49160 stack=15860

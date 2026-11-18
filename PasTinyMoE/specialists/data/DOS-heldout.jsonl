@@ -1,0 +1,8 @@
+{"question": "dos how can i see the files in this directory", "answer": "DIR.", "fact": "dir"}
+{"question": "which command displays a file listing", "answer": "DIR.", "fact": "dir"}
+{"question": "dos how do i change folders", "answer": "CD.", "fact": "cd"}
+{"question": "move to a different working directory", "answer": "CD.", "fact": "cd"}
+{"question": "dos how can i clear my screen", "answer": "CLS.", "fact": "cls"}
+{"question": "wipe the text off my display", "answer": "CLS.", "fact": "cls"}
+{"question": "dos how do i read a text file on screen", "answer": "TYPE.", "fact": "type"}
+{"question": "show the text inside a file", "answer": "TYPE.", "fact": "type"}

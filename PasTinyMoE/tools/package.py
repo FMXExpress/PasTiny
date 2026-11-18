@@ -15,7 +15,7 @@ def field(value, width):
         raise ValueError(value)
     return bytes([len(raw)]) + raw.ljust(width, b"\0")
 
-def build(entries, exe, dest):
+def build(entries, exe, dest, extras=None):
     if not 1 <= len(entries) <= 128:
         raise ValueError("catalog capacity")
     ids, names = set(), set()
@@ -36,9 +36,10 @@ def build(entries, exe, dest):
         (dest / name).write_bytes(model)
         records += bytes([ident]) + field(name,12) + field(entry["title"],28) + field(entry["keyword"],20) + struct.pack("<I",zlib.crc32(model))
     (dest / "EXPERTS.CAT").write_bytes(records)
-    for name in ("CHECK.BAT","CHECK.IN"):
-        shutil.copyfile(Path(__file__).resolve().parents[1] / "tests" / name, dest / name)
-    shutil.copyfile(Path(__file__).resolve().parents[1] / "NOTICE.TXT", dest / "NOTICE.TXT")
+    for name in ("CHECK.BAT","CHECK.IN","NOTICE.TXT"):
+        root = Path(__file__).resolve().parents[1]
+        folder = extras or (root if name == "NOTICE.TXT" else root / "tests")
+        shutil.copyfile(folder / name, dest / name)
     with ZipFile(dest.with_suffix(".ZIP"),"w",ZIP_DEFLATED) as archive:
         for path in sorted(dest.iterdir()):
             archive.write(path,path.name)

@@ -1,0 +1,10 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 33, "validation_pairs": 3, "device": "cpu"}
+{"step": 1, "train_loss": 17.01182, "validation_loss": 16.84832}
+{"step": 50, "train_loss": 0.00359, "validation_loss": 0.36818}
+{"step": 100, "train_loss": 0.0005, "validation_loss": 0.17709}
+{"step": 150, "train_loss": 0.00032, "validation_loss": 0.17084}
+{"step": 200, "train_loss": 0.00023, "validation_loss": 0.16618}
+{"step": 250, "train_loss": 0.00018, "validation_loss": 0.16286}
+{"step": 300, "train_loss": 0.00013, "validation_loss": 0.1725}
+{"step": 320, "train_loss": 0.00012, "validation_loss": 0.16902}
+Exported /tmp/moe-models/PASCAL.BIN and /tmp/moe-models/PASCAL.pt

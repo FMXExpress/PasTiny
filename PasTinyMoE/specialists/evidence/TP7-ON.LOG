@@ -1,0 +1,82 @@
+catalog/init ms=5
+FPU yes
+heap=533360 largest=533360 stack=15860
+load/recovery ms=889
+active 1 DOS Guide
+heap=49160 largest=49160 stack=15860
+DIR.
+answer ms=938 chars=4
+first char ms=878 output span ms=31
+TYPE.
+answer ms=507 chars=5
+first char ms=438 output span ms=44
+CD.
+answer ms=329 chars=3
+first char ms=315 output span ms=-9
+CDIR.
+answer ms=557 chars=5
+first char ms=451 output span ms=76
+CLS.
+answer ms=415 chars=4
+first char ms=362 output span ms=26
+CLS.
+answer ms=350 chars=4
+first char ms=311 output span ms=70
+TYPE.
+answer ms=515 chars=5
+first char ms=445 output span ms=45
+TYPE.
+answer ms=378 chars=5
+first char ms=318 output span ms=37
+load/recovery ms=55
+active 2 Turbo Pascal Coach
+div.
+answer ms=819 chars=4
+first char ms=730 output span ms=41
+div.
+answer ms=552 chars=4
+first char ms=504 output span ms=22
+div.
+answer ms=719 chars=4
+first char ms=635 output span ms=50
+30.
+answer ms=338 chars=3
+first char ms=267 output span ms=47
+begin.
+answer ms=598 chars=6
+first char ms=504 output span ms=69
+end.
+answer ms=407 chars=4
+first char ms=314 output span ms=70
+end.
+answer ms=545 chars=4
+first char ms=445 output span ms=75
+end.
+answer ms=383 chars=4
+first char ms=339 output span ms=19
+load/recovery ms=114
+active 51 Pocket Naturalist
+Six.
+answer ms=646 chars=4
+first char ms=593 output span ms=26
+Six.
+answer ms=528 chars=4
+first char ms=483 output span ms=20
+Eight.
+answer ms=608 chars=6
+first char ms=558 output span ms=78
+Eight.
+answer ms=482 chars=6
+first char ms=388 output span ms=69
+Three.
+answer ms=810 chars=6
+first char ms=702 output span ms=74
+Three.
+answer ms=702 chars=6
+first char ms=641 output span ms=32
+Two.
+answer ms=656 chars=4
+first char ms=605 output span ms=24
+Two.
+answer ms=600 chars=4
+first char ms=550 output span ms=23

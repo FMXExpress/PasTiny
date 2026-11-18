@@ -95,3 +95,5 @@ Based on TINY 2.1 revision `1d5cf54677addf188a090ca1c91acb3d02989a1d`. Upstream 
 ## PasTinyMoE
 
 The [PasTinyMoE runtime and downloads](PasTinyMoE/) add manual and keyword-based model selection to a separate TP7 executable. The three-file FAT12 edition and 100-file SD edition use one resident model. Both currently ship labeled copies of the general model for capacity and recovery testing.
+
+The [three trained pilot specialists](PasTinyMoE/specialists/) are available separately in [SPEC3.ZIP](PasTinyMoE/dist/SPEC3.ZIP).

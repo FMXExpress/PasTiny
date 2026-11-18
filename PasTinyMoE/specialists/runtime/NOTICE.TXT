@@ -1,0 +1,4 @@
+PasTinyMoE three-specialist pilot. Each specialist covers four facts.
+Fine-tuned from WollyMonjac/Tiny-2.1 using FMXExpress/WebTiny.
+Use LIST, USE 1, USE 2 or USE 51. AUTO recognizes dos, pascal and animal.
+See the PasTinyMoE specialists directory for sources and evaluation.

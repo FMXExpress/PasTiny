@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "DOS.BIN",
+    "title": "DOS Guide",
+    "keyword": "dos",
+    "source": "specialists/models/DOS.BIN",
+    "sha256": "b646c4ad433328b894078be9643d01152dd2d4637b2352301c0172f679588895"
+  },
+  {
+    "id": 2,
+    "name": "PASCAL.BIN",
+    "title": "Turbo Pascal Coach",
+    "keyword": "pascal",
+    "source": "specialists/models/PASCAL.BIN",
+    "sha256": "833ed12b83613302e31b2296742b1087d96a5dd5092933c3d7b96e65bf617505"
+  },
+  {
+    "id": 51,
+    "name": "NATURE.BIN",
+    "title": "Pocket Naturalist",
+    "keyword": "animal",
+    "source": "specialists/models/NATURE.BIN",
+    "sha256": "8e4e5d66bcafa9a919abe06277e0c8eff22a558b16c9fbf84f1fa77a41ac0f03"
+  }
+]

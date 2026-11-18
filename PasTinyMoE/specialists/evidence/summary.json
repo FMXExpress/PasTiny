@@ -1,0 +1,98 @@
+{
+  "baseline": {
+    "overall": {
+      "questions": 24,
+      "exact": 0,
+      "exact_rate": 0.0,
+      "intended_expert_selected": 8,
+      "median_host_answer_ms": 47.0
+    },
+    "groups": {
+      "DOS": {
+        "questions": 8,
+        "exact": 0,
+        "exact_rate": 0.0,
+        "intended_expert_selected": 8,
+        "median_host_answer_ms": 49.5
+      },
+      "NATURE": {
+        "questions": 8,
+        "exact": 0,
+        "exact_rate": 0.0,
+        "intended_expert_selected": 0,
+        "median_host_answer_ms": 48.5
+      },
+      "PASCAL": {
+        "questions": 8,
+        "exact": 0,
+        "exact_rate": 0.0,
+        "intended_expert_selected": 0,
+        "median_host_answer_ms": 42.5
+      }
+    }
+  },
+  "oracle": {
+    "overall": {
+      "questions": 24,
+      "exact": 19,
+      "exact_rate": 0.7916666666666666,
+      "intended_expert_selected": 24,
+      "median_host_answer_ms": 40.5
+    },
+    "groups": {
+      "DOS": {
+        "questions": 8,
+        "exact": 6,
+        "exact_rate": 0.75,
+        "intended_expert_selected": 8,
+        "median_host_answer_ms": 29.5
+      },
+      "NATURE": {
+        "questions": 8,
+        "exact": 8,
+        "exact_rate": 1.0,
+        "intended_expert_selected": 8,
+        "median_host_answer_ms": 45.0
+      },
+      "PASCAL": {
+        "questions": 8,
+        "exact": 5,
+        "exact_rate": 0.625,
+        "intended_expert_selected": 8,
+        "median_host_answer_ms": 45.5
+      }
+    }
+  },
+  "auto": {
+    "overall": {
+      "questions": 24,
+      "exact": 13,
+      "exact_rate": 0.5416666666666666,
+      "intended_expert_selected": 16,
+      "median_host_answer_ms": 40.5
+    },
+    "groups": {
+      "DOS": {
+        "questions": 8,
+        "exact": 6,
+        "exact_rate": 0.75,
+        "intended_expert_selected": 8,
+        "median_host_answer_ms": 28.5
+      },
+      "NATURE": {
+        "questions": 8,
+        "exact": 4,
+        "exact_rate": 0.5,
+        "intended_expert_selected": 4,
+        "median_host_answer_ms": 55.0
+      },
+      "PASCAL": {
+        "questions": 8,
+        "exact": 3,
+        "exact_rate": 0.375,
+        "intended_expert_selected": 4,
+        "median_host_answer_ms": 48.5
+      }
+    }
+  }
+}

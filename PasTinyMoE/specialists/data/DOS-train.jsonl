@@ -1,0 +1,36 @@
+{"question": "list files in the current directory", "answer": "DIR.", "fact": "dir"}
+{"question": "dos list files in the current directory", "answer": "DIR.", "fact": "dir"}
+{"question": "in dos list files in the current directory", "answer": "DIR.", "fact": "dir"}
+{"question": "show the names of files in a folder", "answer": "DIR.", "fact": "dir"}
+{"question": "dos show the names of files in a folder", "answer": "DIR.", "fact": "dir"}
+{"question": "in dos show the names of files in a folder", "answer": "DIR.", "fact": "dir"}
+{"question": "which command lists directory contents", "answer": "DIR.", "fact": "dir"}
+{"question": "dos which command lists directory contents", "answer": "DIR.", "fact": "dir"}
+{"question": "in dos which command lists directory contents", "answer": "DIR.", "fact": "dir"}
+{"question": "change the current directory", "answer": "CD.", "fact": "cd"}
+{"question": "dos change the current directory", "answer": "CD.", "fact": "cd"}
+{"question": "in dos change the current directory", "answer": "CD.", "fact": "cd"}
+{"question": "switch to another folder", "answer": "CD.", "fact": "cd"}
+{"question": "dos switch to another folder", "answer": "CD.", "fact": "cd"}
+{"question": "in dos switch to another folder", "answer": "CD.", "fact": "cd"}
+{"question": "which command changes directories", "answer": "CD.", "fact": "cd"}
+{"question": "dos which command changes directories", "answer": "CD.", "fact": "cd"}
+{"question": "in dos which command changes directories", "answer": "CD.", "fact": "cd"}
+{"question": "clear the screen", "answer": "CLS.", "fact": "cls"}
+{"question": "dos clear the screen", "answer": "CLS.", "fact": "cls"}
+{"question": "in dos clear the screen", "answer": "CLS.", "fact": "cls"}
+{"question": "erase text from the display", "answer": "CLS.", "fact": "cls"}
+{"question": "dos erase text from the display", "answer": "CLS.", "fact": "cls"}
+{"question": "in dos erase text from the display", "answer": "CLS.", "fact": "cls"}
+{"question": "which command clears the display", "answer": "CLS.", "fact": "cls"}
+{"question": "dos which command clears the display", "answer": "CLS.", "fact": "cls"}
+{"question": "in dos which command clears the display", "answer": "CLS.", "fact": "cls"}
+{"question": "display the contents of a text file", "answer": "TYPE.", "fact": "type"}
+{"question": "dos display the contents of a text file", "answer": "TYPE.", "fact": "type"}
+{"question": "in dos display the contents of a text file", "answer": "TYPE.", "fact": "type"}
+{"question": "show a text file on screen", "answer": "TYPE.", "fact": "type"}
+{"question": "dos show a text file on screen", "answer": "TYPE.", "fact": "type"}
+{"question": "in dos show a text file on screen", "answer": "TYPE.", "fact": "type"}
+{"question": "which command prints a file to the screen", "answer": "TYPE.", "fact": "type"}
+{"question": "dos which command prints a file to the screen", "answer": "TYPE.", "fact": "type"}
+{"question": "in dos which command prints a file to the screen", "answer": "TYPE.", "fact": "type"}
