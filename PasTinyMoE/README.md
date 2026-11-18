@@ -1,6 +1,6 @@
-# PocketExperts for DOS
+# PasTinyMoE for DOS
 
-PocketExperts runs one complete TNY2 network at a time on a 386 with conventional memory. Both editions ship the same 30,320-byte real-mode Turbo Pascal 7 executable with integer assembly inference and built-in software floating point.
+PasTinyMoE runs one complete TNY2 network at a time on a 386 with conventional memory. Both editions ship the same 30,320-byte real-mode Turbo Pascal 7 executable with integer assembly inference and built-in software floating point.
 
 | Download | Runtime bytes before ZIP compression | Contents |
 |---|---:|---|
