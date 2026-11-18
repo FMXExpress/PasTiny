@@ -1,0 +1,11 @@
+LIST
+STATE everything is down and we have a demo with our biggest client at noon.
+NOUL q0 | does the customer need a reply within the hour?
+CHOICE q1 | which team should handle it? | 0=service down ; 1=charges, refunds ; 2=requests, how-to
+SCORE q2 | how upset is the customer? | calm ; annoyed ; furious
+STATE the invoice looks wrong again. second time this quarter.
+NOUL q3 | is this urgent?
+CHOICE q4 | which team should handle it? | 0=service down ; 1=charges, refunds ; 2=requests, how-to
+SCORE q5 | how upset is the customer? | calm ; annoyed ; furious
+MEM
+QUIT

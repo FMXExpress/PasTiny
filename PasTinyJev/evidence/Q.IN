@@ -1,0 +1,62 @@
+LIST
+STATE everything is down and we have a demo with our biggest client at noon.
+NOUL q0 | does the customer need a reply within the hour?
+CHOICE q1 | which team should handle it? | 0=service down ; 1=charges, refunds ; 2=requests, how-to
+SCORE q2 | how upset is the customer? | calm ; annoyed ; furious
+STATE the invoice looks wrong again. second time this quarter.
+NOUL q3 | is this urgent?
+CHOICE q4 | which team should handle it? | 0=service down ; 1=charges, refunds ; 2=requests, how-to
+SCORE q5 | how upset is the customer? | calm ; annoyed ; furious
+STATE i was charged twice this month.
+NOUL q6 | is this a billing issue?
+NOUL q7 | is this spam?
+STATE hello, i can't remember my password and the reset mail isn't showing up.
+CHOICE q8 | what is this about? | 0=account access ; 1=delivery ; 2=payments
+NOUL q9 | is the customer upset?
+STATE where on earth is my package?? it was due last friday!
+CHOICE q10 | topic | 0=money ; 1=parcels ; 2=thanks ; 3=leaving
+NOUL q11 | does the customer ask a question?
+NOUL q12 | is the customer upset?
+STATE honestly the best customer service i've had in years. thank you maria!
+NOUL q13 | is the customer happy?
+CHOICE q14 | category | 0=compliments ; 1=downtime ; 2=junk
+SCORE q15 | how upset is the customer? | calm ; annoyed ; furious
+STATE congratulations!!! you have been selected to receive a free holiday. click now.
+NOUL q16 | is this spam?
+CHOICE q17 | what kind of message is this? | 0=ads, scams ; 1=charges ; 2=ideas
+STATE please close my account, we've moved to a competitor.
+NOUL q18 | does the user want to cancel?
+CHOICE q19 | route to | 0=cancellations ; 1=passwords ; 2=orders
+NOUL q20 | is the customer furious?
+STATE would be lovely if the editor could remember my font size.
+CHOICE q21 | which team? | 0=product ideas ; 1=incidents ; 2=invoices
+NOUL q22 | is this urgent?
+NOUL q23 | is something broken?
+STATE api has been returning 503 for twenty minutes, our checkout is dead. fix this now.
+NOUL q24 | is this urgent?
+CHOICE q25 | which team should handle it? | 0=errors, downtime ; 1=delivery ; 2=kind words ; 3=access
+SCORE q26 | how urgent is this? | low ; normal ; high
+STATE you people are useless. third time i've been double billed. i want a refund today!
+SCORE q27 | how angry is the customer? | calm ; annoyed ; furious
+CHOICE q28 | department | 0=charges, refunds ; 1=how-to ; 2=junk mail
+NOUL q29 | is the customer calm?
+STATE hey, no rush at all, but could you tell me how to export my notes to pdf?
+SCORE q30 | priority | low ; normal ; high
+NOUL q31 | is there a question?
+CHOICE q32 | what is this about? | 0=requests, how-to ; 1=closing accounts ; 2=site is down
+STATE my parcel turned up with the lid smashed in. not impressed.
+CHOICE q33 | topic | 0=orders, parcels ; 1=sign in problems ; 2=happy feedback
+SCORE q34 | tone | calm ; annoyed ; furious
+STATE i keep getting kicked back to the sign-in screen. i need access before my 3pm call.
+NOUL q35 | is this urgent?
+CHOICE q36 | which team? | 0=account access ; 1=payments ; 2=spam
+STATE stop emailing me. take me off every list you have.
+CHOICE q37 | category | 0=cancel, unsubscribe ; 1=feature requests ; 2=shipping
+NOUL q38 | is this praise?
+STATE make $$$ from your sofa! thousands already joined. limited places!
+NOUL q39 | is this a real customer message?
+ASK what is 7 times 8
+USE 2
+USE 1
+MEM
+QUIT

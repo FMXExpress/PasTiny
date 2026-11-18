@@ -1,0 +1,95 @@
+step    200    31s lr 0.00100 loss 0.9338
+step    400    63s lr 0.00100 loss 0.7877
+step    600    97s lr 0.00100 loss 0.7014
+step    800   129s lr 0.00100 loss 0.6177
+step   1000   161s lr 0.00100 loss 0.5595
+step   1200   195s lr 0.00099 loss 0.5016
+step   1400   230s lr 0.00099 loss 0.4393
+step   1600   261s lr 0.00099 loss 0.3952
+step   1800   294s lr 0.00098 loss 0.3519
+  EVAL   5 min: trained noul 84.5% choice 91.2% score 79.5% brier 0.082 ece 0.029 | held-back noul 66.6% choice 40.9% score 20.2% brier 0.206 ece 0.163 | hand-written 22/40
+step   2000   363s lr 0.00098 loss 0.3130
+step   2200   396s lr 0.00097 loss 0.3059
+step   2400   470s lr 0.00096 loss 0.2557
+step   2600   510s lr 0.00095 loss 0.2443
+step   2800   544s lr 0.00095 loss 0.2408
+step   3000   580s lr 0.00094 loss 0.2190
+  EVAL  10 min: trained noul 90.9% choice 96.5% score 90.1% brier 0.051 ece 0.027 | held-back noul 66.6% choice 46.8% score 22.3% brier 0.185 ece 0.128 | hand-written 28/40
+step   3200   622s lr 0.00093 loss 0.2011
+step   3400   655s lr 0.00092 loss 0.1922
+step   3600   687s lr 0.00092 loss 0.1709
+step   3800   774s lr 0.00089 loss 0.1660
+step   4000   818s lr 0.00088 loss 0.1510
+  EVAL  15 min: trained noul 95.7% choice 99.2% score 97.7% brier 0.025 ece 0.037 | held-back noul 67.8% choice 51.1% score 11.7% brier 0.198 ece 0.155 | hand-written 24/40
+step   4200   922s lr 0.00085 loss 0.1375
+step   4400  1054s lr 0.00081 loss 0.1303
+step   4600  1173s lr 0.00077 loss 0.1232
+  EVAL  20 min: trained noul 98.2% choice 100.0% score 97.7% brier 0.014 ece 0.051 | held-back noul 67.8% choice 45.8% score 17.2% brier 0.206 ece 0.179 | hand-written 29/40
+step   4800  1384s lr 0.00069 loss 0.1136
+  EVAL  25 min: trained noul 98.6% choice 100.0% score 97.1% brier 0.012 ece 0.044 | held-back noul 64.0% choice 50.3% score 12.3% brier 0.210 ece 0.207 | hand-written 29/40
+step   5000  1584s lr 0.00061 loss 0.1113
+step   5200  1743s lr 0.00054 loss 0.1060
+step   5400  1774s lr 0.00053 loss 0.1053
+  EVAL  30 min: trained noul 99.4% choice 100.0% score 98.2% brier 0.006 ece 0.046 | held-back noul 68.8% choice 51.1% score 15.4% brier 0.193 ece 0.165 | hand-written 28/40
+step   5600  1811s lr 0.00051 loss 0.0983
+step   5800  1845s lr 0.00050 loss 0.0939
+step   6000  1878s lr 0.00048 loss 0.0965
+step   6200  1911s lr 0.00047 loss 0.0960
+step   6400  1944s lr 0.00045 loss 0.0994
+step   6600  1975s lr 0.00044 loss 0.0918
+step   6800  2006s lr 0.00043 loss 0.0972
+step   7000  2036s lr 0.00042 loss 0.0929
+step   7200  2066s lr 0.00040 loss 0.0911
+step   7400  2095s lr 0.00039 loss 0.0897
+  EVAL  35 min: trained noul 99.4% choice 100.0% score 98.5% brier 0.002 ece 0.048 | held-back noul 65.2% choice 43.6% score 11.7% brier 0.208 ece 0.192 | hand-written 30/40
+step   7600  2138s lr 0.00037 loss 0.0895
+step   7800  2173s lr 0.00036 loss 0.0896
+step   8000  2209s lr 0.00035 loss 0.0886
+step   8200  2242s lr 0.00033 loss 0.0862
+step   8400  2277s lr 0.00032 loss 0.0890
+step   8600  2316s lr 0.00030 loss 0.0872
+step   8800  2349s lr 0.00029 loss 0.0891
+step   9000  2379s lr 0.00028 loss 0.0916
+  EVAL  40 min: trained noul 100.0% choice 100.0% score 97.1% brier 0.001 ece 0.039 | held-back noul 67.4% choice 44.4% score 13.0% brier 0.204 ece 0.189 | hand-written 29/40
+step   9200  2421s lr 0.00026 loss 0.0910
+step   9400  2452s lr 0.00025 loss 0.0945
+step   9600  2482s lr 0.00024 loss 0.0927
+step   9800  2516s lr 0.00023 loss 0.0840
+step  10000  2553s lr 0.00022 loss 0.0879
+step  10200  2588s lr 0.00021 loss 0.0935
+step  10400  2623s lr 0.00020 loss 0.0864
+step  10600  2655s lr 0.00019 loss 0.0907
+step  10800  2686s lr 0.00018 loss 0.0850
+  EVAL  45 min: trained noul 100.0% choice 100.0% score 99.4% brier 0.001 ece 0.040 | held-back noul 66.2% choice 44.2% score 16.6% brier 0.229 ece 0.230 | hand-written 29/40
+step  11000  2733s lr 0.00016 loss 0.0871
+step  11200  2765s lr 0.00015 loss 0.0872
+step  11400  2797s lr 0.00014 loss 0.0822
+step  11600  2829s lr 0.00014 loss 0.0918
+step  11800  2861s lr 0.00013 loss 0.0826
+step  12000  2891s lr 0.00012 loss 0.0832
+step  12200  2923s lr 0.00011 loss 0.0880
+step  12400  2953s lr 0.00011 loss 0.0871
+step  12600  2984s lr 0.00010 loss 0.0887
+  EVAL  50 min: trained noul 99.8% choice 100.0% score 99.7% brier 0.000 ece 0.041 | held-back noul 65.7% choice 44.4% score 16.9% brier 0.236 ece 0.232 | hand-written 30/40
+step  12800  3023s lr 0.00009 loss 0.0873
+step  13000  3054s lr 0.00008 loss 0.0851
+step  13200  3086s lr 0.00008 loss 0.0872
+step  13400  3117s lr 0.00007 loss 0.0849
+step  13600  3148s lr 0.00007 loss 0.0872
+step  13800  3177s lr 0.00006 loss 0.0879
+step  14000  3208s lr 0.00006 loss 0.0858
+step  14200  3238s lr 0.00005 loss 0.0823
+step  14400  3269s lr 0.00005 loss 0.0840
+step  14600  3297s lr 0.00005 loss 0.0845
+  EVAL  55 min: trained noul 100.0% choice 100.0% score 99.7% brier 0.000 ece 0.039 | held-back noul 66.6% choice 46.2% score 16.0% brier 0.231 ece 0.232 | hand-written 30/40
+step  14800  3336s lr 0.00004 loss 0.0810
+step  15000  3368s lr 0.00004 loss 0.0866
+step  15200  3400s lr 0.00004 loss 0.0851
+step  15400  3433s lr 0.00004 loss 0.0895
+step  15600  3464s lr 0.00003 loss 0.0937
+step  15800  3495s lr 0.00003 loss 0.0863
+step  16000  3525s lr 0.00003 loss 0.0880
+step  16200  3557s lr 0.00003 loss 0.0871
+step  16400  3588s lr 0.00003 loss 0.0800
+saved jev.pt steps 16479
+FINAL trained noul 100.0% choice 100.0% score 99.7% brier 0.000 ece 0.038 | held-back noul 66.5% choice 44.2% score 17.8% brier 0.229 ece 0.231 | hand-written 30/40
