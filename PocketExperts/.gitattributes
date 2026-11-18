@@ -1,0 +1,3 @@
+evidence/** -text
+tests/CHECK.* -text
+dist/*.IMG binary

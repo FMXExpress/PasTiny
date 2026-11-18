@@ -1,0 +1,51 @@
+# PocketExperts for DOS
+
+PocketExperts runs one complete TNY2 network at a time on a 386 with conventional memory. Both editions ship the same 30,320-byte real-mode Turbo Pascal 7 executable with integer assembly inference and built-in software floating point.
+
+| Download | Runtime bytes before ZIP compression | Contents |
+|---|---:|---|
+| [FLOPPY3.ZIP](dist/FLOPPY3.ZIP) or [FAT12 data disk image](dist/FLOPPY3.IMG) | 1,176,090 | Three model files |
+| [SD100.ZIP](dist/SD100.ZIP) | 38,218,062 | 100 model files, 38,180,800 bytes of weights |
+| [Comparison builds](dist/COMPARE.ZIP) | | Pure Pascal integer, float and debug executables |
+
+**Trained specialists delivered: 0.** Every model file in these packages is an explicitly labeled copy of the same general model. The editions exercise DOS storage, selection, and recovery. The source materials available here include the general weights and 60 reference questions. No approved specialist training or held-out corpora accompanied them. The five-bank shared-core edition is deferred.
+
+## Running it
+
+Extract either runtime ZIP into its own new DOS directory, change to that directory and run `EXPERT`. Use `LIST`, `USE 2`, `AUTO`, `MEM` or `QUIT`. Escape during an interactive answer cancels generation. Redirected input takes one command or question per line. A successful USE pins the model. AUTO routes the word “capital” to fixture 2 and “times” to fixture 3. A tie or unknown word selects the first catalog entry.
+
+The loader streams 4 KiB at a time into fixed allocations, checks shape, exact size, finite scale/gain fields and CRC32, then marks the new model ready. The same ID reuses the loaded network. Each question starts at position zero and overwrites every cache position before attending to it. A failed replacement reloads the previous file; failed recovery leaves the runtime unloaded.
+
+## Rebuild and package
+
+Use your own TPC.EXE and TURBO.TPL from Borland Turbo Pascal 7 on DOS. Run BUILD.BAT from this directory. EXPERT.EXE is the integer/ASM build. EXPNO.EXE, EXPFLT.EXE and EXPDBG.EXE are alternatives. The program uses far callbacks, a 16 KiB stack and TP7 software emulation. The compiler stays on the development machine.
+
+On a host, run the following from this directory with fresh output paths.
+
+```sh
+python3 tools/package.py bin/EXPERT.EXE build/FLOPPY3 --fixtures 3
+python3 tools/package.py bin/EXPERT.EXE build/SD100 --fixtures 100
+truncate -s 1474560 build/FLOPPY3.IMG
+mkfs.fat -F 12 build/FLOPPY3.IMG
+mcopy -i build/FLOPPY3.IMG build/FLOPPY3/* ::
+```
+
+The supplied image was formatted and copied back out with dosfstools and mtools. Every extracted file matched its source byte for byte. For the host regression, extract dist/FLOPPY3.ZIP into dist/FLOPPY3/, build with `fpc -Mtp -B EXPERT.PAS` and run `python3 tests/test_runtime.py ./EXPERT`.
+
+## Formats and specialist inputs
+
+EXPERTS.CAT starts with ASCII PEC1, a one-byte record count (1–128), and exactly that many packed 68-byte records. Each record contains a unique one-byte ID (1–128), a Pascal short string for an uppercase local BIN filename (12 bytes maximum), title (28), keyword (20), and an IEEE CRC32 as a little-endian 32-bit integer. Each short string occupies one length byte plus its full padded capacity. All model files use the pinned 381,808-byte TNY2 layout, width 96, four layers, four heads and hidden dimension 256.
+
+To package distinct exports, pass `--manifest experts.json` in place of `--fixtures`. Each JSON array entry has id, name, title, keyword, source and sha256 fields. Source paths are relative to the working directory. The host packager verifies the full SHA-256 before copying.
+
+The optional host trainer uses coordinate search on the final 96 RMS gains, leaving all other weights fixed. It scores greedy outputs through the native runtime and exports a complete BIN when the validation score improves. Run `python3 tools/train.py HOST_EXE BASE.BIN train.json validation.json NEW.BIN`. Each split manifest specifies file, sha256, source, authorization and split. The referenced JSONL contains question, answer and integer expert ID. Training and validation questions must be disjoint. Archive the printed training report with the export. No training job was run against the reference questions.
+
+For held-out evaluation, freeze the weights and catalog first. Run `python3 tools/evaluate.py HOST_EXE RUNTIME_DIR heldout.json` to capture per-question oracle, auto and baseline results. The baseline is catalog ID 1. Include held-out paraphrases, ambiguous and unrelated prompts in authorized evaluation inputs. Latency from this command measures the host executable.
+
+## Physical Pocket386 acceptance
+
+Copy the ZIP contents to a new versioned directory on the card, such as PEX001. Run CHECK.BAT there and retain CHECK.LOG with the machine model, clock, FPU configuration and DOS version. The script runs two consecutive same-model queries, changes models and prints heap measurements. On a spare copy, temporarily rename E003.BIN to E003.SAV, run CHECK.BAT again and save its log under another name, then restore the file. Run EXPERT interactively and press Escape during an answer. Record cold launch with a stopwatch and verify the next query works. Physical hardware and an SD card were unavailable here.
+
+## Provenance
+
+Derived from FMXExpress/PasTiny commit 619052aab899ad837b003093752bc36008558eff and its WollyMonjac/Tiny-2.1 model. The general model SHA-256 is 4b603237070ad9084433537bf8d6c7470d0fc583e6a4f1f03c00cd17264e7095. See ORIGINAL.TXT, LICENSE and the parent project's attribution for upstream material. See [validation records](evidence/) for compiler logs, runtime transcripts and emulator settings.

@@ -1,0 +1,5 @@
+dist/FLOPPY3/
+dist/SD100/
+*.o
+*.ppu
+__pycache__/

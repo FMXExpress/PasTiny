@@ -1,0 +1,14 @@
+catalog/init ms=6
+FPU no
+heap=530528 largest=530528 stack=15860
+load/recovery ms=449
+active 1 Baseline fixture 1
+heap=46328 largest=46328 stack=15860
+load/recovery ms=524
+active 2 Baseline fixture 2
+load failed E003.BIN open failed
+load/recovery ms=555
+active 2 Baseline fixture 2
+load/recovery ms=452
+active 1 Baseline fixture 1
+heap=46328 largest=46328 stack=15860
