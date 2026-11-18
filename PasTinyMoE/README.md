@@ -10,6 +10,8 @@ PasTinyMoE runs one complete TNY2 network at a time on a 386 with conventional m
 
 **Trained specialists delivered: 0.** Every model file in these packages is an explicitly labeled copy of the same general model. The editions exercise DOS storage, selection, and recovery. The source materials available here include the general weights and 60 reference questions. No approved specialist training or held-out corpora accompanied them. The five-bank shared-core edition is deferred.
 
+The [expert plan](docs/expert-plan.md) defines the proposed scopes, routing behavior and training order. The first three planned specialists are DOS Guide, Turbo Pascal Coach and Pocket Naturalist.
+
 ## Running it
 
 Extract either runtime ZIP into its own new DOS directory, change to that directory and run `EXPERT`. Use `LIST`, `USE 2`, `AUTO`, `MEM` or `QUIT`. Escape during an interactive answer cancels generation. Redirected input takes one command or question per line. A successful USE pins the model. AUTO routes the word “capital” to fixture 2 and “times” to fixture 3. A tie or unknown word selects the first catalog entry.
