@@ -1,0 +1,67 @@
+PasTinyJev 1.0  FPU yes
+heap=524096 largest=524096 stack=15860
+active 1 Support triage decisions ms=246
+heap=39896 largest=39896 stack=15860
+1 Support triage decisions
+2 TINY 2.1 general answers
+state chars=70
+q0 noul=0.9874 ms=2173
+q1 choice=0 confidence=0.9943 0=0.9992 1=0.0000 2=0.0008 ms=1439
+q2 score=0.0000 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000 ms=1148
+state chars=56
+q3 noul=0.1662 ms=963
+q4 choice=1 confidence=0.9994 0=0.0000 1=0.9999 2=0.0001 ms=1248
+q5 score=1.0000 confidence=0.9999 0=0.0000 1=1.0000 2=0.0000 ms=798
+state chars=31
+q6 noul=0.9653 ms=666
+q7 noul=0.0101 ms=256
+state chars=72
+q8 choice=0 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000 ms=2567
+q9 noul=0.0440 ms=536
+state chars=54
+q10 choice=1 confidence=0.9922 0=0.0014 1=0.9986 2=0.0000 3=0.0000 ms=1464
+q11 noul=0.9701 ms=593
+q12 noul=0.9914 ms=362
+state chars=70
+q13 noul=0.0130 ms=1272
+q14 choice=1 confidence=0.3128 0=0.0579 1=0.7028 2=0.2393 ms=698
+q15 score=1.6433 confidence=0.4030 0=0.0007 1=0.3554 2=0.6439 ms=1138
+state chars=79
+q16 noul=0.0140 ms=1305
+q17 choice=0 confidence=0.3167 0=0.6959 1=0.0503 2=0.2538 ms=1075
+state chars=53
+q18 noul=0.9778 ms=1235
+q19 choice=0 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000 ms=642
+q20 noul=0.0154 ms=522
+state chars=58
+q21 choice=0 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000 ms=1928
+q22 noul=0.1660 ms=243
+q23 noul=0.1174 ms=478
+state chars=80
+q24 noul=0.2937 ms=1635
+q25 choice=0 confidence=0.9998 0=1.0000 1=0.0000 2=0.0000 3=0.0000 ms=1255
+q26 score=1.4378 confidence=0.3748 0=0.0002 1=0.5619 2=0.4380 ms=756
+state chars=80
+q27 score=2.0000 confidence=1.0000 0=0.0000 1=0.0000 2=1.0000 ms=2201
+q28 choice=1 confidence=0.6766 0=0.0233 1=0.9095 2=0.0672 ms=756
+q29 noul=0.0179 ms=398
+state chars=73
+q30 score=0.0022 confidence=0.9860 0=0.9979 1=0.0021 2=0.0001 ms=1459
+q31 noul=0.9739 ms=357
+q32 choice=0 confidence=0.9995 0=1.0000 1=0.0000 2=0.0000 ms=1613
+state chars=59
+q33 choice=0 confidence=0.9999 0=1.0000 1=0.0000 2=0.0000 ms=2254
+q34 score=1.0001 confidence=0.9995 0=0.0000 1=0.9999 2=0.0001 ms=485
+state chars=80
+q35 noul=0.1878 ms=1354
+q36 choice=0 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000 ms=727
+state chars=50
+q37 choice=0 confidence=0.9995 0=1.0000 1=0.0000 2=0.0000 ms=1965
+q38 noul=0.0105 ms=392
+state chars=66
+q39 noul=0.9465 ms=1914
+active 2 TINY 2.1 general answers ms=106
+7 times 8 is 56.
+answer ms=560 chars=16
+active 1 Support triage decisions ms=94
+heap=39896 largest=39896 stack=15072

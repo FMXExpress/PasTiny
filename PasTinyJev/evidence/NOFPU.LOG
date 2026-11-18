@@ -1,0 +1,15 @@
+PasTinyJev 1.0  FPU no
+heap=524096 largest=524096 stack=15860
+active 1 Support triage decisions ms=1001
+heap=39896 largest=39896 stack=15860
+1 Support triage decisions
+2 TINY 2.1 general answers
+state chars=70
+q0 noul=0.9874 ms=56431
+q1 choice=0 confidence=0.9943 0=0.9992 1=0.0000 2=0.0008 ms=42817
+q2 score=0.0000 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000 ms=28245
+state chars=56
+q3 noul=0.1662 ms=28274
+q4 choice=1 confidence=0.9994 0=0.0000 1=0.9999 2=0.0001 ms=40822
+q5 score=1.0000 confidence=0.9999 0=0.0000 1=1.0000 2=0.0000 ms=23812
+heap=39896 largest=39896 stack=15072
