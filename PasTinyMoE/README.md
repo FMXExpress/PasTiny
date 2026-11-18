@@ -20,6 +20,8 @@ The loader streams 4 KiB at a time into fixed allocations, checks shape, exact s
 
 Use your own TPC.EXE and TURBO.TPL from Borland Turbo Pascal 7 on DOS. Run BUILD.BAT from this directory. EXPERT.EXE is the integer/ASM build. EXPNO.EXE, EXPFLT.EXE and EXPDBG.EXE are alternatives. The program uses far callbacks, a 16 KiB stack and TP7 software emulation. The compiler stays on the development machine.
 
+To replay the full target regression on a host, set TP7_DIR to your compiler directory and DOSBOX_X to a DOSBox-X executable, then run `tests/run_tp7.sh`. It creates an isolated build directory and records FPU-on and no-FPU transcripts.
+
 On a host, run the following from this directory with fresh output paths.
 
 ```sh
@@ -47,3 +49,5 @@ Copy the ZIP contents to a new versioned directory on the card, such as PEX001. 
 ## Provenance
 
 Derived from FMXExpress/PasTiny commit 619052aab899ad837b003093752bc36008558eff and its WollyMonjac/Tiny-2.1 model. The general model SHA-256 is 4b603237070ad9084433537bf8d6c7470d0fc583e6a4f1f03c00cd17264e7095. See ORIGINAL.TXT, LICENSE and the parent project's attribution for upstream material. See [validation records](evidence/) for compiler logs, runtime transcripts and emulator settings.
+
+The production TP7 build matched all 60 reference answers in DOSBox-X with the emulated FPU disabled. With the FPU enabled, each of the integer/ASM, NOASM and float builds matched 60/60. Free heap and largest free block both stayed at 49,160 bytes across 300 switches. [Transcripts, memory observations and timing results](evidence/README.md)

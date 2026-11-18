@@ -1,0 +1,12 @@
+catalog/init ms=4
+FPU no
+heap=534208 largest=534208 stack=15860
+load/recovery ms=721
+active 1 Baseline fixture 1
+heap=50008 largest=50008 stack=15860
+route ms=1
+load/recovery ms=596
+active 2 Baseline fixture 2
+Lima.
+answer ms=308951 chars=5
+first char ms=269398 output span ms=28893

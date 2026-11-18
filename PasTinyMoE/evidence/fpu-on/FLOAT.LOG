@@ -1,0 +1,276 @@
+catalog/init ms=4
+FPU yes
+heap=534208 largest=534208 stack=15860
+load/recovery ms=135
+active 1 Baseline fixture 1
+heap=50008 largest=50008 stack=15860
+route ms=0
+load/recovery ms=200
+active 2 Baseline fixture 2
+Lima.
+answer ms=2496 chars=5
+first char ms=2089 output span ms=310
+route ms=0
+load/recovery ms=211
+active 1 Baseline fixture 1
+No, a whale is a mammal.
+answer ms=3670 chars=24
+first char ms=1512 output span ms=2043
+route ms=0
+load/recovery ms=218
+active 2 Baseline fixture 2
+It is in France.
+answer ms=3746 chars=16
+first char ms=2732 output span ms=954
+route ms=0
+It is Austin.
+answer ms=2329 chars=13
+first char ms=1448 output span ms=828
+route ms=0
+load/recovery ms=117
+active 1 Baseline fixture 1
+People there speak English and French.
+answer ms=4362 chars=38
+first char ms=1881 output span ms=2438
+route ms=0
+The Japanese yen.
+answer ms=2217 chars=17
+first char ms=1452 output span ms=688
+route ms=0
+Latvia and Russia.
+answer ms=2559 chars=18
+first char ms=1639 output span ms=886
+route ms=0
+Yes, France borders Spain.
+answer ms=3407 chars=26
+first char ms=1697 output span ms=1668
+route ms=0
+load/recovery ms=106
+active 3 Baseline fixture 3
+7 times 8 is 56.
+answer ms=1471 chars=16
+first char ms=818 output span ms=569
+route ms=0
+load/recovery ms=61
+active 1 Baseline fixture 1
+It is 200.
+answer ms=1468 chars=10
+first char ms=951 output span ms=425
+route ms=0
+450 is bigger.
+answer ms=1680 chars=14
+first char ms=987 output span ms=630
+route ms=0
+Forty-seven.
+answer ms=1490 chars=12
+first char ms=949 output span ms=503
+route ms=0
+31 is odd.
+answer ms=1255 chars=10
+first char ms=799 output span ms=396
+route ms=0
+XIV.
+answer ms=1595 chars=4
+first char ms=1379 output span ms=181
+route ms=0
+E-L-E-P-H-A-N-T.
+answer ms=1217 chars=16
+first char ms=540 output span ms=613
+route ms=0
+Tac.
+answer ms=1588 chars=4
+first char ms=1278 output span ms=207
+route ms=0
+L.
+answer ms=1417 chars=2
+first char ms=1304 output span ms=83
+route ms=0
+Mice.
+answer ms=895 chars=5
+first char ms=567 output span ms=234
+route ms=0
+It is went.
+answer ms=1288 chars=11
+first char ms=883 output span ms=387
+route ms=0
+It is cold.
+answer ms=1185 chars=11
+first char ms=556 output span ms=545
+route ms=0
+Large.
+answer ms=1518 chars=6
+first char ms=1262 output span ms=216
+route ms=0
+It is best.
+answer ms=1742 chars=11
+first char ms=1270 output span ms=378
+route ms=0
+A cow says moo.
+answer ms=1948 chars=15
+first char ms=1130 output span ms=775
+route ms=0
+A joey.
+answer ms=1710 chars=7
+first char ms=1210 output span ms=452
+route ms=0
+Eight.
+answer ms=1979 chars=6
+first char ms=1645 output span ms=275
+route ms=0
+An owl.
+answer ms=1294 chars=7
+first char ms=966 output span ms=286
+route ms=0
+A pride.
+answer ms=1817 chars=8
+first char ms=1443 output span ms=337
+route ms=0
+The cheetah.
+answer ms=1770 chars=12
+first char ms=1271 output span ms=456
+route ms=0
+It is Au.
+answer ms=1456 chars=9
+first char ms=1124 output span ms=269
+route ms=0
+Two.
+answer ms=2101 chars=4
+first char ms=1776 output span ms=254
+route ms=0
+In Spanish it is gracias.
+answer ms=3068 chars=25
+first char ms=1658 output span ms=1328
+route ms=0
+Alexander Graham Bell.
+answer ms=2052 chars=22
+first char ms=1247 output span ms=749
+route ms=0
+The Pacific Ocean.
+answer ms=1494 chars=18
+first char ms=762 output span ms=659
+route ms=0
+Paris, France.
+answer ms=1588 chars=14
+first char ms=1004 output span ms=520
+route ms=0
+Six.
+answer ms=1828 chars=4
+first char ms=1669 output span ms=138
+route ms=0
+Disk Operating System.
+answer ms=1331 chars=22
+first char ms=515 output span ms=785
+route ms=0
+I cannot see a clock. Try the TIME command.
+answer ms=2895 chars=43
+first char ms=702 output span ms=2161
+route ms=0
+Why did the PC go to the doctor? It had a virus.
+answer ms=2649 chars=48
+first char ms=648 output span ms=1925
+route ms=0
+15 minus 6 is 9.
+answer ms=1475 chars=16
+first char ms=750 output span ms=631
+route ms=0
+In German it is danke.
+answer ms=2716 chars=22
+first char ms=1689 output span ms=996
+route ms=0
+load/recovery ms=133
+active 2 Baseline fixture 2
+The capital of Estonia is Tallinn.
+answer ms=3276 chars=34
+first char ms=1506 output span ms=1738
+route ms=0
+load/recovery ms=119
+active 1 Baseline fixture 1
+C-O-M-P-U-T-E-R.
+answer ms=1497 chars=16
+first char ms=937 output span ms=521
+route ms=0
+In Spanish it is gracias.
+answer ms=2384 chars=25
+first char ms=1363 output span ms=971
+route ms=0
+Africa, Antarctica, Asia, Australia, Europe, North America and South America.
+answer ms=5021 chars=77
+first char ms=842 output span ms=4136
+route ms=0
+load/recovery ms=113
+active 3 Baseline fixture 3
+12 times 11 is 132.
+answer ms=1939 chars=19
+first char ms=956 output span ms=901
+route ms=0
+load/recovery ms=85
+active 1 Baseline fixture 1
+It is 22.
+answer ms=1316 chars=9
+first char ms=804 output span ms=483
+route ms=0
+William Shakespeare.
+answer ms=2013 chars=20
+first char ms=946 output span ms=1024
+route ms=0
+load/recovery ms=120
+active 2 Baseline fixture 2
+The capital of Australia is Canberra.
+answer ms=3484 chars=37
+first char ms=1397 output span ms=2000
+route ms=0
+load/recovery ms=71
+active 1 Baseline fixture 1
+It has two legs.
+answer ms=3465 chars=16
+first char ms=2374 output span ms=1018
+route ms=0
+Small.
+answer ms=1693 chars=6
+first char ms=1344 output span ms=307
+route ms=0
+God.
+answer ms=1115 chars=4
+first char ms=970 output span ms=124
+route ms=0
+XCIX.
+answer ms=1319 chars=5
+first char ms=1166 output span ms=122
+route ms=0
+Three hundred and fifteen.
+answer ms=1778 chars=26
+first char ms=737 output span ms=1010
+route ms=0
+load/recovery ms=126
+active 2 Baseline fixture 2
+The capital of Mongolia is Ulan Bator.
+answer ms=3744 chars=38
+first char ms=1779 output span ms=1925
+route ms=0
+load/recovery ms=93
+active 1 Baseline fixture 1
+27 is smaller.
+answer ms=2209 chars=14
+first char ms=1482 output span ms=685
+route ms=0
+It is children.
+answer ms=1943 chars=15
+first char ms=1147 output span ms=741
+route ms=0
+It is Fe.
+answer ms=2296 chars=9
+first char ms=1860 output span ms=418
+route ms=0
+In Africa.
+answer ms=1386 chars=10
+first char ms=1013 output span ms=367
+route ms=0
+Portuguese.
+answer ms=2487 chars=11
+first char ms=1811 output span ms=641
+route ms=0
+load/recovery ms=122
+active 2 Baseline fixture 2
+Ottawa.
+answer ms=1632 chars=7
+first char ms=1328 output span ms=254
