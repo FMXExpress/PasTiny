@@ -19,3 +19,7 @@ specialists/pcbench/runtime/*.IN -text
 specialists/worddesk/*.LOG -text
 specialists/worddesk/*.IN -text
 specialists/worddesk/runtime/*.IN -text
+
+specialists/punctuation/*.LOG -text
+specialists/punctuation/*.IN -text
+specialists/punctuation/runtime/*.IN -text

@@ -4,7 +4,7 @@ The supplied excerpt begins at ID 037. It defines 64 planned entries. The catalo
 
 ## Implementation status
 
-**8 of 100 trained and packaged** in [SPEC8](../specialists/worddesk/). The initial entries are DOS Guide (provisional 001), Turbo Pascal Coach (provisional 002), PC Workbench (provisional 003), Word Bench (041) and Pocket Naturalist (051). The latest batch adds Spelling Helper (042), Confused Words (043) and Grammar Terms (044). The remaining 92 slots include planned entries and entries awaiting a supplied scope. SD100 remains the size and catalog-capacity fixture. Punctuation (045) is next if continuing the word desk in catalog order.
+**9 of 100 trained and packaged** in [SPEC9](../specialists/punctuation/). The initial entries are DOS Guide (provisional 001), Turbo Pascal Coach (provisional 002), PC Workbench (provisional 003), Word Bench (041) and Pocket Naturalist (051). The word desk also includes Spelling Helper (042), Confused Words (043), Grammar Terms (044) and Punctuation (045). The remaining 91 slots include planned entries and entries awaiting a supplied scope. SD100 remains the size and catalog-capacity fixture. Synonyms (046) is next if continuing the word desk in catalog order.
 
 ## Supplied catalog
 

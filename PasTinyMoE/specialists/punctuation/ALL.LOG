@@ -1,0 +1,130 @@
+catalog/init ms=11
+FPU yes
+heap=530096 largest=530096 stack=15860
+load/recovery ms=952
+active 1 DOS Guide
+heap=45896 largest=45896 stack=15860
+route ms=0
+load/recovery ms=167
+active 45 Punctuation
+Separates items in a list.
+answer ms=1438 chars=26
+first char ms=722 output span ms=657
+route ms=0
+Separates items in a list.
+answer ms=2015 chars=26
+first char ms=1235 output span ms=711
+route ms=0
+ eastems a quieth a compe.
+answer ms=1399 chars=26
+first char ms=907 output span ms=457
+route ms=0
+Ends a statement.
+answer ms=904 chars=17
+first char ms=594 output span ms=275
+route ms=0
+Ends a statement.
+answer ms=852 chars=17
+first char ms=552 output span ms=268
+route ms=0
+period.
+answer ms=1042 chars=7
+first char ms=937 output span ms=72
+route ms=0
+Can mark possession.
+answer ms=1023 chars=20
+first char ms=619 output span ms=357
+route ms=1
+Can mark possession.
+answer ms=1118 chars=20
+first char ms=804 output span ms=331
+route ms=1
+apostrophe.
+answer ms=1886 chars=11
+first char ms=1592 output span ms=248
+route ms=0
+Can introduce a list.
+answer ms=1047 chars=21
+first char ms=637 output span ms=370
+route ms=0
+Can introduce a list.
+answer ms=1148 chars=21
+first char ms=725 output span ms=382
+route ms=1
+ends statement.
+answer ms=1233 chars=15
+first char ms=976 output span ms=272
+route ms=0
+Can link related independent clauses.
+answer ms=1452 chars=37
+first char ms=761 output span ms=703
+route ms=0
+Can link related independent clauses.
+answer ms=1558 chars=37
+first char ms=823 output span ms=692
+route ms=0
+Can mark postrophe.
+answer ms=1665 chars=19
+first char ms=1235 output span ms=385
+route ms=0
+Can join words in a compound.
+answer ms=1204 chars=29
+first char ms=644 output span ms=518
+route ms=1
+Can join words in a compound.
+answer ms=1068 chars=29
+first char ms=611 output span ms=426
+route ms=0
+hyphen.
+answer ms=782 chars=7
+first char ms=707 output span ms=48
+route ms=0
+Can mark posnitype.
+answer ms=999 chars=19
+first char ms=729 output span ms=297
+route ms=1
+Ends a statement.
+answer ms=914 chars=17
+first char ms=680 output span ms=207
+route ms=0
+Can mark possession.
+answer ms=760 chars=20
+first char ms=520 output span ms=213
+route ms=1
+Can link related independent clauses.
+answer ms=1222 chars=37
+first char ms=690 output span ms=502
+route ms=0
+Can link related independent clauses.
+answer ms=1000 chars=37
+first char ms=515 output span ms=512
+route ms=1
+Can join words in a compound.
+answer ms=983 chars=29
+first char ms=521 output span ms=427
+route ms=1
+semicolon.
+answer ms=801 chars=10
+first char ms=633 output span ms=141
+route ms=0
+period.
+answer ms=711 chars=7
+first char ms=639 output span ms=100
+route ms=0
+comma.
+answer ms=687 chars=6
+first char ms=581 output span ms=79
+route ms=0
+comma.
+answer ms=737 chars=6
+first char ms=638 output span ms=73
+route ms=1
+semicolon.
+answer ms=789 chars=10
+first char ms=686 output span ms=76
+route ms=0
+hyphen.
+answer ms=792 chars=7
+first char ms=714 output span ms=105
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.

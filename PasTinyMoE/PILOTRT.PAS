@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC9}{$DEFINE SPEC8}{$ENDIF}
 {$IFDEF SPEC8}{$DEFINE SPEC5}{$ENDIF}
 {$IFDEF SPEC5}{$DEFINE SPEC4}{$ENDIF}
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
@@ -42,7 +43,7 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
-{$I TOPICS.INC}
+{$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -67,9 +68,11 @@ const DOSWords='|dos|dir|cd|cls|type|file|files|directory|directories|folder|fol
  {$ENDIF}
 var I,Start:Integer; WordKey:String; Hits:Byte;
  {$IFDEF SPEC8}Extra,Matched:Byte;{$ENDIF}
+ {$IFDEF SPEC9}SpecificPascal:Boolean;{$ENDIF}
 begin
  Hits:=0; I:=1;
  {$IFDEF SPEC8}Extra:=0;{$ENDIF}
+ {$IFDEF SPEC9}SpecificPascal:=False;{$ENDIF}
  {$IFDEF SPEC5}if Pos(' read only memory ',WordLine(Q))>0 then Hits:=16;{$ENDIF}
  while I<=Length(Q) do begin
   Start:=I;
@@ -87,13 +90,19 @@ begin
    {$ENDIF}
    WordKey:='|'+Copy(Q,Start,I-Start)+'|';
    if Pos(WordKey,DOSWords)>0 then Hits:=Hits or 1;
-   if Pos(WordKey,PascalWords)>0 then Hits:=Hits or 2;
+   if Pos(WordKey,PascalWords)>0 then begin
+    Hits:=Hits or 2;
+    {$IFDEF SPEC9}
+    if (WordKey<>'|statement|') and (WordKey<>'|compound|') then SpecificPascal:=True;
+    {$ENDIF}
+   end;
    if Pos(WordKey,NatureWords)>0 then Hits:=Hits or 4;
    {$IFDEF SPEC4}if Pos(WordKey,WordList)>0 then Hits:=Hits or 8;{$ENDIF}
    {$IFDEF SPEC5}if Pos(WordKey,PCWords)>0 then Hits:=Hits or 16;{$ENDIF}
   end else Inc(I)
  end;
  {$IFDEF SPEC8}
+ {$IFDEF SPEC9}if (Extra=45) and (Hits=2) and not SpecificPascal then Hits:=0;{$ENDIF}
  if Extra<>0 then begin
   if Hits=0 then PilotDomain:=Extra else PilotDomain:=0;
   Exit

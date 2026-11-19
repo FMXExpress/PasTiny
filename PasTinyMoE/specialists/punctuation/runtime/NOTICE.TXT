@@ -1,0 +1,4 @@
+SPEC9: nine complete independently trained specialist weights.
+USE 45 for Punctuation. CHECK.BAT tests automatic selection.
+Derived from WollyMonjac/Tiny-2.1 and FMXExpress/WebTiny.
+Training data and results: FMXExpress/PasTiny, PasTinyMoE/specialists/punctuation.

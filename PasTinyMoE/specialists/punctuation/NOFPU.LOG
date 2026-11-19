@@ -1,0 +1,15 @@
+catalog/init ms=16
+FPU no
+heap=530096 largest=530096 stack=15860
+load/recovery ms=978
+active 1 DOS Guide
+heap=45896 largest=45896 stack=15860
+load/recovery ms=281
+active 44 Grammar Terms
+route ms=1
+load/recovery ms=251
+active 45 Punctuation
+Separates items in a list.
+answer ms=20380 chars=26
+first char ms=9220 output span ms=10745
+heap=45896 largest=45896 stack=15860

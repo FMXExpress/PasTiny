@@ -1,0 +1,18 @@
+{"question": "give me a short explanation of the comma", "answer": "Separates items in a list.", "fact": "comma", "group": "explain"}
+{"question": "in apples pears and plums why put a comma after apples", "answer": "Separates items in a list.", "fact": "comma", "group": "explain"}
+{"question": "which punctuation would let a writer separate items in a list", "answer": "comma.", "fact": "comma", "group": "choose"}
+{"question": "give me a short explanation of the period", "answer": "Ends a statement.", "fact": "period", "group": "explain"}
+{"question": "what job does a period do after a statement", "answer": "Ends a statement.", "fact": "period", "group": "explain"}
+{"question": "which punctuation would let a writer end a statement", "answer": "period.", "fact": "period", "group": "choose"}
+{"question": "give me a short explanation of the apostrophe", "answer": "Can mark possession.", "fact": "apostrophe", "group": "explain"}
+{"question": "in the dog's bowl what is the apostrophe doing", "answer": "Can mark possession.", "fact": "apostrophe", "group": "explain"}
+{"question": "which punctuation would let a writer show that something belongs to someone", "answer": "apostrophe.", "fact": "apostrophe", "group": "choose"}
+{"question": "give me a short explanation of the colon", "answer": "Can introduce a list.", "fact": "colon", "group": "explain"}
+{"question": "what can a colon before a list tell the reader", "answer": "Can introduce a list.", "fact": "colon", "group": "explain"}
+{"question": "which punctuation would let a writer introduce a list", "answer": "colon.", "fact": "colon", "group": "choose"}
+{"question": "give me a short explanation of the semicolon", "answer": "Can link related independent clauses.", "fact": "semicolon", "group": "explain"}
+{"question": "how can a semicolon connect two complete thoughts", "answer": "Can link related independent clauses.", "fact": "semicolon", "group": "explain"}
+{"question": "which punctuation would let a writer link two related independent clauses", "answer": "semicolon.", "fact": "semicolon", "group": "choose"}
+{"question": "give me a short explanation of the hyphen", "answer": "Can join words in a compound.", "fact": "hyphen", "group": "explain"}
+{"question": "why use a hyphen in a compound like well-known", "answer": "Can join words in a compound.", "fact": "hyphen", "group": "explain"}
+{"question": "which punctuation would let a writer join words in a compound", "answer": "hyphen.", "fact": "hyphen", "group": "choose"}

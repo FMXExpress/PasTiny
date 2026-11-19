@@ -103,3 +103,5 @@ The [four-expert SD edition](PasTinyMoE/dist/SPEC4.ZIP) adds [Word Bench](PasTin
 The [five-expert SD edition](PasTinyMoE/dist/SPEC5.ZIP) includes [PC Workbench](PasTinyMoE/specialists/pcbench/) and a TP7 coprocessor status command.
 
 [Download the eight-expert SD edition](PasTinyMoE/dist/SPEC8.ZIP) or see the [100-expert plan and progress](PasTinyMoE/docs/expert-plan.md).
+
+The [nine-expert SD edition](PasTinyMoE/dist/SPEC9.ZIP) adds [Punctuation](PasTinyMoE/specialists/punctuation/).

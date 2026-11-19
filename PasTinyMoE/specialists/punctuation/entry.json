@@ -1,0 +1,8 @@
+{
+  "id": 45,
+  "name": "PUNCT.BIN",
+  "source": "specialists/models/PUNCT.BIN",
+  "sha256": "4c94dcbac2a3ea16ca8b40419228eb0208977d041a3b2ac5a1452d970c82bd76",
+  "keyword": "punctuation",
+  "title": "Punctuation"
+}
