@@ -99,3 +99,5 @@ The [PasTinyMoE runtime and downloads](PasTinyMoE/) add manual and keyword-based
 The [three trained pilot specialists](PasTinyMoE/specialists/) are available separately in [SPEC3.ZIP](PasTinyMoE/dist/SPEC3.ZIP).
 
 The [four-expert SD edition](PasTinyMoE/dist/SPEC4.ZIP) adds [Word Bench](PasTinyMoE/specialists/wordbench/) for eight common adjectives.
+
+The [five-expert SD edition](PasTinyMoE/dist/SPEC5.ZIP) includes [PC Workbench](PasTinyMoE/specialists/pcbench/) and a TP7 coprocessor status command.

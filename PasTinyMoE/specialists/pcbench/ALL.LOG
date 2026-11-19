@@ -1,0 +1,93 @@
+catalog/init ms=7
+FPU yes
+heap=531040 largest=531040 stack=15860
+load/recovery ms=814
+active 1 DOS Guide
+heap=46840 largest=46840 stack=15860
+route ms=0
+load/recovery ms=180
+active 3 PC Workbench
+Holds working data while powered.
+answer ms=791 chars=33
+first char ms=394 output span ms=371
+route ms=1
+Holds working data while powered.
+answer ms=700 chars=33
+first char ms=307 output span ms=368
+route ms=0
+Holds one a when.
+answer ms=798 chars=17
+first char ms=602 output span ms=170
+route ms=0
+Autalloed without.
+answer ms=561 chars=18
+first char ms=284 output span ms=250
+route ms=0
+Keeps firmware without power.
+answer ms=669 chars=29
+first char ms=307 output span ms=337
+route ms=0
+Executes instructions.
+answer ms=802 chars=22
+first char ms=541 output span ms=291
+route ms=0
+Sends bits one at a time.
+answer ms=586 chars=25
+first char ms=308 output span ms=255
+route ms=1
+Holds working data while powered.
+answer ms=685 chars=33
+first char ms=325 output span ms=335
+route ms=0
+Executes instructions.
+answer ms=769 chars=22
+first char ms=498 output span ms=245
+route ms=0
+Accelerates floating point math.
+answer ms=630 chars=32
+first char ms=229 output span ms=376
+route ms=0
+Accelerates floating point math.
+answer ms=691 chars=32
+first char ms=320 output span ms=346
+route ms=0
+Accelerates floating point math.
+answer ms=874 chars=32
+first char ms=472 output span ms=376
+route ms=0
+Keeps data when power is off.
+answer ms=608 chars=29
+first char ms=291 output span ms=293
+route ms=0
+Keeps data when power is off.
+answer ms=722 chars=29
+first char ms=370 output span ms=327
+route ms=0
+Executes instructions.
+answer ms=804 chars=22
+first char ms=538 output span ms=295
+route ms=0
+Sends bits one at a time.
+answer ms=824 chars=25
+first char ms=446 output span ms=352
+route ms=0
+Sends bits one at a time.
+answer ms=706 chars=25
+first char ms=391 output span ms=290
+route ms=0
+Keeps data when is severa.
+answer ms=942 chars=26
+first char ms=606 output span ms=364
+route ms=0
+Sends several bits at once.
+answer ms=914 chars=27
+first char ms=518 output span ms=368
+route ms=0
+Sends several bits at once.
+answer ms=808 chars=27
+first char ms=475 output span ms=307
+route ms=0
+Sends several bits at once.
+answer ms=1056 chars=27
+first char ms=690 output span ms=339
+FPU detected: yes

@@ -2,7 +2,7 @@ program Expert;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
-uses TNYNET,TNYSYS,EXPCAT;
+uses TNYNET,TNYSYS,EXPCAT{$IFDEF SPEC5},PILOTRT{$ENDIF};
 var Active,J,K,Code:Integer; Pinned,Interactive:Boolean; Q,A:String; Tokens,T,First,Last,Elapsed,Start:Longint;
 procedure MemoryReport;
 begin
@@ -48,6 +48,8 @@ begin
   if Q='quit' then Break
   else if Q='list' then begin for J:=1 to Count do WriteLn(Items[J].Id,' ',Items[J].Title) end
   else if Q='auto' then Pinned:=False
+  {$IFDEF SPEC5}else if FPUQuestion(Q) then WriteLn('FPU detected: ',FPUName)
+  else if OtherPCStatus(Q) then WriteLn('Use MEM for program heap or FPU for coprocessor detection.'){$ENDIF}
   else if Q='mem' then MemoryReport
   else if Copy(Q,1,4)='use ' then begin
    Val(Copy(Q,5,255),K,Code); J:=0; if Code=0 then J:=FindId(K);

@@ -1,0 +1,22 @@
+catalog/init ms=11
+FPU no
+heap=531040 largest=531040 stack=15860
+load/recovery ms=881
+active 1 DOS Guide
+heap=46840 largest=46840 stack=15860
+1 DOS Guide
+2 Turbo Pascal Coach
+51 Pocket Naturalist
+41 Word Bench
+3 PC Workbench
+load/recovery ms=300
+active 41 Word Bench
+route ms=0
+load/recovery ms=276
+active 3 PC Workbench
+Accelerates floating point math.
+answer ms=14865 chars=32
+first char ms=4893 output span ms=9627
+FPU detected: no
+Use MEM for program heap or FPU for coprocessor detection.
+heap=46840 largest=46840 stack=15860

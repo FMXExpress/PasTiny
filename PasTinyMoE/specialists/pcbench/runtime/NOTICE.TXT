@@ -1,0 +1,3 @@
+Five trained pilot models derived from WollyMonjac/Tiny-2.1 with FMXExpress/WebTiny.
+PC Workbench: USE 3. FPU detects a coprocessor. MEM reports program heap.
+Source and evaluation: FMXExpress/PasTiny, PasTinyMoE/specialists/pcbench.

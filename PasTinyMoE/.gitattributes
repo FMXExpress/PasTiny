@@ -11,3 +11,7 @@ specialists/pascal-v2/*.LOG -text
 specialists/wordbench/*.LOG -text
 specialists/wordbench/*.IN -text
 specialists/wordbench/runtime/*.IN -text
+
+specialists/pcbench/*.LOG -text
+specialists/pcbench/*.IN -text
+specialists/pcbench/runtime/*.IN -text

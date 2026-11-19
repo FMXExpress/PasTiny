@@ -1,0 +1,21 @@
+{"question": "why does a program need ram", "answer": "Holds working data while powered.", "fact": "RAM"}
+{"question": "tell me the main purpose of ram", "answer": "Holds working data while powered.", "fact": "RAM"}
+{"question": "in a 386 system what task is handled by the working ram", "answer": "Holds working data while powered.", "fact": "RAM"}
+{"question": "what is rom for at startup", "answer": "Keeps firmware without power.", "fact": "ROM"}
+{"question": "tell me the main purpose of rom", "answer": "Keeps firmware without power.", "fact": "ROM"}
+{"question": "in a 386 system what task is handled by the rom chip", "answer": "Keeps firmware without power.", "fact": "ROM"}
+{"question": "which job does the cpu perform", "answer": "Executes instructions.", "fact": "CPU"}
+{"question": "tell me the main purpose of cpu", "answer": "Executes instructions.", "fact": "CPU"}
+{"question": "in a 386 system what task is handled by the 386 cpu", "answer": "Executes instructions.", "fact": "CPU"}
+{"question": "what does a 387 do", "answer": "Accelerates floating point math.", "fact": "FPU"}
+{"question": "tell me the main purpose of fpu", "answer": "Accelerates floating point math.", "fact": "FPU"}
+{"question": "in a 386 system what task is handled by the 387", "answer": "Accelerates floating point math.", "fact": "FPU"}
+{"question": "why use storage for documents", "answer": "Keeps data when power is off.", "fact": "Storage"}
+{"question": "tell me the main purpose of storage", "answer": "Keeps data when power is off.", "fact": "Storage"}
+{"question": "in a 386 system what task is handled by the disk drive", "answer": "Keeps data when power is off.", "fact": "Storage"}
+{"question": "how does a serial port transmit bits", "answer": "Sends bits one at a time.", "fact": "Serial"}
+{"question": "tell me the main purpose of serial port", "answer": "Sends bits one at a time.", "fact": "Serial"}
+{"question": "in a 386 system what task is handled by the serial interface", "answer": "Sends bits one at a time.", "fact": "Serial"}
+{"question": "how does a parallel port transmit bits", "answer": "Sends several bits at once.", "fact": "Parallel"}
+{"question": "tell me the main purpose of parallel port", "answer": "Sends several bits at once.", "fact": "Parallel"}
+{"question": "in a 386 system what task is handled by the parallel interface", "answer": "Sends several bits at once.", "fact": "Parallel"}

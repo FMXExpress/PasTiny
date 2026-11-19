@@ -1,0 +1,8 @@
+term	aliases	answer	probe
+RAM	ram|working ram|main ram	Holds working data while powered.	why does a program need ram
+ROM	rom|rom chip|read only memory	Keeps firmware without power.	what is rom for at startup
+CPU	cpu|386 cpu|processor	Executes instructions.	which job does the cpu perform
+FPU	fpu|387|math coprocessor	Accelerates floating point math.	what does a 387 do
+Storage	storage|disk drive|hard disk	Keeps data when power is off.	why use storage for documents
+Serial	serial port|serial interface|serial link	Sends bits one at a time.	how does a serial port transmit bits
+Parallel	parallel port|parallel interface|parallel link	Sends several bits at once.	how does a parallel port transmit bits

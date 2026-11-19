@@ -8,7 +8,7 @@ PasTinyMoE runs one complete TNY2 network at a time on a 386 with conventional m
 | [SD100.ZIP](dist/SD100.ZIP) | 38,218,349 | 100 model files, 38,180,800 bytes of weights |
 | [Comparison builds](dist/COMPARE.ZIP) | | Pure Pascal integer, float and debug executables |
 
-**Four trained pilot specialists are available.** The [four-expert SD package](dist/SPEC4.ZIP) adds [Word Bench, expert 041](specialists/wordbench/), covering eight common adjectives. In the three-expert floppy edition, DOS Guide, Turbo Pascal Coach and Pocket Naturalist each cover four facts. Download [SPEC3.ZIP](dist/SPEC3.ZIP) or the [specialist floppy image](dist/SPEC3.IMG). See the [syllabi and evaluation](specialists/README.md). FLOPPY3 and SD100 in the table above are the original capacity fixtures. The five-bank shared-core edition is deferred.
+**Five trained pilot specialists are available.** The [five-expert SD package](dist/SPEC5.ZIP) adds [PC Workbench](specialists/pcbench/) for 386 hardware questions. The [four-expert SD package](dist/SPEC4.ZIP) adds [Word Bench, expert 041](specialists/wordbench/), covering eight common adjectives. In the three-expert floppy edition, DOS Guide, Turbo Pascal Coach and Pocket Naturalist each cover four facts. Download [SPEC3.ZIP](dist/SPEC3.ZIP) or the [specialist floppy image](dist/SPEC3.IMG). See the [syllabi and evaluation](specialists/README.md). FLOPPY3 and SD100 in the table above are the original capacity fixtures. The five-bank shared-core edition is deferred.
 
 The [expert plan](docs/expert-plan.md) defines the proposed scopes, routing behavior and training order. The first three planned specialists are DOS Guide, Turbo Pascal Coach and Pocket Naturalist.
 
