@@ -1,0 +1,108 @@
+catalog/init ms=3
+FPU yes
+heap=532512 largest=532512 stack=15860
+load/recovery ms=518
+active 1 DOS Guide
+heap=48312 largest=48312 stack=15860
+route ms=1
+load/recovery ms=193
+active 41 Word Bench
+Short in duration.
+answer ms=804 chars=18
+first char ms=514 output span ms=262
+route ms=0
+Short in duration.
+answer ms=810 chars=18
+first char ms=562 output span ms=218
+route ms=0
+Easily broken.
+answer ms=685 chars=14
+first char ms=465 output span ms=191
+route ms=0
+Easily broken.
+answer ms=777 chars=14
+first char ms=543 output span ms=204
+route ms=0
+Without sound.
+answer ms=643 chars=14
+first char ms=433 output span ms=183
+route ms=0
+Without sound.
+answer ms=744 chars=14
+first char ms=570 output span ms=145
+route ms=0
+Very fast.
+answer ms=554 chars=10
+first char ms=408 output span ms=120
+route ms=0
+Very fast.
+answer ms=666 chars=10
+first char ms=517 output span ms=122
+route ms=0
+Not occupied.
+answer ms=599 chars=13
+first char ms=432 output span ms=140
+route ms=0
+Not occupied.
+answer ms=728 chars=13
+first char ms=540 output span ms=160
+route ms=0
+Slightly wet.
+answer ms=564 chars=13
+first char ms=389 output span ms=148
+route ms=0
+Slightly wet.
+answer ms=751 chars=13
+first char ms=558 output span ms=136
+route ms=0
+Not wide.
+answer ms=805 chars=9
+first char ms=638 output span ms=136
+route ms=0
+Not wide.
+answer ms=710 chars=9
+first char ms=608 output span ms=128
+route ms=0
+Very old.
+answer ms=606 chars=9
+first char ms=524 output span ms=109
+route ms=0
+Very old.
+answer ms=762 chars=9
+first char ms=613 output span ms=119
+route ms=0
+Short in duration.
+answer ms=783 chars=18
+first char ms=543 output span ms=210
+route ms=0
+Easily broken.
+answer ms=772 chars=14
+first char ms=549 output span ms=195
+route ms=0
+Without sound.
+answer ms=713 chars=14
+first char ms=529 output span ms=158
+route ms=0
+Very fast.
+answer ms=644 chars=10
+first char ms=490 output span ms=127
+route ms=0
+Not occupied.
+answer ms=769 chars=13
+first char ms=620 output span ms=175
+route ms=0
+Slightly wet.
+answer ms=723 chars=13
+first char ms=532 output span ms=163
+route ms=0
+Not wide.
+answer ms=535 chars=9
+first char ms=415 output span ms=94
+route ms=0
+Very old.
+answer ms=738 chars=9
+first char ms=593 output span ms=117
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.

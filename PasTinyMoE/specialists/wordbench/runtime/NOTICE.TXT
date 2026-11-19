@@ -1,0 +1,3 @@
+Four trained pilot models from FMXExpress/PasTiny and WollyMonjac/Tiny-2.1.
+Word Bench (USE 41): brief, fragile, silent, rapid, vacant, damp, narrow, ancient.
+See the source tree for training records, attribution and evaluation.

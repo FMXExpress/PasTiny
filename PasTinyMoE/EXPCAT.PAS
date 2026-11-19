@@ -1,5 +1,6 @@
 unit EXPCAT;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
+{$IFDEF SPEC4}{$DEFINE SPEC3}{$ENDIF}
 interface
 type Entry=packed record Id:Byte; Name:String[12]; Title:String[28];
  Keyword:String[20]; Check:Longint end;

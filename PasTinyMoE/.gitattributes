@@ -7,3 +7,7 @@ specialists/runtime/*.IN -text
 specialists/routing/*/*.LOG -text
 specialists/pascal-v2/*.IN -text
 specialists/pascal-v2/*.LOG -text
+
+specialists/wordbench/*.LOG -text
+specialists/wordbench/*.IN -text
+specialists/wordbench/runtime/*.IN -text

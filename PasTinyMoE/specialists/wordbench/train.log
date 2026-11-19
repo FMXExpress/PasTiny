@@ -1,0 +1,15 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 87, "validation_pairs": 9, "device": "cpu"}
+{"step": 1, "train_loss": 10.47964, "validation_loss": 10.20235}
+{"step": 50, "train_loss": 0.00232, "validation_loss": 0.01269}
+{"step": 100, "train_loss": 0.00038, "validation_loss": 0.00846}
+{"step": 150, "train_loss": 0.00025, "validation_loss": 0.0065}
+{"step": 200, "train_loss": 0.00018, "validation_loss": 0.00591}
+{"step": 250, "train_loss": 0.00011, "validation_loss": 0.00356}
+{"step": 300, "train_loss": 0.0001, "validation_loss": 0.00371}
+{"step": 350, "train_loss": 8e-05, "validation_loss": 0.00314}
+{"step": 400, "train_loss": 6e-05, "validation_loss": 0.00363}
+{"step": 450, "train_loss": 5e-05, "validation_loss": 0.00358}
+{"step": 500, "train_loss": 5e-05, "validation_loss": 0.0036}
+{"step": 550, "train_loss": 4e-05, "validation_loss": 0.00384}
+{"step": 600, "train_loss": 4e-05, "validation_loss": 0.00363}
+Exported /tmp/wb41/WORDS.BIN and /tmp/wb41/WORDS.pt

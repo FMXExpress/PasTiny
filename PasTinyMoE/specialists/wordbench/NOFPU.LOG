@@ -1,0 +1,19 @@
+catalog/init ms=11
+FPU no
+heap=532512 largest=532512 stack=15860
+load/recovery ms=978
+active 1 DOS Guide
+heap=48312 largest=48312 stack=15860
+1 DOS Guide
+2 Turbo Pascal Coach
+51 Pocket Naturalist
+41 Word Bench
+load/recovery ms=204
+active 2 Turbo Pascal Coach
+route ms=1
+load/recovery ms=189
+active 41 Word Bench
+Easily broken.
+answer ms=8275 chars=14
+first char ms=4097 output span ms=3868
+heap=48312 largest=48312 stack=15860
