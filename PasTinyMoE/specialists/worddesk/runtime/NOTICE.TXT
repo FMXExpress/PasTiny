@@ -1,0 +1,4 @@
+SPEC8: eight trained models including spelling, confused words and grammar.
+Use LIST, USE 42, USE 43 or USE 44. CHECK.BAT runs a three-question smoke.
+Models derived from WollyMonjac/Tiny-2.1 with FMXExpress/WebTiny.
+See FMXExpress/PasTiny for sources, limitations and test results.

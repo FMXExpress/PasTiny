@@ -1,0 +1,236 @@
+catalog/init ms=4
+FPU yes
+heap=530352 largest=530352 stack=15860
+load/recovery ms=596
+active 1 DOS Guide
+heap=46152 largest=46152 stack=15860
+route ms=0
+load/recovery ms=174
+active 42 Spelling Helper
+frive
+answer ms=801 chars=5
+first char ms=678 output span ms=87
+route ms=0
+sayffixive
+answer ms=913 chars=10
+first char ms=711 output span ms=166
+route ms=0
+eighefrie
+answer ms=734 chars=9
+first char ms=592 output span ms=163
+route ms=0
+separate
+answer ms=968 chars=8
+first char ms=778 output span ms=189
+route ms=1
+definitely
+answer ms=753 chars=10
+first char ms=608 output span ms=113
+route ms=0
+sixenly
+answer ms=996 chars=7
+first char ms=875 output span ms=127
+route ms=0
+until
+answer ms=922 chars=5
+first char ms=811 output span ms=64
+route ms=1
+until
+answer ms=1074 chars=5
+first char ms=910 output span ms=109
+route ms=1
+friend
+answer ms=1095 chars=6
+first char ms=931 output span ms=116
+route ms=0
+sing
+answer ms=988 chars=4
+first char ms=877 output span ms=69
+route ms=0
+because
+answer ms=606 chars=7
+first char ms=510 output span ms=66
+route ms=1
+because
+answer ms=593 chars=7
+first char ms=528 output span ms=94
+route ms=0
+load/recovery ms=105
+active 43 Confused Words
+Usually a verb meaning influence.
+answer ms=1221 chars=33
+first char ms=612 output span ms=578
+route ms=0
+Usually a verb meaning influence.
+answer ms=759 chars=33
+first char ms=353 output span ms=381
+route ms=0
+Usually a noun meaning result.
+answer ms=983 chars=30
+first char ms=590 output span ms=366
+route ms=0
+Usually a noun meaning result.
+answer ms=697 chars=30
+first char ms=330 output span ms=343
+route ms=0
+Not moving.
+answer ms=659 chars=11
+first char ms=506 output span ms=128
+route ms=0
+Not moving.
+answer ms=494 chars=11
+first char ms=357 output span ms=114
+route ms=0
+Writing materials.
+answer ms=727 chars=18
+first char ms=502 output span ms=199
+route ms=0
+Writing materials.
+answer ms=548 chars=18
+first char ms=357 output span ms=222
+route ms=0
+Something that completes.
+answer ms=845 chars=25
+first char ms=559 output span ms=315
+route ms=0
+Something that completes.
+answer ms=663 chars=25
+first char ms=409 output span ms=230
+route ms=0
+An expression of praise.
+answer ms=833 chars=24
+first char ms=565 output span ms=241
+route ms=0
+Something that completes.
+answer ms=642 chars=25
+first char ms=351 output span ms=322
+route ms=0
+load/recovery ms=101
+active 44 Grammar Terms
+Names a person, place, thing or idea.
+answer ms=827 chars=37
+first char ms=379 output span ms=478
+route ms=0
+Names a person, place, thing or idea.
+answer ms=881 chars=37
+first char ms=460 output span ms=449
+route ms=0
+Expresses a sent o, hairen.
+answer ms=1410 chars=27
+first char ms=809 output span ms=554
+route ms=0
+Names a person, plaction, Cubles a person, place, thing or or sout oxy, way and and.
+answer ms=2212 chars=84
+first char ms=780 output span ms=1449
+route ms=0
+Describes a 2state.
+answer ms=1053 chars=19
+first char ms=761 output span ms=317
+route ms=1
+Describes a noun.
+answer ms=767 chars=17
+first char ms=554 output span ms=242
+route ms=0
+Modifies a verb, adjective or another adverb.
+answer ms=1061 chars=45
+first char ms=456 output span ms=576
+route ms=1
+Moz place of a phraous no anous no anoushs.
+answer ms=995 chars=43
+first char ms=439 output span ms=529
+route ms=0
+Can stand in for a noun phrase.
+answer ms=859 chars=31
+first char ms=466 output span ms=366
+route ms=0
+Can stand in for a noun phrase.
+answer ms=830 chars=31
+first char ms=451 output span ms=353
+route ms=0
+Joins words, phrases or clauses.
+answer ms=888 chars=32
+first char ms=484 output span ms=378
+route ms=0
+Joins words, phrases or clauses.
+answer ms=913 chars=32
+first char ms=553 output span ms=333
+route ms=0
+load/recovery ms=103
+active 42 Spelling Helper
+urceive
+answer ms=638 chars=7
+first char ms=526 output span ms=88
+route ms=0
+separate
+answer ms=477 chars=8
+first char ms=342 output span ms=107
+route ms=0
+definitely
+answer ms=581 chars=10
+first char ms=497 output span ms=114
+route ms=1
+untel
+answer ms=806 chars=5
+first char ms=722 output span ms=56
+route ms=0
+friend
+answer ms=543 chars=6
+first char ms=456 output span ms=63
+route ms=0
+sent
+answer ms=415 chars=4
+first char ms=379 output span ms=68
+route ms=1
+load/recovery ms=105
+active 43 Confused Words
+Usually a verb meaning influence.
+answer ms=991 chars=33
+first char ms=578 output span ms=385
+route ms=0
+Usually a noun meaning result.
+answer ms=1270 chars=30
+first char ms=852 output span ms=444
+route ms=0
+Not moving.
+answer ms=619 chars=11
+first char ms=476 output span ms=120
+route ms=0
+Writing materials.
+answer ms=511 chars=18
+first char ms=332 output span ms=156
+route ms=0
+Something that completes.
+answer ms=1002 chars=25
+first char ms=679 output span ms=295
+route ms=0
+An expression of praise.
+answer ms=694 chars=24
+first char ms=402 output span ms=267
+route ms=0
+load/recovery ms=103
+active 44 Grammar Terms
+Call meany.
+answer ms=486 chars=11
+first char ms=340 output span ms=122
+route ms=0
+Expresses a verb, a 8 planet, adurps or ad, a day, wer ad ide.
+answer ms=1230 chars=62
+first char ms=456 output span ms=800
+route ms=0
+Describes a noun.
+answer ms=671 chars=17
+first char ms=489 output span ms=158
+route ms=0
+English, borders, hunge.
+answer ms=828 chars=24
+first char ms=493 output span ms=308
+route ms=0
+English, hundred centimese.
+answer ms=747 chars=27
+first char ms=419 output span ms=303
+route ms=0
+Canuit.
+answer ms=538 chars=7
+first char ms=483 output span ms=31
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.

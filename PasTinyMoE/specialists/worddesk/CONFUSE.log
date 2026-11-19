@@ -1,0 +1,15 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 54, "validation_pairs": 6, "device": "cpu"}
+{"step": 1, "train_loss": 10.03035, "validation_loss": 9.15171}
+{"step": 50, "train_loss": 0.00128, "validation_loss": 0.03218}
+{"step": 100, "train_loss": 0.00031, "validation_loss": 0.00222}
+{"step": 150, "train_loss": 0.00019, "validation_loss": 0.002}
+{"step": 200, "train_loss": 0.00012, "validation_loss": 0.00191}
+{"step": 250, "train_loss": 0.00011, "validation_loss": 0.00191}
+{"step": 300, "train_loss": 9e-05, "validation_loss": 0.00169}
+{"step": 350, "train_loss": 8e-05, "validation_loss": 0.00149}
+{"step": 400, "train_loss": 6e-05, "validation_loss": 0.00168}
+{"step": 450, "train_loss": 5e-05, "validation_loss": 0.00152}
+{"step": 500, "train_loss": 4e-05, "validation_loss": 0.00144}
+{"step": 550, "train_loss": 3e-05, "validation_loss": 0.00139}
+{"step": 600, "train_loss": 3e-05, "validation_loss": 0.0013}
+Exported /tmp/wdesk/CONFUSE.BIN and /tmp/wdesk/CONFUSE.pt

@@ -2,6 +2,12 @@
 
 The supplied excerpt begins at ID 037. It defines 64 planned entries. The catalog rows for IDs 001–036 are pending. The build order below also names early specialists.
 
+## Implementation status
+
+**8 of 100 trained and packaged** in [SPEC8](../specialists/worddesk/). The initial entries are DOS Guide (provisional 001), Turbo Pascal Coach (provisional 002), PC Workbench (provisional 003), Word Bench (041) and Pocket Naturalist (051). The latest batch adds Spelling Helper (042), Confused Words (043) and Grammar Terms (044). The remaining 92 slots include planned entries and entries awaiting a supplied scope. SD100 remains the size and catalog-capacity fixture. Punctuation (045) is next if continuing the word desk in catalog order.
+
+## Supplied catalog
+
 | ID | Expert | Boundary |
 |---|---|---|
 | 037 | Modem desk | Common Hayes command meanings and serial-modem terminology |

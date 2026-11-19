@@ -1,0 +1,25 @@
+catalog/init ms=15
+FPU no
+heap=530352 largest=530352 stack=15860
+load/recovery ms=870
+active 1 DOS Guide
+heap=46152 largest=46152 stack=15860
+route ms=0
+load/recovery ms=240
+active 42 Spelling Helper
+receive
+answer ms=6964 chars=7
+first char ms=5292 output span ms=1450
+route ms=1
+load/recovery ms=145
+active 43 Confused Words
+Writing materials.
+answer ms=8545 chars=18
+first char ms=3777 output span ms=4532
+route ms=0
+load/recovery ms=148
+active 44 Grammar Terms
+Expresses an action or state.
+answer ms=15173 chars=29
+first char ms=3481 output span ms=11032
+heap=46152 largest=46152 stack=15860

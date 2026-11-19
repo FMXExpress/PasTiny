@@ -15,3 +15,7 @@ specialists/wordbench/runtime/*.IN -text
 specialists/pcbench/*.LOG -text
 specialists/pcbench/*.IN -text
 specialists/pcbench/runtime/*.IN -text
+
+specialists/worddesk/*.LOG -text
+specialists/worddesk/*.IN -text
+specialists/worddesk/runtime/*.IN -text

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 42,
+    "name": "SPELL.BIN",
+    "source": "specialists/models/SPELL.BIN",
+    "sha256": "17a8f043abab3af0606a89644c5312bef1b828a8c8f64b088f7fe07b08b14011",
+    "keyword": "spelling",
+    "title": "Spelling Helper"
+  },
+  {
+    "id": 43,
+    "name": "CONFUSE.BIN",
+    "source": "specialists/models/CONFUSE.BIN",
+    "sha256": "42610e0baf03516c5291a8717b7cbe9e281c078caecd33845552f962d71fdc40",
+    "keyword": "confused",
+    "title": "Confused Words"
+  },
+  {
+    "id": 44,
+    "name": "GRAMMAR.BIN",
+    "source": "specialists/models/GRAMMAR.BIN",
+    "sha256": "1357b9db36ce0d6e224613c0378eda1403779f768f33f4f644de26890813accb",
+    "keyword": "grammar",
+    "title": "Grammar Terms"
+  }
+]

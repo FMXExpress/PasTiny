@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC8}{$DEFINE SPEC5}{$ENDIF}
 {$IFDEF SPEC5}{$DEFINE SPEC4}{$ENDIF}
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 interface
@@ -39,6 +40,20 @@ begin
   (Pos(' free space ',Q)>0) or (Pos(' on my ',Q)>0) or (Pos(' detected ',Q)>0)
 end;
 {$ENDIF}
+{$IFDEF SPEC8}
+type TopicEntry=record Term:String[20]; Id:Byte end;
+{$I TOPICS.INC}
+function TopicId(Token:String):Byte;
+var Low,High,Mid:Integer;
+begin
+ Low:=1; High:=SizeOf(Topics) div SizeOf(TopicEntry); TopicId:=0;
+ while Low<=High do begin
+  Mid:=(Low+High) div 2;
+  if Token=Topics[Mid].Term then begin TopicId:=Topics[Mid].Id; Exit end;
+  if Token<Topics[Mid].Term then High:=Mid-1 else Low:=Mid+1
+ end
+end;
+{$ENDIF}
 { Return zero when the terms do not identify one supported domain. }
 function PilotDomain(Q:String):Byte;
 const DOSWords='|dos|dir|cd|cls|type|file|files|directory|directories|folder|folders|screen|display|';
@@ -51,8 +66,10 @@ const DOSWords='|dos|dir|cd|cls|type|file|files|directory|directories|folder|fol
  PCWords='|ram|rom|cpu|processor|fpu|387|coprocessor|storage|disk|serial|parallel|workbench|';
  {$ENDIF}
 var I,Start:Integer; WordKey:String; Hits:Byte;
+ {$IFDEF SPEC8}Extra,Matched:Byte;{$ENDIF}
 begin
  Hits:=0; I:=1;
+ {$IFDEF SPEC8}Extra:=0;{$ENDIF}
  {$IFDEF SPEC5}if Pos(' read only memory ',WordLine(Q))>0 then Hits:=16;{$ENDIF}
  while I<=Length(Q) do begin
   Start:=I;
@@ -61,6 +78,13 @@ begin
    Inc(I)
   end;
   if I>Start then begin
+   {$IFDEF SPEC8}
+   Matched:=TopicId(Copy(Q,Start,I-Start));
+   if Matched<>0 then begin
+    if (Extra<>0) and (Extra<>Matched) then begin PilotDomain:=0; Exit end;
+    Extra:=Matched
+   end;
+   {$ENDIF}
    WordKey:='|'+Copy(Q,Start,I-Start)+'|';
    if Pos(WordKey,DOSWords)>0 then Hits:=Hits or 1;
    if Pos(WordKey,PascalWords)>0 then Hits:=Hits or 2;
@@ -69,6 +93,12 @@ begin
    {$IFDEF SPEC5}if Pos(WordKey,PCWords)>0 then Hits:=Hits or 16;{$ENDIF}
   end else Inc(I)
  end;
+ {$IFDEF SPEC8}
+ if Extra<>0 then begin
+  if Hits=0 then PilotDomain:=Extra else PilotDomain:=0;
+  Exit
+ end;
+ {$ENDIF}
  case Hits of
   1:PilotDomain:=1;
   2:PilotDomain:=2;
