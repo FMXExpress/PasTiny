@@ -46,3 +46,5 @@ VCL and FireMonkey play each completed answer as square-wave robot chatter. Clea
 ## Neural monitor
 
 The VCL and FireMonkey chat windows stream the answer and show each layer’s activity relative to its recent peak. The confidence meter tracks the latest emitted character. The strip underneath keeps the last 18 character confidences, with denser shading for higher confidence. This measures character prediction, so even a confidently generated answer can be factually wrong. The panel also displays generation speed in letters per second, model dimensions, and creativity.
+
+TinyConsole opens a two-column conversation and neural monitor on Windows VT consoles and Linux terminals of at least 80 columns by 24 rows. The most recent question and answer stay visible while you enter the next question. Use `/PLAIN` for a scrolling transcript. Redirected input, redirected output, file-based sessions and benchmarks use plain text automatically. Add `/SOUND` for robot chatter.

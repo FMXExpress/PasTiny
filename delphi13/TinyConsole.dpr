@@ -5,13 +5,13 @@ program TinyConsole;
 uses
   {$IFDEF FPC}SysUtils,{$ELSE}System.SysUtils,{$ENDIF}
   {$IFNDEF FPC}Winapi.Windows,{$ENDIF}
-  DesktopVoice,
+  ConsoleScreen, DesktopVoice,
   TnyNet in 'TNYNET.PAS';
 
 var
   I: Integer;
   Arg, InputName, OutputName, ModelName: string;
-  Bench: Boolean;
+  Bench, Plain: Boolean;
   Fin, Fout: TextFile;
 
 function Clock: Longint;
@@ -26,13 +26,15 @@ end;
 
 procedure Usage;
 begin
-  Writeln('TinyConsole [0..9] [/SOUND] [/FLOAT] [/BENCH] [/IN=file] [/OUT=file] [/MODEL=file]');
+  Writeln('TinyConsole [0..9] [/PLAIN] [/SOUND] [/FLOAT] [/BENCH] [/IN=file] [/OUT=file] [/MODEL=file]');
 end;
 
 procedure Run(var Dest: TextFile);
 begin
   if Bench then
     RunBench(Dest, {$IFDEF FPC}'Free Pascal'{$ELSE}'Delphi'{$ENDIF}, -1)
+  else if (InputName = '') and (OutputName = '') and not Plain and StartScreen then
+    RunScreen
   else if InputName = '' then
     PlainRun(Input, Dest)
   else begin
@@ -54,6 +56,7 @@ begin
       if (Length(Arg) = 1) and (Arg[1] >= '0') and (Arg[1] <= '9') then
         Creativity := Ord(Arg[1]) - Ord('0')
       else if SameText(Arg, '/SOUND') then OnAnswer := PlayConsoleVoice
+      else if SameText(Arg, '/PLAIN') then Plain := True
       else if SameText(Arg, '/FLOAT') then UseInt := False
       else if SameText(Arg, '/BENCH') then Bench := True
       else if SameText(Copy(Arg, 1, 4), '/IN=') and (Length(Arg) > 4) then InputName := Copy(Arg, 5, MaxInt)
