@@ -1,0 +1,34 @@
+catalog/init ms=5
+FPU yes
+heap=533360 largest=533360 stack=15860
+load/recovery ms=766
+active 1 TINY 2.1 general (trained)
+heap=49160 largest=49160 stack=15860
+route ms=0
+7 times 8 is 56.
+answer ms=536 chars=16
+first char ms=338 output span ms=227
+route ms=0
+load/recovery ms=116
+active 2 Reverse (hand-written)
+depmuj
+answer ms=174 chars=6
+first char ms=112 output span ms=42
+route ms=0
+wadiypyan
+answer ms=280 chars=9
+first char ms=160 output span ms=100
+route ms=0
+!24_dlroW-olleH
+answer ms=324 chars=15
+first char ms=199 output span ms=105
+route ms=0
+msinairatnemhsilbatsesiditna
+answer ms=623 chars=28
+first char ms=331 output span ms=271
+route ms=0
+load/recovery ms=93
+active 1 TINY 2.1 general (trained)
+Lima.
+answer ms=282 chars=5
+first char ms=190 output span ms=73
