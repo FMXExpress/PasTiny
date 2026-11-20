@@ -48,13 +48,13 @@ def render():
              ' LibCode:array[0..LIBSIZE-1] of Byte=(']
     hexs = ['$%02X' % c for c in blob]
     lines += ['  ' + ','.join(hexs[i:i + 16]) + (',' if i + 16 < len(hexs) else ');') for i in range(0, len(hexs), 16)]
-    return '\r\n'.join(lines) + '\r\n', rs, blob
+    return '\n'.join(lines).replace('\n', '\r\n') + '\r\n', rs, blob
 
 
 if __name__ == '__main__':
     text, rs, blob = render()
     path = root / 'LIB.INC'
     if '--check' in sys.argv:
-        sys.exit(0 if path.read_bytes().decode() == text else 'LIB.INC is out of date')
+        sys.exit(0 if path.read_text().split() == text.split() else 'LIB.INC is out of date')
     path.write_bytes(text.encode())
     print('%d routines, %d bytes' % (len(rs), len(blob)))

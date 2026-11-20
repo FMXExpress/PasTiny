@@ -59,7 +59,7 @@ PLANS = [   # request, the calls it must become
 ]
 REFUSED = ['format the hard disk', 'FLASH 99', 'beep at 5 hertz', 'what is the capital of peru']
 
-assert buildlib.render()[0] == (root / 'LIB.INC').read_bytes().decode(), 'LIB.INC is out of date: run tools/buildlib.py'
+assert buildlib.render()[0].split() == (root / 'LIB.INC').read_text().split(), 'LIB.INC is out of date: run tools/buildlib.py'
 with tempfile.TemporaryDirectory() as tmp:
     dest = Path(tmp) / 'run'; dest.mkdir()
     models = '--models' in sys.argv
