@@ -1,0 +1,244 @@
+catalog/init ms=0
+FPU yes
+heap=530528 largest=530528 stack=15860
+load/recovery ms=51
+active 1 TINY 2.1 general (trained)
+heap=46328 largest=46328 stack=15860
+route ms=0
+load/recovery ms=82
+active 2 Reverse (hand-written)
+"
+answer ms=187 chars=1
+first char ms=157 output span ms=0
+route ms=0
++L
+answer ms=151 chars=2
+first char ms=146 output span ms=30
+route ms=0
+$&1
+answer ms=199 chars=3
+first char ms=164 output span ms=59
+route ms=0
+!{,d3
+answer ms=323 chars=5
+first char ms=225 output span ms=68
+route ms=0
+t)h]mx:p
+answer ms=294 chars=8
+first char ms=174 output span ms=145
+route ms=0
+sIl'ynEEQw`8[
+answer ms=502 chars=13
+first char ms=282 output span ms=189
+route ms=0
+P4xi#!|`D@GQ}mi=Zqo#1
+answer ms=675 chars=21
+first char ms=353 output span ms=288
+route ms=0
+p<Tdh8Zw?}+)H8i[Q~D9Y|_AH72~Nkmx65
+answer ms=1329 chars=34
+first char ms=621 output span ms=663
+route ms=0
+2$8["JklAc2>\|iv7o(&qk){<3r0>228mprA_-/GR,kzX`O;pFHi_i
+answer ms=2183 chars=54
+first char ms=935 output span ms=1248
+route ms=0
+q1?>A.K#,_;]N~tP6Rk)|"tKt-qjLZOt]\F7z9T=/x{-U49LIS#Rp^T
+answer ms=2380 chars=55
+first char ms=944 output span ms=1423
+route ms=0
+cbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba
+answer ms=2457 chars=55
+first char ms=991 output span ms=1449
+route ms=0
+eeepfbizy
+answer ms=491 chars=9
+first char ms=378 output span ms=82
+route ms=0
+ifhwizonw
+answer ms=520 chars=9
+first char ms=364 output span ms=173
+route ms=0
+pdpdiltgb
+answer ms=479 chars=9
+first char ms=293 output span ms=152
+route ms=0
+load/recovery ms=108
+active 3 Rot13 (hand-written)
+>
+answer ms=61 chars=1
+first char ms=92 output span ms=0
+route ms=0
+w*
+answer ms=142 chars=2
+first char ms=149 output span ms=-31
+route ms=0
+uc+
+answer ms=136 chars=3
+first char ms=118 output span ms=49
+route ms=0
+v\b9!
+answer ms=238 chars=5
+first char ms=166 output span ms=46
+route ms=1
+$h@sunei
+answer ms=296 chars=8
+first char ms=194 output span ms=76
+route ms=0
+@xh`upo~k#w[e
+answer ms=469 chars=13
+first char ms=188 output span ms=238
+route ms=0
+:^,riqk{x^xh.?#ktfh.y
+answer ms=941 chars=21
+first char ms=465 output span ms=489
+route ms=0
+vdlo;|zu[x_`5:3@>v6$%\fn*8c^vlwukb
+answer ms=1294 chars=34
+first char ms=644 output span ms=662
+route ms=0
+!edf='tsds^w){u420r7,p2;/am{y_-}mek7t!9,vycka=?h%jr7<fi#
+answer ms=2321 chars=56
+first char ms=939 output span ms=1379
+route ms=0
+c'^^3dco=rxnvbwx@?'d!p;bx_r6\23"\~w2z9+0slr23//{oyg~=ku)m
+answer ms=2557 chars=57
+first char ms=978 output span ms=1522
+route ms=0
+nopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqr
+answer ms=2831 chars=57
+first char ms=1097 output span ms=1673
+route ms=0
+gubrcviwq
+answer ms=403 chars=9
+first char ms=301 output span ms=72
+route ms=0
+vlbxsoqov
+answer ms=506 chars=9
+first char ms=343 output span ms=131
+route ms=0
+bnmafonpf
+answer ms=481 chars=9
+first char ms=245 output span ms=192
+route ms=0
+load/recovery ms=93
+active 4 Atbash (hand-written)
+2
+answer ms=151 chars=1
+first char ms=176 output span ms=0
+route ms=0
+mk
+answer ms=180 chars=2
+first char ms=174 output span ms=30
+route ms=0
+!x]
+answer ms=198 chars=3
+first char ms=170 output span ms=0
+route ms=0
+ysjcb
+answer ms=240 chars=5
+first char ms=160 output span ms=53
+route ms=0
+wzq1ueiy
+answer ms=271 chars=8
+first char ms=166 output span ms=132
+route ms=0
+i!.1+]v`4t~"y
+answer ms=515 chars=13
+first char ms=288 output span ms=232
+route ms=0
+/;ro=c3\e>k6>n2:g?,a]
+answer ms=905 chars=21
+first char ms=522 output span ms=346
+route ms=0
+z.)m_zv#~:n*ix1j?4a:;ot:czu!6462ra
+answer ms=1209 chars=34
+first char ms=573 output span ms=648
+route ms=0
+#;';w}bqhmpefu&<tu5-q=wl>kc5dk]hj,k$1hd0r7o#gl_f|w~rwx6
+answer ms=2480 chars=55
+first char ms=1010 output span ms=1395
+route ms=0
+:rq+w5_c@p5ncj;l-f8&,1mb2c:m=dvs8g:uhqjio@ec~+'2w=67-}(u
+answer ms=3078 chars=56
+first char ms=1399 output span ms=1616
+route ms=0
+zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxw
+answer ms=2758 chars=56
+first char ms=1320 output span ms=1430
+route ms=0
+zirzpgvub
+answer ms=451 chars=9
+first char ms=341 output span ms=78
+route ms=0
+bzeczpubo
+answer ms=535 chars=9
+first char ms=350 output span ms=150
+route ms=0
+qmaflvwht
+answer ms=367 chars=9
+first char ms=212 output span ms=125
+route ms=0
+load/recovery ms=96
+active 5 Echo (hand-written)
+m
+answer ms=80 chars=1
+first char ms=55 output span ms=0
+route ms=0
+j&
+answer ms=123 chars=2
+first char ms=130 output span ms=-31
+route ms=0
+-tw
+answer ms=165 chars=3
+first char ms=92 output span ms=48
+route ms=0
+?<{&c
+answer ms=146 chars=5
+first char ms=80 output span ms=96
+route ms=0
+0"gne2fz
+answer ms=290 chars=8
+first char ms=146 output span ms=119
+route ms=0
+,],\n<dtjsae0
+answer ms=349 chars=13
+first char ms=212 output span ms=163
+route ms=0
+0)kfn@`*+#p|e@6&cre2@
+answer ms=738 chars=21
+first char ms=394 output span ms=365
+route ms=0
+el&v{jeh#ht@9bubj*c,sj~0\b3a>.7*p|
+answer ms=1369 chars=34
+first char ms=551 output span ms=747
+route ms=0
+~xjcz3svh*f4t}c{iu>uprzv1z*1b$|_m<lqhj2g;c'gf*{v|]sxi4q.n
+answer ms=2735 chars=57
+first char ms=1220 output span ms=1510
+route ms=0
+_y}&?u~$`^p6hcnl7dwe_iwtx1bgn]cao;afku:irme-v&4:xe7hlnekdj
+answer ms=2927 chars=58
+first char ms=1083 output span ms=1835
+route ms=0
+abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef
+answer ms=2560 chars=58
+first char ms=1177 output span ms=1370
+route ms=0
+deoaatsto
+answer ms=462 chars=9
+first char ms=336 output span ms=149
+route ms=0
+ekxxpzsuz
+answer ms=511 chars=9
+first char ms=351 output span ms=129
+route ms=0
+ucbgeuduz
+answer ms=305 chars=9
+first char ms=175 output span ms=102
+route ms=0
+load/recovery ms=86
+active 1 TINY 2.1 general (trained)
+7 times 8 is 56.
+answer ms=403 chars=16
+first char ms=189 output span ms=240

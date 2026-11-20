@@ -110,3 +110,5 @@ python3 handwritten/conformance.py --check CONFORM.LOG     # check its transcrip
 ```
 
 All four host builds (integer, `NOASM`, `FLOATMATH`, `DEBUG`) answer all 57 exactly.
+
+So do the four DOS executables in this repository, run in DOSBox-X with an emulated FPU: `bin/EXPERT.EXE` (integer with assembly) and the pure Pascal, float and debug builds from `dist/COMPARE.ZIP`. Their transcripts are in [`evidence/`](evidence/) as `CONF-ASM.LOG`, `CONF-NOASM.LOG`, `CONF-FLOAT.LOG` and `CONF-DEBUG.LOG`. A no-FPU run and the other engines (the C original, the browser port, the Delphi ports) have not been tried.
