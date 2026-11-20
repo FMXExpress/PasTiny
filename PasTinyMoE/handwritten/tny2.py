@@ -24,6 +24,16 @@ def phase(x):
     return out
 
 
+def rot(k):
+    """the matrix that turns phase(x) into phase(x + k)"""
+    m = np.zeros((2 * F, 2 * F), np.float32)
+    for f, w in enumerate(W):
+        c, s = math.cos(w * k), math.sin(w * k)
+        m[2 * f, 2 * f], m[2 * f, 2 * f + 1] = c, -s
+        m[2 * f + 1, 2 * f], m[2 * f + 1, 2 * f + 1] = s, c
+    return m
+
+
 def gain(energy):
     """the norm gain that makes the normalised vector equal the residual itself"""
     return math.sqrt(energy / D)
