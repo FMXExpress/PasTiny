@@ -1,0 +1,15 @@
+{"question": "what is the low 640k region called conventional memory", "expected": "The first 640 KB of PC address space.", "output": "Spandix-Libtcorno hs a come.", "exact": false}
+{"question": "can you explain conventional memory in dos", "expected": "The first 640 KB of PC address space.", "output": "The first 640 KB of PC address space.", "exact": true}
+{"question": "give a short definition of base memory", "expected": "The first 640 KB of PC address space.", "output": "The first 640 KB of PC address space.", "exact": true}
+{"question": "where is the upper memory area on a dos pc", "expected": "The area from 640 KB to 1 MB.", "output": "The area from 640 KB to 1 MB.", "exact": true}
+{"question": "can you explain upper memory in dos", "expected": "The area from 640 KB to 1 MB.", "output": "The area from 640 KB to 1 MB.", "exact": true}
+{"question": "give a short definition of uma", "expected": "The area from 640 KB to 1 MB.", "output": "The first 65520 bytes above 1 MB.", "exact": false}
+{"question": "what does xms manage above the one megabyte line", "expected": "Memory above the 1 MB boundary.", "output": "The abou 1 Kabove the bodybake sabyte ha1que the the fis.", "exact": false}
+{"question": "can you explain extended memory in dos", "expected": "Memory above the 1 MB boundary.", "output": "Memory above the 1 MB boundary.", "exact": true}
+{"question": "give a short definition of xms memory", "expected": "Memory above the 1 MB boundary.", "output": "Memory above the 1 MB boundary.", "exact": true}
+{"question": "how is ems memory accessed", "expected": "Bank-switched memory accessed through a page frame.", "output": "Memory above the 1 MB boundary.", "exact": false}
+{"question": "can you explain expanded memory in dos", "expected": "Bank-switched memory accessed through a page frame.", "output": "Bank-switched memory accessed through a page frame.", "exact": true}
+{"question": "give a short definition of ems memory", "expected": "Bank-switched memory accessed through a page frame.", "output": "The first 640 KB of PC address space.", "exact": false}
+{"question": "where exactly is the hma in dos", "expected": "The first 65520 bytes above 1 MB.", "output": "The first 65520 bytes above 1 MB.", "exact": true}
+{"question": "can you explain high memory area in dos", "expected": "The first 65520 bytes above 1 MB.", "output": "The first 65520 bytes above 1 MB.", "exact": true}
+{"question": "give a short definition of hma", "expected": "The first 65520 bytes above 1 MB.", "output": "The first 65520 bytes above 1 MB.", "exact": true}

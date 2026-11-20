@@ -1,0 +1,14 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 101, "validation_pairs": 11, "device": "cpu"}
+{"step": 1, "train_loss": 9.71838, "validation_loss": 7.60058}
+{"step": 50, "train_loss": 0.00242, "validation_loss": 0.01084}
+{"step": 100, "train_loss": 0.00024, "validation_loss": 0.0038}
+{"step": 150, "train_loss": 0.00016, "validation_loss": 0.00264}
+{"step": 200, "train_loss": 0.00013, "validation_loss": 0.0025}
+{"step": 250, "train_loss": 0.0001, "validation_loss": 0.00224}
+{"step": 300, "train_loss": 7e-05, "validation_loss": 0.002}
+{"step": 350, "train_loss": 6e-05, "validation_loss": 0.00195}
+{"step": 400, "train_loss": 5e-05, "validation_loss": 0.00177}
+{"step": 450, "train_loss": 5e-05, "validation_loss": 0.00163}
+{"step": 500, "train_loss": 4e-05, "validation_loss": 0.00159}
+{"step": 550, "train_loss": 3e-05, "validation_loss": 0.00157}
+Exported specialists/batch70/006/model.bin and specialists/batch70/006/model.pt

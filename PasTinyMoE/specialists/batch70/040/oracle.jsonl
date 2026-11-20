@@ -1,0 +1,18 @@
+{"question": "which key edits the current lotus spreadsheet cell?", "expected": "F2.", "output": "F9.", "exact": false}
+{"question": "help me with edit cell in lotus", "expected": "F2.", "output": "F2.", "exact": true}
+{"question": "which lotus command for edit cell", "expected": "F2.", "output": "F2.", "exact": true}
+{"question": "which function key recalculates the lotus worksheet?", "expected": "F9.", "output": "F8.", "exact": false}
+{"question": "help me with recalculate worksheet in lotus", "expected": "F9.", "output": "F9.", "exact": true}
+{"question": "which lotus command for recalculate worksheet", "expected": "F9.", "output": "F9.", "exact": true}
+{"question": "how do i bring up the lotus command menu?", "expected": "Slash.", "output": "Sunlight, ell I flogunt 59.", "exact": false}
+{"question": "help me with open command menu in lotus", "expected": "Slash.", "output": "Slash.", "exact": true}
+{"question": "which lotus command for open command menu", "expected": "Slash.", "output": "Slash.", "exact": true}
+{"question": "what address identifies the upper left lotus cell?", "expected": "A1.", "output": "F9.", "exact": false}
+{"question": "help me with first worksheet cell in lotus", "expected": "A1.", "output": "A1.", "exact": true}
+{"question": "which lotus command for first worksheet cell", "expected": "A1.", "output": "A1.", "exact": true}
+{"question": "which lotus function adds up a range of cells?", "expected": "@SUM.", "output": "@Slash.", "exact": false}
+{"question": "help me with sum a range in lotus", "expected": "@SUM.", "output": "@SUM.", "exact": true}
+{"question": "which lotus command for sum a range", "expected": "@SUM.", "output": "@SUM.", "exact": true}
+{"question": "what lotus function returns the mean of a range?", "expected": "@AVG.", "output": "@5.", "exact": false}
+{"question": "help me with average a range in lotus", "expected": "@AVG.", "output": "@AVG.", "exact": true}
+{"question": "which lotus command for average a range", "expected": "@AVG.", "output": "@AVG.", "exact": true}

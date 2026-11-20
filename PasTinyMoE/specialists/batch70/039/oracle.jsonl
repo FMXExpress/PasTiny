@@ -1,0 +1,18 @@
+{"question": "how can i save my wordstar file and keep editing?", "expected": "Ctrl-K S.", "output": "Ctrl-K D.", "exact": false}
+{"question": "help me with save and resume in wordstar", "expected": "Ctrl-K S.", "output": "Ctrl-K S.", "exact": true}
+{"question": "which wordstar command for save and resume", "expected": "Ctrl-K S.", "output": "Ctrl-K S.", "exact": true}
+{"question": "which wordstar keys mark the beginning of a block?", "expected": "Ctrl-K B.", "output": "Ctrl-K K.", "exact": false}
+{"question": "help me with mark block start in wordstar", "expected": "Ctrl-K B.", "output": "Ctrl-K B.", "exact": true}
+{"question": "which wordstar command for mark block start", "expected": "Ctrl-K B.", "output": "Ctrl-K B.", "exact": true}
+{"question": "how do i mark the last position of a block in wordstar?", "expected": "Ctrl-K K.", "output": "Ctrl-K V.", "exact": false}
+{"question": "help me with mark block end in wordstar", "expected": "Ctrl-K K.", "output": "Ctrl-K K.", "exact": true}
+{"question": "which wordstar command for mark block end", "expected": "Ctrl-K K.", "output": "Ctrl-K K.", "exact": true}
+{"question": "how can i duplicate the marked text in wordstar?", "expected": "Ctrl-K C.", "output": "Ctrl-K D.", "exact": false}
+{"question": "help me with copy marked block in wordstar", "expected": "Ctrl-K C.", "output": "Ctrl-K C.", "exact": true}
+{"question": "which wordstar command for copy marked block", "expected": "Ctrl-K C.", "output": "Ctrl-K C.", "exact": true}
+{"question": "which wordstar keys relocate a marked block?", "expected": "Ctrl-K V.", "output": "Ctrl-K V.", "exact": true}
+{"question": "help me with move marked block in wordstar", "expected": "Ctrl-K V.", "output": "Ctrl-K V.", "exact": true}
+{"question": "which wordstar command for move marked block", "expected": "Ctrl-K V.", "output": "Ctrl-K V.", "exact": true}
+{"question": "how do i remove the selected block in wordstar?", "expected": "Ctrl-K Y.", "output": "Ctrl-K V.", "exact": false}
+{"question": "help me with delete marked block in wordstar", "expected": "Ctrl-K Y.", "output": "Ctrl-K Y.", "exact": true}
+{"question": "which wordstar command for delete marked block", "expected": "Ctrl-K Y.", "output": "Ctrl-K Y.", "exact": true}

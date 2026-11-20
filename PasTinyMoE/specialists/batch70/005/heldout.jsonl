@@ -1,0 +1,15 @@
+{"question": "what is the low 640k region called conventional memory", "answer": "The first 640 KB of PC address space."}
+{"question": "can you explain conventional memory in dos", "answer": "The first 640 KB of PC address space."}
+{"question": "give a short definition of base memory", "answer": "The first 640 KB of PC address space."}
+{"question": "where is the upper memory area on a dos pc", "answer": "The area from 640 KB to 1 MB."}
+{"question": "can you explain upper memory in dos", "answer": "The area from 640 KB to 1 MB."}
+{"question": "give a short definition of uma", "answer": "The area from 640 KB to 1 MB."}
+{"question": "what does xms manage above the one megabyte line", "answer": "Memory above the 1 MB boundary."}
+{"question": "can you explain extended memory in dos", "answer": "Memory above the 1 MB boundary."}
+{"question": "give a short definition of xms memory", "answer": "Memory above the 1 MB boundary."}
+{"question": "how is ems memory accessed", "answer": "Bank-switched memory accessed through a page frame."}
+{"question": "can you explain expanded memory in dos", "answer": "Bank-switched memory accessed through a page frame."}
+{"question": "give a short definition of ems memory", "answer": "Bank-switched memory accessed through a page frame."}
+{"question": "where exactly is the hma in dos", "answer": "The first 65520 bytes above 1 MB."}
+{"question": "can you explain high memory area in dos", "answer": "The first 65520 bytes above 1 MB."}
+{"question": "give a short definition of hma", "answer": "The first 65520 bytes above 1 MB."}

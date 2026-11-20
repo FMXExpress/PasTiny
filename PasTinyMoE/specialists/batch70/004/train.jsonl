@@ -1,0 +1,90 @@
+{"question": "define pathname", "answer": "A file or directory location."}
+{"question": "what is a pathname", "answer": "A file or directory location."}
+{"question": "explain pathname in dos", "answer": "A file or directory location."}
+{"question": "describe the term pathname", "answer": "A file or directory location."}
+{"question": "what is meant by pathname", "answer": "A file or directory location."}
+{"question": "meaning of pathname", "answer": "A file or directory location."}
+{"question": "dos help with pathname", "answer": "A file or directory location."}
+{"question": "give the meaning of pathname", "answer": "A file or directory location."}
+{"question": "how do you define pathname", "answer": "A file or directory location."}
+{"question": "what does pathname refer to", "answer": "A file or directory location."}
+{"question": "pathname points to what", "answer": "A file or directory location."}
+{"question": "what can i locate using a pathname", "answer": "A file or directory location."}
+{"question": "how does a pathname specify a location", "answer": "A file or directory location."}
+{"question": "what can be named by a pathname", "answer": "A file or directory location."}
+{"question": "what does a dos pathname identify", "answer": "A file or directory location."}
+{"question": "define filename extension", "answer": "Suffix after the last dot."}
+{"question": "what is a filename extension", "answer": "Suffix after the last dot."}
+{"question": "explain filename extension in dos", "answer": "Suffix after the last dot."}
+{"question": "describe the term filename extension", "answer": "Suffix after the last dot."}
+{"question": "what is meant by filename extension", "answer": "Suffix after the last dot."}
+{"question": "meaning of filename extension", "answer": "Suffix after the last dot."}
+{"question": "dos help with filename extension", "answer": "Suffix after the last dot."}
+{"question": "give the meaning of filename extension", "answer": "Suffix after the last dot."}
+{"question": "how do you define filename extension", "answer": "Suffix after the last dot."}
+{"question": "what does filename extension refer to", "answer": "Suffix after the last dot."}
+{"question": "which part of a name is the filename extension", "answer": "Suffix after the last dot."}
+{"question": "what follows the dot in a filename extension question", "answer": "Suffix after the last dot."}
+{"question": "where is the filename extension in a name", "answer": "Suffix after the last dot."}
+{"question": "what does filename extension tell us about the suffix", "answer": "Suffix after the last dot."}
+{"question": "where in a filename is its filename extension", "answer": "Suffix after the last dot."}
+{"question": "define parent directory", "answer": "Directory one level above."}
+{"question": "what is a parent directory", "answer": "Directory one level above."}
+{"question": "explain parent directory in dos", "answer": "Directory one level above."}
+{"question": "describe the term parent directory", "answer": "Directory one level above."}
+{"question": "what is meant by parent directory", "answer": "Directory one level above."}
+{"question": "meaning of parent directory", "answer": "Directory one level above."}
+{"question": "dos help with parent directory", "answer": "Directory one level above."}
+{"question": "give the meaning of parent directory", "answer": "Directory one level above."}
+{"question": "how do you define parent directory", "answer": "Directory one level above."}
+{"question": "what does parent directory refer to", "answer": "Directory one level above."}
+{"question": "what is above me in a parent directory question", "answer": "Directory one level above."}
+{"question": "where do i go to reach the parent directory", "answer": "Directory one level above."}
+{"question": "which level holds the parent directory", "answer": "Directory one level above."}
+{"question": "what does the parent directory contain", "answer": "Directory one level above."}
+{"question": "is the parent directory above or below", "answer": "Directory one level above."}
+{"question": "define wildcard", "answer": "Matches a pattern of names."}
+{"question": "what is a wildcard", "answer": "Matches a pattern of names."}
+{"question": "explain wildcard in dos", "answer": "Matches a pattern of names."}
+{"question": "describe the term wildcard", "answer": "Matches a pattern of names."}
+{"question": "what is meant by wildcard", "answer": "Matches a pattern of names."}
+{"question": "meaning of wildcard", "answer": "Matches a pattern of names."}
+{"question": "dos help with wildcard", "answer": "Matches a pattern of names."}
+{"question": "give the meaning of wildcard", "answer": "Matches a pattern of names."}
+{"question": "how do you define wildcard", "answer": "Matches a pattern of names."}
+{"question": "what does wildcard refer to", "answer": "Matches a pattern of names."}
+{"question": "why use a wildcard to match names", "answer": "Matches a pattern of names."}
+{"question": "what does a wildcard do in a search", "answer": "Matches a pattern of names."}
+{"question": "what makes a wildcard handy in filename matching", "answer": "Matches a pattern of names."}
+{"question": "how can a wildcard help find files", "answer": "Matches a pattern of names."}
+{"question": "describe using a wildcard in a name pattern", "answer": "Matches a pattern of names."}
+{"question": "define root directory", "answer": "Top directory on a drive."}
+{"question": "what is a root directory", "answer": "Top directory on a drive."}
+{"question": "explain root directory in dos", "answer": "Top directory on a drive."}
+{"question": "describe the term root directory", "answer": "Top directory on a drive."}
+{"question": "what is meant by root directory", "answer": "Top directory on a drive."}
+{"question": "meaning of root directory", "answer": "Top directory on a drive."}
+{"question": "dos help with root directory", "answer": "Top directory on a drive."}
+{"question": "give the meaning of root directory", "answer": "Top directory on a drive."}
+{"question": "how do you define root directory", "answer": "Top directory on a drive."}
+{"question": "what does root directory refer to", "answer": "Top directory on a drive."}
+{"question": "what level is the root directory at", "answer": "Top directory on a drive."}
+{"question": "where does a drive keep its root directory", "answer": "Top directory on a drive."}
+{"question": "what position does the root directory have", "answer": "Top directory on a drive."}
+{"question": "which end of the folder tree is the root directory", "answer": "Top directory on a drive."}
+{"question": "is the root directory at the top of a drive", "answer": "Top directory on a drive."}
+{"question": "define subdirectory", "answer": "Directory inside another directory."}
+{"question": "what is a subdirectory", "answer": "Directory inside another directory."}
+{"question": "explain subdirectory in dos", "answer": "Directory inside another directory."}
+{"question": "describe the term subdirectory", "answer": "Directory inside another directory."}
+{"question": "what is meant by subdirectory", "answer": "Directory inside another directory."}
+{"question": "meaning of subdirectory", "answer": "Directory inside another directory."}
+{"question": "dos help with subdirectory", "answer": "Directory inside another directory."}
+{"question": "give the meaning of subdirectory", "answer": "Directory inside another directory."}
+{"question": "how do you define subdirectory", "answer": "Directory inside another directory."}
+{"question": "what does subdirectory refer to", "answer": "Directory inside another directory."}
+{"question": "where is a subdirectory kept", "answer": "Directory inside another directory."}
+{"question": "what contains a subdirectory", "answer": "Directory inside another directory."}
+{"question": "why call a directory a subdirectory", "answer": "Directory inside another directory."}
+{"question": "how is a subdirectory nested", "answer": "Directory inside another directory."}
+{"question": "explain a subdirectory in relation to another folder", "answer": "Directory inside another directory."}

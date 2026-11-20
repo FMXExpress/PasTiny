@@ -1,0 +1,19 @@
+catalog/init ms=-13
+FPU no
+heap=517552 largest=517552 stack=15860
+load/recovery ms=665
+active 1 DOS Guide
+heap=33352 largest=33352 stack=15860
+route ms=3
+load/recovery ms=346
+active 4 File and Path Terms
+A file or directory location.
+answer ms=62550 chars=29
+first char ms=33912 output span ms=27918
+route ms=3
+load/recovery ms=321
+active 5 DOS memory terms
+Spandix-Libtcorno hs a come.
+answer ms=51837 chars=28
+first char ms=39361 output span ms=11965
+heap=33352 largest=33352 stack=15860

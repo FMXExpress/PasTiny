@@ -1,0 +1,623 @@
+catalog/init ms=-15
+FPU yes
+heap=517552 largest=517552 stack=15860
+load/recovery ms=468
+active 1 DOS Guide
+heap=33352 largest=33352 stack=15860
+route ms=0
+load/recovery ms=134
+active 4 File and Path Terms
+A file or directory location.
+answer ms=1670 chars=29
+first char ms=943 output span ms=689
+route ms=0
+A file or directory location.
+answer ms=2964 chars=29
+first char ms=1389 output span ms=1497
+route ms=1
+Suffix after the last dot.
+answer ms=2880 chars=26
+first char ms=1984 output span ms=827
+route ms=1
+Suffix after the last dot.
+answer ms=2245 chars=26
+first char ms=1420 output span ms=801
+route ms=1
+Directory one level above.
+answer ms=4255 chars=26
+first char ms=2215 output span ms=1992
+route ms=3
+Directory one level above.
+answer ms=2188 chars=26
+first char ms=1486 output span ms=694
+route ms=1
+Matches a pattern of names.
+answer ms=3242 chars=27
+first char ms=1658 output span ms=1506
+route ms=1
+Matches a pattern of names.
+answer ms=4047 chars=27
+first char ms=2584 output span ms=1473
+route ms=1
+Top directory on a drive.
+answer ms=2216 chars=25
+first char ms=1250 output span ms=960
+route ms=0
+Top directory on a drive.
+answer ms=2089 chars=25
+first char ms=1353 output span ms=685
+route ms=1
+Directory inside another directory.
+answer ms=3018 chars=35
+first char ms=1409 output span ms=1553
+route ms=1
+Directory inside another directory.
+answer ms=3456 chars=35
+first char ms=1695 output span ms=1718
+route ms=1
+load/recovery ms=141
+active 5 DOS memory terms
+Spandix-Libtcorno hs a come.
+answer ms=2957 chars=28
+first char ms=1813 output span ms=1120
+route ms=0
+The first 640 KB of PC address space.
+answer ms=2219 chars=37
+first char ms=891 output span ms=1301
+route ms=1
+The first 640 KB of PC address space.
+answer ms=3191 chars=37
+first char ms=1379 output span ms=1793
+route ms=1
+The area from 640 KB to 1 MB.
+answer ms=2630 chars=29
+first char ms=1417 output span ms=1135
+route ms=0
+The area from 640 KB to 1 MB.
+answer ms=2247 chars=29
+first char ms=1184 output span ms=969
+route ms=1
+The first 65520 bytes above 1 MB.
+answer ms=2190 chars=33
+first char ms=844 output span ms=1324
+route ms=1
+The abou 1 Kabove the bodybake sabyte ha1que the the fis.
+answer ms=2909 chars=57
+first char ms=1252 output span ms=1615
+route ms=0
+Memory above the 1 MB boundary.
+answer ms=1799 chars=31
+first char ms=720 output span ms=1005
+route ms=1
+Memory above the 1 MB boundary.
+answer ms=2328 chars=31
+first char ms=1043 output span ms=1229
+route ms=0
+Memory above the 1 MB boundary.
+answer ms=2680 chars=31
+first char ms=1008 output span ms=1600
+route ms=2
+Bank-switched memory accessed through a page frame.
+answer ms=2460 chars=51
+first char ms=1195 output span ms=1242
+route ms=0
+The first 640 KB of PC address space.
+answer ms=1951 chars=37
+first char ms=918 output span ms=1027
+route ms=0
+The first 65520 bytes above 1 MB.
+answer ms=2535 chars=33
+first char ms=966 output span ms=1542
+route ms=1
+The first 65520 bytes above 1 MB.
+answer ms=2467 chars=33
+first char ms=1320 output span ms=1136
+route ms=1
+The first 65520 bytes above 1 MB.
+answer ms=1789 chars=33
+first char ms=855 output span ms=868
+route ms=1
+load/recovery ms=153
+active 6 Floppy disk terms
+A circular recording path on one side.
+answer ms=2615 chars=38
+first char ms=1354 output span ms=1260
+route ms=0
+A circular recording path on one side.
+answer ms=1936 chars=38
+first char ms=1292 output span ms=658
+route ms=0
+A circular recording path on one side.
+answer ms=3007 chars=38
+first char ms=1864 output span ms=1126
+route ms=0
+An addressable block of data on a track.
+answer ms=3775 chars=40
+first char ms=1882 output span ms=1822
+route ms=-54
+A circular recording path on one side.
+answer ms=3044 chars=38
+first char ms=1947 output span ms=1038
+route ms=0
+The tracks at one radius across all sides.
+answer ms=4039 chars=42
+first char ms=2151 output span ms=1817
+route ms=-54
+A dest the ten sharest.
+answer ms=2065 chars=23
+first char ms=1388 output span ms=624
+route ms=2
+The part that reads or writes magnetic data.
+answer ms=4039 chars=44
+first char ms=1826 output span ms=2122
+route ms=2
+A hole that marks one turn of the disk.
+answer ms=4596 chars=39
+first char ms=2725 output span ms=1774
+route ms=2
+A hole that marks one turn of the disk.
+answer ms=2895 chars=39
+first char ms=1633 output span ms=1247
+route ms=1
+On a 5.25 inch disk, covering it blocks writes.
+answer ms=3243 chars=47
+first char ms=1550 output span ms=1622
+route ms=0
+On a 5.25 inch disk, covering it blocks writes.
+answer ms=2975 chars=47
+first char ms=1420 output span ms=1478
+route ms=1
+On a 3.5 inch disk, an open hole blocks writes.
+answer ms=3213 chars=47
+first char ms=1610 output span ms=1535
+route ms=0
+On a 3.5 inch disk, an open hole blocks writes.
+answer ms=3207 chars=47
+first char ms=1407 output span ms=1721
+route ms=1
+load/recovery ms=90
+active 37 Modem Desk
+Tone dial.
+answer ms=1162 chars=10
+first char ms=979 output span ms=149
+route ms=0
+Tone dial.
+answer ms=609 chars=10
+first char ms=455 output span ms=128
+route ms=1
+Pulse dial.
+answer ms=742 chars=11
+first char ms=600 output span ms=114
+route ms=0
+Pulse dial.
+answer ms=576 chars=11
+first char ms=458 output span ms=92
+route ms=0
+Answer the call.
+answer ms=580 chars=16
+first char ms=404 output span ms=150
+route ms=1
+Answer the call.
+answer ms=668 chars=16
+first char ms=477 output span ms=164
+route ms=0
+Done dial.
+answer ms=476 chars=10
+first char ms=399 output span ms=107
+route ms=0
+Hang up.
+answer ms=1049 chars=8
+first char ms=890 output span ms=173
+route ms=0
+Disable command echo.
+answer ms=793 chars=21
+first char ms=485 output span ms=282
+route ms=1
+Disable command echo.
+answer ms=716 chars=21
+first char ms=474 output span ms=216
+route ms=1
+Dos the body call.
+answer ms=612 chars=18
+first char ms=418 output span ms=170
+route ms=0
+Disable command echo.
+answer ms=729 chars=21
+first char ms=440 output span ms=263
+route ms=0
+load/recovery ms=50
+active 38 BBS and Terminal
+It was of program.
+answer ms=646 chars=18
+first char ms=435 output span ms=241
+route ms=0
+System operator.
+answer ms=629 chars=16
+first char ms=420 output span ms=185
+route ms=1
+Text ared callend protes.
+answer ms=672 chars=25
+first char ms=406 output span ms=241
+route ms=0
+It is tenners.
+answer ms=591 chars=14
+first char ms=430 output span ms=137
+route ms=0
+External program.
+answer ms=525 chars=17
+first char ms=304 output span ms=198
+route ms=0
+Text ared proternated proterstans proters toots.
+answer ms=1200 chars=48
+first char ms=535 output span ms=636
+route ms=-55
+Privage asdren.
+answer ms=578 chars=15
+first char ms=402 output span ms=153
+route ms=1
+Private addressed message.
+answer ms=778 chars=26
+first char ms=382 output span ms=365
+route ms=0
+Egressag.
+answer ms=640 chars=9
+first char ms=526 output span ms=143
+route ms=0
+Proland conference messages.
+answer ms=765 chars=28
+first char ms=418 output span ms=321
+route ms=0
+Termanian.
+answer ms=377 chars=10
+first char ms=270 output span ms=140
+route ms=1
+Text art using escape codes.
+answer ms=588 chars=28
+first char ms=286 output span ms=278
+route ms=0
+load/recovery ms=104
+active 39 WordStar
+Ctrl-K D.
+answer ms=562 chars=9
+first char ms=459 output span ms=133
+route ms=0
+Ctrl-K S.
+answer ms=514 chars=9
+first char ms=422 output span ms=124
+route ms=0
+Ctrl-K S.
+answer ms=696 chars=9
+first char ms=571 output span ms=144
+route ms=1
+Ctrl-K K.
+answer ms=820 chars=9
+first char ms=731 output span ms=115
+route ms=0
+Ctrl-K B.
+answer ms=630 chars=9
+first char ms=509 output span ms=95
+route ms=0
+Ctrl-K B.
+answer ms=655 chars=9
+first char ms=561 output span ms=119
+route ms=1
+Ctrl-K V.
+answer ms=827 chars=9
+first char ms=680 output span ms=118
+route ms=0
+Ctrl-K K.
+answer ms=531 chars=9
+first char ms=414 output span ms=147
+route ms=1
+Ctrl-K K.
+answer ms=616 chars=9
+first char ms=493 output span ms=96
+route ms=0
+Ctrl-K D.
+answer ms=642 chars=9
+first char ms=567 output span ms=102
+route ms=0
+Ctrl-K C.
+answer ms=606 chars=9
+first char ms=521 output span ms=110
+route ms=1
+Ctrl-K C.
+answer ms=688 chars=9
+first char ms=553 output span ms=107
+route ms=0
+Ctrl-K V.
+answer ms=728 chars=9
+first char ms=545 output span ms=183
+route ms=1
+Ctrl-K V.
+answer ms=859 chars=9
+first char ms=737 output span ms=95
+route ms=0
+Ctrl-K V.
+answer ms=590 chars=9
+first char ms=482 output span ms=83
+route ms=0
+Ctrl-K V.
+answer ms=603 chars=9
+first char ms=495 output span ms=84
+route ms=0
+Ctrl-K Y.
+answer ms=550 chars=9
+first char ms=445 output span ms=135
+route ms=0
+Ctrl-K Y.
+answer ms=791 chars=9
+first char ms=620 output span ms=133
+route ms=1
+load/recovery ms=85
+active 40 Lotus 1-2-3
+F9.
+answer ms=1051 chars=3
+first char ms=984 output span ms=81
+route ms=0
+F2.
+answer ms=549 chars=3
+first char ms=506 output span ms=65
+route ms=0
+F2.
+answer ms=574 chars=3
+first char ms=481 output span ms=62
+route ms=0
+F8.
+answer ms=917 chars=3
+first char ms=860 output span ms=20
+route ms=1
+F9.
+answer ms=703 chars=3
+first char ms=654 output span ms=69
+route ms=0
+F9.
+answer ms=758 chars=3
+first char ms=708 output span ms=70
+route ms=0
+Sunlight, ell I flogunt 59.
+answer ms=1084 chars=27
+first char ms=649 output span ms=454
+route ms=0
+Slash.
+answer ms=786 chars=6
+first char ms=622 output span ms=108
+route ms=1
+Slash.
+answer ms=745 chars=6
+first char ms=636 output span ms=81
+route ms=1
+F9.
+answer ms=590 chars=3
+first char ms=516 output span ms=49
+route ms=1
+A1.
+answer ms=461 chars=3
+first char ms=447 output span ms=-9
+route ms=0
+A1.
+answer ms=478 chars=3
+first char ms=465 output span ms=-10
+route ms=0
+@Slash.
+answer ms=552 chars=7
+first char ms=500 output span ms=28
+route ms=0
+@SUM.
+answer ms=393 chars=5
+first char ms=330 output span ms=39
+route ms=0
+@SUM.
+answer ms=425 chars=5
+first char ms=365 output span ms=37
+route ms=1
+@5.
+answer ms=541 chars=3
+first char ms=527 output span ms=-9
+route ms=1
+@AVG.
+answer ms=428 chars=5
+first char ms=369 output span ms=36
+route ms=0
+@AVG.
+answer ms=491 chars=5
+first char ms=431 output span ms=37
+route ms=0
+load/recovery ms=49
+active 98 Frontier character
+Howdy, traveler!
+answer ms=509 chars=16
+first char ms=320 output span ms=166
+route ms=0
+Howdy, traveler!
+answer ms=537 chars=16
+first char ms=294 output span ms=216
+route ms=0
+Howdy, traveler!
+answer ms=653 chars=16
+first char ms=440 output span ms=240
+route ms=0
+Happy trails, friend.
+answer ms=611 chars=21
+first char ms=361 output span ms=278
+route ms=1
+Happy trails, friend.
+answer ms=638 chars=21
+first char ms=406 output span ms=258
+route ms=0
+Happy trails, friend.
+answer ms=687 chars=21
+first char ms=417 output span ms=243
+route ms=0
+Beans and fresh cornbread.
+answer ms=836 chars=26
+first char ms=447 output span ms=355
+route ms=1
+Beans and fresh cornbread.
+answer ms=966 chars=26
+first char ms=533 output span ms=454
+route ms=0
+Beans and fresh cornbread.
+answer ms=672 chars=26
+first char ms=373 output span ms=273
+route ms=0
+Follow the creek west.
+answer ms=554 chars=22
+first char ms=277 output span ms=253
+route ms=0
+Follow the creek west.
+answer ms=560 chars=22
+first char ms=284 output span ms=252
+route ms=0
+Follow the creek west.
+answer ms=615 chars=22
+first char ms=380 output span ms=210
+route ms=0
+Camp is by the cottonwoods.
+answer ms=766 chars=27
+first char ms=299 output span ms=431
+route ms=1
+Camp is by the cottonwoods.
+answer ms=932 chars=27
+first char ms=492 output span ms=406
+route ms=0
+Camp is by the cottonwoods.
+answer ms=798 chars=27
+first char ms=391 output span ms=428
+route ms=0
+Rain clouds over the ridge.
+answer ms=972 chars=27
+first char ms=430 output span ms=500
+route ms=1
+Rain clouds over the ridge.
+answer ms=1093 chars=27
+first char ms=542 output span ms=509
+route ms=1
+Rain clouds over the ridge.
+answer ms=1178 chars=27
+first char ms=584 output span ms=550
+route ms=0
+load/recovery ms=101
+active 99 Fairy-tale character
+Welcome to the willow court!
+answer ms=1078 chars=28
+first char ms=560 output span ms=530
+route ms=1
+Welcome to the willow court!
+answer ms=1133 chars=28
+first char ms=571 output span ms=519
+route ms=1
+Pear tarts and honey cakes.
+answer ms=1193 chars=27
+first char ms=639 output span ms=513
+route ms=0
+May the moon guide you.
+answer ms=800 chars=23
+first char ms=438 output span ms=333
+route ms=1
+May the moon guide you.
+answer ms=684 chars=23
+first char ms=405 output span ms=251
+route ms=0
+Pear the mooth peros.
+answer ms=694 chars=21
+first char ms=421 output span ms=246
+route ms=0
+The castle has seven towers.
+answer ms=817 chars=28
+first char ms=363 output span ms=420
+route ms=1
+The castle has seven towers.
+answer ms=879 chars=28
+first char ms=459 output span ms=440
+route ms=0
+The castle has seven towers.
+answer ms=931 chars=28
+first char ms=440 output span ms=456
+route ms=0
+The dragon knits scarves.
+answer ms=822 chars=25
+first char ms=394 output span ms=393
+route ms=0
+The dragon knits scarves.
+answer ms=1041 chars=25
+first char ms=578 output span ms=432
+route ms=0
+The dragon knits scarves.
+answer ms=719 chars=25
+first char ms=401 output span ms=346
+route ms=0
+I wish for dancing stars.
+answer ms=877 chars=25
+first char ms=472 output span ms=376
+route ms=0
+I wish for dancing stars.
+answer ms=685 chars=25
+first char ms=355 output span ms=357
+route ms=0
+I wish for dancing stars.
+answer ms=631 chars=25
+first char ms=346 output span ms=259
+route ms=0
+Pear tarts and honey cakes.
+answer ms=627 chars=27
+first char ms=285 output span ms=370
+route ms=0
+Pear tarts and honey cakes.
+answer ms=727 chars=27
+first char ms=398 output span ms=304
+route ms=0
+Pear tarts and honey cakes.
+answer ms=715 chars=27
+first char ms=355 output span ms=327
+route ms=1
+load/recovery ms=124
+active 100 Story sparks
+A thimble holds the last rain on Earth.
+answer ms=1025 chars=39
+first char ms=537 output span ms=459
+route ms=0
+A turd shafpy lassen light tra: the letter up olds file a los file earowh
+answer ms=1593 chars=73
+first char ms=591 output span ms=970
+route ms=1
+A turnstile counts one extra ghost each night.
+answer ms=1167 chars=46
+first char ms=550 output span ms=588
+route ms=0
+A turnstile counts one extra ghost each night.
+answer ms=1213 chars=46
+first char ms=519 output span ms=661
+route ms=0
+A postcard arrives from a town drawn yesterday.
+answer ms=1270 chars=47
+first char ms=582 output span ms=655
+route ms=1
+A postcard arrives from a town drawn yesterday.
+answer ms=1220 chars=47
+first char ms=539 output span ms=650
+route ms=0
+A sundial casts a shadow before the sun rises.
+answer ms=1193 chars=46
+first char ms=535 output span ms=627
+route ms=0
+A sundial casts a shadow before the sun rises.
+answer ms=1116 chars=46
+first char ms=450 output span ms=636
+route ms=0
+A loose shoelace points toward a missing twin.
+answer ms=1180 chars=46
+first char ms=538 output span ms=613
+route ms=0
+A loose shoelace points toward a missing twin.
+answer ms=1182 chars=46
+first char ms=550 output span ms=655
+route ms=0
+A keyhole shows tomorrow in a locked room.
+answer ms=1165 chars=42
+first char ms=531 output span ms=604
+route ms=0
+A keyhole shows tomorrow in a locked room.
+answer ms=1157 chars=42
+first char ms=575 output span ms=551
+heap=33352 largest=33352 stack=15860

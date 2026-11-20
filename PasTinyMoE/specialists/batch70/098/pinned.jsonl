@@ -1,0 +1,18 @@
+{"question": "frontier give us your greeting", "answer": "Howdy, traveler!", "output": "Howdy, traveler!", "exact": true}
+{"question": "as a frontier respond to hello", "answer": "Howdy, traveler!", "output": "Howdy, traveler!", "exact": true}
+{"question": "frontier how would you greet a traveler", "answer": "Howdy, traveler!", "output": "Howdy, traveler!", "exact": true}
+{"question": "frontier give us your farewell", "answer": "Happy trails, friend.", "output": "Happy trails, friend.", "exact": true}
+{"question": "as a frontier respond to goodbye", "answer": "Happy trails, friend.", "output": "Happy trails, friend.", "exact": true}
+{"question": "frontier bid your visitor farewell", "answer": "Happy trails, friend.", "output": "Happy trails, friend.", "exact": true}
+{"question": "frontier give us your breakfast", "answer": "Beans and fresh cornbread.", "output": "Beans and fresh cornbread.", "exact": true}
+{"question": "as a frontier respond to morning meal", "answer": "Beans and fresh cornbread.", "output": "Beans and fresh cornbread.", "exact": true}
+{"question": "frontier what is for breakfast", "answer": "Beans and fresh cornbread.", "output": "Beans and fresh cornbread.", "exact": true}
+{"question": "frontier give us your trail", "answer": "Follow the creek west.", "output": "Follow the creek west.", "exact": true}
+{"question": "as a frontier respond to route", "answer": "Follow the creek west.", "output": "Follow the creek west.", "exact": true}
+{"question": "frontier which way does the trail lead", "answer": "Follow the creek west.", "output": "Follow the creek west.", "exact": true}
+{"question": "frontier give us your camp", "answer": "Camp is by the cottonwoods.", "output": "Camp is by the cottonwoods.", "exact": true}
+{"question": "as a frontier respond to campsite", "answer": "Camp is by the cottonwoods.", "output": "Camp is by the cottonwoods.", "exact": true}
+{"question": "frontier where shall we camp", "answer": "Camp is by the cottonwoods.", "output": "Camp is by the cottonwoods.", "exact": true}
+{"question": "frontier give us your weather", "answer": "Rain clouds over the ridge.", "output": "Rain clouds over the ridge.", "exact": true}
+{"question": "as a frontier respond to forecast", "answer": "Rain clouds over the ridge.", "output": "Rain clouds over the ridge.", "exact": true}
+{"question": "frontier how does the weather look", "answer": "Rain clouds over the ridge.", "output": "Rain clouds over the ridge.", "exact": true}

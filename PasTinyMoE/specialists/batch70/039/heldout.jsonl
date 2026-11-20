@@ -1,0 +1,18 @@
+{"question": "how can i save my wordstar file and keep editing?", "answer": "Ctrl-K S."}
+{"question": "help me with save and resume in wordstar", "answer": "Ctrl-K S."}
+{"question": "which wordstar command for save and resume", "answer": "Ctrl-K S."}
+{"question": "which wordstar keys mark the beginning of a block?", "answer": "Ctrl-K B."}
+{"question": "help me with mark block start in wordstar", "answer": "Ctrl-K B."}
+{"question": "which wordstar command for mark block start", "answer": "Ctrl-K B."}
+{"question": "how do i mark the last position of a block in wordstar?", "answer": "Ctrl-K K."}
+{"question": "help me with mark block end in wordstar", "answer": "Ctrl-K K."}
+{"question": "which wordstar command for mark block end", "answer": "Ctrl-K K."}
+{"question": "how can i duplicate the marked text in wordstar?", "answer": "Ctrl-K C."}
+{"question": "help me with copy marked block in wordstar", "answer": "Ctrl-K C."}
+{"question": "which wordstar command for copy marked block", "answer": "Ctrl-K C."}
+{"question": "which wordstar keys relocate a marked block?", "answer": "Ctrl-K V."}
+{"question": "help me with move marked block in wordstar", "answer": "Ctrl-K V."}
+{"question": "which wordstar command for move marked block", "answer": "Ctrl-K V."}
+{"question": "how do i remove the selected block in wordstar?", "answer": "Ctrl-K Y."}
+{"question": "help me with delete marked block in wordstar", "answer": "Ctrl-K Y."}
+{"question": "which wordstar command for delete marked block", "answer": "Ctrl-K Y."}

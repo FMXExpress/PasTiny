@@ -1,0 +1,12 @@
+{"question": "what does a pathname identify in dos", "answer": "A file or directory location."}
+{"question": "in dos what location does a pathname describe", "answer": "A file or directory location."}
+{"question": "where does the extension appear in a dos filename", "answer": "Suffix after the last dot."}
+{"question": "which part of a dos filename is the extension", "answer": "Suffix after the last dot."}
+{"question": "where is the parent directory relative to this folder", "answer": "Directory one level above."}
+{"question": "which folder is called the parent directory", "answer": "Directory one level above."}
+{"question": "what is a wildcard used for in a file search", "answer": "Matches a pattern of names."}
+{"question": "why put a wildcard in a dos filename pattern", "answer": "Matches a pattern of names."}
+{"question": "where is the root directory in the folder tree", "answer": "Top directory on a drive."}
+{"question": "which directory is called the drive root", "answer": "Top directory on a drive."}
+{"question": "how does a subdirectory fit into a dos folder tree", "answer": "Directory inside another directory."}
+{"question": "what is meant by calling a folder a subdirectory", "answer": "Directory inside another directory."}

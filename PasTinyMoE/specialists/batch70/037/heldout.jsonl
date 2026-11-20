@@ -1,0 +1,12 @@
+{"question": "which dialing mode does modem command atdt select", "answer": "Tone dial."}
+{"question": "on a modem what kind of dialing is atdt", "answer": "Tone dial."}
+{"question": "which dialing mode does modem command atdp select", "answer": "Pulse dial."}
+{"question": "on a modem what kind of dialing is atdp", "answer": "Pulse dial."}
+{"question": "what does a modem do when given ata", "answer": "Answer the call."}
+{"question": "what action does ata request from a modem", "answer": "Answer the call."}
+{"question": "what does ath0 do to a modem call", "answer": "Hang up."}
+{"question": "what happens to the line after modem command ath0", "answer": "Hang up."}
+{"question": "what does ate0 do to local command echo", "answer": "Disable command echo."}
+{"question": "does modem command ate0 enable or disable echo", "answer": "Disable command echo."}
+{"question": "what does ate1 do to local command echo", "answer": "Enable command echo."}
+{"question": "does modem command ate1 enable or disable echo", "answer": "Enable command echo."}

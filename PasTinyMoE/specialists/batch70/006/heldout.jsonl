@@ -1,0 +1,14 @@
+{"question": "what should i understand by track in a floppy manual", "answer": "A circular recording path on one side.", "fact": "track"}
+{"question": "what shape is a recording track on a floppy", "answer": "A circular recording path on one side.", "fact": "track"}
+{"question": "what should i understand by sector in a floppy manual", "answer": "An addressable block of data on a track.", "fact": "sector"}
+{"question": "on a diskette what does the sector number identify", "answer": "An addressable block of data on a track.", "fact": "sector"}
+{"question": "what should i understand by cylinder in a floppy manual", "answer": "The tracks at one radius across all sides.", "fact": "cylinder"}
+{"question": "what does cylinder group together on a double sided floppy", "answer": "The tracks at one radius across all sides.", "fact": "cylinder"}
+{"question": "what should i understand by head in a floppy manual", "answer": "The part that reads or writes magnetic data.", "fact": "head"}
+{"question": "what job does the drive head do for a diskette", "answer": "The part that reads or writes magnetic data.", "fact": "head"}
+{"question": "what should i understand by index hole in a floppy manual", "answer": "A hole that marks one turn of the disk.", "fact": "index hole"}
+{"question": "why is there an index hole near the hub of a floppy", "answer": "A hole that marks one turn of the disk.", "fact": "index hole"}
+{"question": "what should i understand by write protect notch in a floppy manual", "answer": "On a 5.25 inch disk, covering it blocks writes.", "fact": "write protect notch"}
+{"question": "what is the function of the write protect notch on a floppy", "answer": "On a 5.25 inch disk, covering it blocks writes.", "fact": "write protect notch"}
+{"question": "what should i understand by write protect tab in a floppy manual", "answer": "On a 3.5 inch disk, an open hole blocks writes.", "fact": "write protect tab"}
+{"question": "what does the sliding write protect tab do on a diskette", "answer": "On a 3.5 inch disk, an open hole blocks writes.", "fact": "write protect tab"}

@@ -1,10 +1,50 @@
 # PasTinyMoE expert plan
 
-The supplied excerpt begins at ID 037. It defines 64 planned entries. The catalog rows for IDs 001–036 are pending. The build order below also names early specialists.
+The original catalog excerpt supplies IDs 037–100. IDs 001–003 retain their pilot assignments. The project-defined catalog below fills IDs 004–036, completing the 100 entry plan.
 
 ## Implementation status
 
-**60 of 100 experts are trained and packaged** in [SPEC60](../specialists/batch60/). The shipped IDs are 001–003 and 041–097. The next entry in catalog order is 098 Frontier character. SD100 measures catalog capacity using fixture data. Forty planned experts remain.
+**70 of 100 experts are trained and packaged** in [SPEC70](../specialists/batch70/). The release includes IDs 001–006 and 037–100. IDs 007–036 have defined scopes and await training; 007 FAT volume terms is next. SD100 measures catalog capacity using fixture data.
+
+## Project-defined scopes for IDs 004–036
+
+These rows were designed for PasTinyMoE after the original excerpt was supplied. Each scope supports a small sourced syllabus and a held-out phrasing test. The software experts explain concepts. DOS and Pascal perform any requested live inspection or calculation.
+
+| ID | Expert | Scope |
+|---|---|---|
+| 004 | File and path terms | Explain fixed DOS pathname terms such as extension, wildcard and parent directory. |
+| 005 | DOS memory terms | Distinguish conventional, upper, high, extended and expanded memory. |
+| 006 | Floppy disk terms | Describe diskette geometry and write protection using labeled physical features. |
+| 007 | FAT volume terms | Explain cluster, root directory, allocation table and volume label in a FAT12/16 glossary. |
+| 008 | DOS startup files | Identify the historical roles of CONFIG.SYS, AUTOEXEC.BAT and COMMAND.COM in MS-DOS 6.22. |
+| 009 | Batch file vocabulary | Explain ECHO, REM, GOTO, labels and positional parameters in short, fixed examples. |
+| 010 | Text file conventions | Identify CR, LF, tab and end-of-file conventions in DOS text files. |
+| 011 | Keyboard terminology | Explain scan code, typematic repeat, modifier and lock keys. |
+| 012 | BIOS setup glossary | Identify POST, CMOS setup, boot sequence and firmware terminology. |
+| 013 | Display adapters | Compare documented text and graphics characteristics of MDA, CGA, EGA and VGA. |
+| 014 | Text screen layout | Explain screen cells, cursor position, pages and text attributes in DOS text mode. |
+| 015 | Bitmap graphics | Explain pixels, palettes, bit planes and scan lines in small indexed images. |
+| 016 | Printer desk | Identify tractor feed, platen, ribbon and form feed in period printer manuals. |
+| 017 | Joystick desk | Identify axes, buttons, centering and calibration terms for DOS game controllers. |
+| 018 | PC audio devices | Distinguish PC speaker, FM synthesis, MIDI messages and sampled audio playback. |
+| 019 | Serial port glossary | Explain baud rate, parity, stop bits and flow control in RS-232 terminology. |
+| 020 | PC expansion slots | Identify ISA, MCA, VLB and PCI from era and bus descriptions. |
+| 021 | Pascal scalar types | Identify Boolean, Char, Byte, Integer and LongInt in Turbo Pascal 7 declarations. |
+| 022 | Pascal control flow | Explain the roles of IF, CASE, WHILE, REPEAT and FOR using fixed snippets. |
+| 023 | Pascal records and arrays | Distinguish named record fields, indexed elements and bounds. |
+| 024 | Pascal routines | Identify procedure, function, VAR parameter and return value in short declarations. |
+| 025 | Pascal file types | Distinguish typed files, untyped files and Text streams in TP7. |
+| 026 | Pascal units | Explain interface, implementation, uses and unit initialization. |
+| 027 | Compiler messages | Interpret a fixed list of TP7 syntax and type diagnostics using short examples. |
+| 028 | Debugger vocabulary | Explain breakpoint, single step, watch and call stack in a local debugger. |
+| 029 | Number notation | Recognize binary, decimal and hexadecimal notation and place-value terms. |
+| 030 | Boolean logic | Explain AND, OR, XOR and NOT using named truth conditions. |
+| 031 | Sorting vocabulary | Identify key, stable sort, ascending order and comparison from short examples. |
+| 032 | Data structures | Identify stacks, queues and linked lists from their access conventions. |
+| 033 | Archive formats | Identify archival and compression terminology associated with ZIP, ARC and LZH. |
+| 034 | Spreadsheet formulas | Explain relative, absolute and mixed references using fixed A1-style examples. |
+| 035 | Database vocabulary | Distinguish table, record, field and index in a small personal database. |
+| 036 | Text editor navigation | Explain caret, word wrap, insert mode, overtype and block selection in editor-neutral prose. |
 
 ## Supplied catalog
 

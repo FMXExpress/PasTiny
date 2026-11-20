@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC70}{$DEFINE SPEC60}{$ENDIF}
 {$IFDEF SPEC60}{$DEFINE SPEC50}{$ENDIF}
 {$IFDEF SPEC50}{$DEFINE SPEC40}{$ENDIF}
 {$IFDEF SPEC40}{$DEFINE SPEC30}{$ENDIF}
@@ -49,13 +50,14 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC70}{$I TOPIC70.INC}{$ELSE}
 {$IFDEF SPEC60}{$I TOPIC60.INC}{$ELSE}
 {$IFDEF SPEC50}{$I TOPIC50.INC}{$ELSE}
 {$IFDEF SPEC40}{$I TOPIC40.INC}{$ELSE}
 {$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
+{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -102,10 +104,22 @@ var I,Start:Integer; WordKey:String; Hits:Byte;
  {$IFDEF SPEC30}HasDOSWord,VerbAffect:Boolean;{$ENDIF}
  {$IFDEF SPEC40}Context:String; Acoustic:Boolean;{$ENDIF}
  {$IFDEF SPEC50}OnlyAncient,MapContext,DegreeContext:Boolean;{$ENDIF}
+ {$IFDEF SPEC70}BBSContext,FrontierContext,WordStarContext,FileContext,MemoryContext:Boolean;{$ENDIF}
 begin
  Hits:=0; I:=1;
  {$IFDEF SPEC40}
  Context:=WordLine(Q);
+ {$IFDEF SPEC70}
+ BBSContext:=(Pos(' bbs ',Context)>0) or (Pos(' bulletin board ',Context)>0);
+ FrontierContext:=(Pos(' frontier ',Context)>0) or (Pos(' frontiersman ',Context)>0) or
+  (Pos(' cowpoke ',Context)>0);
+ WordStarContext:=Pos(' wordstar ',Context)>0;
+ FileContext:=(Pos(' dos ',Context)>0) or (Pos(' file ',Context)>0) or
+  (Pos(' filename ',Context)>0) or (Pos(' directory ',Context)>0) or (Pos(' folder ',Context)>0);
+ MemoryContext:=(Pos(' conventional memory ',Context)>0) or (Pos(' base memory ',Context)>0) or
+  (Pos(' upper memory ',Context)>0) or (Pos(' extended memory ',Context)>0) or
+  (Pos(' expanded memory ',Context)>0) or (Pos(' high memory area ',Context)>0);
+ {$ENDIF}
  {$IFDEF SPEC50}
  OnlyAncient:=True;
  MapContext:=(Pos(' map ',Context)>0) or (Pos(' maps ',Context)>0);
@@ -151,6 +165,15 @@ begin
    if (WordKey='verb') and ((Pos(' parser ',Context)>0) or
     (Pos(' adventure ',Context)>0)) then Matched:=0;
    {$ENDIF}
+   {$IFDEF SPEC70}
+   if ((WordKey='parent') or (WordKey='root') or (WordKey='extension'))
+    and not FileContext then Matched:=0;
+   if (WordKey='memory') and not MemoryContext then Matched:=0;
+   if ((WordKey='door') or (WordKey='handle')) and not BBSContext then Matched:=0;
+   if (WordKey='echo') and ((Pos(' ate0 ',Context)>0) or (Pos(' ate1 ',Context)>0))
+    then Matched:=0;
+   if FrontierContext and ((WordKey='weather') or (WordKey='traveler')) then Matched:=0;
+   {$ENDIF}
    if Acoustic and ((WordKey='hertz') or (WordKey='frequency')) then Matched:=68;
    { The capitals model answers country/capital pairs, not general country questions. }
    if (Matched=71) and (Pos(' capital ',Context)=0) then Matched:=0;
@@ -170,6 +193,12 @@ begin
    end;
    {$ENDIF}
    WordKey:='|'+Copy(Q,Start,I-Start)+'|';
+   {$IFDEF SPEC70}
+   { In the editor, file and block describe the objects of WordStar commands. }
+   if (WordKey='|file|') and WordStarContext then WordKey:='||';
+   if (WordKey='|block|') and (WordStarContext or (Pos(' marked block ',Context)>0)
+    or (Pos(' mark block ',Context)>0)) then WordKey:='||';
+   {$ENDIF}
    if Pos(WordKey,DOSWords)>0 then begin
     Hits:=Hits or 1;
     {$IFDEF SPEC30}if WordKey<>'|type|' then HasDOSWord:=True;{$ENDIF}
@@ -201,6 +230,15 @@ begin
  {$IFDEF SPEC50}
  { In a named history or landmark question, ancient describes the subject. }
  if (Extra in [78,81..85]) and (Hits=8) and OnlyAncient then Hits:=0;
+ {$ENDIF}
+ {$IFDEF SPEC70}
+ { A narrower DOS term specializes its parent domain. }
+ if (Extra=4) and (Hits=1) then Hits:=0;
+ if Extra=5 then begin
+  if (Pos(' do i have ',Q)>0) or (Pos(' is installed ',Q)>0) then begin PilotDomain:=0; Exit end;
+  if (Hits=1) and (Pos(' dos ',Q)>0) then Hits:=0
+ end;
+ if (Extra=6) and (Hits=16) and (Pos(' disk ',Q)>0) then Hits:=0;
  {$ENDIF}
  { State abbreviations are ambiguous outside postal or geographic questions. }
  if Extra=48 then

@@ -1,0 +1,82 @@
+[
+  {
+    "id": 4,
+    "title": "File and Path Terms",
+    "name": "PATHS.BIN",
+    "source": "specialists/models/PATHS.BIN",
+    "sha256": "c47fa21b23642303909c3c6ff45fef65ccf722dc16d0bcdcc666499dc3968e4d",
+    "keyword": "pathname"
+  },
+  {
+    "id": 5,
+    "title": "DOS memory terms",
+    "name": "DOSMEM.BIN",
+    "source": "specialists/models/DOSMEM.BIN",
+    "sha256": "3f319391bfc32ead562e5617b51dad6fb1b317b3d82c06292f4ab788b7efe901",
+    "keyword": "memory"
+  },
+  {
+    "id": 6,
+    "title": "Floppy disk terms",
+    "name": "FLOPPY.BIN",
+    "source": "specialists/models/FLOPPY.BIN",
+    "sha256": "e2ad1243d59c4473e19029527f29236d2f9e832083dc48bd749dca90d5a1b188",
+    "keyword": "floppy"
+  },
+  {
+    "id": 37,
+    "title": "Modem Desk",
+    "name": "MODEM.BIN",
+    "source": "specialists/models/MODEM.BIN",
+    "sha256": "01d30859220ffe0e2521348f155a7711bd2086ba0030e1535e169de958af4a89",
+    "keyword": "atdt"
+  },
+  {
+    "id": 38,
+    "title": "BBS and Terminal",
+    "name": "TERMINAL.BIN",
+    "source": "specialists/models/TERMINAL.BIN",
+    "sha256": "ea951a79154a05e99b3cf6278c057ce2052e3e9c3858228059ce66dbb96ea1c7",
+    "keyword": "sysop"
+  },
+  {
+    "id": 39,
+    "title": "WordStar",
+    "name": "WORDSTAR.BIN",
+    "source": "specialists/models/WORDSTAR.BIN",
+    "sha256": "ba47f8bef07adb7a9c66bba7d64142a5cc4baf19a0f052d2bac2b1f10659ae8e",
+    "keyword": "wordstar"
+  },
+  {
+    "id": 40,
+    "title": "Lotus 1-2-3",
+    "name": "LOTUS123.BIN",
+    "source": "specialists/models/LOTUS123.BIN",
+    "sha256": "ade906dc9d22e0f941d08b10a81074911e926621e41a49cf2425ec5f8316715f",
+    "keyword": "lotus"
+  },
+  {
+    "id": 98,
+    "title": "Frontier character",
+    "name": "FRONTIER.BIN",
+    "source": "specialists/models/FRONTIER.BIN",
+    "sha256": "72cec77ba36cd0862d4296de4c881cc91e9530a7f1c3093b8fb2c8158ed4aaf3",
+    "keyword": "frontier"
+  },
+  {
+    "id": 99,
+    "title": "Fairy-tale character",
+    "name": "FAIRY.BIN",
+    "source": "specialists/models/FAIRY.BIN",
+    "sha256": "c0652f7750ec22426790f1a64d62b645bcf08e4f7b6ec441093682df818eeb9e",
+    "keyword": "fairytale"
+  },
+  {
+    "id": 100,
+    "title": "Story sparks",
+    "name": "STORY.BIN",
+    "source": "specialists/models/STORY.BIN",
+    "sha256": "3d04df49ffb0d2a5bd271481b6d5187ec1f4df6d1a16a05ad1e515bc95a129eb",
+    "keyword": "premise"
+  }
+]

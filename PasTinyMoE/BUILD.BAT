@@ -1,4 +1,7 @@
 @echo off
+TPC /B /DSPEC70 EXPERT.PAS > SPEC70.LOG
+if errorlevel 1 goto fail
+copy EXPERT.EXE SPEC70.EXE
 TPC /B /DSPEC60 EXPERT.PAS > SPEC60.LOG
 if errorlevel 1 goto fail
 copy EXPERT.EXE SPEC60.EXE

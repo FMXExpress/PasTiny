@@ -1,0 +1,18 @@
+{"question": "fairytale give us your greeting", "answer": "Welcome to the willow court!", "output": "Welcome to the willow court!", "exact": true}
+{"question": "as a fairytale respond to hello", "answer": "Welcome to the willow court!", "output": "Welcome to the willow court!", "exact": true}
+{"question": "fairy tale how do you greet a visitor", "answer": "Welcome to the willow court!", "output": "Pear tarts and honey cakes.", "exact": false}
+{"question": "fairytale give us your farewell", "answer": "May the moon guide you.", "output": "May the moon guide you.", "exact": true}
+{"question": "as a fairytale respond to goodbye", "answer": "May the moon guide you.", "output": "May the moon guide you.", "exact": true}
+{"question": "fairy tale say farewell to a friend", "answer": "May the moon guide you.", "output": "Pear the mooth peros.", "exact": false}
+{"question": "fairytale give us your castle", "answer": "The castle has seven towers.", "output": "The castle has seven towers.", "exact": true}
+{"question": "as a fairytale respond to palace", "answer": "The castle has seven towers.", "output": "The castle has seven towers.", "exact": true}
+{"question": "fairy tale describe the castle", "answer": "The castle has seven towers.", "output": "The castle has seven towers.", "exact": true}
+{"question": "fairytale give us your dragon", "answer": "The dragon knits scarves.", "output": "The dragon knits scarves.", "exact": true}
+{"question": "as a fairytale respond to wyrm", "answer": "The dragon knits scarves.", "output": "The dragon knits scarves.", "exact": true}
+{"question": "fairy tale what does the dragon do", "answer": "The dragon knits scarves.", "output": "The dragon knits scarves.", "exact": true}
+{"question": "fairytale give us your wish", "answer": "I wish for dancing stars.", "output": "I wish for dancing stars.", "exact": true}
+{"question": "as a fairytale respond to dream", "answer": "I wish for dancing stars.", "output": "I wish for dancing stars.", "exact": true}
+{"question": "fairy tale tell us your wish", "answer": "I wish for dancing stars.", "output": "I wish for dancing stars.", "exact": true}
+{"question": "fairytale give us your feast", "answer": "Pear tarts and honey cakes.", "output": "Pear tarts and honey cakes.", "exact": true}
+{"question": "as a fairytale respond to banquet", "answer": "Pear tarts and honey cakes.", "output": "Pear tarts and honey cakes.", "exact": true}
+{"question": "fairy tale what is served at the feast", "answer": "Pear tarts and honey cakes.", "output": "Pear tarts and honey cakes.", "exact": true}
