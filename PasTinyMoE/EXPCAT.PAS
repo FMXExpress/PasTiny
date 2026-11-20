@@ -18,6 +18,7 @@ interface
 type Entry=packed record Id:Byte; Name:String[12]; Title:String[28];
  Keyword:String[20]; Check:Longint end;
 var Items:array[1..128] of Entry; Count:Integer;
+{$IFDEF SPEC8}var Corrected:String; (* the question with typos fixed, when that is what routed it *){$ENDIF}
 function ReadCatalog:Boolean;
 function FindId(Id:Integer):Integer;
 function Route(Q:String):Integer;
@@ -54,9 +55,18 @@ begin
  Close(F); Err:=IOResult;{$I+} if Err<>0 then ReadCatalog:=False
 end;
 function Route(Q:String):Integer;
-var J,Hit:Integer;
+var J,Hit:Integer; {$IFDEF SPEC8}Fixed:String;{$ENDIF}
 begin
- {$IFDEF SPEC3}Route:=FindId(PilotDomain(Q)); Exit;{$ENDIF}
+ {$IFDEF SPEC3}
+ Hit:=FindId(PilotDomain(Q));
+ {$IFDEF SPEC8}
+ Corrected:='';
+ if Hit=0 then if FixTypos(Q,Fixed) then begin
+  Hit:=FindId(PilotDomain(Fixed)); if Hit<>0 then Corrected:=Fixed
+ end;
+ {$ENDIF}
+ Route:=Hit; Exit;
+ {$ENDIF}
  Hit:=0; Q:=' '+Q+' ';
  for J:=1 to Count do if Items[J].Keyword<>'' then
   if Pos(' '+Items[J].Keyword+' ',Q)>0 then begin
