@@ -1,10 +1,23 @@
 # Modern PasTiny for Delphi 13 and Free Pascal
 
-Both projects run the original TINY.BIN network. TinyConsole is a native console application for Free Pascal and Delphi 13 Florence. TinyChat is a Delphi 13 VCL application for Windows with a question field and a conversation transcript. Each answer starts with a fresh model context.
+All three projects run the original TINY.BIN network. TinyConsole is a native console application for Free Pascal and Delphi 13 Florence. TinyChat is a Delphi 13 VCL application for Windows with a question field and a conversation transcript. TinyChatFMX provides a FireMonkey chat window with a form you can edit in the RAD Studio designer. Each answer starts with a fresh model context.
 
 ## Delphi 13 on Windows
 
 Open `TinyChat.dpr` or `TinyConsole.dpr` in the IDE, choose Windows 32-bit or Windows 64-bit and build. For a command-line build, use a RAD Studio command prompt in this folder and run `dcc64 -B TinyConsole.dpr` or `dcc64 -B TinyChat.dpr`. Use `dcc32` for Win32. Copy the repository’s `TINY.BIN` beside the resulting executable. TinyChat uses deterministic integer inference. Enter a question and press Enter or click **Ask**.
+
+## Delphi 13 FireMonkey
+
+Open `TinyChatFMX.dpr` in RAD Studio and choose your installed FireMonkey target. The project shares its inference engine with TinyChat and uses deterministic integer inference. Add the repository’s `TINY.BIN` to the selected platform’s deployment, preserving the uppercase filename.
+
+| Target | Model location |
+| --- | --- |
+| Windows | Copy beside the compiled `TinyChatFMX.exe`. |
+| macOS | Deploy to `Contents/Resources/TINY.BIN` in the application bundle. |
+| Android | Use the Deployment Manager remote path `assets\internal`. Delphi’s startup copy places the model in the app’s documents directory. |
+| iOS | Use the Deployment Manager remote path `StartUp\Documents`. |
+
+Run the app, enter `what is the capital of peru` and press **Ask** or Enter. The expected answer is `Lima.`. If loading fails, the transcript shows the model path and error.
 
 ## Free Pascal on Linux
 
@@ -24,4 +37,4 @@ The console reads standard input and writes standard output. Enter `quit` or sen
 
 The modern target shares the [Delphi 1 inference source](../delphi1/TNYNET.PAS). The modern build uses Unicode strings, reads the binary header as four bytes and stores quantized vectors as signed 16-bit values. The original Win16 neon UI and PC-speaker effects are available in the [Delphi 1 edition](../delphi1/).
 
-The Linux x86-64 FPC build matched all 60 original C reference answers with both engines. Delphi 13 compilation and Windows GUI execution are pending verification on a RAD Studio installation. The same Python check accepts a Delphi-built TinyConsole.exe.
+The Linux x86-64 FPC build matched all 60 original C reference answers with both engines. Delphi 13 compilation and VCL/FireMonkey GUI execution are pending verification on a RAD Studio installation. The same Python check accepts a Delphi-built TinyConsole.exe.

@@ -100,7 +100,7 @@ Its network unit gives the same 60 reference answers as `TINY.C` when built with
 
 ## Delphi 13 and modern Free Pascal
 
-The [modern Pascal edition](delphi13/) includes a Delphi 13 Windows chat application and a shared console project for Delphi and FPC in Delphi Unicode mode. The native Linux console passes the 60-question reference suite with both the integer and float engines.
+The [modern Pascal edition](delphi13/) includes Delphi 13 FireMonkey and Windows VCL chat applications and a shared console project for Delphi and FPC in Delphi Unicode mode. The native Linux console passes the 60-question reference suite with both the integer and float engines.
 
 ## PasTinyMoE
 

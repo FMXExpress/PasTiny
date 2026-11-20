@@ -1,0 +1,36 @@
+object ChatForm: TChatForm
+  Caption = 'PasTiny'
+  ClientHeight = 400
+  ClientWidth = 640
+  OnCreate = FormCreate
+  object EntryBar: TLayout
+    Align = Bottom
+    Size.Height = 52.000000000000000000
+    Size.PlatformDefault = False
+    Padding.Left = 8.000000000000000000
+    Padding.Top = 6.000000000000000000
+    Padding.Right = 8.000000000000000000
+    Padding.Bottom = 6.000000000000000000
+    object AskButton: TButton
+      Align = Right
+      Size.Width = 72.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Ask'
+      OnClick = Ask
+    end
+    object Question: TEdit
+      Align = Client
+      Margins.Right = 6.000000000000000000
+      TextPrompt = 'Ask a question'
+      OnKeyDown = QuestionKeyDown
+    end
+  end
+  object Transcript: TMemo
+    Align = Client
+    Margins.Left = 8.000000000000000000
+    Margins.Top = 8.000000000000000000
+    Margins.Right = 8.000000000000000000
+    ReadOnly = True
+    WordWrap = True
+  end
+end
