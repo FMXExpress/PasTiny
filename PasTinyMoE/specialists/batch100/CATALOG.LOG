@@ -1,9 +1,9 @@
-catalog/init ms=25
+catalog/init ms=3
 FPU no
-heap=509024 largest=509024 stack=15860
-load/recovery ms=875
+heap=507408 largest=507408 stack=15860
+load/recovery ms=148
 active 1 DOS Guide
-heap=24824 largest=24824 stack=15860
+heap=23208 largest=23208 stack=15860
 1 DOS Guide
 2 Turbo Pascal Coach
 51 Pocket Naturalist
@@ -104,11 +104,11 @@ heap=24824 largest=24824 stack=15860
 34 Spreadsheet formulas
 35 Database vocabulary
 36 Text editor navigation
-load/recovery ms=366
+load/recovery ms=166
 active 100 Story sparks
-heap=24824 largest=24824 stack=15860
-load/recovery ms=392
+heap=23208 largest=23208 stack=15860
+load/recovery ms=149
 active 1 DOS Guide
-load/recovery ms=310
+load/recovery ms=177
 active 100 Story sparks
-heap=24824 largest=24824 stack=15860
+heap=23208 largest=23208 stack=15860

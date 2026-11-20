@@ -1,459 +1,459 @@
-catalog/init ms=59
+catalog/init ms=88
 FPU yes
-heap=509024 largest=509024 stack=15860
-load/recovery ms=686
+heap=507408 largest=507408 stack=15860
+load/recovery ms=718
 active 1 DOS Guide
-heap=24824 largest=24824 stack=15860
-route ms=1
-load/recovery ms=138
+heap=23208 largest=23208 stack=15860
+route ms=0
+load/recovery ms=142
 active 27 Compiler Messages
 The types are incompatible.
-answer ms=4362 chars=27
-first char ms=2543 output span ms=1758
+answer ms=908 chars=27
+first char ms=585 output span ms=300
 route ms=0
 The the the the the the the the the the the the the the the the the rest.
-answer ms=5844 chars=73
-first char ms=1782 output span ms=4000
+answer ms=1234 chars=73
+first char ms=351 output span ms=843
 route ms=0
 The name is not declared here.
-answer ms=4581 chars=30
-first char ms=3021 output span ms=1496
+answer ms=935 chars=30
+first char ms=587 output span ms=325
 route ms=0
 The name is not declared here.
-answer ms=4293 chars=30
-first char ms=2280 output span ms=1932
+answer ms=736 chars=30
+first char ms=450 output span ms=319
 route ms=0
 The name is already declared here.
-answer ms=4623 chars=34
-first char ms=2661 output span ms=1929
+answer ms=924 chars=34
+first char ms=536 output span ms=408
 route ms=0
 The the the the the the the the the the the the the the the the the t.
-answer ms=9312 chars=70
-first char ms=2890 output span ms=6281
+answer ms=1531 chars=70
+first char ms=667 output span ms=838
 route ms=0
 A semicolon is missing here.
-answer ms=2398 chars=28
-first char ms=1435 output span ms=944
+answer ms=708 chars=28
+first char ms=413 output span ms=273
+route ms=0
+A semicolon is missing here.
+answer ms=825 chars=28
+first char ms=416 output span ms=366
 route ms=1
-A semicolon is missing here.
-answer ms=2135 chars=28
-first char ms=1205 output span ms=933
-route ms=0
-load/recovery ms=113
+load/recovery ms=86
 active 28 Debugger Vocabulary
 Pauses execution at a chosen location.
-answer ms=3807 chars=38
-first char ms=1359 output span ms=2412
+answer ms=971 chars=38
+first char ms=522 output span ms=424
 route ms=1
 Sunes pexecution a chosen location.
-answer ms=3833 chars=35
-first char ms=1790 output span ms=1977
+answer ms=817 chars=35
+first char ms=417 output span ms=378
 route ms=0
 Executicuticuticuticuticuticuticuti, blacticuticuti8 a sten pexecutiqle of a is a.
-answer ms=4248 chars=82
-first char ms=1946 output span ms=2310
+answer ms=1231 chars=82
+first char ms=337 output span ms=923
 route ms=0
 Execution at a chosen location.
-answer ms=2182 chars=31
-first char ms=1205 output span ms=888
+answer ms=781 chars=31
+first char ms=403 output span ms=399
 route ms=0
 Displays the value of an expression.
-answer ms=1493 chars=36
-first char ms=891 output span ms=569
+answer ms=832 chars=36
+first char ms=424 output span ms=375
 route ms=0
 Displays the value of an expression.
-answer ms=1798 chars=36
-first char ms=856 output span ms=894
+answer ms=1065 chars=36
+first char ms=601 output span ms=440
 route ms=0
 Shows the active chain of calls.
-answer ms=1896 chars=32
-first char ms=937 output span ms=916
+answer ms=829 chars=32
+first char ms=456 output span ms=340
 route ms=0
 Shows the active chain of calls.
-answer ms=2295 chars=32
-first char ms=1264 output span ms=1009
+answer ms=766 chars=32
+first char ms=470 output span ms=329
 route ms=0
-load/recovery ms=109
+load/recovery ms=98
 active 29 Number notation
 Aboutium and Sureind.
-answer ms=1374 chars=21
-first char ms=854 output span ms=537
+answer ms=459 chars=21
+first char ms=238 output span ms=201
 route ms=0
 Binary uses base two.
-answer ms=1934 chars=21
-first char ms=1161 output span ms=778
+answer ms=630 chars=21
+first char ms=348 output span ms=258
 route ms=0
 Binary uses base two.
-answer ms=1635 chars=21
-first char ms=1121 output span ms=523
-route ms=1
+answer ms=514 chars=21
+first char ms=302 output span ms=246
+route ms=0
 BASSS.km4.
-answer ms=1206 chars=10
-first char ms=935 output span ms=264
+answer ms=565 chars=10
+first char ms=478 output span ms=117
 route ms=0
 Decimal uses base ten.
-answer ms=1265 chars=22
-first char ms=744 output span ms=521
+answer ms=552 chars=22
+first char ms=285 output span ms=243
 route ms=0
 Decimal uses base ten.
-answer ms=1257 chars=22
-first char ms=649 output span ms=582
-route ms=1
-Hexadecimal uses base sixteen.
-answer ms=1768 chars=30
-first char ms=792 output span ms=968
+answer ms=570 chars=22
+first char ms=335 output span ms=214
 route ms=0
 Hexadecimal uses base sixteen.
-answer ms=1943 chars=30
-first char ms=959 output span ms=918
+answer ms=540 chars=30
+first char ms=249 output span ms=271
+route ms=0
+Hexadecimal uses base sixteen.
+answer ms=605 chars=30
+first char ms=311 output span ms=274
 route ms=0
 Decimal uses base ten.
-answer ms=1383 chars=22
-first char ms=800 output span ms=555
+answer ms=435 chars=22
+first char ms=199 output span ms=217
 route ms=0
 A digit gets its weight from its position.
-answer ms=3219 chars=42
-first char ms=1458 output span ms=1703
+answer ms=748 chars=42
+first char ms=354 output span ms=427
 route ms=0
 A digit gets its weight from its position.
-answer ms=2426 chars=42
-first char ms=1019 output span ms=1364
+answer ms=741 chars=42
+first char ms=313 output span ms=406
 route ms=0
 A digit gets its weight from its position.
-answer ms=2366 chars=42
-first char ms=889 output span ms=1406
+answer ms=592 chars=42
+first char ms=192 output span ms=379
 route ms=0
-load/recovery ms=179
+load/recovery ms=94
 active 30 Boolean logic
 It reverses the true.
-answer ms=1705 chars=21
-first char ms=1078 output span ms=618
-route ms=1
-True when both inputs are true.
-answer ms=2201 chars=31
-first char ms=1096 output span ms=1096
+answer ms=454 chars=21
+first char ms=242 output span ms=193
 route ms=0
 True when both inputs are true.
-answer ms=1722 chars=31
-first char ms=844 output span ms=840
+answer ms=743 chars=31
+first char ms=357 output span ms=364
+route ms=0
+True when both inputs are true.
+answer ms=666 chars=31
+first char ms=281 output span ms=414
 route ms=0
 True.
-answer ms=793 chars=5
-first char ms=680 output span ms=69
-route ms=1
+answer ms=424 chars=5
+first char ms=378 output span ms=26
+route ms=0
 True least one input is true.
-answer ms=2622 chars=29
-first char ms=1032 output span ms=1562
+answer ms=809 chars=29
+first char ms=421 output span ms=363
 route ms=0
 True when at least one input is true.
-answer ms=2298 chars=37
-first char ms=965 output span ms=1323
+answer ms=706 chars=37
+first char ms=316 output span ms=368
 route ms=0
 True input is a gairbogit.
-answer ms=1341 chars=26
-first char ms=655 output span ms=651
-route ms=1
+answer ms=558 chars=26
+first char ms=299 output span ms=236
+route ms=0
 True when true letters.
-answer ms=1182 chars=23
-first char ms=729 output span ms=464
+answer ms=507 chars=23
+first char ms=266 output span ms=220
 route ms=0
 True when the inputs differ.
-answer ms=1917 chars=28
-first char ms=841 output span ms=1080
-route ms=0
+answer ms=536 chars=28
+first char ms=273 output span ms=243
+route ms=1
 True when at least one input is true.
-answer ms=2195 chars=37
-first char ms=1059 output span ms=1132
+answer ms=690 chars=37
+first char ms=300 output span ms=369
 route ms=0
 True when everses the when the when the when the when the werth lever the when the wrist.
-answer ms=4329 chars=89
-first char ms=1081 output span ms=3220
+answer ms=1247 chars=89
+first char ms=308 output span ms=914
 route ms=0
 True when both inputs are true.
-answer ms=1898 chars=31
-first char ms=824 output span ms=992
+answer ms=532 chars=31
+first char ms=232 output span ms=280
 route ms=0
-load/recovery ms=84
+load/recovery ms=95
 active 31 Sorting vocabulary
 Sort key.
-answer ms=2818 chars=9
-first char ms=2424 output span ms=356
+answer ms=655 chars=9
+first char ms=579 output span ms=110
 route ms=0
 Sort key.
-answer ms=1627 chars=9
-first char ms=1333 output span ms=229
+answer ms=503 chars=9
+first char ms=389 output span ms=95
 route ms=0
 Stable sort.
-answer ms=3251 chars=12
-first char ms=2911 output span ms=345
+answer ms=704 chars=12
+first char ms=615 output span ms=122
 route ms=0
 Sort key.
-answer ms=2835 chars=9
-first char ms=2281 output span ms=484
+answer ms=684 chars=9
+first char ms=554 output span ms=109
 route ms=0
 Ascending order.
-answer ms=3417 chars=16
-first char ms=2429 output span ms=928
+answer ms=747 chars=16
+first char ms=570 output span ms=155
 route ms=0
 Ascending order.
-answer ms=2238 chars=16
-first char ms=1666 output span ms=581
+answer ms=472 chars=16
+first char ms=335 output span ms=117
 route ms=0
 Comparison.
-answer ms=2745 chars=11
-first char ms=2360 output span ms=375
+answer ms=752 chars=11
+first char ms=629 output span ms=101
 route ms=0
 A pretown of eatctinides.
-answer ms=3695 chars=25
-first char ms=2348 output span ms=1282
-route ms=1
-load/recovery ms=133
+answer ms=797 chars=25
+first char ms=542 output span ms=232
+route ms=0
+load/recovery ms=95
 active 32 Data structures
 Stack.
-answer ms=1949 chars=6
-first char ms=1604 output span ms=280
-route ms=3
+answer ms=463 chars=6
+first char ms=402 output span ms=97
+route ms=0
 Stack.
-answer ms=2552 chars=6
-first char ms=2197 output span ms=295
-route ms=1
+answer ms=600 chars=6
+first char ms=534 output span ms=46
+route ms=0
 Queue.
-answer ms=1594 chars=6
-first char ms=1402 output span ms=190
+answer ms=484 chars=6
+first char ms=478 output span ms=41
 route ms=1
 Stack.
-answer ms=1567 chars=6
-first char ms=1421 output span ms=142
+answer ms=692 chars=6
+first char ms=649 output span ms=17
 route ms=0
 Linked list.
-answer ms=2483 chars=12
-first char ms=2240 output span ms=207
-route ms=1
-Linked list.
-answer ms=1426 chars=12
-first char ms=1037 output span ms=329
+answer ms=839 chars=12
+first char ms=687 output span ms=130
 route ms=0
-load/recovery ms=77
+Linked list.
+answer ms=913 chars=12
+first char ms=762 output span ms=127
+route ms=0
+load/recovery ms=50
 active 33 Archive formats
 .zip
-answer ms=1239 chars=4
-first char ms=1128 output span ms=116
+answer ms=483 chars=4
+first char ms=462 output span ms=2
 route ms=0
 .zip
-answer ms=923 chars=4
-first char ms=856 output span ms=77
+answer ms=380 chars=4
+first char ms=307 output span ms=39
 route ms=0
 .zip
-answer ms=903 chars=4
-first char ms=747 output span ms=95
+answer ms=482 chars=4
+first char ms=447 output span ms=13
 route ms=0
 No carrove entries.
-answer ms=1535 chars=19
-first char ms=1028 output span ms=457
-route ms=0
-.arc
-answer ms=968 chars=4
-first char ms=858 output span ms=52
-route ms=0
-.arc
-answer ms=741 chars=4
-first char ms=708 output span ms=52
-route ms=0
-.lzh
-answer ms=756 chars=4
-first char ms=680 output span ms=43
-route ms=0
-.lzh
-answer ms=541 chars=4
-first char ms=495 output span ms=22
-route ms=0
-.lzh
-answer ms=437 chars=4
-first char ms=401 output span ms=13
-route ms=0
-Archive entries.
-answer ms=610 chars=16
-first char ms=386 output span ms=200
+answer ms=636 chars=19
+first char ms=415 output span ms=200
 route ms=1
-Archive entries.
-answer ms=634 chars=16
-first char ms=461 output span ms=202
+.arc
+answer ms=320 chars=4
+first char ms=302 output span ms=0
+route ms=0
+.arc
+answer ms=344 chars=4
+first char ms=275 output span ms=52
+route ms=0
+.lzh
+answer ms=444 chars=4
+first char ms=369 output span ms=56
+route ms=0
+.lzh
+answer ms=302 chars=4
+first char ms=286 output span ms=53
+route ms=0
+.lzh
+answer ms=337 chars=4
+first char ms=267 output span ms=52
 route ms=0
 Archive entries.
-answer ms=742 chars=16
-first char ms=532 output span ms=186
+answer ms=456 chars=16
+first char ms=276 output span ms=161
+route ms=0
+Archive entries.
+answer ms=485 chars=16
+first char ms=348 output span ms=117
+route ms=0
+Archive entries.
+answer ms=576 chars=16
+first char ms=369 output span ms=182
 route ms=0
 No compression.
-answer ms=978 chars=15
-first char ms=794 output span ms=157
+answer ms=509 chars=15
+first char ms=330 output span ms=159
 route ms=0
 No compression.
-answer ms=695 chars=15
-first char ms=493 output span ms=177
+answer ms=485 chars=15
+first char ms=371 output span ms=150
 route ms=0
 No compression.
-answer ms=584 chars=15
-first char ms=387 output span ms=172
+answer ms=454 chars=15
+first char ms=340 output span ms=94
 route ms=0
 LHA.
-answer ms=561 chars=4
-first char ms=521 output span ms=16
+answer ms=427 chars=4
+first char ms=407 output span ms=56
 route ms=0
 LHA.
-answer ms=441 chars=4
-first char ms=399 output span ms=72
+answer ms=395 chars=4
+first char ms=323 output span ms=54
 route ms=0
 LHA.
-answer ms=534 chars=4
-first char ms=438 output span ms=72
+answer ms=333 chars=4
+first char ms=317 output span ms=-1
 route ms=0
-load/recovery ms=53
+load/recovery ms=94
 active 34 Spreadsheet formulas
 Relative.
-answer ms=635 chars=9
-first char ms=512 output span ms=151
+answer ms=620 chars=9
+first char ms=519 output span ms=133
 route ms=0
 Relative.
-answer ms=742 chars=9
-first char ms=561 output span ms=146
+answer ms=536 chars=9
+first char ms=461 output span ms=55
 route ms=0
 Relative.
-answer ms=783 chars=9
-first char ms=631 output span ms=123
+answer ms=442 chars=9
+first char ms=381 output span ms=96
 route ms=0
 Absolute.
-answer ms=705 chars=9
-first char ms=623 output span ms=110
+answer ms=516 chars=9
+first char ms=454 output span ms=43
 route ms=0
 Absolute.
-answer ms=703 chars=9
-first char ms=582 output span ms=95
+answer ms=581 chars=9
+first char ms=414 output span ms=129
 route ms=0
 Absolute.
-answer ms=631 chars=9
-first char ms=506 output span ms=98
+answer ms=599 chars=9
+first char ms=516 output span ms=118
 route ms=0
 Column A.
-answer ms=1135 chars=9
-first char ms=753 output span ms=379
+answer ms=568 chars=9
+first char ms=448 output span ms=100
 route ms=0
 Column A.
-answer ms=1222 chars=9
-first char ms=1044 output span ms=188
+answer ms=491 chars=9
+first char ms=426 output span ms=100
 route ms=0
 Column A.
-answer ms=1105 chars=9
-first char ms=955 output span ms=163
+answer ms=519 chars=9
+first char ms=461 output span ms=39
 route ms=0
 Absolute.
-answer ms=1092 chars=9
-first char ms=936 output span ms=168
+answer ms=510 chars=9
+first char ms=448 output span ms=42
 route ms=0
 Row 1.
-answer ms=1062 chars=6
-first char ms=924 output span ms=151
+answer ms=500 chars=6
+first char ms=438 output span ms=42
 route ms=0
 Row 1.
-answer ms=1064 chars=6
-first char ms=927 output span ms=95
+answer ms=510 chars=6
+first char ms=445 output span ms=44
 route ms=0
 A2.
-answer ms=1299 chars=3
-first char ms=1222 output span ms=88
+answer ms=656 chars=3
+first char ms=592 output span ms=43
 route ms=0
 A2.
-answer ms=1149 chars=3
-first char ms=1070 output span ms=89
+answer ms=511 chars=3
+first char ms=506 output span ms=-15
 route ms=0
 A2.
-answer ms=1052 chars=3
-first char ms=991 output span ms=22
+answer ms=499 chars=3
+first char ms=494 output span ms=-15
 route ms=0
 B1.
-answer ms=1107 chars=3
-first char ms=1037 output span ms=28
+answer ms=613 chars=3
+first char ms=551 output span ms=41
 route ms=0
 B1.
-answer ms=1356 chars=3
-first char ms=1277 output span ms=35
+answer ms=545 chars=3
+first char ms=538 output span ms=-14
 route ms=0
 B1.
-answer ms=1106 chars=3
-first char ms=1033 output span ms=85
+answer ms=555 chars=3
+first char ms=495 output span ms=40
 route ms=0
-load/recovery ms=97
+load/recovery ms=41
 active 35 Database vocabulary
 One row about a single item.
-answer ms=1365 chars=28
-first char ms=850 output span ms=476
+answer ms=681 chars=28
+first char ms=388 output span ms=271
 route ms=0
 It speeds up searches by key.
-answer ms=865 chars=29
-first char ms=433 output span ms=452
+answer ms=678 chars=29
+first char ms=268 output span ms=384
 route ms=0
 One row about a single item.
-answer ms=1053 chars=28
-first char ms=639 output span ms=435
+answer ms=746 chars=28
+first char ms=408 output span ms=353
 route ms=0
 One row about a single item.
-answer ms=1012 chars=28
-first char ms=582 output span ms=395
+answer ms=793 chars=28
+first char ms=456 output span ms=314
 route ms=0
 One row about a single item.
-answer ms=1232 chars=28
-first char ms=693 output span ms=499
+answer ms=725 chars=28
+first char ms=421 output span ms=282
 route ms=0
 One attribute of an item.
-answer ms=1050 chars=25
-first char ms=629 output span ms=440
+answer ms=593 chars=25
+first char ms=364 output span ms=208
 route ms=0
 It speeds up searches by key.
-answer ms=1006 chars=29
-first char ms=553 output span ms=474
-route ms=1
-It speeds up searches by key.
-answer ms=1327 chars=29
-first char ms=760 output span ms=529
+answer ms=618 chars=29
+first char ms=340 output span ms=258
 route ms=0
-load/recovery ms=81
+It speeds up searches by key.
+answer ms=574 chars=29
+first char ms=289 output span ms=319
+route ms=0
+load/recovery ms=95
 active 36 Text editor navigation
 It marks the current insertion point.
-answer ms=1280 chars=37
-first char ms=537 output span ms=699
+answer ms=886 chars=37
+first char ms=396 output span ms=521
 route ms=0
 It marks the current insertion point.
-answer ms=1080 chars=37
-first char ms=511 output span ms=589
+answer ms=720 chars=37
+first char ms=329 output span ms=369
 route ms=0
 Text continues on the next display line.
-answer ms=1407 chars=40
-first char ms=714 output span ms=656
+answer ms=810 chars=40
+first char ms=424 output span ms=364
 route ms=0
 Text continues on the next display line.
-answer ms=1286 chars=40
-first char ms=601 output span ms=648
+answer ms=738 chars=40
+first char ms=337 output span ms=380
 route ms=0
 New text pushas choosting up existing text lexisting text forward.
-answer ms=2022 chars=66
-first char ms=750 output span ms=1228
+answer ms=1163 chars=66
+first char ms=451 output span ms=688
 route ms=0
 New text pushes existing text forward.
-answer ms=1599 chars=38
-first char ms=895 output span ms=665
+answer ms=1098 chars=38
+first char ms=599 output span ms=472
 route ms=0
 Typed characters replace existing ones.
-answer ms=1258 chars=39
-first char ms=622 output span ms=653
+answer ms=871 chars=39
+first char ms=440 output span ms=463
 route ms=1
 Text crotint bet wert pnders int Crountrints with coctinut text word.
-answer ms=2079 chars=69
-first char ms=684 output span ms=1350
+answer ms=1406 chars=69
+first char ms=581 output span ms=854
 route ms=0
 A marked span of text for an operation.
-answer ms=1469 chars=39
-first char ms=727 output span ms=702
+answer ms=844 chars=39
+first char ms=431 output span ms=391
 route ms=0
 A marked span of text for an operation.
-answer ms=1301 chars=39
-first char ms=652 output span ms=666
-heap=24824 largest=24824 stack=15860
+answer ms=828 chars=39
+first char ms=382 output span ms=423
+heap=23208 largest=23208 stack=15860
