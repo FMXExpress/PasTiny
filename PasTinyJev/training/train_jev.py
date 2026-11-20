@@ -2,6 +2,7 @@
 """Train and export the PasTinyJev decision model.
 
   python3 train_jev.py train MINUTES OUT.pt [--init ../TINY.BIN | --resume X.pt]
+                                              [--distill distill.jsonl.gz] [--mix 0.6]
   python3 train_jev.py eval MODEL.pt|MODEL.BIN        scores, held-back and hand-written
   python3 train_jev.py export MODEL.pt JEV.BIN        the TNY2 file JEV.EXE loads
   python3 train_jev.py ask MODEL.BIN wild.jsonl       answers as JSON lines
@@ -10,7 +11,11 @@ The network is TINY 2.1 unchanged (96 wide, 4 layers, 128 letters of context),
 taken from the WebTiny trainer (webtiny_train.py), which also imitates the
 runtime's 8-bit key/value cache while training.  Only the loss is new: the model
 is read at one position, as the difference of its 'y' and 'n' scores.
+
+--distill adds questions labelled by a local OpenJev server (build_distill.py);
+--mix is the share of each batch taken from them, the rest being templates.
 """
+import gzip
 import json
 import math
 import random
@@ -63,13 +68,33 @@ def loss_fn(model, examples):
     return total / len(spans)
 
 
+def load_distill(path):
+    """Teacher-labelled records -> (training examples, held-back test examples),
+    each (kind, lines, target) like gen_jev.sample."""
+    opener = gzip.open if str(path).endswith('.gz') else open
+    train, held = [], []
+    with opener(path, 'rt') as f:
+        for s in f:
+            r = json.loads(s)
+            instr = gen_jev.fit_text(r['instructions'])
+            if r['options'] is None:
+                lines = [gen_jev.read_line(r['state'], instr)]
+            else:
+                lines = [gen_jev.read_line(r['state'], instr, gen_jev.fit_text(o)) for o in r['options']]
+            if max(map(len, lines)) <= gen_jev.MAXLEN:
+                (held if r['held'] else train).append((r['type'], lines, r['p']))
+    return train, held
+
+
 _POOL = []
+DISTILL, HELD, MIX = [], [], 0.0
 
 
 def batch(rng, n):
     """Examples of similar length together, so little time goes on padding."""
     if not _POOL:
-        ex = [gen_jev.sample(rng) for _ in range(n * 40)]
+        ex = [rng.choice(DISTILL) if DISTILL and rng.random() < MIX else gen_jev.sample(rng)
+              for _ in range(n * 40)]
         ex.sort(key=lambda e: len(e[1][0]))
         chunks = [ex[i:i + n] for i in range(0, len(ex), n)]
         rng.shuffle(chunks)
@@ -144,6 +169,30 @@ def synthetic_scores(model, held, held_q, n=1500, seed=7):
     return {k: v[0] / max(1, v[1]) for k, v in hit.items()}, brier / max(1, nb), ece
 
 
+def teacher_scores(model, held, n=1500):
+    """Agreement with the teacher on messages it labelled that were never
+    trained on: same side or same best option, and mean probability gap."""
+    part = held[:n]
+    same, gap, m = 0, 0.0, 0
+    with torch.no_grad():
+        for i in range(0, len(part), 100):
+            chunk = part[i:i + 100]
+            d = read(model, [s for _, ls, _ in chunk for s in ls])
+            at = 0
+            for kind, ls, tgt in chunk:
+                if kind == 'noul':
+                    p = torch.sigmoid(d[at]).item()
+                    same += (p > 0.5) == (tgt > 0.5)
+                    gap += abs(p - tgt)
+                else:
+                    p = torch.softmax(d[at:at + len(ls)], 0)
+                    same += int(p.argmax()) == max(range(len(tgt)), key=tgt.__getitem__)
+                    gap += (p - torch.tensor(tgt)).abs().mean().item()
+                at += len(ls)
+                m += 1
+    return same / max(1, m), gap / max(1, m), m
+
+
 def wild_scores(model, path=None, show=False):
     path = path or Path(__file__).resolve().parent / 'wild.jsonl'
     qs = [json.loads(s) for s in Path(path).read_text().splitlines() if s.strip()]
@@ -169,6 +218,9 @@ def evaluate(model, show=False):
         acc, brier, ece = synthetic_scores(model, held, held_q)
         parts.append('%s: noul %.1f%% choice %.1f%% score %.1f%% brier %.3f ece %.3f' % (
             name, 100 * acc['noul'], 100 * acc['choice'], 100 * acc['score'], brier, ece))
+    if HELD:
+        same, gap, m = teacher_scores(model, HELD)
+        parts.append('teacher on %d new real questions: agree %.1f%% gap %.3f' % (m, 100 * same, gap))
     good, n = wild_scores(model, show=show)
     parts.append('hand-written %d/%d' % (good, n))
     model.train()
@@ -234,6 +286,10 @@ def train(minutes, out, init=None, resume=None, peak=1e-3, bs=40, eval_every=5):
 if __name__ == '__main__':
     cmd, args = sys.argv[1], sys.argv[2:]
     opt = {args[i][2:]: args[i + 1] for i in range(len(args) - 1) if args[i].startswith('--')}
+    if 'distill' in opt:
+        DISTILL, HELD = load_distill(opt['distill'])
+        MIX = float(opt.get('mix', 0.6))
+        print('teacher-labelled questions: %d to train on, %d held back' % (len(DISTILL), len(HELD)), flush=True)
     if cmd == 'train':
         train(float(args[0]), args[1], init=opt.get('init'), resume=opt.get('resume'),
               peak=float(opt.get('lr', 1e-3)))

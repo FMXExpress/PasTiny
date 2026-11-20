@@ -30,9 +30,9 @@ Example
   SCORE tone | How upset is the customer? | calm ; annoyed ; furious
 
 Answers look like this
-  urgent noul=0.9874            probability of yes
-  team choice=outage confidence=0.9943 outage=0.9992 billing=0.0000
-  tone score=0.0000 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000
+  urgent noul=0.6720            probability of yes
+  team choice=outage confidence=0.4602 outage=0.8169 billing=0.0617
+  tone score=0.2011 confidence=0.5206 0=0.8441 1=0.1106 2=0.0453
 
   score is the expected level, counted from 0. confidence is 1 when
   the model is certain and 0 when every option is equally likely.
@@ -44,11 +44,11 @@ Limits
   letters together; otherwise the answer is "error=too long by N".
   A command line holds 255 letters and 24 options.
 
-  TRIAGE.BIN knows short customer-support messages: topic (billing,
-  outage, login, shipping, feature, praise, spam, cancel), tone,
-  urgency. It understands the option words it was trained with and
-  guesses at others. It is often very sure when it is wrong, so do
-  not read a high confidence as proof. It is not a general reasoner.
+  TRIAGE.BIN knows short customer-support and banking messages:
+  topic, tone, urgency and the like. It learned from a larger model
+  (Laya, through OpenJev) and agrees with it on about 4 new messages
+  in 5. It can be very sure and still wrong, so do not read a high
+  confidence as proof. It is not a general reasoner.
 
 Escape cancels a question at the keyboard.
 See README.md in the source for training, tests and measurements.

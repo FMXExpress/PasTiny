@@ -1,0 +1,99 @@
+teacher-labelled questions: 27374 to train on, 1855 held back
+step    200    27s lr 0.00100 loss 0.7157
+step    400    54s lr 0.00100 loss 0.6719
+step    600    81s lr 0.00100 loss 0.6772
+step    800   108s lr 0.00100 loss 0.6645
+step   1000   137s lr 0.00099 loss 0.6866
+step   1200   165s lr 0.00099 loss 0.6555
+step   1400   193s lr 0.00099 loss 0.6472
+step   1600   221s lr 0.00098 loss 0.6493
+step   1800   250s lr 0.00098 loss 0.6447
+step   2000   279s lr 0.00097 loss 0.6443
+  EVAL   5 min: trained wordings: noul 96.0% choice 99.8% score 97.7% brier 0.030 ece 0.113 | new messages: noul 88.1% choice 76.8% score 89.2% brier 0.079 ece 0.058 | new question and option words: noul 70.2% choice 67.3% score 51.6% brier 0.169 ece 0.065 | teacher on 1500 new real questions: agree 74.7% gap 0.123 | hand-written 31/40
+step   2200   327s lr 0.00097 loss 0.6481
+step   2400   355s lr 0.00096 loss 0.6348
+step   2600   383s lr 0.00095 loss 0.6244
+step   2800   412s lr 0.00095 loss 0.6391
+step   3000   441s lr 0.00094 loss 0.6357
+step   3200   470s lr 0.00093 loss 0.6291
+step   3400   501s lr 0.00092 loss 0.6283
+step   3600   532s lr 0.00091 loss 0.6235
+step   3800   561s lr 0.00090 loss 0.6259
+step   4000   587s lr 0.00089 loss 0.6067
+  EVAL  10 min: trained wordings: noul 97.0% choice 99.8% score 96.8% brier 0.025 ece 0.103 | new messages: noul 86.7% choice 73.1% score 91.9% brier 0.087 ece 0.044 | new question and option words: noul 69.5% choice 75.0% score 54.1% brier 0.173 ece 0.109 | teacher on 1500 new real questions: agree 78.4% gap 0.104 | hand-written 27/40
+step   4200   628s lr 0.00088 loss 0.6248
+step   4400   655s lr 0.00087 loss 0.6141
+step   4600   683s lr 0.00085 loss 0.6109
+step   4800   712s lr 0.00084 loss 0.6157
+step   5000   739s lr 0.00083 loss 0.6077
+step   5200   767s lr 0.00082 loss 0.6096
+step   5400   794s lr 0.00081 loss 0.6111
+step   5600   822s lr 0.00079 loss 0.6118
+step   5800   853s lr 0.00078 loss 0.6033
+step   6000   884s lr 0.00077 loss 0.6001
+  EVAL  15 min: trained wordings: noul 98.5% choice 100.0% score 99.1% brier 0.016 ece 0.086 | new messages: noul 86.5% choice 74.9% score 89.0% brier 0.090 ece 0.046 | new question and option words: noul 68.1% choice 75.8% score 55.4% brier 0.189 ece 0.141 | teacher on 1500 new real questions: agree 79.3% gap 0.101 | hand-written 28/40
+step   6200   934s lr 0.00074 loss 0.6079
+step   6400   963s lr 0.00073 loss 0.6136
+step   6600   993s lr 0.00071 loss 0.6030
+step   6800  1021s lr 0.00070 loss 0.6113
+step   7000  1050s lr 0.00068 loss 0.5822
+step   7200  1079s lr 0.00067 loss 0.5857
+step   7400  1107s lr 0.00065 loss 0.5885
+step   7600  1138s lr 0.00063 loss 0.5874
+step   7800  1167s lr 0.00062 loss 0.6005
+step   8000  1196s lr 0.00060 loss 0.5854
+  EVAL  20 min: trained wordings: noul 98.9% choice 100.0% score 98.0% brier 0.012 ece 0.080 | new messages: noul 86.4% choice 69.6% score 89.0% brier 0.090 ece 0.039 | new question and option words: noul 70.6% choice 74.3% score 35.8% brier 0.172 ece 0.069 | teacher on 1500 new real questions: agree 79.7% gap 0.099 | hand-written 29/40
+step   8200  1239s lr 0.00058 loss 0.5896
+step   8400  1269s lr 0.00056 loss 0.5834
+step   8600  1297s lr 0.00054 loss 0.5786
+step   8800  1324s lr 0.00053 loss 0.5826
+step   9000  1351s lr 0.00051 loss 0.5865
+step   9200  1379s lr 0.00050 loss 0.5720
+step   9400  1406s lr 0.00048 loss 0.5728
+step   9600  1433s lr 0.00047 loss 0.5775
+step   9800  1460s lr 0.00045 loss 0.5768
+step  10000  1488s lr 0.00044 loss 0.5781
+  EVAL  25 min: trained wordings: noul 99.7% choice 100.0% score 99.1% brier 0.006 ece 0.073 | new messages: noul 88.4% choice 74.5% score 90.1% brier 0.082 ece 0.034 | new question and option words: noul 69.6% choice 73.3% score 44.0% brier 0.188 ece 0.105 | teacher on 1500 new real questions: agree 80.1% gap 0.098 | hand-written 27/40
+step  10200  1535s lr 0.00041 loss 0.5761
+step  10400  1562s lr 0.00040 loss 0.5740
+step  10600  1590s lr 0.00038 loss 0.5614
+step  10800  1619s lr 0.00037 loss 0.5590
+step  11000  1647s lr 0.00035 loss 0.5692
+step  11200  1676s lr 0.00034 loss 0.5734
+step  11400  1705s lr 0.00032 loss 0.5545
+step  11600  1734s lr 0.00031 loss 0.5744
+step  11800  1764s lr 0.00029 loss 0.5619
+step  12000  1794s lr 0.00028 loss 0.5444
+  EVAL  30 min: trained wordings: noul 98.6% choice 100.0% score 98.0% brier 0.010 ece 0.068 | new messages: noul 87.3% choice 71.9% score 89.2% brier 0.084 ece 0.021 | new question and option words: noul 68.9% choice 69.1% score 59.2% brier 0.185 ece 0.117 | teacher on 1500 new real questions: agree 80.6% gap 0.092 | hand-written 30/40
+step  12200  1838s lr 0.00025 loss 0.5557
+step  12400  1868s lr 0.00024 loss 0.5541
+step  12600  1897s lr 0.00023 loss 0.5672
+step  12800  1926s lr 0.00021 loss 0.5669
+step  13000  1957s lr 0.00020 loss 0.5622
+step  13200  1986s lr 0.00019 loss 0.5358
+step  13400  2016s lr 0.00018 loss 0.5546
+step  13600  2046s lr 0.00016 loss 0.5648
+step  13800  2075s lr 0.00015 loss 0.5355
+  EVAL  35 min: trained wordings: noul 99.2% choice 100.0% score 97.7% brier 0.007 ece 0.062 | new messages: noul 86.5% choice 72.1% score 87.9% brier 0.088 ece 0.028 | new question and option words: noul 67.9% choice 70.4% score 55.7% brier 0.193 ece 0.137 | teacher on 1500 new real questions: agree 81.1% gap 0.093 | hand-written 31/40
+step  14000  2125s lr 0.00013 loss 0.5550
+step  14200  2157s lr 0.00012 loss 0.5443
+step  14400  2188s lr 0.00011 loss 0.5527
+step  14600  2219s lr 0.00010 loss 0.5282
+step  14800  2250s lr 0.00009 loss 0.5411
+step  15000  2280s lr 0.00009 loss 0.5465
+step  15200  2309s lr 0.00008 loss 0.5607
+step  15400  2337s lr 0.00007 loss 0.5420
+step  15600  2369s lr 0.00007 loss 0.5251
+  EVAL  40 min: trained wordings: noul 99.4% choice 100.0% score 98.0% brier 0.005 ece 0.059 | new messages: noul 87.2% choice 72.3% score 88.7% brier 0.084 ece 0.041 | new question and option words: noul 68.4% choice 68.9% score 54.1% brier 0.193 ece 0.138 | teacher on 1500 new real questions: agree 81.4% gap 0.093 | hand-written 29/40
+step  15800  2422s lr 0.00006 loss 0.5574
+step  16000  2452s lr 0.00005 loss 0.5464
+step  16200  2482s lr 0.00005 loss 0.5558
+step  16400  2512s lr 0.00004 loss 0.5381
+step  16600  2541s lr 0.00004 loss 0.5397
+step  16800  2570s lr 0.00004 loss 0.5420
+step  17000  2598s lr 0.00003 loss 0.5346
+step  17200  2628s lr 0.00003 loss 0.5391
+step  17400  2658s lr 0.00003 loss 0.5381
+step  17600  2688s lr 0.00003 loss 0.5370
+saved jev2.pt steps 17688
+FINAL trained wordings: noul 99.5% choice 100.0% score 98.2% brier 0.005 ece 0.061 | new messages: noul 87.6% choice 73.1% score 89.0% brier 0.084 ece 0.039 | new question and option words: noul 67.8% choice 70.0% score 54.4% brier 0.194 ece 0.140 | teacher on 1500 new real questions: agree 80.7% gap 0.095 | hand-written 31/40

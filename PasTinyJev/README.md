@@ -9,7 +9,7 @@ scores and generates no text, so an answer cannot be off-schema.
 - Same engine as [PasTinyMoE](../PasTinyMoE/): Turbo Pascal 7, integer inference with the
   assembly dot product, built-in software floating point, one model resident at a time.
 - Same model format: every model is a 381,808-byte `TNY2` file (96 wide, 4 layers, 4 heads,
-  128 letters of context). The whole edition is 804,207 bytes and fits on a 1.44 MB floppy.
+  128 letters of context). The whole edition is 804,268 bytes and fits on a 1.44 MB floppy.
 - One trained decision model, `TRIAGE.BIN`, for short customer-support messages. The unchanged
   TINY 2.1 model rides along as `GENERAL.BIN` for text answers.
 
@@ -18,27 +18,33 @@ or OpenJev.
 
 ## What it can and cannot do
 
-`TRIAGE.BIN` has 367,000 parameters and was trained for one hour on a CPU, on synthetic
-messages only. Measured on the exported 8-bit model:
+`TRIAGE.BIN` has 367,000 parameters. It was trained on a CPU in two steps: one hour on synthetic
+template messages, then 45 minutes of distillation from a local OpenJev server running the
+[Laya](https://github.com/NandhaKishorM/laya) model (421M parameters) as the teacher. Measured
+on the exported 8-bit model, before and after distillation:
 
-| Test | yes/no | choice | score |
-|---|---:|---:|---:|
-| Trained wordings (1,500 fresh samples) | 100.0% | 100.0% | 99.7% |
-| New message wordings, trained question and option words | 89.9% | 77.6% | 92.2% |
-| Trained messages, new question and option words | 71.9% | 60.9% | 21.5% |
-| 40 hand-written questions ([`training/wild.jsonl`](training/wild.jsonl)) | 14 of 19 | 12 of 14 | 4 of 7 |
+| Test | Templates only | Distilled (shipped) |
+|---|---:|---:|
+| Agrees with the teacher on 1,500 questions about real messages never trained on | 57.7% | 80.7% |
+| Mean probability gap to the teacher on those questions | 0.286 | 0.095 |
+| 40 hand-written questions ([`training/wild.jsonl`](training/wild.jsonl)) | 30 | 31 |
+| Trained template wordings: yes/no, choice, score | 100.0 / 100.0 / 99.7% | 99.5 / 100.0 / 98.2% |
+| New template messages, trained question words | 89.9 / 77.6 / 92.2% | 87.6 / 73.1 / 89.0% |
+| Trained template messages, new question and option words | 71.9 / 60.9 / 21.5% | 67.8 / 70.0 / 54.4% |
 
-- The hand-written set was written before training and never used to change the model or the
-  generator. It scores 30 of 40.
-- The model knows the option and level words it was trained with (`calm`, `annoyed`, `furious`,
-  `billing`, `charges, refunds` and so on, listed in [`training/gen_jev.py`](training/gen_jev.py)).
-  With other words it is near or below chance, as the third row shows.
-- Its confidence is not trustworthy outside the trained wordings. Several of the ten hand-written
-  misses came with a probability of 0.99 for the wrong answer.
-- It is not a general reasoner and does not follow arbitrary instructions the way Jev does.
+- Distillation helped most where the first model was weakest: real messages (banking and
+  support requests it never saw) and option or level words outside its training list.
+- The hand-written set is essentially unchanged, 31 of 40 against 30 (15 of 19 yes/no, 12 of 14
+  choice, 4 of 7 score). It was written before any training and never used to change the model,
+  the generator or the question pool. The teacher itself gets 34 of 40 on it.
+- Confidence is more honest than before but still not reliable: some hand-written misses come
+  with 0.99 for the wrong answer.
+- It is not a general reasoner and does not follow arbitrary instructions the way Jev does. It
+  knows short customer-support and banking messages.
 
-A stronger model at this size needs better data more than more code: messages and soft labels
-from a large teacher such as OpenJev, in place of templates.
+The teacher is OpenJev's CPU-capable Laya backend. OpenJev's main model, DiffusionGemma 26B,
+needs a 24 GB GPU and was not used; a stronger teacher or more labelled data should help
+further.
 
 ## Run on DOS
 
@@ -60,9 +66,9 @@ SCORE tone | How upset is the customer? | calm ; annoyed ; furious
 
 ```
 state chars=70
-urgent noul=0.9874
-team choice=outage confidence=0.9943 outage=0.9992 billing=0.0000 feature=0.0008
-tone score=0.0000 confidence=1.0000 0=1.0000 1=0.0000 2=0.0000
+urgent noul=0.6720
+team choice=outage confidence=0.4602 outage=0.8169 billing=0.0617 feature=0.1213
+tone score=0.2011 confidence=0.5206 0=0.8441 1=0.1106 2=0.0453
 ```
 
 | Command | |
@@ -108,7 +114,7 @@ python3 tests/test_host.py build/int/JEV build/flt/JEV
 
 The test checks the command protocol, state caching, model switching, recovery from a damaged
 model, and that both engines give PyTorch's probabilities on all 40 hand-written questions. The
-largest gap is 0.0032 for the integer engine and 0.0006 for the float engine.
+largest gap is 0.0072 for the integer engine and 0.0008 for the float engine.
 
 DOS builds use your own `TPC.EXE` and `TURBO.TPL` from Turbo Pascal 7: run `BUILD.BAT`, or
 replay everything in DOSBox-X from a host:
@@ -127,12 +133,12 @@ emulated 386 with the FPU disabled. Verified here with DOSBox-X 2024.03.01:
 | `JEVNO.EXE`, integer, pure Pascal | 36,912 | identical to the host integer build |
 | `JEVFLT.EXE`, float | 35,968 | identical to the host float build |
 
-The three executables are in [`bin/`](bin/) and the transcripts, compiler logs and training log
+The three executables are in [`bin/`](bin/) and the transcripts, compiler logs and both training logs
 in [`evidence/`](evidence/).
 
 Not measured or tested: speed at a fixed cycle count, physical 386 hardware, and the Free Pascal
 go32v2 build. With the emulated FPU off, the first question of the demo (a 70-letter state and a
-45-letter question) took about 56 seconds at DOSBox-X `cycles=max`; that is one emulator
+45-letter question) took about 50 seconds at DOSBox-X `cycles=max`; that is one emulator
 setting, not a hardware prediction.
 
 To package: `python3 tools/package.py bin/JEV.EXE build/JEV1` then
@@ -143,8 +149,9 @@ To package: `python3 tools/package.py bin/JEV.EXE build/JEV1` then
 ```sh
 cd training
 python3 gen_jev.py                                   # sample states and questions
-python3 train_jev.py train 60 jev.pt --init ../TINY.BIN
-python3 train_jev.py eval jev.pt
+python3 train_jev.py train 60 base.pt --init ../TINY.BIN
+python3 train_jev.py train 45 jev.pt --resume base.pt --distill distill.jsonl.gz --mix 0.6
+python3 train_jev.py eval jev.pt --distill distill.jsonl.gz
 python3 train_jev.py export jev.pt ../JEV.BIN
 ```
 
@@ -153,12 +160,27 @@ python3 train_jev.py export jev.pt ../JEV.BIN
   one question or option wording in four are held back for the tests above.
 - [`train_jev.py`](training/train_jev.py) starts from the TINY 2.1 weights and trains only the
   y-minus-n read: binary cross-entropy for a noul, softmax cross-entropy across the options of a
-  choice or score.
+  choice or score. Targets are probabilities, so a teacher's answer is used as it is.
+- [`distill.jsonl.gz`](training/distill.jsonl.gz) holds 29,229 questions with the teacher's
+  probabilities: template messages plus real ones from banking77 and Bitext's customer-support
+  set. One real message in ten (1,855 questions) is held back for the agreement test.
+  [`DATA_LICENSES.md`](DATA_LICENSES.md) has the sources and terms.
 - The network code and the `TNY2` export come from
   [WebTiny](https://github.com/FMXExpress/webTiny)'s trainer
   ([`webtiny_train.py`](training/webtiny_train.py), unchanged), which also imitates the runtime's
   8-bit key/value cache during training.
 - `jev.pt` is the released model at full precision; exporting it gives the released `JEV.BIN`.
+
+To label more data, run OpenJev locally and point
+[`build_distill.py`](training/build_distill.py) at it. It asks eight questions per message
+from a wide pool of instructions, option words and scales, at about 12 questions a second on
+four CPU cores:
+
+```sh
+pip install -e "openjev[laya]"                       # in an OpenJev checkout
+OPENJEV_BACKEND=laya OPENJEV_DEVICE=cpu OPENJEV_PORT=8081 python -m openjev
+python3 build_distill.py 45 distill.jsonl --banking banking77.parquet --bitext bitext.csv
+```
 
 ## Jev wire API on a host
 
@@ -177,7 +199,7 @@ not run against it. `usage.input_tokens` counts letters.
 
 Derived from FMXExpress/PasTiny (PasTinyMoE at commit d8bf7e8) and the WollyMonjac/Tiny-2.1
 model. `TINY.BIN` is the unchanged general model (SHA-256 4b603237…7095). `JEV.BIN` was trained
-here from it. The trainer core is from FMXExpress/webTiny under its MIT licence
+here from it, with OpenJev's Laya model as the teacher. The trainer core is from FMXExpress/webTiny under its MIT licence
 ([`training/WEBTINY_LICENSE`](training/WEBTINY_LICENSE)). See [`NOTICE.TXT`](NOTICE.TXT),
 [`ORIGINAL.TXT`](ORIGINAL.TXT) and [`LICENSE`](LICENSE). The Turbo Pascal compiler is not
 included.
