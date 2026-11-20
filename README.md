@@ -92,6 +92,12 @@ See [README.TXT](README.TXT) for options, keyboard controls, runtime requirement
 
 Based on TINY 2.1 revision `1d5cf54677addf188a090ca1c91acb3d02989a1d`. Upstream files retain their original attribution; [ORIGINAL.TXT](ORIGINAL.TXT) is its original documentation. This repository's MIT license covers its contributions and does not change the terms of upstream or third-party files. Upstream has no project license file; no additional rights over its model or C reference are asserted here. Runtime notices are in `BIN/DOS`.
 
+## Delphi 1 / Windows 3.1
+
+[`delphi1/`](delphi1/) is a Windows 3.1 port for Delphi 1: the same network file, answers, neon screen, neural monitor and PC-speaker voice, drawn in a window. It uses the integer engine with 8086 assembler kernels by default, with `/FLOAT`, `/BENCH` and `/IN=`/`/OUT=` file mode. Open `TINY.DPR` in Delphi 1, or run `DCC TINY.DPR`, then put `TINY.EXE` next to the root `TINY.BIN`.
+
+Its network unit gives the same 60 reference answers as `TINY.C` when built with Free Pascal in TP mode, and the whole program compiles and assembles for Win16 with Free Pascal's i8086 compiler. **It has not yet been built with Delphi 1 or run on Windows 3.1**; see [delphi1/README.TXT](delphi1/README.TXT).
+
 ## PasTinyMoE
 
 The [PasTinyMoE runtime and downloads](PasTinyMoE/) add manual and keyword-based model selection to a separate TP7 executable. The three-file FAT12 edition and 100-file SD edition use one resident model. Both currently ship labeled copies of the general model for capacity and recovery testing.

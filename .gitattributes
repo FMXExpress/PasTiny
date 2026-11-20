@@ -3,6 +3,7 @@
 
 *.PAS text eol=crlf
 *.INC text eol=crlf
+*.DPR text eol=crlf
 *.BAT text eol=crlf
 *.EXE binary
 *.BIN binary
