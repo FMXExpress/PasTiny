@@ -70,7 +70,9 @@ begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); WriteLn('route ms=',NowMs-T);
     if J=0 then WriteLn('Choose an expert with LIST and USE, or rephrase the question.')
     else Switch(J);
-    if Active<>J then J:=0 end else J:=Active;
+    if Active<>J then J:=0
+    {$IFDEF SPEC8}else if Corrected<>'' then begin WriteLn('read as: ',Corrected); Q:=Corrected end{$ENDIF}
+    end else J:=Active;
    if (J<>0) and Ready then begin
     First:=-1; T:=NowMs; Think(Q,A,Tokens,PollEscape,Letter); Elapsed:=NowMs-T; WriteLn;
     WriteLn('answer ms=',Elapsed,' chars=',Length(A));

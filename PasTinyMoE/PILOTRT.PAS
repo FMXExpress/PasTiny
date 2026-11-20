@@ -15,6 +15,7 @@ unit PILOTRT;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 interface
 function PilotDomain(Q:String):Byte;
+{$IFDEF SPEC8}function FixTypos(Q:String; var Fixed:String):Boolean;{$ENDIF}
 {$IFDEF SPEC5}
 function FPUQuestion(Q:String):Boolean;
 function OtherPCStatus(Q:String):Boolean;
@@ -72,6 +73,55 @@ begin
   Mid:=(Low+High) div 2;
   if Token=Topics[Mid].Term then begin TopicId:=Topics[Mid].Id; Exit end;
   if Token<Topics[Mid].Term then High:=Mid-1 else Low:=Mid+1
+ end
+end;
+{$ENDIF}
+{$IFDEF SPEC8}
+(* True when A and B differ by one typing slip: one letter changed, added,
+   dropped, or two neighbours swapped. *)
+function Near(A,B:String):Boolean;
+var I,LA,LB:Integer;
+begin
+ Near:=False; LA:=Length(A); LB:=Length(B);
+ if Abs(LA-LB)>1 then Exit;
+ I:=1;
+ while (I<=LA) and (I<=LB) and (A[I]=B[I]) do Inc(I);
+ if LA=LB then begin
+  if I>LA then Exit;
+  Near:=(Copy(A,I+1,255)=Copy(B,I+1,255)) or
+   ((I<LA) and (A[I]=B[I+1]) and (A[I+1]=B[I]) and (Copy(A,I+2,255)=Copy(B,I+2,255)))
+ end
+ else if LA>LB then Near:=Copy(A,I+1,255)=Copy(B,I,255)
+ else Near:=Copy(A,I,255)=Copy(B,I+1,255)
+end;
+(* Typo fallback for a question no expert claimed.  Each word of six or
+   more letters that is not a topic term is compared with the topic terms
+   of seven or more letters that start with the same letter.  If it is one
+   slip away from terms of exactly one expert, the term replaces it.
+   Shorter terms are left alone: too many ordinary words sit one letter
+   from them (state and slate, another and anther).  Returns True when
+   Fixed differs from Q; the caller routes Fixed as usual. *)
+function FixTypos(Q:String; var Fixed:String):Boolean;
+var I,J,Start,Hit:Integer; W:String; Found:Byte; Clash:Boolean;
+begin
+ FixTypos:=False; Fixed:=''; I:=1;
+ while I<=Length(Q) do begin
+  if UpCase(Q[I]) in ['A'..'Z'] then begin
+   Start:=I;
+   while (I<=Length(Q)) and (UpCase(Q[I]) in ['A'..'Z']) do Inc(I);
+   W:=Copy(Q,Start,I-Start);
+   for J:=1 to Length(W) do if W[J] in ['A'..'Z'] then W[J]:=Chr(Ord(W[J])+32);
+   Hit:=0; Found:=0; Clash:=False;
+   if (Length(W)>=6) and (TopicId(W)=0) then
+    for J:=1 to SizeOf(Topics) div SizeOf(TopicEntry) do
+     if (Topics[J].Term[1]=W[1]) and (Length(Topics[J].Term)>=7) then
+      if Near(W,Topics[J].Term) then begin
+       if (Found<>0) and (Topics[J].Id<>Found) then Clash:=True;
+       Found:=Topics[J].Id; Hit:=J
+      end;
+   if (Hit<>0) and not Clash then begin Fixed:=Fixed+Topics[Hit].Term; FixTypos:=True end
+   else Fixed:=Fixed+W
+  end else begin Fixed:=Fixed+Q[I]; Inc(I) end
  end
 end;
 {$ENDIF}

@@ -1,0 +1,291 @@
+expert	kind	question
+4	fresh	i keep seeing the word pathname, what is that
+4	fresh	how would you describe a wildcard when naming files
+4	typo	what is a subdirectry
+5	fresh	could you tell me what expanded memory is for
+5	fresh	conventional memory, what does that refer to
+5	typo	whats the high memmory area
+6	fresh	on a floppy, what is meant by a sector
+6	fresh	why does a floppy disk have a write protect tab
+6	typo	what is a flopy track
+7	fresh	in the fat file system what is a cluster
+7	fresh	what is the fat volume label used for
+7	typo	what does the fat alocation table do
+8	fresh	what job does autoexec.bat have
+8	fresh	tell me what command.com is
+8	typo	what is confg.sys for
+9	fresh	in a batch file what does %1 stand for
+9	fresh	what happens when a batch file says echo hello
+9	typo	what is %2 in a bacth file
+10	fresh	which ascii code is a tab in dos text files
+10	fresh	what ends a dos text file, ctrl-z, what is its code
+10	typo	what ascii number is cr in dos txt
+11	fresh	in keyboard terms what is a scan code
+11	fresh	what does typematic repeat mean on a keyboard
+11	typo	what does caps lok do on a keybord
+12	fresh	what is post when a pc starts, in bios terms
+12	fresh	what is the cmos setup program in the bios
+12	typo	bios glosary: what is firmware
+13	fresh	how many colors can cga show at 320 by 200
+13	fresh	does an mda card support graphics
+13	typo	what resolution is vga mode 13h grafics
+14	fresh	how many bytes does one color text cell take
+14	fresh	which bits hold the foreground attribute on the text screen
+14	typo	what is the frist byte of a text cell
+15	fresh	in a bitmap, what is a scan line
+15	fresh	what is the palette of a bitmap image
+15	typo	what is a bitmap pixle
+16	fresh	on a printer what is form feed for
+16	fresh	what is the ribbon for in an impact printer
+16	typo	how does tracter feed hold printer paper
+17	fresh	how does the x axis of a joystick move
+17	fresh	why do you need joystick calibration
+17	typo	what is a joystik button
+18	fresh	what is the pc speaker good for
+18	fresh	how does fm synthesis make sound
+18	typo	what is a midi mesage
+19	fresh	on a serial port what does parity do
+19	fresh	what are stop bits for on a serial line
+19	typo	what is the baud rate of a serail port
+20	fresh	what kind of expansion slot is pci
+20	fresh	what is an isa slot
+20	typo	what is a vlb expantion slot
+21	fresh	in pascal what can a variable of type byte hold
+21	fresh	what does var x: boolean; declare in pascal
+21	typo	explain this declaraton: var x: char;
+22	fresh	what does this pascal loop do: while n > 0 do dec(n);
+22	fresh	explain repeat inc(n) until n = 3 in pascal
+22	typo	explain this snipet: for i := 1 to 3 do inc(n);
+23	fresh	what is the upper bound of the pascal array [3..8]
+23	fresh	what do you call one component of a record
+23	typo	lower bound of aray [3..8]
+24	fresh	how is a var parameter passed in pascal
+24	fresh	what do you call a pascal routine that returns a value
+24	typo	what is a routine with no result called, a procedur
+25	fresh	in pascal what is blockread for
+25	fresh	what is an untyped file in turbo pascal
+25	typo	what does a textfle contain
+26	fresh	what is the interface section of a pascal unit for
+26	fresh	in a pascal unit what goes in the implementation part
+26	typo	what does a uses claus do
+27	fresh	what does the compiler mean by type mismatch
+27	fresh	the compiler says semicolon expected, what is wrong
+27	typo	define duplicate identifer
+28	fresh	what is a breakpoint in a debugger
+28	fresh	what does the call stack show while debugging
+28	typo	define breakpiont
+29	fresh	what base does hexadecimal use
+29	fresh	what is place value in a number
+29	typo	define hexadecmal
+30	fresh	what does xor do as a boolean operator
+30	fresh	how does the boolean operator not work
+30	typo	define and as a boolaen operator
+31	fresh	in sorting what is a stable sort
+31	fresh	what is the sort key when sorting records
+31	typo	in sortng name this: numbers go from smallest to largest
+32	fresh	which data structure is last in first out
+32	fresh	what do you call a structure where each node links to the next
+32	typo	what structre uses first in first out
+33	fresh	what filename extension do zip archives use
+33	fresh	what is the central directory of a zip file for
+33	typo	lzh comon archiver name
+34	fresh	is the spreadsheet reference $A$1 absolute or relative
+34	fresh	what does A1 become when a spreadsheet formula is copied one row down
+34	typo	spredsheet reference A1 type
+35	fresh	what is a field in a database
+35	fresh	why would you add an index to a database table
+35	typo	what is a databse record
+36	fresh	what does insert mode do in a text editor
+36	fresh	what is word wrap in an editor
+36	typo	what does overtyp mode do
+37	fresh	which modem command dials with tones
+37	fresh	what does the modem command ata do
+37	typo	what does the modm command ate1 do
+38	fresh	on a bbs what is netmail
+38	fresh	what is a handle on a bbs
+38	typo	what is ansi art on a bbbs
+39	fresh	in wordstar how do i copy a marked block
+39	fresh	what keys mark the start of a block in wordstar
+39	typo	wordstr move marked block
+40	fresh	in lotus 1-2-3 how do i sum a range
+40	fresh	which key recalculates a lotus worksheet
+40	typo	lotis open command menu
+47	fresh	what word means the opposite of silent
+47	fresh	give me an antonym for ancient
+47	typo	what is the oposite of narrow
+48	fresh	what state does tx stand for in a us address
+48	fresh	on an envelope, what does fl abbreviate
+48	typo	expand ut on a us adress
+49	fresh	what is meant by the idiom spill the beans
+49	fresh	if someone is on the fence what does that mean
+49	typo	what does hit the boks mean
+50	fresh	what is the origin of the word robot
+50	fresh	which language gave us the word tsunami
+50	typo	where does the word algbra come from
+52	fresh	what does a manatee eat
+52	fresh	how does the platypus reproduce
+52	typo	what covers a pangolan
+53	fresh	what is a woodpecker's bill used for
+53	fresh	can a hummingbird hover
+53	typo	what are pengin wings used for
+54	fresh	is a gecko a lizard or a snake
+54	fresh	what sort of reptile is an alligator
+54	typo	what is a tortise
+55	fresh	what kind of creature is an axolotl
+55	fresh	is a toad a kind of frog
+55	typo	what is a cecilian
+56	fresh	what is a shark's skeleton made of
+56	fresh	which seahorse parent carries the eggs
+56	typo	where do atlantic samon spawn
+57	fresh	what are honeybee combs made from
+57	fresh	what do you call the larva of a butterfly
+57	typo	where do dragonfy larvae live
+58	fresh	what do a spider's spinnerets do
+58	fresh	what are the pedipalps of a spider for
+58	typo	what are chelicerae on a spidr
+59	fresh	what does the cambium of a tree do
+59	fresh	what is heartwood for in a tree
+59	typo	what does sapwod do
+60	fresh	in a flower what does the stigma do
+60	fresh	what does the ovary of a flower turn into
+60	typo	what does an anter do
+61	fresh	what planet do people call the red planet
+61	fresh	what is the biggest moon in the solar system
+61	typo	which plannet is closest to the sun
+62	fresh	what do astronomers mean by the zenith
+62	fresh	is orion a constellation
+62	typo	what is a nebla
+63	fresh	what is hail made of
+63	fresh	how would you define drizzle
+63	typo	what is dew in wether terms
+64	fresh	what type of rock is marble
+64	fresh	is basalt igneous or sedimentary
+64	typo	classify sandstne
+65	fresh	what does an ohm measure
+65	fresh	the watt is a unit of what
+65	typo	what does the unit ampre measure
+66	fresh	what is momentum in physics
+66	fresh	how is acceleration defined
+66	typo	define velocty
+67	fresh	what is refraction of light
+67	fresh	what does dispersion do to light
+67	typo	define absorbtion of light
+68	fresh	what makes an echo
+68	fresh	how low is infrasound
+68	typo	what does vibraton mean in sound
+69	fresh	what is the symbol for iron on the periodic table
+69	fresh	what kind of phase change is condensation
+69	typo	what is the chemcal symbol for sodium
+70	fresh	what body system is the heart part of
+70	fresh	the kidneys belong to which system of the body
+70	typo	which body sytem contains the stomach
+71	fresh	what city is the capital of norway
+71	fresh	name the capital city of ghana
+71	typo	what is the captal of portugal
+72	fresh	what does the flag of japan look like
+72	fresh	which leaf is on the canadian flag
+72	typo	describe the swiss flg
+73	fresh	what is the largest continent
+73	fresh	the sahara desert is on which continent
+73	typo	which continant surrounds the south pole
+74	fresh	on what continent is the nile river
+74	fresh	which continent does the yangtze flow through
+74	typo	where is the missisippi river
+75	fresh	on which continent are the himalayas
+75	fresh	where would i find the atlas mountains
+75	typo	where are the pyranees mountains
+76	fresh	where is the baltic sea
+76	fresh	what lies on either side of the pacific ocean
+76	typo	where is the adratic sea
+77	fresh	what country is the city of osaka in
+77	fresh	hamburg is a city in which country
+77	typo	which contry is bologna in
+78	fresh	in what country is stonehenge
+78	fresh	where can i see the colosseum
+78	typo	where are the pyramids of gizeh
+79	fresh	what does a contour line show on a map
+79	fresh	what is the legend of a map for
+79	typo	explain the map scal
+80	fresh	what compass bearing is northeast
+80	fresh	how many degrees is the bearing for west
+80	typo	what is the bering of southeast
+81	fresh	who was khufu in ancient egypt
+81	fresh	what did egyptians use papyrus for
+81	typo	what was a shadoof
+82	fresh	who started the academy in ancient athens
+82	fresh	which goddess was the parthenon built for
+82	typo	where were the ancient greek olimpic games held
+83	fresh	who was rome's first emperor
+83	fresh	what volcano destroyed pompeii
+83	typo	who wrote the aenied
+84	fresh	in medieval times what was a tanner's job
+84	fresh	what did a medieval miller do
+84	typo	what did a blacksmth do
+85	fresh	what was the name of darwin's ship
+85	fresh	shackleton sailed on which ship in 1914
+85	typo	which ship caried cook in 1768
+86	fresh	who came up with the saxophone
+86	fresh	who was the inventor of the stethoscope
+86	typo	who invented the mercury barometr
+87	fresh	when did the commodore 64 come out
+87	fresh	in what year was the original macintosh introduced
+87	typo	what year was the altiar 8800
+88	fresh	in which year did apollo eleven fly
+88	fresh	when was the hubble telescope launched
+88	typo	year of voyger two launch
+89	fresh	when did concorde first fly
+89	fresh	what year did the first shinkansen run
+89	typo	year of lindberg solo atlantic crossing
+90	fresh	what does chronology mean in history
+90	fresh	what is a dynasty
+90	typo	define monarcy
+91	fresh	give me a hint for the silver twin riddle
+91	fresh	i need a hint for paper traveler
+91	typo	hint for quiet climer
+92	fresh	what is special about a palindrome
+92	fresh	what is a pangram
+92	typo	what does an anagrm do
+93	fresh	in chess what does stalemate mean
+93	fresh	what can a pawn become when it promotes in chess
+93	typo	what is checkmat in chess
+94	fresh	in an adventure game what does inventory do
+94	fresh	what does the look command mean in an adventure
+94	typo	what does drop mean in an adventur
+95	fresh	describe the crypt
+95	fresh	what is in the grotto
+95	typo	belfy
+96	fresh	what does the pirate have for breakfast
+96	fresh	sing me the pirate song
+96	typo	pirat treasure
+97	fresh	what do the spaceship sensors say
+97	fresh	how are the spaceship engines
+97	typo	spacship greeting
+98	fresh	give me a frontier greeting
+98	fresh	what is the weather on the frontier
+98	typo	fronteer farewell
+99	fresh	make a fairytale wish
+99	fresh	what is at the fairytale feast
+99	typo	fairytail greeting
+100	fresh	give me a story about a keyhole
+100	fresh	a story spark about a sundial
+100	typo	postcrad
+0	none	what is 7 times 8
+0	none	how are you today
+0	none	who painted the mona lisa
+0	none	what is the plural of mouse
+0	none	tell me a joke
+0	none	how many days are in february
+0	none	what language do they speak in brazil
+0	none	spell banana backwards
+0	none	what is your name
+0	none	how do i bake bread
+0	none	what is the square root of 81
+0	none	who won the world cup in 1998
+0	none	what colour is the sky
+0	none	translate hello into french
+0	none	is a tomato a fruit
+0	none	what time is it
+0	none	how tall is mount everest
+0	none	what is the past tense of run
+0	none	recommend a good book
+0	none	how far away is the moon
