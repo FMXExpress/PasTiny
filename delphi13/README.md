@@ -42,3 +42,7 @@ The Linux x86-64 FPC build matched all 60 original C reference answers with both
 ## Robot voice
 
 VCL and FireMonkey play each completed answer as square-wave robot chatter. Clear **Sound** to stop playback and mute subsequent answers. The console opts in with `/SOUND` and waits for each answer to finish playing. Benchmarks stay silent. On Linux install ALSA’s `aplay` or FFmpeg’s `ffplay`. Windows uses the system audio output and FireMonkey uses its platform media player.
+
+## Neural monitor
+
+The VCL and FireMonkey chat windows stream the answer and show each layer’s activity relative to its recent peak. The confidence meter tracks the latest emitted character. The strip underneath keeps the last 18 character confidences, with denser shading for higher confidence. This measures character prediction, so even a confidently generated answer can be factually wrong. The panel also displays generation speed in letters per second, model dimensions, and creativity.

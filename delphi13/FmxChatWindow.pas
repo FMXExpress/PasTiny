@@ -20,6 +20,10 @@ type
     procedure QuestionKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: WideChar; Shift: TShiftState);
   private
+    Monitor: TMemo;
+    Generating: Boolean;
+    procedure RefreshMonitor;
+    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     Player: TMediaPlayer;
     WavePath: string;
     procedure PlayAnswer(const Answer: string);
@@ -33,7 +37,7 @@ var
 implementation
 
 uses
-  System.SysUtils, System.IOUtils, TnyNet, TinyVoice;
+  System.SysUtils, System.IOUtils, NeuralMonitor, TnyNet, TinyVoice;
 
 {$R *.fmx}
 
@@ -66,6 +70,20 @@ begin
     Creativity := 0;
     LoadModel(Path);
     AllocMemory;
+    Monitor := TMemo.Create(Self);
+    Monitor.Parent := Self;
+    Monitor.ReadOnly := True;
+    Monitor.TabStop := False;
+    Monitor.WordWrap := False;
+    Monitor.Align := TAlignLayout.Right;
+    if ClientWidth < 480 then begin
+      Monitor.Align := TAlignLayout.Top;
+      Monitor.Height := 138;
+    end else Monitor.Width := 190;
+    Monitor.StyledSettings := Monitor.StyledSettings - [TStyledSetting.Family];
+    Monitor.TextSettings.Font.Family := 'monospace';
+    Monitor.Lines.Text := MonitorText;
+    OnCloseQuery := CheckClose;
   except
     on E: Exception do
     begin
@@ -105,15 +123,39 @@ begin
   inherited;
 end;
 
+procedure TChatForm.CheckClose(Sender: TObject; var CanClose: Boolean);
+begin
+  CanClose := not Generating;
+end;
+
+procedure TChatForm.RefreshMonitor;
+begin
+  Monitor.Lines.Text := MonitorText;
+  Transcript.Lines[Transcript.Lines.Count-1] := GeneratedText;
+  Application.ProcessMessages;
+end;
+
 procedure TChatForm.Ask(Sender: TObject);
 var
   Prompt, Answer: string;
   Tenths: Longint;
 begin
+  if Generating then Exit;
   if Clean(Question.Text, Prompt) = 0 then Exit;
-  Think(Prompt, Answer, Tenths, nil, nil);
-  Transcript.Lines.Add('> ' + Prompt);
-  Transcript.Lines.Add(Answer);
+  Generating := True;
+  try
+    Transcript.Lines.Add('> ' + Prompt);
+    Transcript.Lines.Add('...');
+    BeginMonitor(RefreshMonitor);
+    try
+      Think(Prompt, Answer, Tenths, nil, MonitorLetter);
+    finally
+      EndMonitor;
+    end;
+    RefreshMonitor;
+  finally
+    Generating := False;
+  end;
   Transcript.Lines.Add('');
   Transcript.GoToTextEnd;
   Question.Text := '';
