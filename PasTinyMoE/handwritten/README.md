@@ -9,9 +9,10 @@ The idea comes from work on "weight-space programming", and in particular from L
 | [`reverse/`](reverse/) | `REVERSE.BIN` | Spells the last word of the question backwards |
 | [`cipher/`](cipher/) | `ROT13.BIN`, `ATBASH.BIN`, `ECHO.BIN` | Write the last word forwards through a letter substitution |
 | [`compare/`](compare/) | `BIGGER.BIN`, `SMALLER.BIN` | Say whether the first number in the question is bigger (or smaller) than the second |
+| [`add/`](add/) | `PLUS.BIN` | Adds two whole numbers from 0 to 99 |
 | [`rules/`](rules/) | `DIGIT.BIN`, `QMARK.BIN`, `EXCLAIM.BIN` | Exact yes/no rules for PasTinyJev |
 
-[`conformance.py`](conformance.py) uses the first three folders to check any engine build against answers known by construction. [`tny2.py`](tny2.py) holds the shared pieces: weight arrays, phase tables, the ReLU square and the file writer.
+[`conformance.py`](conformance.py) uses the first four folders to check any engine build against answers known by construction. [`tny2.py`](tny2.py) holds the shared pieces: weight arrays, phase tables, the ReLU square and the file writer.
 
 ## Reverse
 
@@ -124,6 +125,41 @@ Getting this exact in the 8-bit runtime took three changes, each after a failure
 
 Limits: a number may not be the very first thing in the question; the question may be at most 72 characters; numbers are plain digits without signs, points, separators or leading zeros; and a question with more than two numbers is not supported (the answer mixes them).
 
+## Addition
+
+[`add/build.py`](add/build.py) writes a network that adds two whole numbers from 0 to 99 and writes the sum normally, most significant digit first.
+
+```
+> what is 20 plus 17
+37
+> what is 58 plus 67
+125
+```
+
+The first digit written depends on the carries from the lower places, and each carry needs its own layer:
+
+1. **Layer 1** finds which number each digit belongs to, where the first number starts, and whether the answer has begun.
+2. **Layer 2** fetches the two units digits, adds them, and works out the units digit of the sum and the first carry.
+3. **Layer 3** fetches the two tens digits (zero if a number has none), adds them with the carry, and works out the tens digit and the second carry.
+4. **Layer 4** chooses which digit to write at this step of the answer, or ends it.
+
+How far into the answer we are is passed along one step per layer: "the previous position is the end of the question", then "the position before had that flag", and so on.
+
+| Test | Hand-written | Trained `TINY.BIN` |
+| --- | ---: | ---: |
+| Every pair from 0 to 99, in six wordings | 10,000/10,000 | not run |
+| "what is A plus B" on 1,000 of those pairs | 1,000/1,000 | 61/1,000 |
+
+[`add/test.py`](add/test.py) asks all 10,000 pairs through the stock runtime; the integer, `NOASM`, `FLOATMATH` and `DEBUG` host builds all answer every one exactly.
+
+Two digits is what fits exactly in four layers. A third place needs its carry and the choice of which digit to write in the same last layer, and the one-bit flags passed between layers are only within a few percent of 1 when read later, which is not enough to gate that safely. Three more lessons from making this exact:
+
+- Flags are kept small in the residual. At full size, a flag that is on changed that position's overall size by a few percent and upset the choice of "the latest digit" two layers later.
+- Each gated copy is the difference of two units that share the gate, with a little slack, so the gate's error cancels.
+- "The last digit of A" is chosen by matching the number's start, which the space before A matches too. That selection now also requires a digit.
+
+Limits: a number may not be the very first thing in the question; at most 72 characters; exactly two numbers of one or two plain digits, without a leading zero.
+
 ## Exact rules for PasTinyJev
 
 [`rules/build.py`](rules/build.py) writes three one-layer networks for [PasTinyJev](../../PasTinyJev/), which reads a decision as the score of the letter y minus the letter n. Each answers one fixed rule with a probability near 1 or near 0: the text contains a digit, a question mark, or an exclamation mark.
@@ -139,7 +175,7 @@ They sit in the PasTinyJev catalog beside the trained triage model with the keyw
 
 ## Engine conformance
 
-The trained models can only show that two engine builds agree with each other. These networks have answers known by construction, so a build can be checked against the truth. [`conformance.py`](conformance.py) asks 81 fixed questions, including the longest the context allows, where attention must land on exact positions through the 8-bit key cache, and number comparisons that rank positions one step apart.
+The trained models can only show that two engine builds agree with each other. These networks have answers known by construction, so a build can be checked against the truth. [`conformance.py`](conformance.py) asks 93 fixed questions, including the longest the context allows, where attention must land on exact positions through the 8-bit key cache, number comparisons that rank positions one step apart, and sums with every pattern of carry.
 
 ```sh
 python3 handwritten/conformance.py build/EXPERT            # any host builds
@@ -147,6 +183,6 @@ python3 handwritten/conformance.py --write DIR             # package for a DOS E
 python3 handwritten/conformance.py --check CONFORM.LOG     # check its transcript
 ```
 
-All four host builds (integer, `NOASM`, `FLOATMATH`, `DEBUG`) answer all 81 exactly.
+All four host builds (integer, `NOASM`, `FLOATMATH`, `DEBUG`) answer all 93 exactly.
 
 So do the four DOS executables in this repository, run in DOSBox-X with an emulated FPU: `bin/EXPERT.EXE` (integer with assembly) and the pure Pascal, float and debug builds from `dist/COMPARE.ZIP`. Their transcripts are in [`evidence/`](evidence/) as `CONF-ASM.LOG`, `CONF-NOASM.LOG`, `CONF-FLOAT.LOG` and `CONF-DEBUG.LOG`. Two comparison questions were also run on an emulated 386 without an FPU ([`evidence/COMPARE-NOFPU.LOG`](evidence/COMPARE-NOFPU.LOG), about 4.9 seconds each at `cycles=max`). The full set has not been run without an FPU, and the other engines (the C original, the browser port, the Delphi ports) have not been tried.

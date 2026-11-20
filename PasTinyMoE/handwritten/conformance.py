@@ -29,7 +29,8 @@ from harness import Runtime
 
 MODELS = [(here / 'reverse/REVERSE.BIN', 'reverse'), (here / 'cipher/ROT13.BIN', 'rot13'),
           (here / 'cipher/ATBASH.BIN', 'atbash'), (here / 'cipher/ECHO.BIN', 'echo'),
-          (here / 'compare/BIGGER.BIN', 'bigger'), (here / 'compare/SMALLER.BIN', 'smaller')]
+          (here / 'compare/BIGGER.BIN', 'bigger'), (here / 'compare/SMALLER.BIN', 'smaller'),
+          (here / 'add/PLUS.BIN', 'plus')]
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 SUBST = {'rot13': {c: ALPHABET[(i + 13) % 26] for i, c in enumerate(ALPHABET)},
          'atbash': {c: ALPHABET[25 - i] for i, c in enumerate(ALPHABET)}, 'echo': {}}
@@ -62,6 +63,9 @@ def vectors():
                      (4000000, 4000000), (60, 59)]:
             want = a > b if word == 'bigger' else a < b
             out.append(('is %d %s than %d' % (a, word, b), 'yes' if want else 'no'))
+    for a, b in [(0, 0), (4, 3), (7, 8), (9, 1), (20, 17), (58, 67), (99, 99), (99, 1), (5, 97), (50, 50),
+                 (19, 81), (90, 9)]:                       # no carry, one carry, both carries, uneven lengths
+        out.append(('what is %d plus %d' % (a, b), str(a + b)))
     out.append(('what is 7 times 8', '7 times 8 is 56.'))  # the trained general model still answers
     return out
 
