@@ -1,0 +1,4 @@
+50 individually trained expert weights. LIST displays all entries.
+AUTO routes supported topics; USE pins an expert. CHECK.BAT exercises the new batch.
+Derived from WollyMonjac/Tiny-2.1 and FMXExpress/WebTiny.
+Documentation: FMXExpress/PasTiny, PasTinyMoE/specialists/batch50.

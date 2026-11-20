@@ -1,0 +1,12 @@
+{"question": "how would a medieval cooper spend a working day", "answer": "Made wooden barrels.", "fact": "cooper", "output": "Made wooden barrels.", "exact": true}
+{"question": "a cooper worked on what sort of container", "answer": "Made wooden barrels.", "fact": "cooper", "output": "Made wooden barrels.", "exact": true}
+{"question": "how would a medieval miller spend a working day", "answer": "Ground grain into flour.", "fact": "miller", "output": "Ground grain into flour.", "exact": true}
+{"question": "what happened to grain at the hands of a miller", "answer": "Ground grain into flour.", "fact": "miller", "output": "Ground grain into flour.", "exact": true}
+{"question": "how would a medieval weaver spend a working day", "answer": "Wove yarn into cloth.", "fact": "weaver", "output": "Turned hides into leather.", "exact": false}
+{"question": "what came off the loom of a weaver", "answer": "Wove yarn into cloth.", "fact": "weaver", "output": "Wove yarn into cloth.", "exact": true}
+{"question": "how would a medieval tanner spend a working day", "answer": "Turned hides into leather.", "fact": "tanner", "output": "Turned hides into leather.", "exact": true}
+{"question": "what material came out of a tanner workshop", "answer": "Turned hides into leather.", "fact": "tanner", "output": "Turned hides into leather.", "exact": true}
+{"question": "how would a medieval potter spend a working day", "answer": "Made clay vessels.", "fact": "potter", "output": "Made clay vessels.", "exact": true}
+{"question": "what would a potter shape on a wheel", "answer": "Made clay vessels.", "fact": "potter", "output": "Made clay vessels.", "exact": true}
+{"question": "how would a medieval blacksmith spend a working day", "answer": "Forged iron objects.", "fact": "blacksmith", "output": "Turned hides into leather.", "exact": false}
+{"question": "what kind of work did a blacksmith do at the forge", "answer": "Forged iron objects.", "fact": "blacksmith", "output": "Forged iron objects.", "exact": true}

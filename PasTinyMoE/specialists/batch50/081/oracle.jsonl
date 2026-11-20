@@ -1,0 +1,18 @@
+{"question": "what was khufu in egypt", "expected": "A pharaoh.", "output": "A pharaoh.", "exact": true}
+{"question": "give me a description of khufu", "expected": "A pharaoh.", "output": "A pharaoh.", "exact": true}
+{"question": "how would you describe khufu in egyptian history", "expected": "A pharaoh.", "output": "A pharaoh.", "exact": true}
+{"question": "what position did hatshepsut hold in egypt", "expected": "A pharaoh.", "output": "A pharaoh.", "exact": true}
+{"question": "give me a description of hatshepsut", "expected": "A pharaoh.", "output": "A pharaoh.", "exact": true}
+{"question": "how would you describe hatshepsut in egyptian history", "expected": "A pharaoh.", "output": "A pharaoh.", "exact": true}
+{"question": "what profession is imhotep remembered for", "expected": "An architect.", "output": "An architect.", "exact": true}
+{"question": "give me a description of imhotep", "expected": "An architect.", "output": "An architect.", "exact": true}
+{"question": "how would you describe imhotep in egyptian history", "expected": "An architect.", "output": "An architect.", "exact": true}
+{"question": "who was a scribe in egyptian society", "expected": "A trained writer.", "output": "A trained writer.", "exact": true}
+{"question": "give me a description of a scribe", "expected": "A trained writer.", "output": "A trained writer.", "exact": true}
+{"question": "how would you describe a scribe in egyptian history", "expected": "A trained writer.", "output": "A trained writer.", "exact": true}
+{"question": "why was papyrus useful for egyptian writing", "expected": "A plant used to make writing sheets.", "output": "A plant used to make writing sheets.", "exact": true}
+{"question": "give me a description of papyrus", "expected": "A plant used to make writing sheets.", "output": "A plant used to make writing sheets.", "exact": true}
+{"question": "how would you describe papyrus in egyptian history", "expected": "A plant used to make writing sheets.", "output": "A plant used to make writing sheets.", "exact": true}
+{"question": "what was the purpose of a shaduf in egypt", "expected": "A water lifting device.", "output": "A water lifting device.", "exact": true}
+{"question": "give me a description of a shaduf", "expected": "A water lifting device.", "output": "A water lifting device.", "exact": true}
+{"question": "how would you describe a shaduf in egyptian history", "expected": "A water lifting device.", "output": "A water lifting device.", "exact": true}

@@ -56,6 +56,6 @@ The production TP7 build matched all 60 reference answers in DOSBox-X with the e
 
 Pass `--report summary.json` to the evaluation command to record the held-out results and SHA-256 hashes of the corpus, host executable, catalog and model files. Use a manifest split of `test` or `heldout`. An optional `group` on each JSONL row identifies a slice such as ambiguous or out-of-domain. Each mode reports sample count, exact answers, intended-expert selections and median host answer time overall and by group. Select a different general model with `--baseline ID`. Redirect stdout to a JSONL file to keep every question and answer alongside the summary.
 
-### PasTinyMoE forty-expert edition
+### PasTinyMoE fifty-expert edition
 
-[Download SPEC40 for DOS](dist/SPEC40.ZIP) or inspect the [expert list and evaluation results](specialists/batch40/README.md).
+[Download SPEC50 for DOS](dist/SPEC50.ZIP) or inspect the [expert list and evaluation results](specialists/batch50/README.md).

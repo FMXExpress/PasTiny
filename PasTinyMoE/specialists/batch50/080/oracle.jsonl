@@ -1,0 +1,18 @@
+{"question": "on a compass what bearing is northeast", "expected": "45 degrees.", "output": "45 degrees.", "exact": true}
+{"question": "tell me the degree measure for northeast", "expected": "45 degrees.", "output": "45 degrees.", "exact": true}
+{"question": "what heading in degrees would take me northeast", "expected": "45 degrees.", "output": "45 degrees.", "exact": true}
+{"question": "what clockwise bearing points southeast", "expected": "135 degrees.", "output": "135 degrees.", "exact": true}
+{"question": "tell me the degree measure for southeast", "expected": "135 degrees.", "output": "135 degrees.", "exact": true}
+{"question": "what heading in degrees would take me southeast", "expected": "135 degrees.", "output": "135 degrees.", "exact": true}
+{"question": "give the compass bearing for southwest", "expected": "225 degrees.", "output": "225 degrees.", "exact": true}
+{"question": "tell me the degree measure for southwest", "expected": "225 degrees.", "output": "225 degrees.", "exact": true}
+{"question": "what heading in degrees would take me southwest", "expected": "225 degrees.", "output": "225 degrees.", "exact": true}
+{"question": "how many degrees is a northwest heading", "expected": "315 degrees.", "output": "315 degrees.", "exact": true}
+{"question": "tell me the degree measure for northwest", "expected": "315 degrees.", "output": "315 degrees.", "exact": true}
+{"question": "what heading in degrees would take me northwest", "expected": "315 degrees.", "output": "315 degrees.", "exact": true}
+{"question": "due east equals what compass bearing", "expected": "90 degrees.", "output": "90 degrees.", "exact": true}
+{"question": "tell me the degree measure for east", "expected": "90 degrees.", "output": "90 degrees.", "exact": true}
+{"question": "what heading in degrees would take me east", "expected": "90 degrees.", "output": "90 degrees.", "exact": true}
+{"question": "what compass bearing corresponds to due west", "expected": "270 degrees.", "output": "270 degrees.", "exact": true}
+{"question": "tell me the degree measure for west", "expected": "270 degrees.", "output": "270 degrees.", "exact": true}
+{"question": "what heading in degrees would take me west", "expected": "270 degrees.", "output": "270 degrees.", "exact": true}

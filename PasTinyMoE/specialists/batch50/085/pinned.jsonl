@@ -1,0 +1,12 @@
+{"question": "what was the name of the ship carrying cook in 1768", "answer": "Endeavour.", "fact": "cook in 1768", "output": "Endeavour.", "exact": true}
+{"question": "name the vessel on cooks first pacific voyage", "answer": "Endeavour.", "fact": "cook in 1768", "output": "Largo can COnt do.", "exact": false}
+{"question": "what was the name of the ship carrying darwin in 1831", "answer": "Beagle.", "fact": "darwin in 1831", "output": "Beagle.", "exact": true}
+{"question": "on which vessel did charles darwin visit the galapagos", "answer": "Beagle.", "fact": "darwin in 1831", "output": "Golden.", "exact": false}
+{"question": "what was the name of the ship carrying shackleton in 1914", "answer": "Endurance.", "fact": "shackleton in 1914", "output": "Endurance.", "exact": true}
+{"question": "which ship took shackleton into the weddell sea", "answer": "Endurance.", "fact": "shackleton in 1914", "output": "Endel.", "exact": false}
+{"question": "what was the name of the ship carrying scott in 1910", "answer": "Terra Nova.", "fact": "scott in 1910", "output": "Terra Nova.", "exact": true}
+{"question": "on what ship did scott leave for antarctica in 1910", "answer": "Terra Nova.", "fact": "scott in 1910", "output": "Terra Nova.", "exact": true}
+{"question": "what was the name of the ship carrying nansen in 1893", "answer": "Fram.", "fact": "nansen in 1893", "output": "Fram.", "exact": true}
+{"question": "what ship carried nansen on his arctic drift", "answer": "Fram.", "fact": "nansen in 1893", "output": "The Golderivo rings.", "exact": false}
+{"question": "what was the name of the ship carrying drake on his circumnavigation", "answer": "Golden Hind.", "fact": "drake on his circumnavigation", "output": "Golden Hind.", "exact": true}
+{"question": "which vessel did drake sail home around the globe", "answer": "Golden Hind.", "fact": "drake on his circumnavigation", "output": "Globble glo desarnc.", "exact": false}

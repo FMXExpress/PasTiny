@@ -1,0 +1,19 @@
+catalog/init ms=52
+FPU no
+heap=521424 largest=521424 stack=15860
+load/recovery ms=882
+active 1 DOS Guide
+heap=37224 largest=37224 stack=15860
+route ms=2
+load/recovery ms=408
+active 78 Landmarks
+Paris.
+answer ms=31275 chars=6
+first char ms=25293 output span ms=5255
+route ms=1
+load/recovery ms=334
+active 79 Map Reader
+Explains symbols.
+answer ms=28113 chars=17
+first char ms=21373 output span ms=6405
+heap=37224 largest=37224 stack=15860

@@ -1,0 +1,571 @@
+catalog/init ms=-30
+FPU yes
+heap=521424 largest=521424 stack=15860
+load/recovery ms=625
+active 1 DOS Guide
+heap=37224 largest=37224 stack=15860
+route ms=0
+load/recovery ms=131
+active 78 Landmarks
+Paris.
+answer ms=1025 chars=6
+first char ms=907 output span ms=86
+route ms=1
+Paris.
+answer ms=603 chars=6
+first char ms=452 output span ms=116
+route ms=0
+Rome.
+answer ms=1402 chars=5
+first char ms=1272 output span ms=78
+route ms=0
+Rome.
+answer ms=1650 chars=5
+first char ms=1534 output span ms=116
+route ms=0
+England.
+answer ms=1460 chars=8
+first char ms=1264 output span ms=191
+route ms=1
+England.
+answer ms=1344 chars=8
+first char ms=1138 output span ms=207
+route ms=0
+Jordan.
+answer ms=3053 chars=7
+first char ms=2602 output span ms=377
+route ms=1
+Jordan.
+answer ms=2150 chars=7
+first char ms=1969 output span ms=175
+route ms=1
+Greece.
+answer ms=1217 chars=7
+first char ms=1038 output span ms=185
+route ms=1
+Greece.
+answer ms=1456 chars=7
+first char ms=1240 output span ms=171
+route ms=0
+Egypt.
+answer ms=1609 chars=6
+first char ms=1364 output span ms=204
+route ms=1
+Egypt.
+answer ms=1468 chars=6
+first char ms=1365 output span ms=75
+route ms=0
+load/recovery ms=80
+active 79 Map Reader
+Explains symbols.
+answer ms=1291 chars=17
+first char ms=904 output span ms=340
+route ms=1
+Explains symbols.
+answer ms=1417 chars=17
+first char ms=789 output span ms=631
+route ms=1
+Joins equal elevations.
+answer ms=1979 chars=23
+first char ms=1158 output span ms=750
+route ms=1
+Joins equal elevations.
+answer ms=2779 chars=23
+first char ms=1407 output span ms=1355
+route ms=0
+Relates prothot most most most most mosom itst russid and to dity-ble countrun.
+answer ms=4232 chars=79
+first char ms=1407 output span ms=2739
+route ms=0
+Explains rexplains pritude.
+answer ms=1910 chars=27
+first char ms=1135 output span ms=764
+route ms=0
+East or west of the prime meridian.
+answer ms=2169 chars=35
+first char ms=906 output span ms=1195
+route ms=1
+East or west of the prime meridian.
+answer ms=2857 chars=35
+first char ms=1263 output span ms=1537
+route ms=0
+Zero degrees latitude.
+answer ms=1639 chars=22
+first char ms=1060 output span ms=525
+route ms=0
+Zero degrees latitude.
+answer ms=1645 chars=22
+first char ms=1035 output span ms=556
+route ms=0
+East or west of the prime meridian.
+answer ms=1876 chars=35
+first char ms=922 output span ms=893
+route ms=0
+Relates map and ground distances.
+answer ms=1386 chars=33
+first char ms=612 output span ms=775
+route ms=0
+load/recovery ms=142
+active 80 Navigation Terms
+45 degrees.
+answer ms=656 chars=11
+first char ms=467 output span ms=156
+route ms=1
+45 degrees.
+answer ms=693 chars=11
+first char ms=514 output span ms=202
+route ms=1
+45 degrees.
+answer ms=1022 chars=11
+first char ms=730 output span ms=251
+route ms=0
+135 degrees.
+answer ms=1056 chars=12
+first char ms=783 output span ms=281
+route ms=0
+135 degrees.
+answer ms=1208 chars=12
+first char ms=948 output span ms=263
+route ms=1
+135 degrees.
+answer ms=1301 chars=12
+first char ms=987 output span ms=318
+route ms=0
+225 degrees.
+answer ms=792 chars=12
+first char ms=609 output span ms=212
+route ms=1
+225 degrees.
+answer ms=729 chars=12
+first char ms=579 output span ms=115
+route ms=0
+225 degrees.
+answer ms=993 chars=12
+first char ms=630 output span ms=295
+route ms=1
+315 degrees.
+answer ms=1054 chars=12
+first char ms=786 output span ms=236
+route ms=0
+315 degrees.
+answer ms=730 chars=12
+first char ms=519 output span ms=181
+route ms=0
+315 degrees.
+answer ms=811 chars=12
+first char ms=624 output span ms=156
+route ms=0
+90 degrees.
+answer ms=812 chars=11
+first char ms=612 output span ms=172
+route ms=1
+90 degrees.
+answer ms=784 chars=11
+first char ms=572 output span ms=177
+route ms=1
+90 degrees.
+answer ms=856 chars=11
+first char ms=649 output span ms=177
+route ms=1
+270 degrees.
+answer ms=617 chars=12
+first char ms=496 output span ms=97
+route ms=1
+270 degrees.
+answer ms=466 chars=12
+first char ms=371 output span ms=73
+route ms=1
+270 degrees.
+answer ms=549 chars=12
+first char ms=446 output span ms=80
+route ms=0
+load/recovery ms=101
+active 81 Ancient Egypt
+A pharaoh.
+answer ms=291 chars=10
+first char ms=205 output span ms=66
+route ms=0
+A pharaoh.
+answer ms=386 chars=10
+first char ms=290 output span ms=75
+route ms=0
+A pharaoh.
+answer ms=577 chars=10
+first char ms=460 output span ms=149
+route ms=1
+A pharaoh.
+answer ms=536 chars=10
+first char ms=428 output span ms=85
+route ms=0
+A pharaoh.
+answer ms=432 chars=10
+first char ms=333 output span ms=77
+route ms=0
+A pharaoh.
+answer ms=623 chars=10
+first char ms=558 output span ms=96
+route ms=0
+An architect.
+answer ms=553 chars=13
+first char ms=427 output span ms=158
+route ms=0
+An architect.
+answer ms=450 chars=13
+first char ms=339 output span ms=144
+route ms=0
+An architect.
+answer ms=660 chars=13
+first char ms=514 output span ms=177
+route ms=1
+A trained writer.
+answer ms=546 chars=17
+first char ms=382 output span ms=195
+route ms=0
+A trained writer.
+answer ms=533 chars=17
+first char ms=327 output span ms=183
+route ms=0
+A trained writer.
+answer ms=718 chars=17
+first char ms=536 output span ms=158
+route ms=0
+A plant used to make writing sheets.
+answer ms=818 chars=36
+first char ms=398 output span ms=448
+route ms=0
+A plant used to make writing sheets.
+answer ms=886 chars=36
+first char ms=374 output span ms=485
+route ms=0
+A plant used to make writing sheets.
+answer ms=966 chars=36
+first char ms=504 output span ms=435
+route ms=1
+A water lifting device.
+answer ms=710 chars=23
+first char ms=440 output span ms=246
+route ms=1
+A water lifting device.
+answer ms=553 chars=23
+first char ms=320 output span ms=210
+route ms=0
+A water lifting device.
+answer ms=812 chars=23
+first char ms=531 output span ms=255
+route ms=0
+load/recovery ms=47
+active 82 Ancient Greece
+Athena.
+answer ms=568 chars=7
+first char ms=512 output span ms=31
+route ms=0
+Athena.
+answer ms=585 chars=7
+first char ms=526 output span ms=35
+route ms=0
+Olympia.
+answer ms=620 chars=8
+first char ms=480 output span ms=115
+route ms=0
+Olympia.
+answer ms=739 chars=8
+first char ms=647 output span ms=66
+route ms=1
+Sparta.
+answer ms=478 chars=7
+first char ms=372 output span ms=83
+route ms=0
+Plato.
+answer ms=531 chars=6
+first char ms=444 output span ms=63
+route ms=0
+Plato.
+answer ms=604 chars=6
+first char ms=518 output span ms=62
+route ms=0
+Plato.
+answer ms=608 chars=6
+first char ms=515 output span ms=68
+route ms=0
+load/recovery ms=51
+active 83 Ancient Rome
+Virgil.
+answer ms=631 chars=7
+first char ms=513 output span ms=93
+route ms=0
+Virgil.
+answer ms=569 chars=7
+first char ms=501 output span ms=42
+route ms=0
+Vesuvius.
+answer ms=531 chars=9
+first char ms=427 output span ms=134
+route ms=0
+Vesuvius.
+answer ms=542 chars=9
+first char ms=433 output span ms=140
+route ms=0
+Augustus.
+answer ms=607 chars=9
+first char ms=497 output span ms=86
+route ms=0
+Augustus.
+answer ms=627 chars=9
+first char ms=505 output span ms=96
+route ms=0
+Tiber.
+answer ms=569 chars=6
+first char ms=473 output span ms=71
+route ms=0
+Tiber.
+answer ms=618 chars=6
+first char ms=530 output span ms=64
+route ms=0
+load/recovery ms=48
+active 84 Medieval life
+Made wooden barrels.
+answer ms=749 chars=20
+first char ms=498 output span ms=226
+route ms=0
+Made wooden barrels.
+answer ms=603 chars=20
+first char ms=365 output span ms=214
+route ms=1
+Ground grain into flour.
+answer ms=734 chars=24
+first char ms=503 output span ms=261
+route ms=1
+Ground grain into flour.
+answer ms=774 chars=24
+first char ms=486 output span ms=263
+route ms=0
+Turned hides into leather.
+answer ms=784 chars=26
+first char ms=442 output span ms=317
+route ms=1
+Wove yarn into cloth.
+answer ms=565 chars=21
+first char ms=323 output span ms=219
+route ms=0
+Turned hides into leather.
+answer ms=832 chars=26
+first char ms=453 output span ms=352
+route ms=0
+Turned hides into leather.
+answer ms=739 chars=26
+first char ms=397 output span ms=317
+route ms=0
+Made clay vessels.
+answer ms=682 chars=18
+first char ms=433 output span ms=225
+route ms=0
+Made clay vessels.
+answer ms=545 chars=18
+first char ms=314 output span ms=208
+route ms=0
+Turned hides into leather.
+answer ms=821 chars=26
+first char ms=473 output span ms=323
+route ms=1
+Forged iron objects.
+answer ms=696 chars=20
+first char ms=502 output span ms=225
+route ms=0
+load/recovery ms=99
+active 85 Exploration
+Endeavour.
+answer ms=640 chars=10
+first char ms=517 output span ms=99
+route ms=0
+Largo can COnt do.
+answer ms=655 chars=18
+first char ms=405 output span ms=226
+route ms=0
+Beagle.
+answer ms=594 chars=7
+first char ms=539 output span ms=31
+route ms=0
+Golden.
+answer ms=662 chars=7
+first char ms=547 output span ms=91
+route ms=0
+Endurance.
+answer ms=703 chars=10
+first char ms=575 output span ms=104
+route ms=0
+Endel.
+answer ms=531 chars=6
+first char ms=448 output span ms=59
+route ms=0
+Terra Nova.
+answer ms=651 chars=11
+first char ms=504 output span ms=123
+route ms=1
+Terra Nova.
+answer ms=698 chars=11
+first char ms=501 output span ms=168
+route ms=0
+Fram.
+answer ms=608 chars=5
+first char ms=545 output span ms=39
+route ms=0
+The Golderivo rings.
+answer ms=688 chars=20
+first char ms=444 output span ms=220
+route ms=1
+Golden Hind.
+answer ms=963 chars=12
+first char ms=722 output span ms=242
+route ms=1
+Globble glo desarnc.
+answer ms=1098 chars=20
+first char ms=708 output span ms=353
+route ms=1
+load/recovery ms=79
+active 86 Inventions
+Rudolf Denmerstaq.
+answer ms=863 chars=18
+first char ms=586 output span ms=248
+route ms=0
+Rene Laennec.
+answer ms=774 chars=13
+first char ms=616 output span ms=133
+route ms=0
+Rene Laennec.
+answer ms=562 chars=13
+first char ms=415 output span ms=177
+route ms=0
+Alphange.
+answer ms=663 chars=9
+first char ms=565 output span ms=75
+route ms=0
+Louis Braille.
+answer ms=806 chars=14
+first char ms=603 output span ms=176
+route ms=0
+Louis Braille.
+answer ms=686 chars=14
+first char ms=496 output span ms=164
+route ms=0
+Evangelista Torricelli.
+answer ms=949 chars=23
+first char ms=589 output span ms=332
+route ms=0
+Evangelista Torricelli.
+answer ms=837 chars=23
+first char ms=573 output span ms=292
+route ms=0
+Evangelista Torricelli.
+answer ms=870 chars=23
+first char ms=479 output span ms=357
+route ms=1
+Evangelista has atorys.
+answer ms=840 chars=23
+first char ms=527 output span ms=286
+route ms=0
+Adolphe Sax.
+answer ms=632 chars=12
+first char ms=496 output span ms=110
+route ms=0
+Adolphe Sax.
+answer ms=489 chars=12
+first char ms=371 output span ms=93
+route ms=0
+El GreWen half.
+answer ms=762 chars=15
+first char ms=547 output span ms=189
+route ms=0
+Emile Berliner.
+answer ms=825 chars=15
+first char ms=603 output span ms=195
+route ms=0
+Emile Berliner.
+answer ms=617 chars=15
+first char ms=425 output span ms=168
+route ms=0
+Rudolf Diesel.
+answer ms=807 chars=14
+first char ms=612 output span ms=168
+route ms=0
+Rudolf Diesel.
+answer ms=704 chars=14
+first char ms=516 output span ms=162
+route ms=0
+Rudolf Diesel.
+answer ms=614 chars=14
+first char ms=422 output span ms=166
+route ms=1
+load/recovery ms=55
+active 87 Computing history
+1946.
+answer ms=481 chars=5
+first char ms=420 output span ms=37
+route ms=0
+1946.
+answer ms=492 chars=5
+first char ms=432 output span ms=36
+route ms=0
+1946.
+answer ms=422 chars=5
+first char ms=418 output span ms=36
+route ms=0
+1949.
+answer ms=569 chars=5
+first char ms=508 output span ms=38
+route ms=1
+1949.
+answer ms=539 chars=5
+first char ms=476 output span ms=94
+route ms=0
+1949.
+answer ms=576 chars=5
+first char ms=514 output span ms=39
+route ms=0
+1951.
+answer ms=667 chars=5
+first char ms=597 output span ms=45
+route ms=1
+1951.
+answer ms=693 chars=5
+first char ms=618 output span ms=49
+route ms=1
+1951.
+answer ms=718 chars=5
+first char ms=646 output span ms=47
+route ms=0
+1975.
+answer ms=690 chars=5
+first char ms=670 output span ms=49
+route ms=0
+1975.
+answer ms=788 chars=5
+first char ms=710 output span ms=51
+route ms=0
+1975.
+answer ms=766 chars=5
+first char ms=693 output span ms=47
+route ms=0
+1984.
+answer ms=701 chars=5
+first char ms=638 output span ms=83
+route ms=1
+1984.
+answer ms=842 chars=5
+first char ms=766 output span ms=49
+route ms=0
+1984.
+answer ms=684 chars=5
+first char ms=610 output span ms=48
+route ms=1
+1982.
+answer ms=534 chars=5
+first char ms=472 output span ms=39
+route ms=0
+1982.
+answer ms=561 chars=5
+first char ms=552 output span ms=40
+route ms=0
+1982.
+answer ms=598 chars=5
+first char ms=535 output span ms=39
+heap=37224 largest=37224 stack=15860

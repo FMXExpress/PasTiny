@@ -1,0 +1,82 @@
+[
+  {
+    "id": 78,
+    "title": "Landmarks",
+    "name": "LANDMARK.BIN",
+    "source": "specialists/models/LANDMARK.BIN",
+    "sha256": "d4b6b97e4050507bfc54a75228cb3304235382b23b8dd0285ac762761c8abaf9",
+    "keyword": "eiffel"
+  },
+  {
+    "id": 79,
+    "title": "Map Reader",
+    "name": "MAPS.BIN",
+    "source": "specialists/models/MAPS.BIN",
+    "sha256": "47e0c7dcc699882341bcbd94f69c194b293cc3dab8d4527a3ddf3486c675b71c",
+    "keyword": "legend"
+  },
+  {
+    "id": 80,
+    "title": "Navigation Terms",
+    "name": "NAVIGATE.BIN",
+    "source": "specialists/models/NAVIGATE.BIN",
+    "sha256": "d591ab1de3a57d72f977ccbc5cf8c57a85ae1ab005e24e05528cb8ad07c4f5d5",
+    "keyword": "compass"
+  },
+  {
+    "id": 81,
+    "title": "Ancient Egypt",
+    "name": "EGYPT.BIN",
+    "source": "specialists/models/EGYPT.BIN",
+    "sha256": "84eefc16d0e2c7663866ff231766a6313762409365bcd0196691247f3e250edd",
+    "keyword": "khufu"
+  },
+  {
+    "id": 82,
+    "title": "Ancient Greece",
+    "name": "GREECE.BIN",
+    "source": "specialists/models/GREECE.BIN",
+    "sha256": "64ea2565eaab7fa4b331420cff127637dcbb3eb62bdbcced3b8c1b35ce3b2330",
+    "keyword": "parthenon"
+  },
+  {
+    "id": 83,
+    "title": "Ancient Rome",
+    "name": "ROME.BIN",
+    "source": "specialists/models/ROME.BIN",
+    "sha256": "d29258c24957a129fb4772b1982bbb2ce50ce12814cd71fe357943d658cef0d4",
+    "keyword": "aeneid"
+  },
+  {
+    "id": 84,
+    "title": "Medieval life",
+    "name": "MEDIEVAL.BIN",
+    "source": "specialists/models/MEDIEVAL.BIN",
+    "sha256": "99d3ec876b5b706c21059a47312e093c520aebbf18f54bb064b6863383dd993c",
+    "keyword": "medieval"
+  },
+  {
+    "id": 85,
+    "title": "Exploration",
+    "name": "EXPLORE.BIN",
+    "source": "specialists/models/EXPLORE.BIN",
+    "sha256": "6c011689549ca577601640bc436d7536069a6c537d35ab15f865db714a6f10ce",
+    "keyword": "voyage"
+  },
+  {
+    "id": 86,
+    "title": "Inventions",
+    "name": "INVENT.BIN",
+    "source": "specialists/models/INVENT.BIN",
+    "sha256": "96fc0c6c39be723263b54e582d21dbbe7d8bf1537e9c6a012a0ab05d52c73cff",
+    "keyword": "stethoscope"
+  },
+  {
+    "id": 87,
+    "title": "Computing history",
+    "name": "COMPUTER.BIN",
+    "source": "specialists/models/COMPUTER.BIN",
+    "sha256": "aa50e1bba32c5b3d264913dfa06436e1ef2d719261895d89538909f9ecaf6b32",
+    "keyword": "eniac"
+  }
+]

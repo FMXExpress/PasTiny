@@ -38,3 +38,6 @@ specialists/batch30/runtime/*.IN -text
 specialists/batch40/*.LOG -text
 specialists/batch40/*.IN -text
 specialists/batch40/runtime/*.IN -text
+specialists/batch50/*.LOG -text
+specialists/batch50/*.IN -text
+specialists/batch50/runtime/*.IN -text

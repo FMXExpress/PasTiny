@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC50}{$DEFINE SPEC40}{$ENDIF}
 {$IFDEF SPEC40}{$DEFINE SPEC30}{$ENDIF}
 {$IFDEF SPEC30}{$DEFINE SPEC20}{$ENDIF}
 {$IFDEF SPEC20}{$DEFINE SPEC10}{$ENDIF}
@@ -47,11 +48,12 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC50}{$I TOPIC50.INC}{$ELSE}
 {$IFDEF SPEC40}{$I TOPIC40.INC}{$ELSE}
 {$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}{$ENDIF}{$ENDIF}
+{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -97,10 +99,16 @@ var I,Start:Integer; WordKey:String; Hits:Byte;
  {$IFDEF SPEC9}SpecificPascal:Boolean;{$ENDIF}
  {$IFDEF SPEC30}HasDOSWord,VerbAffect:Boolean;{$ENDIF}
  {$IFDEF SPEC40}Context:String; Acoustic:Boolean;{$ENDIF}
+ {$IFDEF SPEC50}OnlyAncient,MapContext,DegreeContext:Boolean;{$ENDIF}
 begin
  Hits:=0; I:=1;
  {$IFDEF SPEC40}
  Context:=WordLine(Q);
+ {$IFDEF SPEC50}
+ OnlyAncient:=True;
+ MapContext:=(Pos(' map ',Context)>0) or (Pos(' maps ',Context)>0);
+ DegreeContext:=(Pos(' degree ',Context)>0) or (Pos(' degrees ',Context)>0);
+ {$ENDIF}
  Acoustic:=(Pos(' acoustics ',Context)>0) or (Pos(' sound ',Context)>0) or
   (Pos(' tone ',Context)>0) or (Pos(' pitch ',Context)>0) or
   (Pos(' infrasound ',Context)>0) or (Pos(' ultrasound ',Context)>0);
@@ -124,6 +132,15 @@ begin
    {$ENDIF}
    {$IFDEF SPEC40}
    WordKey:=Copy(Q,Start,I-Start);
+   {$IFDEF SPEC50}
+   { Scale and legend have several common meanings outside cartography. }
+   if ((WordKey='scale') or (WordKey='legend')) and not MapContext then Matched:=0;
+   if DegreeContext and ((WordKey='east') or (WordKey='west')) then Matched:=80;
+   if (WordKey='river') and (Pos(' rome ',Context)>0) then Matched:=0;
+   { Ocean names describe the route of a historical expedition. }
+   if (Matched=76) and (Extra=85) then Matched:=Extra;
+   if (Extra=76) and (Matched=85) then Extra:=Matched;
+   {$ENDIF}
    if Acoustic and ((WordKey='hertz') or (WordKey='frequency')) then Matched:=68;
    { The capitals model answers country/capital pairs, not general country questions. }
    if (Matched=71) and (Pos(' capital ',Context)=0) then Matched:=0;
@@ -154,7 +171,12 @@ begin
     {$ENDIF}
    end;
    if Pos(WordKey,NatureWords)>0 then Hits:=Hits or 4;
-   {$IFDEF SPEC4}if Pos(WordKey,WordList)>0 then Hits:=Hits or 8;{$ENDIF}
+   {$IFDEF SPEC4}
+   if Pos(WordKey,WordList)>0 then begin
+    Hits:=Hits or 8;
+    {$IFDEF SPEC50}if WordKey<>'|ancient|' then OnlyAncient:=False;{$ENDIF}
+   end;
+   {$ENDIF}
    {$IFDEF SPEC5}if Pos(WordKey,PCWords)>0 then Hits:=Hits or 16;{$ENDIF}
   end else Inc(I)
  end;
@@ -164,6 +186,10 @@ begin
   if (Hits=8) and (Extra=0) and not WantsSynonym(Q) then PilotDomain:=47 else PilotDomain:=0;
   Exit
  end;
+ {$IFDEF SPEC50}
+ { In a named history or landmark question, ancient describes the subject. }
+ if (Extra in [78,81..85]) and (Hits=8) and OnlyAncient then Hits:=0;
+ {$ENDIF}
  { State abbreviations are ambiguous outside postal or geographic questions. }
  if Extra=48 then
   if (Pos(' state ',Q)=0) and (Pos(' postal ',Q)=0) and (Pos(' address ',Q)=0)
