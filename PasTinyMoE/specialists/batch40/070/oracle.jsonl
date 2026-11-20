@@ -1,0 +1,18 @@
+{"question": "which system has the heart and blood vessels", "expected": "The cardiovascular system.", "output": "The cardiovascular system.", "exact": true}
+{"question": "what organ system would you put the heart in", "expected": "The cardiovascular system.", "output": "The cardiovascular system.", "exact": true}
+{"question": "give the human body system associated with the heart", "expected": "The cardiovascular system.", "output": "The cardiovascular system.", "exact": true}
+{"question": "the brain is the main organ of which system", "expected": "The nervous system.", "output": "The nervous system.", "exact": true}
+{"question": "what organ system would you put the brain in", "expected": "The nervous system.", "output": "The nervous system.", "exact": true}
+{"question": "give the human body system associated with the brain", "expected": "The nervous system.", "output": "The nervous system.", "exact": true}
+{"question": "the kidneys belong to which organ system", "expected": "The urinary system.", "output": "The urinary system.", "exact": true}
+{"question": "what organ system would you put the kidneys in", "expected": "The urinary system.", "output": "The urinary system.", "exact": true}
+{"question": "give the human body system associated with the kidneys", "expected": "The urinary system.", "output": "The urinary system.", "exact": true}
+{"question": "what is the system made up of skin and its appendages", "expected": "The integumentary system.", "output": "The integumentary system.", "exact": true}
+{"question": "what organ system would you put the skin in", "expected": "The integumentary system.", "output": "The integumentary system.", "exact": true}
+{"question": "give the human body system associated with the skin", "expected": "The integumentary system.", "output": "The integumentary system.", "exact": true}
+{"question": "which organ system contains our lungs", "expected": "The respiratory system.", "output": "The respiratory system.", "exact": true}
+{"question": "what organ system would you put the lungs in", "expected": "The respiratory system.", "output": "The respiratory system.", "exact": true}
+{"question": "give the human body system associated with the lungs", "expected": "The respiratory system.", "output": "The respiratory system.", "exact": true}
+{"question": "the stomach and intestines are part of which system", "expected": "The digestive system.", "output": "The digestive system.", "exact": true}
+{"question": "what organ system would you put the stomach in", "expected": "The digestive system.", "output": "The digestive system.", "exact": true}
+{"question": "give the human body system associated with the stomach", "expected": "The digestive system.", "output": "The digestive system.", "exact": true}

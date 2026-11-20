@@ -1,0 +1,19 @@
+catalog/init ms=-34
+FPU no
+heap=523536 largest=523536 stack=15860
+load/recovery ms=569
+active 1 DOS Guide
+heap=39336 largest=39336 stack=15860
+route ms=2
+load/recovery ms=505
+active 68 Sound
+Frequency.
+answer ms=40241 chars=10
+first char ms=29902 output span ms=9477
+route ms=3
+load/recovery ms=557
+active 69 Elements and Matter
+Na.
+answer ms=29122 chars=3
+first char ms=27358 output span ms=1202
+heap=39336 largest=39336 stack=15860

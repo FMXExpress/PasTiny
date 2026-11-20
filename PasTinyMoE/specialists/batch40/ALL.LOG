@@ -1,0 +1,571 @@
+catalog/init ms=62
+FPU yes
+heap=523536 largest=523536 stack=15860
+load/recovery ms=773
+active 1 DOS Guide
+heap=39336 largest=39336 stack=15860
+route ms=1
+load/recovery ms=245
+active 68 Sound
+Frequency.
+answer ms=1612 chars=10
+first char ms=1326 output span ms=276
+route ms=1
+Frequency.
+answer ms=1405 chars=10
+first char ms=1132 output span ms=230
+route ms=1
+Above 20 kHz.
+answer ms=2687 chars=13
+first char ms=1953 output span ms=600
+route ms=2
+Cycles per second.
+answer ms=2564 chars=18
+first char ms=1599 output span ms=918
+route ms=1
+Reflected sound.
+answer ms=2082 chars=16
+first char ms=1543 output span ms=562
+route ms=0
+Reflected sound.
+answer ms=1276 chars=16
+first char ms=681 output span ms=529
+route ms=0
+Below 20 Hz.
+answer ms=2109 chars=12
+first char ms=1491 output span ms=581
+route ms=0
+Below 20 Hz.
+answer ms=1849 chars=12
+first char ms=1314 output span ms=455
+route ms=1
+Above 20 kHz.
+answer ms=2024 chars=13
+first char ms=1352 output span ms=625
+route ms=1
+Above 20 kHz.
+answer ms=2144 chars=13
+first char ms=1440 output span ms=613
+route ms=1
+Back and forth motion.
+answer ms=2979 chars=22
+first char ms=1946 output span ms=981
+route ms=0
+Back and forth motion.
+answer ms=1860 chars=22
+first char ms=1083 output span ms=717
+route ms=0
+load/recovery ms=234
+active 69 Elements and Matter
+Na.
+answer ms=1734 chars=3
+first char ms=1629 output span ms=37
+route ms=0
+Na.
+answer ms=774 chars=3
+first char ms=616 output span ms=67
+route ms=0
+Fe.
+answer ms=1305 chars=3
+first char ms=1213 output span ms=43
+route ms=1
+Fe.
+answer ms=395 chars=3
+first char ms=371 output span ms=-3
+route ms=0
+Cu.
+answer ms=1010 chars=3
+first char ms=887 output span ms=90
+route ms=1
+Cu.
+answer ms=920 chars=3
+first char ms=835 output span ms=38
+route ms=0
+Solid to gas.
+answer ms=2303 chars=13
+first char ms=1795 output span ms=483
+route ms=0
+Solid to gas.
+answer ms=1869 chars=13
+first char ms=1465 output span ms=356
+route ms=1
+Gas to liquid.
+answer ms=2373 chars=14
+first char ms=1710 output span ms=619
+route ms=0
+Gas to liquid.
+answer ms=1971 chars=14
+first char ms=1307 output span ms=663
+route ms=1
+Gas to liquid.
+answer ms=1985 chars=14
+first char ms=1520 output span ms=433
+route ms=0
+Liquid to solid.
+answer ms=1750 chars=16
+first char ms=1113 output span ms=606
+route ms=0
+load/recovery ms=192
+active 70 Human Body
+The cardiovascular system.
+answer ms=2551 chars=26
+first char ms=1604 output span ms=921
+route ms=1
+The cardiovascular system.
+answer ms=1691 chars=26
+first char ms=957 output span ms=673
+route ms=1
+The cardiovascular system.
+answer ms=2143 chars=26
+first char ms=1416 output span ms=720
+route ms=1
+The nervous system.
+answer ms=1448 chars=19
+first char ms=1046 output span ms=412
+route ms=1
+The nervous system.
+answer ms=1396 chars=19
+first char ms=937 output span ms=399
+route ms=-54
+The nervous system.
+answer ms=1581 chars=19
+first char ms=1080 output span ms=455
+route ms=1
+The urinary system.
+answer ms=1294 chars=19
+first char ms=829 output span ms=473
+route ms=0
+The urinary system.
+answer ms=1460 chars=19
+first char ms=954 output span ms=458
+route ms=1
+The urinary system.
+answer ms=1707 chars=19
+first char ms=1271 output span ms=440
+route ms=1
+The integumentary system.
+answer ms=1865 chars=25
+first char ms=1234 output span ms=580
+route ms=1
+The integumentary system.
+answer ms=1643 chars=25
+first char ms=997 output span ms=644
+route ms=0
+The integumentary system.
+answer ms=1529 chars=25
+first char ms=1097 output span ms=436
+route ms=1
+The respiratory system.
+answer ms=1257 chars=23
+first char ms=738 output span ms=523
+route ms=1
+The respiratory system.
+answer ms=1550 chars=23
+first char ms=904 output span ms=603
+route ms=0
+The respiratory system.
+answer ms=1667 chars=23
+first char ms=1119 output span ms=545
+route ms=0
+The digestive system.
+answer ms=1688 chars=21
+first char ms=1171 output span ms=465
+route ms=0
+The digestive system.
+answer ms=1221 chars=21
+first char ms=912 output span ms=279
+route ms=0
+The digestive system.
+answer ms=880 chars=21
+first char ms=604 output span ms=247
+route ms=0
+load/recovery ms=54
+active 71 Countries and Capitals
+Helsinki.
+answer ms=888 chars=9
+first char ms=730 output span ms=178
+route ms=0
+Helsinki.
+answer ms=913 chars=9
+first char ms=763 output span ms=170
+route ms=0
+Helsinki.
+answer ms=860 chars=9
+first char ms=740 output span ms=88
+route ms=0
+Accra.
+answer ms=681 chars=6
+first char ms=583 output span ms=73
+route ms=0
+Accra.
+answer ms=617 chars=6
+first char ms=523 output span ms=69
+route ms=0
+Accra.
+answer ms=529 chars=6
+first char ms=495 output span ms=65
+route ms=0
+Tokyo.
+answer ms=523 chars=6
+first char ms=432 output span ms=66
+route ms=0
+Tokyo.
+answer ms=611 chars=6
+first char ms=518 output span ms=68
+route ms=0
+Tokyo.
+answer ms=592 chars=6
+first char ms=499 output span ms=68
+route ms=0
+Nairobi.
+answer ms=414 chars=8
+first char ms=341 output span ms=104
+route ms=0
+Nairobi.
+answer ms=664 chars=8
+first char ms=573 output span ms=65
+route ms=0
+Nairobi.
+answer ms=587 chars=8
+first char ms=504 output span ms=59
+route ms=0
+Oslo.
+answer ms=522 chars=5
+first char ms=459 output span ms=94
+route ms=0
+Oslo.
+answer ms=887 chars=5
+first char ms=787 output span ms=58
+route ms=0
+Oslo.
+answer ms=751 chars=5
+first char ms=700 output span ms=73
+route ms=0
+Lisbon.
+answer ms=603 chars=7
+first char ms=501 output span ms=126
+route ms=0
+Lisbon.
+answer ms=892 chars=7
+first char ms=772 output span ms=87
+route ms=0
+Lisbon.
+answer ms=777 chars=7
+first char ms=664 output span ms=81
+route ms=1
+load/recovery ms=126
+active 72 Flags
+A red disc on white.
+answer ms=922 chars=20
+first char ms=602 output span ms=286
+route ms=0
+A red disc on white.
+answer ms=879 chars=20
+first char ms=562 output span ms=289
+route ms=0
+A maple leaf.
+answer ms=596 chars=13
+first char ms=426 output span ms=188
+route ms=0
+A maple leaf.
+answer ms=906 chars=13
+first char ms=781 output span ms=153
+route ms=0
+Green, white and orange.
+answer ms=865 chars=24
+first char ms=583 output span ms=255
+route ms=1
+A white cross on red.
+answer ms=937 chars=21
+first char ms=651 output span ms=259
+route ms=0
+Green, white and orange.
+answer ms=1019 chars=24
+first char ms=704 output span ms=287
+route ms=0
+Green, white and orange.
+answer ms=943 chars=24
+first char ms=582 output span ms=333
+route ms=0
+load/recovery ms=50
+active 73 Continents
+Asia.
+answer ms=622 chars=5
+first char ms=557 output span ms=40
+route ms=0
+Africa.
+answer ms=412 chars=7
+first char ms=309 output span ms=80
+route ms=0
+Antarctica.
+answer ms=743 chars=11
+first char ms=624 output span ms=92
+route ms=0
+Antarctica.
+answer ms=575 chars=11
+first char ms=426 output span ms=125
+route ms=0
+Africa.
+answer ms=585 chars=7
+first char ms=473 output span ms=88
+route ms=0
+Africa.
+answer ms=512 chars=7
+first char ms=458 output span ms=30
+route ms=0
+Eurasia.
+answer ms=979 chars=8
+first char ms=850 output span ms=99
+route ms=0
+Eurasia.
+answer ms=808 chars=8
+first char ms=656 output span ms=125
+route ms=0
+load/recovery ms=50
+active 74 Rivers
+Africa.
+answer ms=592 chars=7
+first char ms=472 output span ms=95
+route ms=1
+Africa.
+answer ms=545 chars=7
+first char ms=431 output span ms=90
+route ms=1
+South America.
+answer ms=579 chars=14
+first char ms=407 output span ms=202
+route ms=0
+South America.
+answer ms=683 chars=14
+first char ms=502 output span ms=156
+route ms=0
+Europe.
+answer ms=605 chars=7
+first char ms=528 output span ms=50
+route ms=0
+Europe.
+answer ms=626 chars=7
+first char ms=557 output span ms=43
+route ms=0
+Asia.
+answer ms=521 chars=5
+first char ms=453 output span ms=43
+route ms=0
+Asia.
+answer ms=675 chars=5
+first char ms=600 output span ms=49
+route ms=0
+North America.
+answer ms=706 chars=14
+first char ms=511 output span ms=168
+route ms=0
+North America.
+answer ms=714 chars=14
+first char ms=525 output span ms=163
+route ms=0
+Africa.
+answer ms=500 chars=7
+first char ms=440 output span ms=36
+route ms=0
+Africa.
+answer ms=590 chars=7
+first char ms=524 output span ms=41
+route ms=0
+load/recovery ms=107
+active 75 Mountains
+South America.
+answer ms=593 chars=14
+first char ms=428 output span ms=141
+route ms=0
+South America.
+answer ms=663 chars=14
+first char ms=483 output span ms=210
+route ms=1
+Asia.
+answer ms=582 chars=5
+first char ms=516 output span ms=41
+route ms=0
+Asia.
+answer ms=519 chars=5
+first char ms=460 output span ms=36
+route ms=1
+Europe.
+answer ms=508 chars=7
+first char ms=395 output span ms=89
+route ms=0
+Europe.
+answer ms=438 chars=7
+first char ms=387 output span ms=28
+route ms=0
+North America.
+answer ms=720 chars=14
+first char ms=535 output span ms=160
+route ms=1
+North America.
+answer ms=825 chars=14
+first char ms=635 output span ms=164
+route ms=0
+Africa.
+answer ms=589 chars=7
+first char ms=530 output span ms=34
+route ms=0
+Africa.
+answer ms=880 chars=7
+first char ms=789 output span ms=62
+route ms=1
+Europe.
+answer ms=613 chars=7
+first char ms=499 output span ms=90
+route ms=1
+Europe.
+answer ms=462 chars=7
+first char ms=412 output span ms=81
+route ms=0
+load/recovery ms=103
+active 76 Oceans and seas
+The Americas, Asia and Australia.
+answer ms=1040 chars=33
+first char ms=613 output span ms=399
+route ms=0
+The Americas, Asia and Australia.
+answer ms=1041 chars=33
+first char ms=620 output span ms=449
+route ms=0
+The Americas, Asia and Australia.
+answer ms=1092 chars=33
+first char ms=617 output span ms=447
+route ms=0
+The Americas, Europe and Africa.
+answer ms=1039 chars=32
+first char ms=583 output span ms=428
+route ms=0
+The Americas, Europe and Africa.
+answer ms=1024 chars=32
+first char ms=623 output span ms=373
+route ms=0
+The Americas, Europe and Africa.
+answer ms=959 chars=32
+first char ms=575 output span ms=356
+route ms=0
+Around the North Pole.
+answer ms=731 chars=22
+first char ms=464 output span ms=296
+route ms=0
+Around the North Pole.
+answer ms=764 chars=22
+first char ms=485 output span ms=308
+route ms=1
+Around the Amouse.
+answer ms=1164 chars=18
+first char ms=885 output span ms=301
+route ms=0
+Between Europe, Africa and Asia.
+answer ms=1073 chars=32
+first char ms=645 output span ms=400
+route ms=0
+Between Europe, Africa and Asia.
+answer ms=1017 chars=32
+first char ms=592 output span ms=452
+route ms=0
+Between Europe, Africa and Asia.
+answer ms=905 chars=32
+first char ms=491 output span ms=387
+route ms=0
+In northern Europe.
+answer ms=725 chars=19
+first char ms=442 output span ms=238
+route ms=1
+In northern Europe.
+answer ms=946 chars=19
+first char ms=683 output span ms=233
+route ms=0
+In northern Europe.
+answer ms=941 chars=19
+first char ms=620 output span ms=290
+route ms=0
+Between Italy and the Balkans.
+answer ms=901 chars=30
+first char ms=516 output span ms=357
+route ms=0
+Between Italy and the Balkans.
+answer ms=1049 chars=30
+first char ms=633 output span ms=440
+route ms=0
+Between Italy and the Balkans.
+answer ms=1102 chars=30
+first char ms=707 output span ms=420
+route ms=1
+load/recovery ms=109
+active 77 Cities
+Japan.
+answer ms=655 chars=6
+first char ms=545 output span ms=83
+route ms=0
+Japan.
+answer ms=554 chars=6
+first char ms=517 output span ms=67
+route ms=0
+Japan.
+answer ms=552 chars=6
+first char ms=515 output span ms=67
+route ms=0
+Germany.
+answer ms=674 chars=8
+first char ms=588 output span ms=61
+route ms=1
+Germany.
+answer ms=586 chars=8
+first char ms=497 output span ms=63
+route ms=0
+Germany.
+answer ms=638 chars=8
+first char ms=495 output span ms=118
+route ms=0
+Canada.
+answer ms=590 chars=7
+first char ms=530 output span ms=35
+route ms=0
+Canada.
+answer ms=623 chars=7
+first char ms=505 output span ms=93
+route ms=0
+Canada.
+answer ms=400 chars=7
+first char ms=348 output span ms=84
+route ms=0
+France.
+answer ms=691 chars=7
+first char ms=574 output span ms=92
+route ms=0
+France.
+answer ms=595 chars=7
+first char ms=478 output span ms=92
+route ms=0
+France.
+answer ms=560 chars=7
+first char ms=503 output span ms=33
+route ms=0
+Italy.
+answer ms=596 chars=6
+first char ms=504 output span ms=67
+route ms=1
+Italy.
+answer ms=571 chars=6
+first char ms=482 output span ms=65
+route ms=0
+Italy.
+answer ms=665 chars=6
+first char ms=627 output span ms=68
+route ms=1
+South Korea.
+answer ms=685 chars=12
+first char ms=505 output span ms=155
+route ms=0
+South Korea.
+answer ms=574 chars=12
+first char ms=407 output span ms=144
+route ms=1
+South Korea.
+answer ms=445 chars=12
+first char ms=343 output span ms=134
+heap=39336 largest=39336 stack=15860

@@ -1,0 +1,12 @@
+{"question": "give a continental location for the nile", "answer": "Africa.", "fact": "nile", "output": "Africa.", "exact": true}
+{"question": "on what continent does the nile wind north", "answer": "Africa.", "fact": "nile", "output": "Africa.", "exact": true}
+{"question": "give a continental location for the amazon", "answer": "South America.", "fact": "amazon", "output": "South America.", "exact": true}
+{"question": "the amazon carries water across which continent", "answer": "South America.", "fact": "amazon", "output": "South America.", "exact": true}
+{"question": "give a continental location for the danube", "answer": "Europe.", "fact": "danube", "output": "Europe.", "exact": true}
+{"question": "the danube crosses borders on which continent", "answer": "Europe.", "fact": "danube", "output": "Europe.", "exact": true}
+{"question": "give a continental location for the yangtze", "answer": "Asia.", "fact": "yangtze", "output": "Asia.", "exact": true}
+{"question": "where on a world map would i find the yangtze river", "answer": "Asia.", "fact": "yangtze", "output": "Asia.", "exact": true}
+{"question": "give a continental location for the mississippi", "answer": "North America.", "fact": "mississippi", "output": "North America.", "exact": true}
+{"question": "where would a traveller see the mississippi river", "answer": "North America.", "fact": "mississippi", "output": "North America.", "exact": true}
+{"question": "give a continental location for the congo", "answer": "Africa.", "fact": "congo", "output": "Africa.", "exact": true}
+{"question": "which continent contains the congo river basin", "answer": "Africa.", "fact": "congo", "output": "Africa.", "exact": true}

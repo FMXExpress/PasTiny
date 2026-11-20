@@ -1,0 +1,82 @@
+[
+  {
+    "id": 68,
+    "title": "Sound",
+    "name": "SOUND.BIN",
+    "source": "specialists/models/SOUND.BIN",
+    "sha256": "dffca23c326207a079c0d4908e5ec3f10ec10d4dc17acfbdf12f2d53d86ebc0f",
+    "keyword": "pitch"
+  },
+  {
+    "id": 69,
+    "title": "Elements and Matter",
+    "name": "MATTER.BIN",
+    "source": "specialists/models/MATTER.BIN",
+    "sha256": "f190fdef0e1a0db35f787a36c25cfc79389e344cec83493550027b3eb8c8076a",
+    "keyword": "sodium"
+  },
+  {
+    "id": 70,
+    "title": "Human Body",
+    "name": "ANATOMY.BIN",
+    "source": "specialists/models/ANATOMY.BIN",
+    "sha256": "31ee7055412c9208e6c72ddb84416e955cfcf5c282c4f6544b629d8dd55cea83",
+    "keyword": "heart"
+  },
+  {
+    "id": 71,
+    "title": "Countries and Capitals",
+    "name": "CAPITALS.BIN",
+    "source": "specialists/models/CAPITALS.BIN",
+    "sha256": "5ccd0122aa6a8d8c67f4977964fef3d7049ffadb48a2c390e2df991d40186e45",
+    "keyword": "finland"
+  },
+  {
+    "id": 72,
+    "title": "Flags",
+    "name": "FLAGS.BIN",
+    "source": "specialists/models/FLAGS.BIN",
+    "sha256": "a08487b5cfe62e22d095d09ad8181bc48f3e11d50a988357bc91360017c5d0ff",
+    "keyword": "flag"
+  },
+  {
+    "id": 73,
+    "title": "Continents",
+    "name": "CONTINNT.BIN",
+    "source": "specialists/models/CONTINNT.BIN",
+    "sha256": "6bdbb6ec23d51bb173a092c7a5fac38fc04c5c06c883937209b23411bfc0557a",
+    "keyword": "continent"
+  },
+  {
+    "id": 74,
+    "title": "Rivers",
+    "name": "RIVERS.BIN",
+    "source": "specialists/models/RIVERS.BIN",
+    "sha256": "212368419cbc85ec7c76aeed4b4f18150f08450706c83117d2a75d2b606aeec7",
+    "keyword": "river"
+  },
+  {
+    "id": 75,
+    "title": "Mountains",
+    "name": "MOUNTAIN.BIN",
+    "source": "specialists/models/MOUNTAIN.BIN",
+    "sha256": "63550c32e1acfd570e7f84bb0ea5d24731b5409dc2047b858412bf8b414cb92c",
+    "keyword": "mountain"
+  },
+  {
+    "id": 76,
+    "title": "Oceans and seas",
+    "name": "OCEANS.BIN",
+    "source": "specialists/models/OCEANS.BIN",
+    "sha256": "96ce5567d51e85ff1fed805fc3e4e88babd99f64d9c68ed5fe430b7feb5d3505",
+    "keyword": "pacific"
+  },
+  {
+    "id": 77,
+    "title": "Cities",
+    "name": "CITIES.BIN",
+    "source": "specialists/models/CITIES.BIN",
+    "sha256": "c8d8d8bbed0c7fc005ccf7cf6226123e89d5c92db5c218b58d2d46925b9d7219",
+    "keyword": "osaka"
+  }
+]

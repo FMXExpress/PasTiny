@@ -1,0 +1,18 @@
+{"question": "which country would i go to for a visit to osaka", "answer": "Japan.", "output": "Japan.", "exact": true}
+{"question": "name the nation where the city of osaka lies", "answer": "Japan.", "output": "Japan.", "exact": true}
+{"question": "if i visit osaka which country am i visiting", "answer": "Japan.", "output": "Japan.", "exact": true}
+{"question": "which country would i go to for a visit to hamburg", "answer": "Germany.", "output": "Germany.", "exact": true}
+{"question": "name the nation where the city of hamburg lies", "answer": "Germany.", "output": "Germany.", "exact": true}
+{"question": "my train goes to hamburg which nation is that in", "answer": "Germany.", "output": "Germany.", "exact": true}
+{"question": "which country would i go to for a visit to montreal", "answer": "Canada.", "output": "Canada.", "exact": true}
+{"question": "name the nation where the city of montreal lies", "answer": "Canada.", "output": "Canada.", "exact": true}
+{"question": "montreal is a city of which country", "answer": "Canada.", "output": "Canada.", "exact": true}
+{"question": "which country would i go to for a visit to marseille", "answer": "France.", "output": "France.", "exact": true}
+{"question": "name the nation where the city of marseille lies", "answer": "France.", "output": "France.", "exact": true}
+{"question": "what nation includes the port city of marseille", "answer": "France.", "output": "France.", "exact": true}
+{"question": "which country would i go to for a visit to bologna", "answer": "Italy.", "output": "Italy.", "exact": true}
+{"question": "name the nation where the city of bologna lies", "answer": "Italy.", "output": "Italy.", "exact": true}
+{"question": "i am travelling to bologna what country is my destination", "answer": "Italy.", "output": "Italy.", "exact": true}
+{"question": "which country would i go to for a visit to busan", "answer": "South Korea.", "output": "South Korea.", "exact": true}
+{"question": "name the nation where the city of busan lies", "answer": "South Korea.", "output": "South Korea.", "exact": true}
+{"question": "locate busan by naming its country", "answer": "South Korea.", "output": "South Korea.", "exact": true}

@@ -1,0 +1,18 @@
+{"question": "what major land areas face the pacific from east and west", "answer": "The Americas, Asia and Australia.", "output": "The Americas, Asia and Australia.", "exact": true}
+{"question": "which lands would i see to either side of the pacific ocean", "answer": "The Americas, Asia and Australia.", "output": "The Americas, Asia and Australia.", "exact": true}
+{"question": "which continents border the pacific ocean on its two sides", "answer": "The Americas, Asia and Australia.", "output": "The Americas, Asia and Australia.", "exact": true}
+{"question": "what major land areas face the atlantic from east and west", "answer": "The Americas, Europe and Africa.", "output": "The Americas, Europe and Africa.", "exact": true}
+{"question": "which lands would i see to either side of the atlantic ocean", "answer": "The Americas, Europe and Africa.", "output": "The Americas, Europe and Africa.", "exact": true}
+{"question": "what lands border the atlantic to the east and west", "answer": "The Americas, Europe and Africa.", "output": "The Americas, Europe and Africa.", "exact": true}
+{"question": "where should i look on a globe for the arctic", "answer": "Around the North Pole.", "output": "Around the North Pole.", "exact": true}
+{"question": "what region of the world is home to the arctic", "answer": "Around the North Pole.", "output": "Around the North Pole.", "exact": true}
+{"question": "where would you find the arctic ocean on a polar map", "answer": "Around the North Pole.", "output": "Around the Amouse.", "exact": false}
+{"question": "where should i look on a globe for the mediterranean", "answer": "Between Europe, Africa and Asia.", "output": "Between Europe, Africa and Asia.", "exact": true}
+{"question": "what region of the world is home to the mediterranean", "answer": "Between Europe, Africa and Asia.", "output": "Between Europe, Africa and Asia.", "exact": true}
+{"question": "where does the mediterranean lie on a world map", "answer": "Between Europe, Africa and Asia.", "output": "Between Europe, Africa and Asia.", "exact": true}
+{"question": "where should i look on a globe for the baltic", "answer": "In northern Europe.", "output": "In northern Europe.", "exact": true}
+{"question": "what region of the world is home to the baltic", "answer": "In northern Europe.", "output": "In northern Europe.", "exact": true}
+{"question": "where in europe can you find the baltic sea", "answer": "In northern Europe.", "output": "In northern Europe.", "exact": true}
+{"question": "where should i look on a globe for the adriatic", "answer": "Between Italy and the Balkans.", "output": "Between Italy and the Balkans.", "exact": true}
+{"question": "what region of the world is home to the adriatic", "answer": "Between Italy and the Balkans.", "output": "Between Italy and the Balkans.", "exact": true}
+{"question": "what separates italy from the balkans where is the adriatic", "answer": "Between Italy and the Balkans.", "output": "Between Italy and the Balkans.", "exact": true}

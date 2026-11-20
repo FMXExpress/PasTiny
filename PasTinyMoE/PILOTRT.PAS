@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC40}{$DEFINE SPEC30}{$ENDIF}
 {$IFDEF SPEC30}{$DEFINE SPEC20}{$ENDIF}
 {$IFDEF SPEC20}{$DEFINE SPEC10}{$ENDIF}
 {$IFDEF SPEC10}{$DEFINE SPEC9}{$ENDIF}
@@ -46,10 +47,11 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC40}{$I TOPIC40.INC}{$ELSE}
 {$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}{$ENDIF}
+{$ENDIF}{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -94,8 +96,15 @@ var I,Start:Integer; WordKey:String; Hits:Byte;
  {$IFDEF SPEC8}Extra,Matched:Byte;{$ENDIF}
  {$IFDEF SPEC9}SpecificPascal:Boolean;{$ENDIF}
  {$IFDEF SPEC30}HasDOSWord,VerbAffect:Boolean;{$ENDIF}
+ {$IFDEF SPEC40}Context:String; Acoustic:Boolean;{$ENDIF}
 begin
  Hits:=0; I:=1;
+ {$IFDEF SPEC40}
+ Context:=WordLine(Q);
+ Acoustic:=(Pos(' acoustics ',Context)>0) or (Pos(' sound ',Context)>0) or
+  (Pos(' tone ',Context)>0) or (Pos(' pitch ',Context)>0) or
+  (Pos(' infrasound ',Context)>0) or (Pos(' ultrasound ',Context)>0);
+ {$ENDIF}
  {$IFDEF SPEC30}HasDOSWord:=False; VerbAffect:=Pos(' how does ',WordLine(Q))>0;{$ENDIF}
  {$IFDEF SPEC8}Extra:=0;{$ENDIF}
  {$IFDEF SPEC9}SpecificPascal:=False;{$ENDIF}
@@ -112,6 +121,21 @@ begin
    {$IFDEF SPEC30}
    { In a causal question, affect is a verb rather than a vocabulary headword. }
    if VerbAffect and (Copy(Q,Start,I-Start)='affect') then Matched:=0;
+   {$ENDIF}
+   {$IFDEF SPEC40}
+   WordKey:=Copy(Q,Start,I-Start);
+   if Acoustic and ((WordKey='hertz') or (WordKey='frequency')) then Matched:=68;
+   { The capitals model answers country/capital pairs, not general country questions. }
+   if (Matched=71) and (Pos(' capital ',Context)=0) then Matched:=0;
+   { A river can wind north or south; wind then names no weather phenomenon. }
+   if (WordKey='wind') and (Pos(' does ',Context)>0) and
+    ((Pos(' wind north ',Context)>0) or (Pos(' wind south ',Context)>0) or
+     (Pos(' wind east ',Context)>0) or (Pos(' wind west ',Context)>0)) then Matched:=0;
+   if (Matched=76) and (WordKey='atlantic') and (Pos(' atlantic salmon ',Context)>0)
+    then Matched:=0;
+   { A named geographic feature selects its shelf in a continent question. }
+   if (Matched=73) and (Extra in [74..76]) then Matched:=Extra;
+   if (Extra=73) and (Matched in [74..76]) then Extra:=Matched;
    {$ENDIF}
    if Matched<>0 then begin
     if (Extra<>0) and (Extra<>Matched) then begin PilotDomain:=0; Exit end;
@@ -152,6 +176,9 @@ begin
  if (Extra=50) and (Hits=4) and (Pos(' language ',Q)>0) then Hits:=0;
  {$IFDEF SPEC30}
  { In geology, type usually asks for the classification of the rock. }
+ {$IFDEF SPEC40}
+ if (Extra=72) and (Hits=1) and not HasDOSWord then Hits:=0;
+ {$ENDIF}
  if (Extra=64) and (Hits=1) and not HasDOSWord then Hits:=0;
  { Specific spider anatomy belongs to Spiders; general counts remain in Naturalist. }
  if (Extra=58) and (Hits=4) then Hits:=0;

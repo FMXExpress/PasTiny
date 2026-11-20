@@ -4,7 +4,7 @@ The supplied excerpt begins at ID 037. It defines 64 planned entries. The catalo
 
 ## Implementation status
 
-**30 of 100 experts are trained and packaged** in [SPEC30](../specialists/batch30/). The shipped IDs are 001–003 and 041–067. The next entry in catalog order is 068 Sound. SD100 measures catalog capacity using fixture data. Seventy planned experts remain.
+**40 of 100 experts are trained and packaged** in [SPEC40](../specialists/batch40/). The shipped IDs are 001–003 and 041–077. The next entry in catalog order is 078 Landmarks. SD100 measures catalog capacity using fixture data. Sixty planned experts remain.
 
 ## Supplied catalog
 

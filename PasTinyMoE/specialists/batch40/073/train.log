@@ -1,0 +1,13 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 72, "validation_pairs": 8, "device": "cpu"}
+{"step": 1, "train_loss": 8.32267, "validation_loss": 4.35593}
+{"step": 50, "train_loss": 0.00208, "validation_loss": 0.00146}
+{"step": 100, "train_loss": 0.00041, "validation_loss": 0.00038}
+{"step": 150, "train_loss": 0.00026, "validation_loss": 0.00024}
+{"step": 200, "train_loss": 0.00017, "validation_loss": 0.00017}
+{"step": 250, "train_loss": 0.00015, "validation_loss": 0.00013}
+{"step": 300, "train_loss": 0.00011, "validation_loss": 0.0001}
+{"step": 350, "train_loss": 9e-05, "validation_loss": 8e-05}
+{"step": 400, "train_loss": 7e-05, "validation_loss": 7e-05}
+{"step": 450, "train_loss": 5e-05, "validation_loss": 5e-05}
+{"step": 500, "train_loss": 5e-05, "validation_loss": 5e-05}
+Exported /tmp/flags-cont/073/model.bin and /tmp/flags-cont/073/model.pt

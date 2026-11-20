@@ -1,0 +1,18 @@
+{"question": "if i ask for the capital city of finland what is the answer", "expected": "Helsinki.", "output": "Helsinki.", "exact": true}
+{"question": "which city would you name as the capital of finland", "expected": "Helsinki.", "output": "Helsinki.", "exact": true}
+{"question": "give the name of the national capital in finland", "expected": "Helsinki.", "output": "Helsinki.", "exact": true}
+{"question": "what city serves as the national capital in ghana", "expected": "Accra.", "output": "Accra.", "exact": true}
+{"question": "which city would you name as the capital of ghana", "expected": "Accra.", "output": "Accra.", "exact": true}
+{"question": "give the name of the national capital in ghana", "expected": "Accra.", "output": "Accra.", "exact": true}
+{"question": "tell me the name of the capital of japan", "expected": "Tokyo.", "output": "Tokyo.", "exact": true}
+{"question": "which city would you name as the capital of japan", "expected": "Tokyo.", "output": "Tokyo.", "exact": true}
+{"question": "give the name of the national capital in japan", "expected": "Tokyo.", "output": "Tokyo.", "exact": true}
+{"question": "for kenya which city is the capital", "expected": "Nairobi.", "output": "Nairobi.", "exact": true}
+{"question": "which city would you name as the capital of kenya", "expected": "Nairobi.", "output": "Nairobi.", "exact": true}
+{"question": "give the name of the national capital in kenya", "expected": "Nairobi.", "output": "Nairobi.", "exact": true}
+{"question": "which city is the norwegian capital in norway", "expected": "Oslo.", "output": "Oslo.", "exact": true}
+{"question": "which city would you name as the capital of norway", "expected": "Oslo.", "output": "Oslo.", "exact": true}
+{"question": "give the name of the national capital in norway", "expected": "Oslo.", "output": "Oslo.", "exact": true}
+{"question": "i need the capital city for portugal", "expected": "Lisbon.", "output": "Lisbon.", "exact": true}
+{"question": "which city would you name as the capital of portugal", "expected": "Lisbon.", "output": "Lisbon.", "exact": true}
+{"question": "give the name of the national capital in portugal", "expected": "Lisbon.", "output": "Lisbon.", "exact": true}

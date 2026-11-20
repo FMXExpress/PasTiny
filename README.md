@@ -108,6 +108,6 @@ The [nine-expert SD edition](PasTinyMoE/dist/SPEC9.ZIP) adds [Punctuation](PasTi
 
 The [ten-expert SD edition](PasTinyMoE/dist/SPEC10.ZIP) adds [Synonyms](PasTinyMoE/specialists/synonyms/) with separate routing for definitions and substitutions.
 
-### PasTinyMoE thirty-expert edition
+### PasTinyMoE forty-expert edition
 
-[Download SPEC30 for DOS](PasTinyMoE/dist/SPEC30.ZIP) or inspect the [expert list and evaluation results](PasTinyMoE/specialists/batch30/README.md).
+[Download SPEC40 for DOS](PasTinyMoE/dist/SPEC40.ZIP) or inspect the [expert list and evaluation results](PasTinyMoE/specialists/batch40/README.md).
