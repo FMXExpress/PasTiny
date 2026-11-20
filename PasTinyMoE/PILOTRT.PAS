@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC20}{$DEFINE SPEC10}{$ENDIF}
 {$IFDEF SPEC10}{$DEFINE SPEC9}{$ENDIF}
 {$IFDEF SPEC9}{$DEFINE SPEC8}{$ENDIF}
 {$IFDEF SPEC8}{$DEFINE SPEC5}{$ENDIF}
@@ -44,7 +45,9 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
+{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -64,6 +67,14 @@ begin
   (Pos(' another word ',Q)>0) or (Pos(' alternative to ',Q)>0) or
   (Pos(' similar word ',Q)>0) or (Pos(' similar to ',Q)>0) or
   (Pos(' can replace ',Q)>0)
+end;
+{$ENDIF}
+{$IFDEF SPEC20}
+function WantsAntonym(Q:String):Boolean;
+begin
+ Q:=WordLine(Q);
+ WantsAntonym:=(Pos(' opposite ',Q)>0) or (Pos(' opposites ',Q)>0) or
+  (Pos(' antonym ',Q)>0) or (Pos(' antonyms ',Q)>0) or (Pos(' reverse meaning ',Q)>0)
 end;
 {$ENDIF}
 { Return zero when the terms do not identify one supported domain. }
@@ -112,6 +123,25 @@ begin
    {$IFDEF SPEC5}if Pos(WordKey,PCWords)>0 then Hits:=Hits or 16;{$ENDIF}
   end else Inc(I)
  end;
+ {$IFDEF SPEC20}
+ Q:=WordLine(Q);
+ if WantsAntonym(Q) then begin
+  if (Hits=8) and (Extra=0) and not WantsSynonym(Q) then PilotDomain:=47 else PilotDomain:=0;
+  Exit
+ end;
+ { State abbreviations are ambiguous outside postal or geographic questions. }
+ if Extra=48 then
+  if (Pos(' state ',Q)=0) and (Pos(' postal ',Q)=0) and (Pos(' address ',Q)=0)
+   and (Pos(' abbreviation ',Q)=0) then begin PilotDomain:=0; Exit end;
+ { These introductory animal models have no numerical reference tables. }
+ if (Extra>=52) and (Extra<=57) then begin
+  if (Pos(' how tall ',Q)>0) or (Pos(' how heavy ',Q)>0) then begin PilotDomain:=0; Exit end;
+  if (Hits=1) and (Pos(' type of ',Q)>0) and (Pos(' dos ',Q)=0) then Hits:=0
+ end;
+ if (Extra=50) and (Hits=4) and (Pos(' language ',Q)>0) then Hits:=0;
+ { A species clue specializes a generic animal question. }
+ if (Extra>=52) and (Extra<=57) and (Hits=4) then Hits:=0;
+ {$ENDIF}
  {$IFDEF SPEC10}
  if WantsSynonym(Q) then begin
   if (Hits=8) and (Extra=0) then PilotDomain:=46 else PilotDomain:=0;

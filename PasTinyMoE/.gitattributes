@@ -27,3 +27,7 @@ specialists/punctuation/runtime/*.IN -text
 specialists/synonyms/*.LOG -text
 specialists/synonyms/*.IN -text
 specialists/synonyms/runtime/*.IN -text
+
+specialists/batch20/*.LOG -text
+specialists/batch20/*.IN -text
+specialists/batch20/runtime/*.IN -text

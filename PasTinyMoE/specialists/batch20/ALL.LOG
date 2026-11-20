@@ -1,0 +1,618 @@
+catalog/init ms=9
+FPU yes
+heap=527328 largest=527328 stack=15860
+load/recovery ms=575
+active 1 DOS Guide
+heap=43128 largest=43128 stack=15860
+route ms=0
+load/recovery ms=227
+active 47 Antonyms
+long
+answer ms=1216 chars=4
+first char ms=1112 output span ms=71
+route ms=0
+long
+answer ms=974 chars=4
+first char ms=880 output span ms=100
+route ms=0
+long
+answer ms=1680 chars=4
+first char ms=1579 output span ms=48
+route ms=0
+sturdy
+answer ms=1149 chars=6
+first char ms=1000 output span ms=111
+route ms=0
+sturdy
+answer ms=1015 chars=6
+first char ms=870 output span ms=144
+route ms=1
+sturdy
+answer ms=2575 chars=6
+first char ms=2318 output span ms=182
+route ms=0
+noisy
+answer ms=1231 chars=5
+first char ms=1078 output span ms=155
+route ms=0
+noisy
+answer ms=1270 chars=5
+first char ms=1027 output span ms=223
+route ms=2
+noisy
+answer ms=2931 chars=5
+first char ms=2734 output span ms=178
+route ms=1
+slow
+answer ms=1368 chars=4
+first char ms=1284 output span ms=72
+route ms=0
+slow
+answer ms=1282 chars=4
+first char ms=1213 output span ms=75
+route ms=0
+slow
+answer ms=3054 chars=4
+first char ms=2887 output span ms=157
+route ms=0
+occupied
+answer ms=1996 chars=8
+first char ms=1720 output span ms=280
+route ms=0
+occupied
+answer ms=1373 chars=8
+first char ms=1147 output span ms=131
+route ms=1
+occupied
+answer ms=2668 chars=8
+first char ms=2416 output span ms=243
+route ms=1
+dry
+answer ms=1577 chars=3
+first char ms=1481 output span ms=76
+route ms=0
+dry
+answer ms=1737 chars=3
+first char ms=1589 output span ms=120
+route ms=1
+dry
+answer ms=2381 chars=3
+first char ms=2305 output span ms=54
+route ms=1
+wide
+answer ms=1409 chars=4
+first char ms=1303 output span ms=59
+route ms=0
+wide
+answer ms=1048 chars=4
+first char ms=981 output span ms=19
+route ms=1
+won
+answer ms=1314 chars=3
+first char ms=1242 output span ms=29
+route ms=0
+modern
+answer ms=950 chars=6
+first char ms=792 output span ms=112
+route ms=0
+modern
+answer ms=852 chars=6
+first char ms=685 output span ms=120
+route ms=1
+modern
+answer ms=1155 chars=6
+first char ms=1054 output span ms=66
+route ms=0
+load/recovery ms=72
+active 48 Abbreviations
+Arizona
+answer ms=771 chars=7
+first char ms=658 output span ms=136
+route ms=1
+A-S-T-A-T-E.
+answer ms=650 chars=12
+first char ms=509 output span ms=165
+route ms=0
+Arizona
+answer ms=945 chars=7
+first char ms=812 output span ms=96
+route ms=1
+Mali-Bigir-line
+answer ms=767 chars=15
+first char ms=593 output span ms=202
+route ms=0
+A-S-T-A-T-E.
+answer ms=522 chars=12
+first char ms=412 output span ms=86
+route ms=0
+California
+answer ms=724 chars=10
+first char ms=584 output span ms=114
+route ms=0
+Mali-Bigir-line
+answer ms=675 chars=15
+first char ms=473 output span ms=177
+route ms=1
+A-S-T-A-T-E.
+answer ms=511 chars=12
+first char ms=344 output span ms=143
+route ms=1
+Florida
+answer ms=658 chars=7
+first char ms=591 output span ms=41
+route ms=1
+Mali-Bigir-line
+answer ms=663 chars=15
+first char ms=465 output span ms=173
+route ms=0
+A-S-T-A-T-E.
+answer ms=496 chars=12
+first char ms=390 output span ms=83
+route ms=0
+New York
+answer ms=713 chars=8
+first char ms=614 output span ms=72
+route ms=1
+Mali-Bigir-line
+answer ms=706 chars=15
+first char ms=507 output span ms=174
+route ms=0
+A-S-T-A-T-E.
+answer ms=476 chars=12
+first char ms=319 output span ms=135
+route ms=0
+Ohio
+answer ms=646 chars=4
+first char ms=548 output span ms=74
+route ms=0
+Mali-Baterferen da
+answer ms=688 chars=18
+first char ms=471 output span ms=192
+route ms=0
+A-S-T-A-T-E.
+answer ms=486 chars=12
+first char ms=325 output span ms=138
+route ms=0
+Texas
+answer ms=770 chars=5
+first char ms=645 output span ms=90
+route ms=0
+Mali-Bigir-line
+answer ms=757 chars=15
+first char ms=591 output span ms=195
+route ms=0
+A-S-T-A-T-E.
+answer ms=509 chars=12
+first char ms=400 output span ms=86
+route ms=0
+Utah
+answer ms=678 chars=4
+first char ms=580 output span ms=74
+route ms=0
+Myan
+answer ms=512 chars=4
+first char ms=473 output span ms=16
+route ms=0
+False is a fruida
+answer ms=548 chars=17
+first char ms=326 output span ms=199
+route ms=0
+Wyoming
+answer ms=685 chars=7
+first char ms=567 output span ms=93
+route ms=0
+load/recovery ms=49
+active 49 Idioms
+Make people feel at ease.
+answer ms=853 chars=25
+first char ms=558 output span ms=269
+route ms=1
+Make people feel at ease.
+answer ms=901 chars=25
+first char ms=565 output span ms=363
+route ms=0
+Reveal a secret.
+answer ms=769 chars=16
+first char ms=573 output span ms=224
+route ms=0
+Reveal a secret.
+answer ms=881 chars=16
+first char ms=682 output span ms=172
+route ms=0
+Study hard.
+answer ms=666 chars=11
+first char ms=507 output span ms=134
+route ms=0
+Study hard.
+answer ms=671 chars=11
+first char ms=557 output span ms=88
+route ms=0
+Feeling unwell.
+answer ms=798 chars=15
+first char ms=574 output span ms=197
+route ms=0
+Feeling unwell.
+answer ms=746 chars=15
+first char ms=530 output span ms=190
+route ms=0
+Undecided.
+answer ms=631 chars=10
+first char ms=503 output span ms=103
+route ms=0
+Undecided.
+answer ms=716 chars=10
+first char ms=572 output span ms=118
+route ms=0
+Something easy.
+answer ms=709 chars=15
+first char ms=560 output span ms=179
+route ms=0
+Something easy.
+answer ms=750 chars=15
+first char ms=598 output span ms=181
+route ms=0
+load/recovery ms=104
+active 50 Word origins
+From Arabic via Medieval Latin.
+answer ms=879 chars=31
+first char ms=474 output span ms=378
+route ms=0
+From Arabic via Medieval Latin.
+answer ms=773 chars=31
+first char ms=416 output span ms=332
+route ms=0
+From Japanese.
+answer ms=638 chars=14
+first char ms=470 output span ms=143
+route ms=0
+From Japanese.
+answer ms=648 chars=14
+first char ms=476 output span ms=147
+route ms=0
+From German.
+answer ms=731 chars=12
+first char ms=547 output span ms=159
+route ms=0
+From German.
+answer ms=866 chars=12
+first char ms=697 output span ms=140
+route ms=0
+From Czech.
+answer ms=633 chars=11
+first char ms=476 output span ms=133
+route ms=0
+From Czech.
+answer ms=606 chars=11
+first char ms=506 output span ms=131
+route ms=0
+From Spanish.
+answer ms=953 chars=13
+first char ms=762 output span ms=164
+route ms=0
+From Spanish.
+answer ms=782 chars=13
+first char ms=617 output span ms=139
+route ms=1
+From French, with Italian roots.
+answer ms=994 chars=32
+first char ms=474 output span ms=478
+route ms=0
+From French, with Italian roots.
+answer ms=1213 chars=32
+first char ms=685 output span ms=493
+route ms=0
+load/recovery ms=73
+active 52 Mammals
+A long nes scales.
+answer ms=871 chars=18
+first char ms=605 output span ms=287
+route ms=0
+A long nose.
+answer ms=777 chars=12
+first char ms=615 output span ms=184
+route ms=0
+A long ends yelows yours.
+answer ms=1137 chars=25
+first char ms=705 output span ms=444
+route ms=0
+A long neck.
+answer ms=814 chars=12
+first char ms=613 output span ms=169
+route ms=0
+Scales.
+answer ms=643 chars=7
+first char ms=537 output span ms=74
+route ms=0
+Scales.
+answer ms=806 chars=7
+first char ms=630 output span ms=182
+route ms=0
+It lays lays eggs.
+answer ms=930 chars=18
+first char ms=617 output span ms=279
+route ms=0
+It lays eggs.
+answer ms=940 chars=13
+first char ms=700 output span ms=198
+route ms=0
+Powered flight.
+answer ms=894 chars=15
+first char ms=681 output span ms=179
+route ms=0
+Powered flight.
+answer ms=746 chars=15
+first char ms=560 output span ms=209
+route ms=0
+Mostly plants.
+answer ms=958 chars=14
+first char ms=712 output span ms=212
+route ms=0
+Mostly plants.
+answer ms=781 chars=14
+first char ms=557 output span ms=191
+route ms=0
+load/recovery ms=76
+active 53 Birds
+Flippers for swimming.
+answer ms=887 chars=22
+first char ms=568 output span ms=340
+route ms=0
+Flippers for swimming.
+answer ms=948 chars=22
+first char ms=605 output span ms=314
+route ms=1
+Food copud for food.
+answer ms=779 chars=20
+first char ms=491 output span ms=261
+route ms=0
+It runs.
+answer ms=550 chars=8
+first char ms=418 output span ms=108
+route ms=0
+Scalestrichs.
+answer ms=715 chars=13
+first char ms=550 output span ms=140
+route ms=0
+Scoops up prey.
+answer ms=580 chars=15
+first char ms=413 output span ms=190
+route ms=0
+Chisels wood.
+answer ms=647 chars=13
+first char ms=473 output span ms=202
+route ms=0
+Chisels wood.
+answer ms=660 chars=13
+first char ms=508 output span ms=127
+route ms=0
+It capes piartica.
+answer ms=744 chars=18
+first char ms=510 output span ms=208
+route ms=0
+It can hover.
+answer ms=617 chars=13
+first char ms=472 output span ms=175
+route ms=0
+Pigments from food.
+answer ms=454 chars=19
+first char ms=270 output span ms=217
+route ms=1
+Pigments from food.
+answer ms=646 chars=19
+first char ms=469 output span ms=207
+route ms=1
+load/recovery ms=103
+active 54 Reptiles
+A reptile.
+answer ms=561 chars=10
+first char ms=443 output span ms=94
+route ms=0
+A reptile.
+answer ms=485 chars=10
+first char ms=425 output span ms=92
+route ms=1
+A reptile.
+answer ms=646 chars=10
+first char ms=521 output span ms=101
+route ms=0
+A lizard.
+answer ms=412 chars=9
+first char ms=330 output span ms=60
+route ms=0
+A lizard.
+answer ms=473 chars=9
+first char ms=371 output span ms=78
+route ms=0
+A lizard.
+answer ms=606 chars=9
+first char ms=498 output span ms=83
+route ms=0
+A snake.
+answer ms=571 chars=8
+first char ms=449 output span ms=151
+route ms=0
+A snake.
+answer ms=499 chars=8
+first char ms=422 output span ms=55
+route ms=0
+A snake.
+answer ms=623 chars=8
+first char ms=491 output span ms=108
+route ms=0
+A crocodilian.
+answer ms=579 chars=14
+first char ms=415 output span ms=140
+route ms=0
+A crocodilian.
+answer ms=576 chars=14
+first char ms=419 output span ms=134
+route ms=0
+A crocodilian.
+answer ms=711 chars=14
+first char ms=526 output span ms=160
+route ms=0
+No, a lizard.
+answer ms=457 chars=13
+first char ms=334 output span ms=155
+route ms=0
+A lizard.
+answer ms=498 chars=9
+first char ms=400 output span ms=129
+route ms=0
+A lizard.
+answer ms=666 chars=9
+first char ms=560 output span ms=82
+route ms=0
+A snake.
+answer ms=420 chars=8
+first char ms=354 output span ms=43
+route ms=0
+A snake.
+answer ms=492 chars=8
+first char ms=406 output span ms=61
+route ms=1
+A snake.
+answer ms=645 chars=8
+first char ms=499 output span ms=120
+route ms=0
+load/recovery ms=53
+active 55 Amphibians
+A salamander.
+answer ms=616 chars=13
+first char ms=465 output span ms=126
+route ms=0
+A salamander.
+answer ms=589 chars=13
+first char ms=396 output span ms=169
+route ms=0
+A salamander.
+answer ms=772 chars=13
+first char ms=601 output span ms=145
+route ms=0
+A salamander.
+answer ms=459 chars=13
+first char ms=323 output span ms=167
+route ms=0
+A salamander.
+answer ms=546 chars=13
+first char ms=417 output span ms=106
+route ms=0
+A salamander.
+answer ms=611 chars=13
+first char ms=460 output span ms=181
+route ms=0
+A frog.
+answer ms=453 chars=7
+first char ms=403 output span ms=27
+route ms=0
+A frog.
+answer ms=461 chars=7
+first char ms=411 output span ms=27
+route ms=0
+A frog.
+answer ms=613 chars=7
+first char ms=499 output span ms=90
+route ms=0
+A limbless amphibian.
+answer ms=617 chars=21
+first char ms=396 output span ms=252
+route ms=1
+A limbless amphibian.
+answer ms=689 chars=21
+first char ms=465 output span ms=199
+route ms=0
+A limbless amphibian.
+answer ms=826 chars=21
+first char ms=524 output span ms=276
+route ms=0
+A frog.
+answer ms=496 chars=7
+first char ms=443 output span ms=30
+route ms=0
+A frog.
+answer ms=531 chars=7
+first char ms=427 output span ms=128
+route ms=0
+A frog.
+answer ms=735 chars=7
+first char ms=665 output span ms=44
+route ms=0
+A frog.
+answer ms=478 chars=7
+first char ms=424 output span ms=30
+route ms=0
+A salamander.
+answer ms=569 chars=13
+first char ms=413 output span ms=186
+route ms=0
+A salamander.
+answer ms=863 chars=13
+first char ms=618 output span ms=213
+route ms=1
+load/recovery ms=122
+active 56 Fish
+Fresh water.
+answer ms=822 chars=12
+first char ms=626 output span ms=170
+route ms=0
+The ludi.
+answer ms=873 chars=9
+first char ms=762 output span ms=80
+route ms=0
+Casterdam.
+answer ms=853 chars=10
+first char ms=671 output span ms=142
+route ms=0
+Sea anemones.
+answer ms=785 chars=13
+first char ms=611 output span ms=148
+route ms=1
+Cartilage.
+answer ms=593 chars=10
+first char ms=467 output span ms=102
+route ms=0
+Ceal means cartilage.
+answer ms=782 chars=21
+first char ms=541 output span ms=216
+route ms=1
+The male.
+answer ms=646 chars=9
+first char ms=541 output span ms=80
+route ms=0
+The male.
+answer ms=519 chars=9
+first char ms=422 output span ms=128
+route ms=0
+load/recovery ms=103
+active 57 Insects
+A caterpillar.
+answer ms=614 chars=14
+first char ms=451 output span ms=194
+route ms=0
+A caterpillar.
+answer ms=661 chars=14
+first char ms=544 output span ms=147
+route ms=1
+A drager.
+answer ms=636 chars=9
+first char ms=534 output span ms=78
+route ms=0
+In water.
+answer ms=630 chars=9
+first char ms=515 output span ms=89
+route ms=0
+Beeswax.
+answer ms=711 chars=8
+first char ms=621 output span ms=64
+route ms=0
+Beeswax.
+answer ms=608 chars=8
+first char ms=524 output span ms=59
+route ms=0
+Bioluminescence.
+answer ms=733 chars=16
+first char ms=561 output span ms=147
+route ms=1
+Bioluminescence.
+answer ms=845 chars=16
+first char ms=612 output span ms=207

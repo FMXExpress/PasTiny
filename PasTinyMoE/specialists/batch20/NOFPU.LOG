@@ -1,0 +1,19 @@
+catalog/init ms=26
+FPU no
+heap=527328 largest=527328 stack=15860
+load/recovery ms=822
+active 1 DOS Guide
+heap=43128 largest=43128 stack=15860
+route ms=2
+load/recovery ms=407
+active 47 Antonyms
+slow
+answer ms=22515 chars=4
+first char ms=19704 output span ms=2090
+route ms=0
+load/recovery ms=359
+active 48 Abbreviations
+Texas
+answer ms=13087 chars=5
+first char ms=11350 output span ms=1408
+heap=43128 largest=43128 stack=15860

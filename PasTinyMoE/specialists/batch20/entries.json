@@ -1,0 +1,82 @@
+[
+  {
+    "id": 47,
+    "name": "ANTONYM.BIN",
+    "source": "specialists/models/ANTONYM.BIN",
+    "sha256": "83daefb552dc27e862d20e3f5ac802ab44ad174ba4f9848dd22f8c4239ebd68a",
+    "keyword": "antonym",
+    "title": "Antonyms"
+  },
+  {
+    "id": 48,
+    "name": "ABBREV.BIN",
+    "source": "specialists/models/ABBREV.BIN",
+    "sha256": "33b6e0bf9341885d3ec5bf2381bb43366ef42a7f6dad781cd5e457f3e98a1cb2",
+    "keyword": "az",
+    "title": "Abbreviations"
+  },
+  {
+    "id": 49,
+    "name": "IDIOM.BIN",
+    "source": "specialists/models/IDIOM.BIN",
+    "sha256": "6f77aab68b903d07f99cf06d01204e48c9331ae79e984fa26f3bb47fc59ee526",
+    "keyword": "idiom",
+    "title": "Idioms"
+  },
+  {
+    "id": 50,
+    "name": "ORIGINS.BIN",
+    "source": "specialists/models/ORIGINS.BIN",
+    "sha256": "b6991f2039131b3df0817d021b03135e1ecc8233fbeb3085d4e9474534cdbc57",
+    "keyword": "etymology",
+    "title": "Word origins"
+  },
+  {
+    "id": 52,
+    "name": "MAMMALS.BIN",
+    "source": "specialists/models/MAMMALS.BIN",
+    "sha256": "d3b362c60f0d09dd8bca0ef795b98cc3160d2ca7d6dba6562a44be8c8ff9a9a8",
+    "keyword": "elephant",
+    "title": "Mammals"
+  },
+  {
+    "id": 53,
+    "name": "BIRDS.BIN",
+    "source": "specialists/models/BIRDS.BIN",
+    "sha256": "ccc65d71cc4f1e02e622bd2d4289faef11a24648f302b602442ca03c099f8061",
+    "keyword": "penguin",
+    "title": "Birds"
+  },
+  {
+    "id": 54,
+    "name": "REPTILES.BIN",
+    "source": "specialists/models/REPTILES.BIN",
+    "sha256": "953c533a7ad067e1395c4ecc145f2ef254f6f1db84f9d16a85ea641d4c36065b",
+    "keyword": "tortoise",
+    "title": "Reptiles"
+  },
+  {
+    "id": 55,
+    "name": "AMPHIB.BIN",
+    "source": "specialists/models/AMPHIB.BIN",
+    "sha256": "f87403dbad5765bb21f5172d60d923e1d24dc56cc001355fb156ac55ac6d0e59",
+    "keyword": "axolotl",
+    "title": "Amphibians"
+  },
+  {
+    "id": 56,
+    "name": "FISH.BIN",
+    "source": "specialists/models/FISH.BIN",
+    "sha256": "a262ab9ce2af13c6e97a701cd220e6665a174158571ae1afcb411d0f8f35337d",
+    "keyword": "anemonefish",
+    "title": "Fish"
+  },
+  {
+    "id": 57,
+    "name": "INSECTS.BIN",
+    "source": "specialists/models/INSECTS.BIN",
+    "sha256": "109517e8edd48fba3de1aa891bd106b67db8c58c5a4d97da58a8ee33575cc8aa",
+    "keyword": "butterflies",
+    "title": "Insects"
+  }
+]
