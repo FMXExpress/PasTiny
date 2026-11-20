@@ -1,0 +1,236 @@
+catalog/init ms=5
+FPU yes
+heap=529728 largest=529728 stack=15860
+load/recovery ms=591
+active 1 DOS Guide
+heap=45528 largest=45528 stack=15860
+route ms=0
+load/recovery ms=147
+active 46 Synonyms
+short
+answer ms=673 chars=5
+first char ms=584 output span ms=62
+route ms=0
+short
+answer ms=468 chars=5
+first char ms=453 output span ms=44
+route ms=0
+short
+answer ms=707 chars=5
+first char ms=633 output span ms=48
+route ms=0
+delicate
+answer ms=503 chars=8
+first char ms=424 output span ms=55
+route ms=0
+delicate
+answer ms=487 chars=8
+first char ms=413 output span ms=51
+route ms=0
+delicate
+answer ms=824 chars=8
+first char ms=723 output span ms=74
+route ms=0
+soundless
+answer ms=470 chars=9
+first char ms=375 output span ms=72
+route ms=0
+soundless
+answer ms=496 chars=9
+first char ms=398 output span ms=75
+route ms=0
+swidele+shillic.
+answer ms=782 chars=16
+first char ms=598 output span ms=158
+route ms=0
+swift
+answer ms=529 chars=5
+first char ms=424 output span ms=76
+route ms=0
+swift
+answer ms=461 chars=5
+first char ms=446 output span ms=45
+route ms=1
+swift
+answer ms=711 chars=5
+first char ms=639 output span ms=47
+route ms=0
+empty
+answer ms=455 chars=5
+first char ms=394 output span ms=37
+route ms=0
+empty
+answer ms=538 chars=5
+first char ms=506 output span ms=59
+route ms=0
+empty
+answer ms=719 chars=5
+first char ms=647 output span ms=46
+route ms=0
+moist
+answer ms=416 chars=5
+first char ms=356 output span ms=37
+route ms=1
+madew deveresed
+answer ms=545 chars=15
+first char ms=354 output span ms=167
+route ms=0
+moist
+answer ms=706 chars=5
+first char ms=633 output span ms=47
+route ms=0
+slim
+answer ms=459 chars=4
+first char ms=366 output span ms=70
+route ms=0
+slim
+answer ms=400 chars=4
+first char ms=361 output span ms=70
+route ms=0
+swift
+answer ms=677 chars=5
+first char ms=607 output span ms=45
+route ms=0
+age-old
+answer ms=498 chars=7
+first char ms=395 output span ms=80
+route ms=0
+age-old
+answer ms=442 chars=7
+first char ms=391 output span ms=28
+route ms=1
+aterned meanswiter.
+answer ms=936 chars=19
+first char ms=664 output span ms=246
+route ms=0
+short
+answer ms=819 chars=5
+first char ms=740 output span ms=52
+route ms=0
+delicate
+answer ms=586 chars=8
+first char ms=505 output span ms=57
+route ms=0
+short
+answer ms=635 chars=5
+first char ms=569 output span ms=42
+route ms=0
+swift
+answer ms=645 chars=5
+first char ms=576 output span ms=44
+route ms=0
+empty
+answer ms=548 chars=5
+first char ms=482 output span ms=41
+route ms=0
+most
+answer ms=524 chars=4
+first char ms=459 output span ms=76
+route ms=0
+short
+answer ms=860 chars=5
+first char ms=780 output span ms=53
+route ms=0
+age-old
+answer ms=709 chars=7
+first char ms=642 output span ms=41
+route ms=0
+load/recovery ms=104
+active 41 Word Bench
+Short in duration.
+answer ms=271 chars=18
+first char ms=128 output span ms=122
+route ms=0
+load/recovery ms=104
+active 46 Synonyms
+short
+answer ms=298 chars=5
+first char ms=250 output span ms=27
+route ms=0
+load/recovery ms=48
+active 41 Word Bench
+Easily broken.
+answer ms=288 chars=14
+first char ms=168 output span ms=99
+route ms=0
+load/recovery ms=105
+active 46 Synonyms
+delicate
+answer ms=299 chars=8
+first char ms=241 output span ms=91
+route ms=0
+load/recovery ms=102
+active 41 Word Bench
+Without sound.
+answer ms=255 chars=14
+first char ms=142 output span ms=92
+route ms=0
+load/recovery ms=103
+active 46 Synonyms
+soundless
+answer ms=340 chars=9
+first char ms=210 output span ms=109
+route ms=0
+load/recovery ms=48
+active 41 Word Bench
+Very fast.
+answer ms=216 chars=10
+first char ms=129 output span ms=67
+route ms=0
+load/recovery ms=103
+active 46 Synonyms
+swift
+answer ms=242 chars=5
+first char ms=195 output span ms=81
+route ms=0
+load/recovery ms=102
+active 41 Word Bench
+Not occupied.
+answer ms=274 chars=13
+first char ms=136 output span ms=118
+route ms=0
+load/recovery ms=47
+active 46 Synonyms
+empty
+answer ms=310 chars=5
+first char ms=263 output span ms=27
+route ms=0
+load/recovery ms=47
+active 41 Word Bench
+Slightly wet.
+answer ms=246 chars=13
+first char ms=105 output span ms=121
+route ms=0
+load/recovery ms=102
+active 46 Synonyms
+moist
+answer ms=267 chars=5
+first char ms=222 output span ms=25
+route ms=0
+load/recovery ms=48
+active 41 Word Bench
+Not wide.
+answer ms=211 chars=9
+first char ms=145 output span ms=101
+route ms=0
+load/recovery ms=103
+active 46 Synonyms
+slim
+answer ms=302 chars=4
+first char ms=219 output span ms=62
+route ms=0
+load/recovery ms=48
+active 41 Word Bench
+Very old.
+answer ms=229 chars=9
+first char ms=163 output span ms=46
+route ms=0
+load/recovery ms=103
+active 46 Synonyms
+age-old
+answer ms=322 chars=7
+first char ms=230 output span ms=70
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.
+route ms=0
+Choose an expert with LIST and USE, or rephrase the question.

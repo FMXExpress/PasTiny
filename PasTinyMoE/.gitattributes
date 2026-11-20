@@ -23,3 +23,7 @@ specialists/worddesk/runtime/*.IN -text
 specialists/punctuation/*.LOG -text
 specialists/punctuation/*.IN -text
 specialists/punctuation/runtime/*.IN -text
+
+specialists/synonyms/*.LOG -text
+specialists/synonyms/*.IN -text
+specialists/synonyms/runtime/*.IN -text

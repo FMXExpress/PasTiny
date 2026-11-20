@@ -1,0 +1,4 @@
+SPEC10: ten trained specialist models. USE 46 selects Synonyms.
+AUTO distinguishes define rapid from give a synonym for rapid.
+Derived from WollyMonjac/Tiny-2.1 and FMXExpress/WebTiny.
+See FMXExpress/PasTiny, PasTinyMoE/specialists/synonyms.

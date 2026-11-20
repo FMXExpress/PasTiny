@@ -1,0 +1,19 @@
+catalog/init ms=17
+FPU no
+heap=529728 largest=529728 stack=15860
+load/recovery ms=884
+active 1 DOS Guide
+heap=45528 largest=45528 stack=15860
+route ms=1
+load/recovery ms=345
+active 41 Word Bench
+Very fast.
+answer ms=5304 chars=10
+first char ms=3031 output span ms=2067
+route ms=0
+load/recovery ms=207
+active 46 Synonyms
+swift
+answer ms=8988 chars=5
+first char ms=7166 output span ms=1537
+heap=45528 largest=45528 stack=15860

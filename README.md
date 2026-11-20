@@ -105,3 +105,5 @@ The [five-expert SD edition](PasTinyMoE/dist/SPEC5.ZIP) includes [PC Workbench](
 [Download the eight-expert SD edition](PasTinyMoE/dist/SPEC8.ZIP) or see the [100-expert plan and progress](PasTinyMoE/docs/expert-plan.md).
 
 The [nine-expert SD edition](PasTinyMoE/dist/SPEC9.ZIP) adds [Punctuation](PasTinyMoE/specialists/punctuation/).
+
+The [ten-expert SD edition](PasTinyMoE/dist/SPEC10.ZIP) adds [Synonyms](PasTinyMoE/specialists/synonyms/) with separate routing for definitions and substitutions.

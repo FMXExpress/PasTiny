@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC10}{$DEFINE SPEC9}{$ENDIF}
 {$IFDEF SPEC9}{$DEFINE SPEC8}{$ENDIF}
 {$IFDEF SPEC8}{$DEFINE SPEC5}{$ENDIF}
 {$IFDEF SPEC5}{$DEFINE SPEC4}{$ENDIF}
@@ -55,6 +56,16 @@ begin
  end
 end;
 {$ENDIF}
+{$IFDEF SPEC10}
+function WantsSynonym(Q:String):Boolean;
+begin
+ Q:=WordLine(Q);
+ WantsSynonym:=(Pos(' synonym ',Q)>0) or (Pos(' synonyms ',Q)>0) or
+  (Pos(' another word ',Q)>0) or (Pos(' alternative to ',Q)>0) or
+  (Pos(' similar word ',Q)>0) or (Pos(' similar to ',Q)>0) or
+  (Pos(' can replace ',Q)>0)
+end;
+{$ENDIF}
 { Return zero when the terms do not identify one supported domain. }
 function PilotDomain(Q:String):Byte;
 const DOSWords='|dos|dir|cd|cls|type|file|files|directory|directories|folder|folders|screen|display|';
@@ -101,6 +112,12 @@ begin
    {$IFDEF SPEC5}if Pos(WordKey,PCWords)>0 then Hits:=Hits or 16;{$ENDIF}
   end else Inc(I)
  end;
+ {$IFDEF SPEC10}
+ if WantsSynonym(Q) then begin
+  if (Hits=8) and (Extra=0) then PilotDomain:=46 else PilotDomain:=0;
+  Exit
+ end;
+ {$ENDIF}
  {$IFDEF SPEC8}
  {$IFDEF SPEC9}if (Extra=45) and (Hits=2) and not SpecificPascal then Hits:=0;{$ENDIF}
  if Extra<>0 then begin
