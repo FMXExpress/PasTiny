@@ -66,6 +66,7 @@ var
   OnFail: TFailProc;                        { nil: write to Output, Halt }
   OnLoad: TLoadProc;                        { loading progress, may be nil }
   ClockMs: TClockFunc;                      { may be nil (times are 0) }
+  {$IFDEF TINYMODERN}OnAnswer: procedure(const Answer: String);{$ENDIF}
   OnIdle: TIdleProc;                        { called once per letter }
 
 const
@@ -785,6 +786,7 @@ begin
     if IsWord(Q, 'quit') or IsWord(Q, 'exit') then Break;
     Letters := Think(Q, Answer, Tenths, nil, nil);
     WriteLn(Fout, '  ', Answer);
+    {$IFDEF TINYMODERN}if Assigned(OnAnswer) then begin Flush(Fout); OnAnswer(Answer) end;{$ENDIF}
     WriteLn(Fout, '   [', Letters, ' letters in ', TenthsStr(Tenths), ' seconds]');
   end;
   WriteLn(Fout, 'Goodbye!');

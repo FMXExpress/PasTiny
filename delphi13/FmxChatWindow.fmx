@@ -11,6 +11,14 @@ object ChatForm: TChatForm
     Padding.Top = 6.000000000000000000
     Padding.Right = 8.000000000000000000
     Padding.Bottom = 6.000000000000000000
+    object Voice: TCheckBox
+      Align = Left
+      Size.Width = 72.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Sound'
+      IsChecked = True
+      OnChange = VoiceChange
+    end
     object AskButton: TButton
       Align = Right
       Size.Width = 72.000000000000000000

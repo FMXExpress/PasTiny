@@ -5,6 +5,7 @@ program TinyConsole;
 uses
   {$IFDEF FPC}SysUtils,{$ELSE}System.SysUtils,{$ENDIF}
   {$IFNDEF FPC}Winapi.Windows,{$ENDIF}
+  DesktopVoice,
   TnyNet in 'TNYNET.PAS';
 
 var
@@ -25,7 +26,7 @@ end;
 
 procedure Usage;
 begin
-  Writeln('TinyConsole [0..9] [/FLOAT] [/BENCH] [/IN=file] [/OUT=file] [/MODEL=file]');
+  Writeln('TinyConsole [0..9] [/SOUND] [/FLOAT] [/BENCH] [/IN=file] [/OUT=file] [/MODEL=file]');
 end;
 
 procedure Run(var Dest: TextFile);
@@ -52,6 +53,7 @@ begin
       Arg := ParamStr(I);
       if (Length(Arg) = 1) and (Arg[1] >= '0') and (Arg[1] <= '9') then
         Creativity := Ord(Arg[1]) - Ord('0')
+      else if SameText(Arg, '/SOUND') then OnAnswer := PlayConsoleVoice
       else if SameText(Arg, '/FLOAT') then UseInt := False
       else if SameText(Arg, '/BENCH') then Bench := True
       else if SameText(Copy(Arg, 1, 4), '/IN=') and (Length(Arg) > 4) then InputName := Copy(Arg, 5, MaxInt)

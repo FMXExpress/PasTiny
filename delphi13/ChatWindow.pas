@@ -10,6 +10,8 @@ type
   private
     History: TMemo;
     Question: TEdit;
+    Voice: TCheckBox;
+    procedure VoiceClick(Sender: TObject);
     procedure Ask(Sender: TObject);
   public
     constructor Create(AOwner: TComponent); override;
@@ -20,7 +22,7 @@ var
 
 implementation
 
-uses TnyNet;
+uses TnyNet, DesktopVoice;
 
 constructor TChatWindow.Create(AOwner: TComponent);
 var
@@ -46,6 +48,14 @@ begin
   Send.Default := True;
   Send.OnClick := Ask;
 
+  Voice := TCheckBox.Create(Self);
+  Voice.Parent := Entry;
+  Voice.Align := alLeft;
+  Voice.Caption := 'Sound';
+  Voice.Width := 68;
+  Voice.Checked := True;
+  Voice.OnClick := VoiceClick;
+
   Question := TEdit.Create(Self);
   Question.Parent := Entry;
   Question.Align := alClient;
@@ -61,6 +71,11 @@ begin
   ActiveControl := Question;
 end;
 
+procedure TChatWindow.VoiceClick(Sender: TObject);
+begin
+  if not Voice.Checked then StopVoice;
+end;
+
 procedure TChatWindow.Ask(Sender: TObject);
 var
   Q, Answer: string;
@@ -73,6 +88,7 @@ begin
   History.Lines.Add('');
   Question.Clear;
   Question.SetFocus;
+  if Voice.Checked then PlayVoice(Answer);
 end;
 
 end.

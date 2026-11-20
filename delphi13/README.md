@@ -35,6 +35,10 @@ python3 delphi13/check.py build/delphi13/TinyConsole
 
 The console reads standard input and writes standard output. Enter `quit` or send EOF to finish. Pass a creativity level from 0 to 9 (default 5), `/FLOAT` for floating-point inference, `/MODEL=path` for another compatible weights file, or `/IN=path` and `/OUT=path` for batch use. The default model path is relative to the executable. Explicit paths are relative to the current working directory.
 
-The modern target shares the [Delphi 1 inference source](../delphi1/TNYNET.PAS). The modern build uses Unicode strings, reads the binary header as four bytes and stores quantized vectors as signed 16-bit values. The original Win16 neon UI and PC-speaker effects are available in the [Delphi 1 edition](../delphi1/).
+The modern target shares the [Delphi 1 inference source](../delphi1/TNYNET.PAS). The modern build uses Unicode strings, reads the binary header as four bytes and stores quantized vectors as signed 16-bit values. The original Win16 neon UI is available in the [Delphi 1 edition](../delphi1/).
 
 The Linux x86-64 FPC build matched all 60 original C reference answers with both engines. Delphi 13 compilation and VCL/FireMonkey GUI execution are pending verification on a RAD Studio installation. The same Python check accepts a Delphi-built TinyConsole.exe.
+
+## Robot voice
+
+VCL and FireMonkey play each completed answer as square-wave robot chatter. Clear **Sound** to stop playback and mute subsequent answers. The console opts in with `/SOUND` and waits for each answer to finish playing. Benchmarks stay silent. On Linux install ALSA’s `aplay` or FFmpeg’s `ffplay`. Windows uses the system audio output and FireMonkey uses its platform media player.

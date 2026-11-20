@@ -5,7 +5,7 @@ interface
 uses
   System.Classes, System.UITypes, FMX.Types, FMX.Controls, FMX.Forms,
   FMX.Layouts, FMX.Edit, FMX.StdCtrls, FMX.Memo, FMX.ScrollBox,
-  FMX.Controls.Presentation, FMX.Memo.Types;
+  FMX.Controls.Presentation, FMX.Memo.Types, FMX.Media;
 
 type
   TChatForm = class(TForm)
@@ -13,10 +13,18 @@ type
     EntryBar: TLayout;
     Question: TEdit;
     AskButton: TButton;
+    Voice: TCheckBox;
+    procedure VoiceChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Ask(Sender: TObject);
     procedure QuestionKeyDown(Sender: TObject; var Key: Word;
       var KeyChar: WideChar; Shift: TShiftState);
+  private
+    Player: TMediaPlayer;
+    WavePath: string;
+    procedure PlayAnswer(const Answer: string);
+  public
+    destructor Destroy; override;
   end;
 
 var
@@ -25,7 +33,7 @@ var
 implementation
 
 uses
-  System.SysUtils, System.IOUtils, TnyNet;
+  System.SysUtils, System.IOUtils, TnyNet, TinyVoice;
 
 {$R *.fmx}
 
@@ -49,6 +57,8 @@ procedure TChatForm.FormCreate(Sender: TObject);
 var
   Path: string;
 begin
+  Player := TMediaPlayer.Create(Self);
+  WavePath := TPath.Combine(TPath.GetTempPath, TGUID.NewGuid.ToString + '.wav');
   Question.MaxLength := MAXQ;
   Path := ModelPath;
   try
@@ -67,6 +77,34 @@ begin
   end;
 end;
 
+procedure TChatForm.VoiceChange(Sender: TObject);
+begin
+  if Assigned(Player) and not Voice.IsChecked then Player.Stop;
+end;
+
+procedure TChatForm.PlayAnswer(const Answer: string);
+var Wave: TMemoryStream;
+begin
+  Player.Stop;
+  Player.FileName := '';
+  Wave := TMemoryStream.Create;
+  try
+    RenderVoice(Answer, Wave);
+    Wave.SaveToFile(WavePath);
+  finally
+    Wave.Free;
+  end;
+  Player.FileName := WavePath;
+  Player.Play;
+end;
+
+destructor TChatForm.Destroy;
+begin
+  FreeAndNil(Player);
+  if WavePath <> '' then DeleteFile(WavePath);
+  inherited;
+end;
+
 procedure TChatForm.Ask(Sender: TObject);
 var
   Prompt, Answer: string;
@@ -80,6 +118,12 @@ begin
   Transcript.GoToTextEnd;
   Question.Text := '';
   Question.SetFocus;
+  if Voice.IsChecked then
+    try
+      PlayAnswer(Answer);
+    except
+      on E: Exception do Transcript.Lines.Add('Audio playback failed: ' + E.Message);
+    end;
 end;
 
 procedure TChatForm.QuestionKeyDown(Sender: TObject; var Key: Word;
