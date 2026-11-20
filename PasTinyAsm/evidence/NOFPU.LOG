@@ -1,0 +1,5 @@
+PasTinyAsm 1.0  FPU no
+name NOFPU
+1 make screen flash -> FLASH 3
+2 play sound -> BEEP 440 300
+wrote NOFPU.COM 123 bytes, NOFPU.ASM
