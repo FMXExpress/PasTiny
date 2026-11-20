@@ -1,4 +1,4 @@
-unit TnyNet;
+{$IFNDEF TINYMODERN}unit TnyNet;{$ENDIF}
 
 (* TINY 2.1 for Delphi 1 - the neural network.
 
@@ -14,8 +14,10 @@ unit TnyNet;
    Free Pascal ({$MODE TP}) for automated tests on a modern machine.
    Under Delphi 1 (VER80) the two inner loops are 8086 assembler. *)
 
-{$IFDEF FPC} {$MODE TP} {$ENDIF}
-{$F+,R-,S-,X+}
+{$IFDEF FPC}
+  {$IFDEF TINYMODERN}{$MODE DELPHIUNICODE}{$ELSE}{$MODE TP}{$ENDIF}
+{$ENDIF}
+{$IFDEF TINYMODERN}{$R-,X+}{$ELSE}{$F+,R-,S-,X+}{$ENDIF}
 
 interface
 
@@ -33,8 +35,10 @@ type
   TS8Arr   = array[0..65000] of ShortInt;
   PSglArr  = ^TSglArr;
   TSglArr  = array[0..16000] of Single;
+  TQuantValue = {$IFDEF TINYMODERN}SmallInt{$ELSE}Integer{$ENDIF};
+  TReadCount = {$IFDEF TINYMODERN}Longint{$ELSE}Word{$ENDIF};
   PI16Arr  = ^TI16Arr;
-  TI16Arr  = array[0..32000] of Integer;
+  TI16Arr  = array[0..32000] of TQuantValue;
   PLongArr = ^TLongArr;
   TLongArr = array[0..16000] of Longint;
 
@@ -103,9 +107,9 @@ var
   BS: array[0..CTX - 1] of Single;
 
   { integer engine }
-  XQ: array[0..MAXHID - 1] of Integer;      { input vector as 16-bit }
-  QQ: array[0..MAXD - 1] of Integer;        { query as 16-bit }
-  WW: array[0..CTX - 1] of Integer;         { attention weights, 16-bit }
+  XQ: array[0..MAXHID - 1] of TQuantValue;      { input vector as 16-bit }
+  QQ: array[0..MAXD - 1] of TQuantValue;        { query as 16-bit }
+  WW: array[0..CTX - 1] of TQuantValue;         { attention weights, 16-bit }
   EE: array[0..CTX - 1] of Longint;
   ACC: array[0..MAXD - 1] of Longint;
   ExpTab: array[0..1535] of Integer;        { exp(-k/128) * 32767 }
@@ -138,7 +142,7 @@ end;
 
 procedure ReadBytes(var Buf; N: Word);
 var
-  Got: Word;
+  Got: TReadCount;
 begin
   {$I-}
   BlockRead(ModelFile, Buf, N, Got);
@@ -194,15 +198,15 @@ end;
 
 procedure LoadModel(const Name: String);
 var
-  Magic: array[0..3] of Char;
+  Magic: array[0..3] of Byte;
   I, Code: Integer;
   B: Byte;
-  Got: Word;
+  Got: TReadCount;
 begin
   if SizeOf(Single) <> 4 then
     Fail('this compiler has an unusual Single size.');
   InitExpTab;
-  Assign(ModelFile, Name);
+  {$IFDEF TINYMODERN}AssignFile{$ELSE}Assign{$ENDIF}(ModelFile, Name);
   FileMode := 0;
   {$I-}
   Reset(ModelFile, 1);
@@ -213,8 +217,8 @@ begin
   BlockRead(ModelFile, Magic, 4, Got);
   {$I+}
   Code := IOResult;
-  if (Code <> 0) or (Got <> 4) or (Magic[0] <> 'T') or (Magic[1] <> 'N') or
-     (Magic[2] <> 'Y') or (Magic[3] <> '2') then
+  if (Code <> 0) or (Got <> 4) or (Magic[0] <> Ord('T')) or (Magic[1] <> Ord('N')) or
+     (Magic[2] <> Ord('Y')) or (Magic[3] <> Ord('2')) then
     Fail('TINY.BIN is not a version 2 network file.');
   D := Read16; L := Read16; H := Read16; HID := Read16;
   if (D < 8) or (D > MAXD) or (L < 1) or (L > MAXL) or (H < 1) or
@@ -244,7 +248,7 @@ begin
   Code := IOResult;
   if (Code <> 0) or (Got <> 0) then
     Fail('TINY.BIN has the wrong size.');
-  Close(ModelFile);
+  {$IFDEF TINYMODERN}CloseFile{$ELSE}Close{$ENDIF}(ModelFile);
 end;
 
 procedure AllocMemory;
@@ -656,7 +660,7 @@ end;
 
 function NowMs: Longint;
 begin
-  if Assigned(ClockMs) then NowMs := ClockMs else NowMs := 0;
+  if Assigned(ClockMs) then NowMs := ClockMs() else NowMs := 0;
 end;
 
 (* Answer question Q into Answer. The callbacks (may be nil) hear about
@@ -823,13 +827,24 @@ begin
     AllTokens := AllTokens + Tokens;
     WriteLn(Fout, BenchQ[I]);
     WriteLn(Fout, '  ', Answer);
+    {$IFDEF TINYMODERN}
+    WriteLn(Fout, '  ', Tokens, ' tokens in ', Ms, ' ms');
+    {$ELSE}
     WriteLn(Fout, '  ', Tokens, ' letters in ', TenthsStr(Ms div 100), ' s');
+    {$ENDIF}
   end;
   WriteLn(Fout);
+  {$IFDEF TINYMODERN}
+  WriteLn(Fout, 'total: ', AllTokens, ' tokens in ', AllMs, ' ms');
+  if AllMs > 0 then
+    WriteLn(Fout, 'speed: ', (AllTokens * 1000.0 / AllMs):0:1,
+      ' tokens/s   average answer: ', (AllMs / NBENCH):0:1, ' ms');
+  {$ELSE}
   WriteLn(Fout, 'total: ', AllTokens, ' letters in ', TenthsStr(AllMs div 100), ' s');
   if AllMs > 0 then
     WriteLn(Fout, 'speed: ', TenthsStr(AllTokens * 10000 div AllMs),
       ' letters/s   average answer: ', TenthsStr(AllMs div (NBENCH * 100)), ' s');
+  {$ENDIF}
   Creativity := Old;
 end;
 

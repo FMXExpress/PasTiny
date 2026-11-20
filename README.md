@@ -98,6 +98,10 @@ Based on TINY 2.1 revision `1d5cf54677addf188a090ca1c91acb3d02989a1d`. Upstream 
 
 Its network unit gives the same 60 reference answers as `TINY.C` when built with Free Pascal in TP mode, and the whole program compiles and assembles for Win16 with Free Pascal's i8086 compiler. **It has not yet been built with Delphi 1 or run on Windows 3.1**; see [delphi1/README.TXT](delphi1/README.TXT).
 
+## Delphi 13 and modern Free Pascal
+
+The [modern Pascal edition](delphi13/) includes a Delphi 13 Windows chat application and a shared console project for Delphi and FPC in Delphi Unicode mode. The native Linux console passes the 60-question reference suite with both the integer and float engines.
+
 ## PasTinyMoE
 
 [Download the complete 100-expert DOS edition](PasTinyMoE/dist/SPEC100.ZIP). Extract the archive and run `EXPERT`. On 1,381 in-scope evaluation prompts, automatic routing selected the intended expert 1,381 times and generated 1,138 exact answers. The questions use new wording for topics covered in training. [All 100 scores and example questions](PasTinyMoE/specialists/batch100/scorecard.md)
