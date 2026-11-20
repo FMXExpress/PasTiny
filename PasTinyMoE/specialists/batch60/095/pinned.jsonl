@@ -1,0 +1,12 @@
+{"question": "give the player a glimpse of the dungeon cistern", "answer": "Drops ring in the black pool.", "fact": "cistern", "output": "Drops ring in the black pool.", "exact": true}
+{"question": "the party reaches the cistern what greets them", "answer": "Drops ring in the black pool.", "fact": "cistern", "output": "Dry pages from zestern eEThher.", "exact": false}
+{"question": "give the player a glimpse of the dungeon belfry", "answer": "A cracked bell sways overhead.", "fact": "belfry", "output": "A cracked bell sways overhead.", "exact": true}
+{"question": "we climb up into the belfry describe it", "answer": "A cracked bell sways overhead.", "fact": "belfry", "output": "A cracked bell sways overhead.", "exact": true}
+{"question": "give the player a glimpse of the dungeon crypt", "answer": "Dust rims each stone coffin.", "fact": "crypt", "output": "Dust rims each stone coffin.", "exact": true}
+{"question": "our torch lights the crypt what do we see", "answer": "Dust rims each stone coffin.", "fact": "crypt", "output": "Dry pages whisper is the shelvest.", "exact": false}
+{"question": "give the player a glimpse of the dungeon forge", "answer": "Red coals blink in the ash.", "fact": "forge", "output": "Red coals blink in the ash.", "exact": true}
+{"question": "the dungeon door opens onto a forge", "answer": "Red coals blink in the ash.", "fact": "forge", "output": "Red coals blink in the ash.", "exact": true}
+{"question": "give the player a glimpse of the dungeon grotto", "answer": "Blue light pools on wet stone.", "fact": "grotto", "output": "Blue light pools on wet stone.", "exact": true}
+{"question": "how does it feel inside the grotto", "answer": "Blue light pools on wet stone.", "fact": "grotto", "output": "Blue light pools on wet stone.", "exact": true}
+{"question": "give the player a glimpse of the dungeon archive", "answer": "Dry pages whisper on the shelves.", "fact": "archive", "output": "Dry pages whisper on the shelves.", "exact": true}
+{"question": "give some atmosphere as i enter the archive", "answer": "Dry pages whisper on the shelves.", "fact": "archive", "output": "Dry pages whisper on the shelves.", "exact": true}

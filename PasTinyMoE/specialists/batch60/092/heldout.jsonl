@@ -1,0 +1,8 @@
+{"question": "describe the pattern in a palindrome", "answer": "It reads the same backward and forward.", "fact": "palindrome"}
+{"question": "what is special about reading a palindrome", "answer": "It reads the same backward and forward.", "fact": "palindrome"}
+{"question": "explain what an anagram does to a name", "answer": "It rearranges all the letters.", "fact": "anagram"}
+{"question": "how would an anagram use the letters", "answer": "It rearranges all the letters.", "fact": "anagram"}
+{"question": "in a first-letter acrostic how is the message formed", "answer": "The first letters spell a message.", "fact": "acrostic"}
+{"question": "what do you look for in an initial-letter acrostic", "answer": "The first letters spell a message.", "fact": "acrostic"}
+{"question": "what letters have to appear in a pangram", "answer": "It uses every letter of the alphabet.", "fact": "pangram"}
+{"question": "what qualifies a line of text as a pangram", "answer": "It uses every letter of the alphabet.", "fact": "pangram"}

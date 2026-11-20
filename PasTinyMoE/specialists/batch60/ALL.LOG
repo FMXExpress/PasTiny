@@ -1,0 +1,571 @@
+catalog/init ms=-23
+FPU yes
+heap=519904 largest=519904 stack=15860
+load/recovery ms=622
+active 1 DOS Guide
+heap=35704 largest=35704 stack=15860
+route ms=1
+load/recovery ms=83
+active 88 Spaceflight
+1957.
+answer ms=1729 chars=5
+first char ms=1563 output span ms=102
+route ms=0
+197.
+answer ms=1057 chars=4
+first char ms=907 output span ms=95
+route ms=0
+1961.
+answer ms=1317 chars=5
+first char ms=1131 output span ms=132
+route ms=1
+1961.
+answer ms=1375 chars=5
+first char ms=1228 output span ms=89
+route ms=1
+1969.
+answer ms=1200 chars=5
+first char ms=1025 output span ms=97
+route ms=1
+1969.
+answer ms=1049 chars=5
+first char ms=945 output span ms=75
+route ms=0
+1976.
+answer ms=687 chars=5
+first char ms=587 output span ms=99
+route ms=0
+1976.
+answer ms=1295 chars=5
+first char ms=1170 output span ms=97
+route ms=1
+1969.
+answer ms=1056 chars=5
+first char ms=908 output span ms=116
+route ms=1
+1977.
+answer ms=1176 chars=5
+first char ms=1053 output span ms=122
+route ms=0
+1957.
+answer ms=902 chars=5
+first char ms=763 output span ms=85
+route ms=0
+1990.
+answer ms=1217 chars=5
+first char ms=1064 output span ms=86
+route ms=1
+load/recovery ms=131
+active 89 Transport History
+1903.
+answer ms=1852 chars=5
+first char ms=1684 output span ms=127
+route ms=1
+1903.
+answer ms=1457 chars=5
+first char ms=1420 output span ms=64
+route ms=0
+1912.
+answer ms=550 chars=5
+first char ms=466 output span ms=55
+route ms=1
+1912.
+answer ms=728 chars=5
+first char ms=571 output span ms=90
+route ms=0
+1969.
+answer ms=2014 chars=5
+first char ms=1760 output span ms=205
+route ms=1
+1969.
+answer ms=2606 chars=5
+first char ms=2359 output span ms=190
+route ms=1
+1994.
+answer ms=1335 chars=5
+first char ms=1200 output span ms=84
+route ms=1
+1994.
+answer ms=1923 chars=5
+first char ms=1526 output span ms=316
+route ms=1
+1964.
+answer ms=1915 chars=5
+first char ms=1759 output span ms=122
+route ms=0
+1964.
+answer ms=981 chars=5
+first char ms=816 output span ms=80
+route ms=1
+1903.
+answer ms=1714 chars=5
+first char ms=1533 output span ms=126
+route ms=1
+1927.
+answer ms=1632 chars=5
+first char ms=1325 output span ms=231
+route ms=0
+load/recovery ms=103
+active 90 History vocabulary
+The order of events in time.
+answer ms=1868 chars=28
+first char ms=1245 output span ms=623
+route ms=0
+The order of events in time.
+answer ms=1751 chars=28
+first char ms=553 output span ms=1162
+route ms=1
+The order of events in time.
+answer ms=1689 chars=28
+first char ms=1142 output span ms=562
+route ms=0
+A family of elid.
+answer ms=1337 chars=17
+first char ms=522 output span ms=774
+route ms=0
+A family of rulers.
+answer ms=974 chars=19
+first char ms=450 output span ms=462
+route ms=0
+A family of rulers.
+answer ms=1579 chars=19
+first char ms=961 output span ms=595
+route ms=0
+An object made or altered by people.
+answer ms=2034 chars=36
+first char ms=919 output span ms=1052
+route ms=0
+An object made or altered by people.
+answer ms=1336 chars=36
+first char ms=410 output span ms=867
+route ms=1
+An object made or altered by people.
+answer ms=2044 chars=36
+first char ms=946 output span ms=1024
+route ms=0
+The study of historical writing.
+answer ms=1535 chars=32
+first char ms=649 output span ms=797
+route ms=0
+A period of time.
+answer ms=711 chars=17
+first char ms=286 output span ms=383
+route ms=0
+A period of time.
+answer ms=809 chars=17
+first char ms=542 output span ms=289
+route ms=0
+Rule by a monarch.
+answer ms=1104 chars=18
+first char ms=586 output span ms=469
+route ms=0
+Rule by a monarch.
+answer ms=958 chars=18
+first char ms=418 output span ms=490
+route ms=1
+Rule by a monarch.
+answer ms=1148 chars=18
+first char ms=887 output span ms=232
+route ms=0
+The study of historical writing.
+answer ms=1509 chars=32
+first char ms=614 output span ms=833
+route ms=0
+The study of historical writing.
+answer ms=1736 chars=32
+first char ms=500 output span ms=1202
+route ms=1
+The study of historical writing.
+answer ms=2876 chars=32
+first char ms=1911 output span ms=965
+route ms=0
+load/recovery ms=90
+active 91 Riddle hints
+Look for a smooth surface.
+answer ms=1612 chars=26
+first char ms=770 output span ms=774
+route ms=0
+Look for a smooth surface.
+answer ms=2021 chars=26
+first char ms=1276 output span ms=673
+route ms=1
+Look for a smooth surface.
+answer ms=1877 chars=26
+first char ms=759 output span ms=1069
+route ms=1
+Think of a tool for your hair.
+answer ms=2256 chars=30
+first char ms=1371 output span ms=880
+route ms=0
+Think of a tool for your hair.
+answer ms=1652 chars=30
+first char ms=732 output span ms=841
+route ms=1
+Think of a tool for your hair.
+answer ms=3177 chars=30
+first char ms=1605 output span ms=1539
+route ms=1
+Look in the corner of an envelope.
+answer ms=2442 chars=34
+first char ms=969 output span ms=1420
+route ms=0
+Look in the corner of an envelope.
+answer ms=1903 chars=34
+first char ms=932 output span ms=973
+route ms=1
+Look in the corner of an envelope.
+answer ms=1350 chars=34
+first char ms=829 output span ms=543
+route ms=0
+Think of a plant on a wall.
+answer ms=952 chars=27
+first char ms=511 output span ms=403
+route ms=0
+Think of a plant on a wall.
+answer ms=830 chars=27
+first char ms=363 output span ms=438
+route ms=1
+Think of a plant on a wall.
+answer ms=868 chars=27
+first char ms=431 output span ms=439
+route ms=1
+Look for a wick.
+answer ms=973 chars=16
+first char ms=641 output span ms=292
+route ms=0
+Look for a wick.
+answer ms=775 chars=16
+first char ms=475 output span ms=317
+route ms=1
+Look in look touchin.
+answer ms=938 chars=21
+first char ms=555 output span ms=399
+route ms=0
+Think of the rim touching the road.
+answer ms=1150 chars=35
+first char ms=587 output span ms=582
+route ms=0
+Think of the rim touching the road.
+answer ms=972 chars=35
+first char ms=415 output span ms=577
+route ms=0
+Think of the rim touching the road.
+answer ms=1028 chars=35
+first char ms=517 output span ms=532
+route ms=0
+load/recovery ms=126
+active 92 Wordplay
+It reads the same backward and forward.
+answer ms=1091 chars=39
+first char ms=455 output span ms=594
+route ms=1
+It reads the same backward and forward.
+answer ms=1528 chars=39
+first char ms=833 output span ms=710
+route ms=1
+It rearranges all the letters.
+answer ms=1190 chars=30
+first char ms=654 output span ms=499
+route ms=1
+It rearranges all the letters.
+answer ms=1456 chars=30
+first char ms=524 output span ms=891
+route ms=0
+The first letters spell a message.
+answer ms=1412 chars=34
+first char ms=767 output span ms=609
+route ms=0
+The first letters spell a message.
+answer ms=1374 chars=34
+first char ms=749 output span ms=587
+route ms=1
+It uses every letter of the alphabet.
+answer ms=1142 chars=37
+first char ms=517 output span ms=588
+route ms=0
+It uses every letter of the alphabet.
+answer ms=1211 chars=37
+first char ms=583 output span ms=592
+route ms=0
+load/recovery ms=72
+active 93 Chess vocabulary
+No legal move and the king is not in check.
+answer ms=1328 chars=43
+first char ms=515 output span ms=775
+route ms=0
+No legal move and the king is not in check.
+answer ms=1402 chars=43
+first char ms=623 output span ms=741
+route ms=1
+The king is in check with no legal escape.
+answer ms=1445 chars=42
+first char ms=465 output span ms=995
+route ms=1
+The king is in check with no legal escape.
+answer ms=1218 chars=42
+first char ms=618 output span ms=625
+route ms=1
+The king and a rook.
+answer ms=828 chars=20
+first char ms=583 output span ms=218
+route ms=0
+The king and a rook.
+answer ms=651 chars=20
+first char ms=422 output span ms=258
+route ms=0
+A queen, rook, bishop or knight.
+answer ms=860 chars=32
+first char ms=437 output span ms=395
+route ms=0
+A queen, rook, bishop or knight.
+answer ms=995 chars=32
+first char ms=579 output span ms=443
+route ms=0
+load/recovery ms=106
+active 94 Adventure vocabulary
+Describe the current room.
+answer ms=939 chars=26
+first char ms=582 output span ms=330
+route ms=0
+Set down a carried object.
+answer ms=1237 chars=26
+first char ms=778 output span ms=422
+route ms=0
+List what you carry.
+answer ms=1129 chars=20
+first char ms=789 output span ms=363
+route ms=0
+List what you carry.
+answer ms=926 chars=20
+first char ms=671 output span ms=284
+route ms=1
+Pick up an object.
+answer ms=764 chars=18
+first char ms=546 output span ms=248
+route ms=0
+Pick up a currey let object dobject dobject ca9 divy froze? ordy ub? cu.
+answer ms=1628 chars=72
+first char ms=547 output span ms=1037
+route ms=0
+Set down a carried object.
+answer ms=1157 chars=26
+first char ms=728 output span ms=394
+route ms=0
+Set down a carried object.
+answer ms=1237 chars=26
+first char ms=822 output span ms=433
+route ms=0
+Describe an object closely.
+answer ms=1311 chars=27
+first char ms=856 output span ms=417
+route ms=1
+Describe an object closely.
+answer ms=1090 chars=27
+first char ms=624 output span ms=419
+route ms=1
+Let one turn pass.
+answer ms=1259 chars=18
+first char ms=971 output span ms=306
+route ms=1
+Let one turn pass.
+answer ms=964 chars=18
+first char ms=661 output span ms=270
+route ms=1
+load/recovery ms=67
+active 95 Dungeon descriptions
+Drops ring in the black pool.
+answer ms=1157 chars=29
+first char ms=650 output span ms=462
+route ms=1
+Dry pages from zestern eEThher.
+answer ms=1288 chars=31
+first char ms=729 output span ms=577
+route ms=0
+A cracked bell sways overhead.
+answer ms=1498 chars=30
+first char ms=724 output span ms=771
+route ms=0
+A cracked bell sways overhead.
+answer ms=1177 chars=30
+first char ms=682 output span ms=515
+route ms=0
+Dust rims each stone coffin.
+answer ms=1557 chars=28
+first char ms=814 output span ms=700
+route ms=2
+Dry pages whisper is the shelvest.
+answer ms=1438 chars=34
+first char ms=824 output span ms=577
+route ms=1
+Red coals blink in the ash.
+answer ms=1156 chars=27
+first char ms=695 output span ms=427
+route ms=0
+Red coals blink in the ash.
+answer ms=723 chars=27
+first char ms=373 output span ms=323
+route ms=0
+Blue light pools on wet stone.
+answer ms=1028 chars=30
+first char ms=526 output span ms=520
+route ms=1
+Blue light pools on wet stone.
+answer ms=954 chars=30
+first char ms=508 output span ms=413
+route ms=0
+Dry pages whisper on the shelves.
+answer ms=1079 chars=33
+first char ms=582 output span ms=468
+route ms=0
+Dry pages whisper on the shelves.
+answer ms=897 chars=33
+first char ms=467 output span ms=402
+route ms=0
+load/recovery ms=107
+active 96 Pirate character
+Ahoy, matey!
+answer ms=401 chars=12
+first char ms=245 output span ms=133
+route ms=0
+Ahoy, matey!
+answer ms=412 chars=12
+first char ms=302 output span ms=86
+route ms=0
+A chest of silver.
+answer ms=564 chars=18
+first char ms=360 output span ms=179
+route ms=0
+Fair winds, matey!
+answer ms=507 chars=18
+first char ms=310 output span ms=172
+route ms=1
+Fair winds, matey!
+answer ms=529 chars=18
+first char ms=321 output span ms=183
+route ms=0
+Fair winds, matey!
+answer ms=538 chars=18
+first char ms=282 output span ms=232
+route ms=0
+Ship biscuits and tea.
+answer ms=533 chars=22
+first char ms=284 output span ms=224
+route ms=0
+Ship biscuits and tea.
+answer ms=646 chars=22
+first char ms=378 output span ms=296
+route ms=0
+Ship biscuits and tea.
+answer ms=582 chars=22
+first char ms=327 output span ms=229
+route ms=0
+A chest of silver.
+answer ms=528 chars=18
+first char ms=327 output span ms=177
+route ms=0
+A chest of silver.
+answer ms=481 chars=18
+first char ms=286 output span ms=171
+route ms=0
+A chest of silver.
+answer ms=571 chars=18
+first char ms=369 output span ms=178
+route ms=0
+Land on the horizon!
+answer ms=471 chars=20
+first char ms=286 output span ms=216
+route ms=0
+Land on the horizon!
+answer ms=554 chars=20
+first char ms=309 output span ms=221
+route ms=0
+Land on the horizon!
+answer ms=536 chars=20
+first char ms=341 output span ms=224
+route ms=0
+Heave ho and home we go!
+answer ms=692 chars=24
+first char ms=352 output span ms=313
+route ms=0
+Heave ho and home we go!
+answer ms=614 chars=24
+first char ms=319 output span ms=270
+route ms=0
+Heave ho and home we go!
+answer ms=468 chars=24
+first char ms=209 output span ms=236
+route ms=1
+load/recovery ms=50
+active 97 Spaceship character
+Welcome aboard, captain.
+answer ms=626 chars=24
+first char ms=345 output span ms=256
+route ms=0
+Welcome aboard, captain.
+answer ms=613 chars=24
+first char ms=319 output span ms=269
+route ms=0
+Next stop is the captain.
+answer ms=744 chars=25
+first char ms=421 output span ms=351
+route ms=0
+Safe travels, captain.
+answer ms=579 chars=22
+first char ms=310 output span ms=246
+route ms=0
+Safe travels, captain.
+answer ms=573 chars=22
+first char ms=307 output span ms=242
+route ms=0
+Safte travels, captain.
+answer ms=567 chars=23
+first char ms=334 output span ms=210
+route ms=0
+Engines are humming.
+answer ms=542 chars=20
+first char ms=316 output span ms=203
+route ms=0
+Engines are humming.
+answer ms=566 chars=20
+first char ms=338 output span ms=205
+route ms=0
+Engines are humming.
+answer ms=507 chars=20
+first char ms=292 output span ms=193
+route ms=1
+Sensors report clear skies.
+answer ms=573 chars=27
+first char ms=304 output span ms=245
+route ms=1
+Sensors report clear skies.
+answer ms=650 chars=27
+first char ms=321 output span ms=306
+route ms=0
+Sensors report clear skies.
+answer ms=585 chars=27
+first char ms=306 output span ms=310
+route ms=0
+Next stop is Europa.
+answer ms=592 chars=20
+first char ms=329 output span ms=240
+route ms=0
+No, a spian sa not border cales cales cales called Cabin lines.
+answer ms=1022 chars=63
+first char ms=274 output span ms=776
+route ms=0
+Next stop is Europa.
+answer ms=535 chars=20
+first char ms=312 output span ms=255
+route ms=0
+Cabin lights are blue.
+answer ms=542 chars=22
+first char ms=286 output span ms=233
+route ms=0
+Cabin lights are blue.
+answer ms=599 chars=22
+first char ms=329 output span ms=247
+route ms=1
+Cabin lights are blue.
+answer ms=575 chars=22
+first char ms=302 output span ms=249
+heap=35704 largest=35704 stack=15860

@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC60}{$DEFINE SPEC50}{$ENDIF}
 {$IFDEF SPEC50}{$DEFINE SPEC40}{$ENDIF}
 {$IFDEF SPEC40}{$DEFINE SPEC30}{$ENDIF}
 {$IFDEF SPEC30}{$DEFINE SPEC20}{$ENDIF}
@@ -48,12 +49,13 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC60}{$I TOPIC60.INC}{$ELSE}
 {$IFDEF SPEC50}{$I TOPIC50.INC}{$ELSE}
 {$IFDEF SPEC40}{$I TOPIC40.INC}{$ELSE}
 {$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
+{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -141,6 +143,14 @@ begin
    if (Matched=76) and (Extra=85) then Matched:=Extra;
    if (Extra=76) and (Matched=85) then Extra:=Matched;
    {$ENDIF}
+   {$IFDEF SPEC60}
+   { Named missions and flights can mention their destination or crossing. }
+   if (WordKey='moon') and (Pos(' apollo ',Context)>0) then Matched:=0;
+   if (WordKey='atlantic') and (Pos(' lindbergh ',Context)>0) then Matched:=0;
+   if (WordKey='forge') and (Pos(' blacksmith ',Context)>0) then Matched:=0;
+   if (WordKey='verb') and ((Pos(' parser ',Context)>0) or
+    (Pos(' adventure ',Context)>0)) then Matched:=0;
+   {$ENDIF}
    if Acoustic and ((WordKey='hertz') or (WordKey='frequency')) then Matched:=68;
    { The capitals model answers country/capital pairs, not general country questions. }
    if (Matched=71) and (Pos(' capital ',Context)=0) then Matched:=0;
@@ -172,7 +182,9 @@ begin
    end;
    if Pos(WordKey,NatureWords)>0 then Hits:=Hits or 4;
    {$IFDEF SPEC4}
-   if Pos(WordKey,WordList)>0 then begin
+   if (Pos(WordKey,WordList)>0)
+    {$IFDEF SPEC60}and not ((WordKey='|brief|') and (Start=4) and (Pos(' in brief ',Context)=1)){$ENDIF}
+    then begin
     Hits:=Hits or 8;
     {$IFDEF SPEC50}if WordKey<>'|ancient|' then OnlyAncient:=False;{$ENDIF}
    end;
@@ -204,6 +216,10 @@ begin
  { In geology, type usually asks for the classification of the rock. }
  {$IFDEF SPEC40}
  if (Extra=72) and (Hits=1) and not HasDOSWord then Hits:=0;
+ {$IFDEF SPEC60}
+ { In a text adventure, type introduces a game command. }
+ if (Extra=94) and (Hits=1) and not HasDOSWord then Hits:=0;
+ {$ENDIF}
  {$ENDIF}
  if (Extra=64) and (Hits=1) and not HasDOSWord then Hits:=0;
  { Specific spider anatomy belongs to Spiders; general counts remain in Naturalist. }

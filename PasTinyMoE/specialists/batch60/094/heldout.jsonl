@@ -1,0 +1,12 @@
+{"question": "what should the adventure parser do when i enter look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "i type look at the adventure prompt what information comes back", "answer": "Describe the current room.", "fact": "look"}
+{"question": "what should the adventure parser do when i enter inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "in an adventure what list appears when i request inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "what should the adventure parser do when i enter take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "take lantern starts with which action in the adventure", "answer": "Pick up an object.", "fact": "take"}
+{"question": "what should the adventure parser do when i enter drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "if i drop a coin in an adventure what does the verb mean", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "what should the adventure parser do when i enter examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "in an adventure why might i examine the statue", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "what should the adventure parser do when i enter wait", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "why would i enter wait at an adventure prompt", "answer": "Let one turn pass.", "fact": "wait"}

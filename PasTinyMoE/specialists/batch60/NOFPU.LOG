@@ -1,0 +1,19 @@
+catalog/init ms=50
+FPU no
+heap=519904 largest=519904 stack=15860
+load/recovery ms=788
+active 1 DOS Guide
+heap=35704 largest=35704 stack=15860
+route ms=2
+load/recovery ms=612
+active 88 Spaceflight
+1957.
+answer ms=35341 chars=5
+first char ms=31476 output span ms=3010
+route ms=4
+load/recovery ms=516
+active 89 Transport History
+1903.
+answer ms=43412 chars=5
+first char ms=40223 output span ms=2570
+heap=35704 largest=35704 stack=15860

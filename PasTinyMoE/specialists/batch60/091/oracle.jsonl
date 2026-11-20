@@ -1,0 +1,18 @@
+{"question": "nudge me on the silver twin riddle", "expected": "Look for a smooth surface.", "output": "Look for a smooth surface.", "exact": true}
+{"question": "could i get a silver twin hint", "expected": "Look for a smooth surface.", "output": "Look for a smooth surface.", "exact": true}
+{"question": "one clue about silver twin please", "expected": "Look for a smooth surface.", "output": "Look for a smooth surface.", "exact": true}
+{"question": "nudge me on the hungry teeth riddle", "expected": "Think of a tool for your hair.", "output": "Think of a tool for your hair.", "exact": true}
+{"question": "could i get a hungry teeth hint", "expected": "Think of a tool for your hair.", "output": "Think of a tool for your hair.", "exact": true}
+{"question": "one clue about hungry teeth please", "expected": "Think of a tool for your hair.", "output": "Think of a tool for your hair.", "exact": true}
+{"question": "nudge me on the paper traveler riddle", "expected": "Look in the corner of an envelope.", "output": "Look in the corner of an envelope.", "exact": true}
+{"question": "could i get a paper traveler hint", "expected": "Look in the corner of an envelope.", "output": "Look in the corner of an envelope.", "exact": true}
+{"question": "one clue about paper traveler please", "expected": "Look in the corner of an envelope.", "output": "Look in the corner of an envelope.", "exact": true}
+{"question": "nudge me on the quiet climber riddle", "expected": "Think of a plant on a wall.", "output": "Think of a plant on a wall.", "exact": true}
+{"question": "could i get a quiet climber hint", "expected": "Think of a plant on a wall.", "output": "Think of a plant on a wall.", "exact": true}
+{"question": "one clue about quiet climber please", "expected": "Think of a plant on a wall.", "output": "Think of a plant on a wall.", "exact": true}
+{"question": "nudge me on the melted tower riddle", "expected": "Look for a wick.", "output": "Look for a wick.", "exact": true}
+{"question": "could i get a melted tower hint", "expected": "Look for a wick.", "output": "Look for a wick.", "exact": true}
+{"question": "one clue about melted tower please", "expected": "Look for a wick.", "output": "Look in look touchin.", "exact": false}
+{"question": "nudge me on the round runner riddle", "expected": "Think of the rim touching the road.", "output": "Think of the rim touching the road.", "exact": true}
+{"question": "could i get a round runner hint", "expected": "Think of the rim touching the road.", "output": "Think of the rim touching the road.", "exact": true}
+{"question": "one clue about round runner please", "expected": "Think of the rim touching the road.", "output": "Think of the rim touching the road.", "exact": true}

@@ -1,0 +1,18 @@
+{"question": "how would a historian define chronology", "expected": "The order of events in time.", "output": "The order of events in time.", "exact": true}
+{"question": "chronology means what", "expected": "The order of events in time.", "output": "The order of events in time.", "exact": true}
+{"question": "give a short definition for chronology", "expected": "The order of events in time.", "output": "The order of events in time.", "exact": true}
+{"question": "how would a historian define dynasty", "expected": "A family of rulers.", "output": "A family of elid.", "exact": false}
+{"question": "dynasty means what", "expected": "A family of rulers.", "output": "A family of rulers.", "exact": true}
+{"question": "give a short definition for dynasty", "expected": "A family of rulers.", "output": "A family of rulers.", "exact": true}
+{"question": "how would a historian define artifact", "expected": "An object made or altered by people.", "output": "An object made or altered by people.", "exact": true}
+{"question": "artifact means what", "expected": "An object made or altered by people.", "output": "An object made or altered by people.", "exact": true}
+{"question": "give a short definition for artifact", "expected": "An object made or altered by people.", "output": "An object made or altered by people.", "exact": true}
+{"question": "how would a historian define era", "expected": "A period of time.", "output": "The study of historical writing.", "exact": false}
+{"question": "era means what", "expected": "A period of time.", "output": "A period of time.", "exact": true}
+{"question": "give a short definition for era", "expected": "A period of time.", "output": "A period of time.", "exact": true}
+{"question": "how would a historian define monarchy", "expected": "Rule by a monarch.", "output": "Rule by a monarch.", "exact": true}
+{"question": "monarchy means what", "expected": "Rule by a monarch.", "output": "Rule by a monarch.", "exact": true}
+{"question": "give a short definition for monarchy", "expected": "Rule by a monarch.", "output": "Rule by a monarch.", "exact": true}
+{"question": "how would a historian define historiography", "expected": "The study of historical writing.", "output": "The study of historical writing.", "exact": true}
+{"question": "historiography means what", "expected": "The study of historical writing.", "output": "The study of historical writing.", "exact": true}
+{"question": "give a short definition for historiography", "expected": "The study of historical writing.", "output": "The study of historical writing.", "exact": true}

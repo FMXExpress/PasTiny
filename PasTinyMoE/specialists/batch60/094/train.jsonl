@@ -1,0 +1,96 @@
+{"question": "what does look mean in an adventure", "answer": "Describe the current room.", "fact": "look"}
+{"question": "explain the adventure command look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "what is the parser verb look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "define look in a text adventure", "answer": "Describe the current room.", "fact": "look"}
+{"question": "in this adventure what does look do", "answer": "Describe the current room.", "fact": "look"}
+{"question": "what happens if i type look in the adventure", "answer": "Describe the current room.", "fact": "look"}
+{"question": "describe the parser command look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "how is look used in this adventure", "answer": "Describe the current room.", "fact": "look"}
+{"question": "tell me about the adventure verb look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "give the parser meaning of look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "explain look for an adventure player", "answer": "Describe the current room.", "fact": "look"}
+{"question": "what is look for in the adventure", "answer": "Describe the current room.", "fact": "look"}
+{"question": "what action does the adventure verb look request", "answer": "Describe the current room.", "fact": "look"}
+{"question": "why use look in the parser", "answer": "Describe the current room.", "fact": "look"}
+{"question": "tell me what look means to the parser", "answer": "Describe the current room.", "fact": "look"}
+{"question": "in an adventure game define look", "answer": "Describe the current room.", "fact": "look"}
+{"question": "what does inventory mean in an adventure", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "explain the adventure command inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "what is the parser verb inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "define inventory in a text adventure", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "in this adventure what does inventory do", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "what happens if i type inventory in the adventure", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "describe the parser command inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "how is inventory used in this adventure", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "tell me about the adventure verb inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "give the parser meaning of inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "explain inventory for an adventure player", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "what is inventory for in the adventure", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "what action does the adventure verb inventory request", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "why use inventory in the parser", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "tell me what inventory means to the parser", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "in an adventure game define inventory", "answer": "List what you carry.", "fact": "inventory"}
+{"question": "what does take mean in an adventure", "answer": "Pick up an object.", "fact": "take"}
+{"question": "explain the adventure command take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "what is the parser verb take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "define take in a text adventure", "answer": "Pick up an object.", "fact": "take"}
+{"question": "in this adventure what does take do", "answer": "Pick up an object.", "fact": "take"}
+{"question": "what happens if i type take in the adventure", "answer": "Pick up an object.", "fact": "take"}
+{"question": "describe the parser command take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "how is take used in this adventure", "answer": "Pick up an object.", "fact": "take"}
+{"question": "tell me about the adventure verb take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "give the parser meaning of take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "explain take for an adventure player", "answer": "Pick up an object.", "fact": "take"}
+{"question": "what is take for in the adventure", "answer": "Pick up an object.", "fact": "take"}
+{"question": "what action does the adventure verb take request", "answer": "Pick up an object.", "fact": "take"}
+{"question": "why use take in the parser", "answer": "Pick up an object.", "fact": "take"}
+{"question": "tell me what take means to the parser", "answer": "Pick up an object.", "fact": "take"}
+{"question": "in an adventure game define take", "answer": "Pick up an object.", "fact": "take"}
+{"question": "what does drop mean in an adventure", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "explain the adventure command drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "what is the parser verb drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "define drop in a text adventure", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "in this adventure what does drop do", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "what happens if i type drop in the adventure", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "describe the parser command drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "how is drop used in this adventure", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "tell me about the adventure verb drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "give the parser meaning of drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "explain drop for an adventure player", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "what is drop for in the adventure", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "what action does the adventure verb drop request", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "why use drop in the parser", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "tell me what drop means to the parser", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "in an adventure game define drop", "answer": "Set down a carried object.", "fact": "drop"}
+{"question": "what does examine mean in an adventure", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "explain the adventure command examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "what is the parser verb examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "define examine in a text adventure", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "in this adventure what does examine do", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "what happens if i type examine in the adventure", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "describe the parser command examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "how is examine used in this adventure", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "tell me about the adventure verb examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "give the parser meaning of examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "explain examine for an adventure player", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "what is examine for in the adventure", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "what action does the adventure verb examine request", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "why use examine in the parser", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "tell me what examine means to the parser", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "in an adventure game define examine", "answer": "Describe an object closely.", "fact": "examine"}
+{"question": "what does wait mean in an adventure", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "explain the adventure command wait", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "what is the parser verb wait", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "define wait in a text adventure", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "in this adventure what does wait do", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "what happens if i type wait in the adventure", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "describe the parser command wait", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "how is wait used in this adventure", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "tell me about the adventure verb wait", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "give the parser meaning of wait", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "explain wait for an adventure player", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "what is wait for in the adventure", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "what action does the adventure verb wait request", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "why use wait in the parser", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "tell me what wait means to the parser", "answer": "Let one turn pass.", "fact": "wait"}
+{"question": "in an adventure game define wait", "answer": "Let one turn pass.", "fact": "wait"}

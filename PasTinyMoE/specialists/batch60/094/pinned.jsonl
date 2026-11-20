@@ -1,0 +1,12 @@
+{"question": "what should the adventure parser do when i enter look", "answer": "Describe the current room.", "fact": "look", "output": "Describe the current room.", "exact": true}
+{"question": "i type look at the adventure prompt what information comes back", "answer": "Describe the current room.", "fact": "look", "output": "Set down a carried object.", "exact": false}
+{"question": "what should the adventure parser do when i enter inventory", "answer": "List what you carry.", "fact": "inventory", "output": "List what you carry.", "exact": true}
+{"question": "in an adventure what list appears when i request inventory", "answer": "List what you carry.", "fact": "inventory", "output": "List what you carry.", "exact": true}
+{"question": "what should the adventure parser do when i enter take", "answer": "Pick up an object.", "fact": "take", "output": "Pick up an object.", "exact": true}
+{"question": "take lantern starts with which action in the adventure", "answer": "Pick up an object.", "fact": "take", "output": "Pick up a currey let object dobject dobject ca9 divy froze? ordy ub? cu.", "exact": false}
+{"question": "what should the adventure parser do when i enter drop", "answer": "Set down a carried object.", "fact": "drop", "output": "Set down a carried object.", "exact": true}
+{"question": "if i drop a coin in an adventure what does the verb mean", "answer": "Set down a carried object.", "fact": "drop", "output": "Set down a carried object.", "exact": true}
+{"question": "what should the adventure parser do when i enter examine", "answer": "Describe an object closely.", "fact": "examine", "output": "Describe an object closely.", "exact": true}
+{"question": "in an adventure why might i examine the statue", "answer": "Describe an object closely.", "fact": "examine", "output": "Describe an object closely.", "exact": true}
+{"question": "what should the adventure parser do when i enter wait", "answer": "Let one turn pass.", "fact": "wait", "output": "Let one turn pass.", "exact": true}
+{"question": "why would i enter wait at an adventure prompt", "answer": "Let one turn pass.", "fact": "wait", "output": "Let one turn pass.", "exact": true}

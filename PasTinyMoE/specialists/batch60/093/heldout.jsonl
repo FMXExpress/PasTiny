@@ -1,0 +1,8 @@
+{"question": "what conditions identify stalemate", "answer": "No legal move and the king is not in check.", "fact": "stalemate"}
+{"question": "what does stalemate mean for the side to move", "answer": "No legal move and the king is not in check.", "fact": "stalemate"}
+{"question": "what conditions amount to checkmate", "answer": "The king is in check with no legal escape.", "fact": "checkmate"}
+{"question": "explain what it means to be in checkmate", "answer": "The king is in check with no legal escape.", "fact": "checkmate"}
+{"question": "castling changes the squares of which two pieces", "answer": "The king and a rook.", "fact": "castling"}
+{"question": "which pieces move together when castling", "answer": "The king and a rook.", "fact": "castling"}
+{"question": "list the replacement pieces for promotion", "answer": "A queen, rook, bishop or knight.", "fact": "promotion"}
+{"question": "which pieces are available when a pawn earns promotion", "answer": "A queen, rook, bishop or knight.", "fact": "promotion"}

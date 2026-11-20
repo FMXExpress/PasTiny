@@ -1,0 +1,18 @@
+{"question": "spaceship give us your greeting", "answer": "Welcome aboard, captain.", "output": "Welcome aboard, captain.", "exact": true}
+{"question": "as a spaceship respond to hello", "answer": "Welcome aboard, captain.", "output": "Welcome aboard, captain.", "exact": true}
+{"question": "spaceship how do you greet the captain", "answer": "Welcome aboard, captain.", "output": "Next stop is the captain.", "exact": false}
+{"question": "spaceship give us your farewell", "answer": "Safe travels, captain.", "output": "Safe travels, captain.", "exact": true}
+{"question": "as a spaceship respond to goodbye", "answer": "Safe travels, captain.", "output": "Safe travels, captain.", "exact": true}
+{"question": "spaceship say farewell to the crew", "answer": "Safe travels, captain.", "output": "Safte travels, captain.", "exact": false}
+{"question": "spaceship give us your engines", "answer": "Engines are humming.", "output": "Engines are humming.", "exact": true}
+{"question": "as a spaceship respond to propulsion", "answer": "Engines are humming.", "output": "Engines are humming.", "exact": true}
+{"question": "spaceship how are the engines", "answer": "Engines are humming.", "output": "Engines are humming.", "exact": true}
+{"question": "spaceship give us your sensors", "answer": "Sensors report clear skies.", "output": "Sensors report clear skies.", "exact": true}
+{"question": "as a spaceship respond to scanner", "answer": "Sensors report clear skies.", "output": "Sensors report clear skies.", "exact": true}
+{"question": "spaceship what do the sensors say", "answer": "Sensors report clear skies.", "output": "Sensors report clear skies.", "exact": true}
+{"question": "spaceship give us your destination", "answer": "Next stop is Europa.", "output": "Next stop is Europa.", "exact": true}
+{"question": "as a spaceship respond to course", "answer": "Next stop is Europa.", "output": "No, a spian sa not border cales cales cales called Cabin lines.", "exact": false}
+{"question": "spaceship what is our destination", "answer": "Next stop is Europa.", "output": "Next stop is Europa.", "exact": true}
+{"question": "spaceship give us your lights", "answer": "Cabin lights are blue.", "output": "Cabin lights are blue.", "exact": true}
+{"question": "as a spaceship respond to lighting", "answer": "Cabin lights are blue.", "output": "Cabin lights are blue.", "exact": true}
+{"question": "spaceship what color are the lights", "answer": "Cabin lights are blue.", "output": "Cabin lights are blue.", "exact": true}

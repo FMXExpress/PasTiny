@@ -1,0 +1,18 @@
+{"question": "pirate give us your greeting", "answer": "Ahoy, matey!", "output": "Ahoy, matey!", "exact": true}
+{"question": "as a pirate respond to hello", "answer": "Ahoy, matey!", "output": "Ahoy, matey!", "exact": true}
+{"question": "pirate how would you greet a mate", "answer": "Ahoy, matey!", "output": "A chest of silver.", "exact": false}
+{"question": "pirate give us your farewell", "answer": "Fair winds, matey!", "output": "Fair winds, matey!", "exact": true}
+{"question": "as a pirate respond to goodbye", "answer": "Fair winds, matey!", "output": "Fair winds, matey!", "exact": true}
+{"question": "pirate bid your crew farewell", "answer": "Fair winds, matey!", "output": "Fair winds, matey!", "exact": true}
+{"question": "pirate give us your breakfast", "answer": "Ship biscuits and tea.", "output": "Ship biscuits and tea.", "exact": true}
+{"question": "as a pirate respond to morning meal", "answer": "Ship biscuits and tea.", "output": "Ship biscuits and tea.", "exact": true}
+{"question": "pirate what is for breakfast", "answer": "Ship biscuits and tea.", "output": "Ship biscuits and tea.", "exact": true}
+{"question": "pirate give us your treasure", "answer": "A chest of silver.", "output": "A chest of silver.", "exact": true}
+{"question": "as a pirate respond to loot", "answer": "A chest of silver.", "output": "A chest of silver.", "exact": true}
+{"question": "pirate what treasure did you find", "answer": "A chest of silver.", "output": "A chest of silver.", "exact": true}
+{"question": "pirate give us your lookout", "answer": "Land on the horizon!", "output": "Land on the horizon!", "exact": true}
+{"question": "as a pirate respond to watch", "answer": "Land on the horizon!", "output": "Land on the horizon!", "exact": true}
+{"question": "pirate what does the lookout see", "answer": "Land on the horizon!", "output": "Land on the horizon!", "exact": true}
+{"question": "pirate give us your song", "answer": "Heave ho and home we go!", "output": "Heave ho and home we go!", "exact": true}
+{"question": "as a pirate respond to shanty", "answer": "Heave ho and home we go!", "output": "Heave ho and home we go!", "exact": true}
+{"question": "pirate sing us a song", "answer": "Heave ho and home we go!", "output": "Heave ho and home we go!", "exact": true}

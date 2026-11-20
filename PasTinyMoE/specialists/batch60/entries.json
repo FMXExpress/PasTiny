@@ -1,0 +1,82 @@
+[
+  {
+    "id": 88,
+    "title": "Spaceflight",
+    "name": "SPACEFLT.BIN",
+    "source": "specialists/models/SPACEFLT.BIN",
+    "sha256": "2758f61065c8b482adb09ab2c1456106064d3017ae8dff9d0b70c14f3c4021e5",
+    "keyword": "sputnik"
+  },
+  {
+    "id": 89,
+    "title": "Transport History",
+    "name": "TRANSIT.BIN",
+    "source": "specialists/models/TRANSIT.BIN",
+    "sha256": "e41dd1de307b77a8fdda4949ad9ef6f36fdd3380c03d65bdd4a23a4348e9f430",
+    "keyword": "flyer"
+  },
+  {
+    "id": 90,
+    "title": "History vocabulary",
+    "name": "HISTVOC.BIN",
+    "source": "specialists/models/HISTVOC.BIN",
+    "sha256": "dcd11a5e69e31485db4895f151364843e5763cb9334941d2f0bca5be287305a0",
+    "keyword": "chronology"
+  },
+  {
+    "id": 91,
+    "title": "Riddle hints",
+    "name": "RIDDLES.BIN",
+    "source": "specialists/models/RIDDLES.BIN",
+    "sha256": "7d4b246f22958e3593618af32d2488dfe546536d698ef050482442c6fd5076c4",
+    "keyword": "riddle"
+  },
+  {
+    "id": 92,
+    "title": "Wordplay",
+    "name": "WORDPLAY.BIN",
+    "source": "specialists/models/WORDPLAY.BIN",
+    "sha256": "8b8776c90ed18addd9a4a3aaa787bb93ce7c616bd00fdcd303d98ef7e6a8ba28",
+    "keyword": "palindrome"
+  },
+  {
+    "id": 93,
+    "title": "Chess vocabulary",
+    "name": "CHESS.BIN",
+    "source": "specialists/models/CHESS.BIN",
+    "sha256": "d6dc71374f5f53ec97eba3e16830fa5ecd8c7ed025ad91cce1f31a6dce9d5b96",
+    "keyword": "stalemate"
+  },
+  {
+    "id": 94,
+    "title": "Adventure vocabulary",
+    "name": "ADVENT.BIN",
+    "source": "specialists/models/ADVENT.BIN",
+    "sha256": "e56102523cdea470b50ebb7de6b9e530dca824e4103a5bf470dfcfffbedb3a65",
+    "keyword": "adventure"
+  },
+  {
+    "id": 95,
+    "title": "Dungeon descriptions",
+    "name": "DUNGEON.BIN",
+    "source": "specialists/models/DUNGEON.BIN",
+    "sha256": "6c50702680a01582ad8269a4d41c7b214774f1c7122db5ced363721b3a6401f6",
+    "keyword": "dungeon"
+  },
+  {
+    "id": 96,
+    "title": "Pirate character",
+    "name": "PIRATE.BIN",
+    "source": "specialists/models/PIRATE.BIN",
+    "sha256": "e0f7232d049490e13f1be5fd369da7e2586f037a6f0d53d29040bd06882d6728",
+    "keyword": "pirate"
+  },
+  {
+    "id": 97,
+    "title": "Spaceship character",
+    "name": "STARSHIP.BIN",
+    "source": "specialists/models/STARSHIP.BIN",
+    "sha256": "3c1a783d4cd917b9c8a2cf7a56e5b4ac848a60db94e943c66aff2bf86eb5cd29",
+    "keyword": "spaceship"
+  }
+]
