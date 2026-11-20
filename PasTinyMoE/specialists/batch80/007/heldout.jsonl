@@ -1,0 +1,8 @@
+{"question": "what does a cluster group together on a fat volume", "answer": "Group of sectors allocated as one unit."}
+{"question": "how does fat allocate a cluster of disk sectors", "answer": "Group of sectors allocated as one unit."}
+{"question": "what is the root directory on a fat16 disk", "answer": "Top directory of the volume."}
+{"question": "where does the root directory sit in a fat12 volume", "answer": "Top directory of the volume."}
+{"question": "what does the allocation table track in fat16", "answer": "Tracks which clusters belong to a chain."}
+{"question": "how does a fat allocation table describe a file chain", "answer": "Tracks which clusters belong to a chain."}
+{"question": "what does the volume label identify on a fat12 disk", "answer": "A name for the volume."}
+{"question": "what is the purpose of a fat16 volume label", "answer": "A name for the volume."}

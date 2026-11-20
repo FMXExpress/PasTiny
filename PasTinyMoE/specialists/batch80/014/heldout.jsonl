@@ -1,0 +1,18 @@
+{"question": "how many bytes does one color text cell occupy", "answer": "2 bytes."}
+{"question": "please describe bytes per color text cell", "answer": "2 bytes."}
+{"question": "remind me about color text cell storage size", "answer": "2 bytes."}
+{"question": "what does the first byte in a text cell store", "answer": "Character code."}
+{"question": "please describe first byte of a text cell", "answer": "Character code."}
+{"question": "remind me about text cell byte zero", "answer": "Character code."}
+{"question": "what does the second byte in a text cell store", "answer": "Attribute byte."}
+{"question": "please describe second byte of a text cell", "answer": "Attribute byte."}
+{"question": "remind me about text cell byte one", "answer": "Attribute byte."}
+{"question": "which color text attribute bits select the foreground", "answer": "Bits 0 to 3."}
+{"question": "please describe foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "remind me about attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "what row and column locate the top left bios cursor", "answer": "Row 0, column 0."}
+{"question": "please describe top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "remind me about bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "why does dos text mode have multiple video pages", "answer": "Separate screen images."}
+{"question": "please describe purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "remind me about role of alternate display pages", "answer": "Separate screen images."}

@@ -1,0 +1,18 @@
+{"question": "what does echo hello print", "expected": "It displays hello.", "output": "It displays hello.", "exact": true}
+{"question": "help me understand echo hello in batch", "expected": "It displays hello.", "output": "It displays hello.", "exact": true}
+{"question": "give the batch meaning of echo hello", "expected": "It displays hello.", "output": "It displays hello.", "exact": true}
+{"question": "what does rem note do in a dos batch file", "expected": "It marks a comment.", "output": "It marks a comment.", "exact": true}
+{"question": "help me understand rem note in batch", "expected": "It marks a comment.", "output": "It marks a comment.", "exact": true}
+{"question": "give the batch meaning of rem note", "expected": "It marks a comment.", "output": "It marks a comment.", "exact": true}
+{"question": "where does goto done continue in a batch file", "expected": "It jumps to the done label.", "output": "It jumps to jumps to the done label.", "exact": false}
+{"question": "help me understand goto done in batch", "expected": "It jumps to the done label.", "output": "It jumps to the done label.", "exact": true}
+{"question": "give the batch meaning of goto done", "expected": "It jumps to the done label.", "output": "It jumps to the done label.", "exact": true}
+{"question": "what does the colon mean at the start of :done", "expected": "It defines the done label.", "output": "It displays hello.", "exact": false}
+{"question": "help me understand :done in batch", "expected": "It defines the done label.", "output": "It definest the done label.", "exact": false}
+{"question": "give the batch meaning of :done", "expected": "It defines the done label.", "output": "It jumps to the done label.", "exact": false}
+{"question": "what value does percent one supply in a dos batch file", "expected": "The first argument.", "output": "It displays hello.", "exact": false}
+{"question": "help me understand %1 in batch", "expected": "The first argument.", "output": "The first argument.", "exact": true}
+{"question": "give the batch meaning of %1", "expected": "The first argument.", "output": "The first argument.", "exact": true}
+{"question": "which argument appears in place of percent two", "expected": "The second argument.", "output": "The displays argum.", "exact": false}
+{"question": "help me understand %2 in batch", "expected": "The second argument.", "output": "The second argument.", "exact": true}
+{"question": "give the batch meaning of %2", "expected": "The second argument.", "output": "The second argument.", "exact": true}

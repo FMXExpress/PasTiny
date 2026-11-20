@@ -1,0 +1,72 @@
+{"question": "echo hello in batch", "answer": "It displays hello."}
+{"question": "define echo hello", "answer": "It displays hello."}
+{"question": "batch echo hello", "answer": "It displays hello."}
+{"question": "what does echo hello mean", "answer": "It displays hello."}
+{"question": "explain echo hello", "answer": "It displays hello."}
+{"question": "echo hello meaning", "answer": "It displays hello."}
+{"question": "describe echo hello", "answer": "It displays hello."}
+{"question": "define echo hello in batch", "answer": "It displays hello."}
+{"question": "what is echo hello in batch", "answer": "It displays hello."}
+{"question": "tell me about echo hello", "answer": "It displays hello."}
+{"question": "explain the batch term echo hello", "answer": "It displays hello."}
+{"question": "in batch explain echo hello", "answer": "It displays hello."}
+{"question": "rem note in batch", "answer": "It marks a comment."}
+{"question": "define rem note", "answer": "It marks a comment."}
+{"question": "batch rem note", "answer": "It marks a comment."}
+{"question": "what does rem note mean", "answer": "It marks a comment."}
+{"question": "explain rem note", "answer": "It marks a comment."}
+{"question": "rem note meaning", "answer": "It marks a comment."}
+{"question": "describe rem note", "answer": "It marks a comment."}
+{"question": "define rem note in batch", "answer": "It marks a comment."}
+{"question": "what is rem note in batch", "answer": "It marks a comment."}
+{"question": "tell me about rem note", "answer": "It marks a comment."}
+{"question": "explain the batch term rem note", "answer": "It marks a comment."}
+{"question": "in batch explain rem note", "answer": "It marks a comment."}
+{"question": "goto done in batch", "answer": "It jumps to the done label."}
+{"question": "define goto done", "answer": "It jumps to the done label."}
+{"question": "batch goto done", "answer": "It jumps to the done label."}
+{"question": "what does goto done mean", "answer": "It jumps to the done label."}
+{"question": "explain goto done", "answer": "It jumps to the done label."}
+{"question": "goto done meaning", "answer": "It jumps to the done label."}
+{"question": "describe goto done", "answer": "It jumps to the done label."}
+{"question": "define goto done in batch", "answer": "It jumps to the done label."}
+{"question": "what is goto done in batch", "answer": "It jumps to the done label."}
+{"question": "tell me about goto done", "answer": "It jumps to the done label."}
+{"question": "explain the batch term goto done", "answer": "It jumps to the done label."}
+{"question": "in batch explain goto done", "answer": "It jumps to the done label."}
+{"question": ":done in batch", "answer": "It defines the done label."}
+{"question": "define :done", "answer": "It defines the done label."}
+{"question": "batch :done", "answer": "It defines the done label."}
+{"question": "what does :done mean", "answer": "It defines the done label."}
+{"question": "explain :done", "answer": "It defines the done label."}
+{"question": ":done meaning", "answer": "It defines the done label."}
+{"question": "describe :done", "answer": "It defines the done label."}
+{"question": "define :done in batch", "answer": "It defines the done label."}
+{"question": "what is :done in batch", "answer": "It defines the done label."}
+{"question": "tell me about :done", "answer": "It defines the done label."}
+{"question": "explain the batch term :done", "answer": "It defines the done label."}
+{"question": "in batch explain :done", "answer": "It defines the done label."}
+{"question": "%1 in batch", "answer": "The first argument."}
+{"question": "define %1", "answer": "The first argument."}
+{"question": "batch %1", "answer": "The first argument."}
+{"question": "what does %1 mean", "answer": "The first argument."}
+{"question": "explain %1", "answer": "The first argument."}
+{"question": "%1 meaning", "answer": "The first argument."}
+{"question": "describe %1", "answer": "The first argument."}
+{"question": "define %1 in batch", "answer": "The first argument."}
+{"question": "what is %1 in batch", "answer": "The first argument."}
+{"question": "tell me about %1", "answer": "The first argument."}
+{"question": "explain the batch term %1", "answer": "The first argument."}
+{"question": "in batch explain %1", "answer": "The first argument."}
+{"question": "%2 in batch", "answer": "The second argument."}
+{"question": "define %2", "answer": "The second argument."}
+{"question": "batch %2", "answer": "The second argument."}
+{"question": "what does %2 mean", "answer": "The second argument."}
+{"question": "explain %2", "answer": "The second argument."}
+{"question": "%2 meaning", "answer": "The second argument."}
+{"question": "describe %2", "answer": "The second argument."}
+{"question": "define %2 in batch", "answer": "The second argument."}
+{"question": "what is %2 in batch", "answer": "The second argument."}
+{"question": "tell me about %2", "answer": "The second argument."}
+{"question": "explain the batch term %2", "answer": "The second argument."}
+{"question": "in batch explain %2", "answer": "The second argument."}

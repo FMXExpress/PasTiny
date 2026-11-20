@@ -1,0 +1,12 @@
+{"question": "how should a beginner understand post in a bios guide", "answer": "Power-on self-test checks hardware at startup.", "fact": "post", "output": "The order in which boovied and triedr tried.", "exact": false}
+{"question": "when the bios mentions post what check is it describing", "answer": "Power-on self-test checks hardware at startup.", "fact": "post", "output": "A hut of which is chool.", "exact": false}
+{"question": "how should a beginner understand cmos setup in a bios guide", "answer": "A utility for changing saved PC settings.", "fact": "cmos setup", "output": "A utility for changing saved PC settings.", "exact": true}
+{"question": "in a bios manual what can the cmos setup utility change", "answer": "A utility for changing saved PC settings.", "fact": "cmos setup", "output": "A utility for changing saved PC settings.", "exact": true}
+{"question": "how should a beginner understand boot sequence in a bios guide", "answer": "The order in which boot devices are tried.", "fact": "boot sequence", "output": "The order in which boot devices are tried.", "exact": true}
+{"question": "why are drives listed in a bios boot sequence", "answer": "The order in which boot devices are tried.", "fact": "boot sequence", "output": "The order in which boot devices are tried.", "exact": true}
+{"question": "how should a beginner understand firmware in a bios guide", "answer": "Software built into the hardware.", "fact": "firmware", "output": "Software built into the hardware.", "exact": true}
+{"question": "in bios terminology what sort of software is firmware", "answer": "Software built into the hardware.", "fact": "firmware", "output": "Software built into the hardware.", "exact": true}
+{"question": "how should a beginner understand rtc in a bios guide", "answer": "The real-time clock keeps date and time.", "fact": "rtc", "output": "The real-time clock keeps date and time.", "exact": true}
+{"question": "what information comes from the rtc on a bios screen", "answer": "The real-time clock keeps date and time.", "fact": "rtc", "output": "The real-time clock keeps date and time.", "exact": true}
+{"question": "how should a beginner understand defaults in a bios guide", "answer": "Preset values supplied by the manufacturer.", "fact": "defaults", "output": "Preset values supplied by the manufacturer.", "exact": true}
+{"question": "what does defaults mean when reading a bios menu", "answer": "Preset values supplied by the manufacturer.", "fact": "defaults", "output": "Preset values supplied by the manufacturer.", "exact": true}

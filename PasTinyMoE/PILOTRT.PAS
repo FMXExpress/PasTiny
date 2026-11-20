@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC80}{$DEFINE SPEC70}{$ENDIF}
 {$IFDEF SPEC70}{$DEFINE SPEC60}{$ENDIF}
 {$IFDEF SPEC60}{$DEFINE SPEC50}{$ENDIF}
 {$IFDEF SPEC50}{$DEFINE SPEC40}{$ENDIF}
@@ -50,6 +51,7 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC80}{$I TOPIC80.INC}{$ELSE}
 {$IFDEF SPEC70}{$I TOPIC70.INC}{$ELSE}
 {$IFDEF SPEC60}{$I TOPIC60.INC}{$ELSE}
 {$IFDEF SPEC50}{$I TOPIC50.INC}{$ELSE}
@@ -57,7 +59,7 @@ type TopicEntry=record Term:String[20]; Id:Byte end;
 {$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
+{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -87,6 +89,33 @@ begin
   (Pos(' antonym ',Q)>0) or (Pos(' antonyms ',Q)>0) or (Pos(' reverse meaning ',Q)>0)
 end;
 {$ENDIF}
+{$IFDEF SPEC80}
+{ Resolve explicit DOS file names and qualified hardware terms before generic words. }
+function DOSGlossaryDomain(Q,Context:String):Byte;
+begin
+ DOSGlossaryDomain:=0;
+ if (Pos(' config sys ',Context)>0) or (Pos(' autoexec bat ',Context)>0) or
+    (Pos(' command com ',Context)>0) then DOSGlossaryDomain:=8
+ else if (Pos(' mda ',Context)>0) or (Pos(' cga ',Context)>0) or
+    (Pos(' ega ',Context)>0) or (Pos(' vga ',Context)>0) then DOSGlossaryDomain:=13
+ else if (Pos(' root directory ',Context)>0) and
+    ((Pos(' fat ',Context)>0) or (Pos(' fat12 ',Context)>0) or (Pos(' fat16 ',Context)>0))
+    then DOSGlossaryDomain:=7
+ else if (Pos(' lock key ',Context)>0) and (Pos(' keyboard ',Context)>0)
+    then DOSGlossaryDomain:=11
+ else if (Pos(' bios cursor ',Context)>0) then DOSGlossaryDomain:=14
+ else if (Pos(' dos text ',Context)>0) and (Pos(' pages ',Context)=0) and
+    (Pos(' mode ',Context)=0) then DOSGlossaryDomain:=10
+ else if (Pos(' carriage return ',Context)>0) or (Pos(' line feed ',Context)>0) or
+    (Pos(' horizontal tab ',Context)>0) or (Pos(' ctrl z ',Context)>0) or
+    (Pos(' file length ',Context)>0) or (Pos(' disk file ',Context)>0) and
+    (Pos(' ends ',Context)>0) then DOSGlossaryDomain:=10
+ else if (Pos(' batch ',Context)>0) or (Pos(' echo hello ',Context)>0) or
+    (Pos(':done',Q)>0) or (Pos('%1',Q)>0) or (Pos('%2',Q)>0) or
+    (Pos(' percent two ',Context)>0) and (Pos(' argument ',Context)>0)
+    then DOSGlossaryDomain:=9
+end;
+{$ENDIF}
 { Return zero when the terms do not identify one supported domain. }
 function PilotDomain(Q:String):Byte;
 const DOSWords='|dos|dir|cd|cls|type|file|files|directory|directories|folder|folders|screen|display|';
@@ -109,6 +138,10 @@ begin
  Hits:=0; I:=1;
  {$IFDEF SPEC40}
  Context:=WordLine(Q);
+ {$IFDEF SPEC80}
+ Extra:=DOSGlossaryDomain(Q,Context);
+ if Extra<>0 then begin PilotDomain:=Extra; Exit end;
+ {$ENDIF}
  {$IFDEF SPEC70}
  BBSContext:=(Pos(' bbs ',Context)>0) or (Pos(' bulletin board ',Context)>0);
  FrontierContext:=(Pos(' frontier ',Context)>0) or (Pos(' frontiersman ',Context)>0) or
@@ -148,6 +181,12 @@ begin
    {$ENDIF}
    {$IFDEF SPEC40}
    WordKey:=Copy(Q,Start,I-Start);
+   {$IFDEF SPEC80}
+   if (Matched=14) and ((WordKey='cell') or (WordKey='cells')) and
+      (Pos(' text ',Context)=0) then Matched:=0;
+   if (WordKey='tab') and (Pos(' protect tab ',Context)>0) then Matched:=0;
+   if (WordKey='cr') or (WordKey='lf') then Matched:=10;
+   {$ENDIF}
    {$IFDEF SPEC50}
    { Scale and legend have several common meanings outside cartography. }
    if ((WordKey='scale') or (WordKey='legend')) and not MapContext then Matched:=0;
@@ -233,6 +272,9 @@ begin
  {$ENDIF}
  {$IFDEF SPEC70}
  { A narrower DOS term specializes its parent domain. }
+ {$IFDEF SPEC80}
+ if (Extra in [7..16]) and (Hits in [1,16,17]) then Hits:=0;
+ {$ENDIF}
  if (Extra=4) and (Hits=1) then Hits:=0;
  if Extra=5 then begin
   if (Pos(' do i have ',Q)>0) or (Pos(' is installed ',Q)>0) then begin PilotDomain:=0; Exit end;

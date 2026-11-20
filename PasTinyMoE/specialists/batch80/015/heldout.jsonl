@@ -1,0 +1,8 @@
+{"question": "what does pixel mean in a bitmap", "answer": "One picture element.", "fact": "pixel"}
+{"question": "explain one pixel of a small bitmap", "answer": "One picture element.", "fact": "pixel"}
+{"question": "what kind of table is a bitmap palette", "answer": "A table of colors.", "fact": "palette"}
+{"question": "what is the purpose of the palette in indexed graphics", "answer": "A table of colors.", "fact": "palette"}
+{"question": "in a bitmap what goes into each bit plane", "answer": "One bit from every pixel.", "fact": "bitplane"}
+{"question": "describe the contents of a bitplane", "answer": "One bit from every pixel.", "fact": "bitplane"}
+{"question": "which part of a bitmap is a scan line", "answer": "One row of pixels.", "fact": "scanline"}
+{"question": "what pixels belong to one scanline", "answer": "One row of pixels.", "fact": "scanline"}

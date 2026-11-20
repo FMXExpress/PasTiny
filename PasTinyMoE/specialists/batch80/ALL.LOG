@@ -1,0 +1,531 @@
+catalog/init ms=32
+FPU yes
+heap=515280 largest=515280 stack=15860
+load/recovery ms=696
+active 1 DOS Guide
+heap=31080 largest=31080 stack=15860
+route ms=2
+load/recovery ms=526
+active 7 FAT Volume Terms
+A name for the volume.
+answer ms=4765 chars=22
+first char ms=3627 output span ms=1055
+route ms=0
+Grove bold step Luden.
+answer ms=3120 chars=22
+first char ms=2022 output span ms=1010
+route ms=0
+The comes after the volume.
+answer ms=5045 chars=27
+first char ms=3155 output span ms=1797
+route ms=0
+To nume.
+answer ms=3917 chars=8
+first char ms=3250 output span ms=526
+route ms=2
+The clusters belong to a chain.
+answer ms=7534 chars=31
+first char ms=3360 output span ms=4119
+route ms=1
+Tracks which clusters belong to a chain.
+answer ms=6941 chars=40
+first char ms=5041 output span ms=1835
+route ms=2
+53.
+answer ms=3602 chars=3
+first char ms=3305 output span ms=163
+route ms=2
+It is 516.
+answer ms=4221 chars=10
+first char ms=3281 output span ms=888
+route ms=0
+load/recovery ms=215
+active 8 DOS Startup Files
+Se6 oses system options and loads drivers.
+answer ms=6662 chars=42
+first char ms=2427 output span ms=4164
+route ms=0
+Sets system options and loads drivers.
+answer ms=4844 chars=38
+first char ms=2405 output span ms=2318
+route ms=0
+Runs startup commands.
+answer ms=3499 chars=22
+first char ms=2164 output span ms=1261
+route ms=1
+Runs startup commands.
+answer ms=4480 chars=22
+first char ms=3001 output span ms=1395
+route ms=0
+The DOS command interpreter.
+answer ms=3394 chars=28
+first char ms=1969 output span ms=1322
+route ms=0
+The DOS pommand interpreter.
+answer ms=5882 chars=28
+first char ms=3638 output span ms=2128
+route ms=0
+load/recovery ms=316
+active 9 Batch file vocabulary
+It displays hello.
+answer ms=1744 chars=18
+first char ms=1004 output span ms=724
+route ms=0
+It displays hello.
+answer ms=2770 chars=18
+first char ms=1692 output span ms=984
+route ms=0
+It displays hello.
+answer ms=2973 chars=18
+first char ms=1851 output span ms=1102
+route ms=0
+It marks a comment.
+answer ms=3433 chars=19
+first char ms=2243 output span ms=1134
+route ms=0
+It marks a comment.
+answer ms=1918 chars=19
+first char ms=1355 output span ms=562
+route ms=0
+It marks a comment.
+answer ms=1408 chars=19
+first char ms=901 output span ms=512
+route ms=0
+It jumps to jumps to the done label.
+answer ms=3954 chars=36
+first char ms=1522 output span ms=2344
+route ms=0
+It jumps to the done label.
+answer ms=2297 chars=27
+first char ms=1246 output span ms=1047
+route ms=0
+It jumps to the done label.
+answer ms=1670 chars=27
+first char ms=762 output span ms=825
+route ms=0
+It displays hello.
+answer ms=2707 chars=18
+first char ms=1787 output span ms=854
+route ms=0
+It definest the done label.
+answer ms=2589 chars=27
+first char ms=1630 output span ms=897
+route ms=0
+It jumps to the done label.
+answer ms=1896 chars=27
+first char ms=744 output span ms=1100
+route ms=1
+It displays hello.
+answer ms=2947 chars=18
+first char ms=1850 output span ms=1015
+route ms=0
+The first argument.
+answer ms=1535 chars=19
+first char ms=841 output span ms=637
+route ms=0
+The first argument.
+answer ms=1019 chars=19
+first char ms=520 output span ms=454
+route ms=0
+The displays argum.
+answer ms=1443 chars=19
+first char ms=1056 output span ms=345
+route ms=0
+The second argument.
+answer ms=1304 chars=20
+first char ms=763 output span ms=541
+route ms=0
+The second argument.
+answer ms=1582 chars=20
+first char ms=1019 output span ms=562
+route ms=0
+load/recovery ms=165
+active 10 Text file conventions
+ASCII 13.
+answer ms=1315 chars=9
+first char ms=999 output span ms=254
+route ms=0
+ASCII 13.
+answer ms=1089 chars=9
+first char ms=857 output span ms=233
+route ms=0
+ASCII 13.
+answer ms=1119 chars=9
+first char ms=883 output span ms=224
+route ms=0
+A hunium 3.
+answer ms=1392 chars=11
+first char ms=1063 output span ms=252
+route ms=0
+ASCII 10.
+answer ms=1144 chars=9
+first char ms=870 output span ms=276
+route ms=0
+ASCII 10.
+answer ms=1124 chars=9
+first char ms=855 output span ms=206
+route ms=0
+ASCII 92.
+answer ms=1865 chars=9
+first char ms=1686 output span ms=141
+route ms=0
+ASCII 9.
+answer ms=804 chars=8
+first char ms=656 output span ms=165
+route ms=0
+ASCII 9.
+answer ms=1181 chars=8
+first char ms=941 output span ms=182
+route ms=0
+ASCII 13.
+answer ms=1935 chars=9
+first char ms=1601 output span ms=329
+route ms=0
+ASCII 13.
+answer ms=1258 chars=9
+first char ms=954 output span ms=236
+route ms=0
+Carriage return then line feed.
+answer ms=1749 chars=31
+first char ms=783 output span ms=931
+route ms=0
+ASCII 10.
+answer ms=1414 chars=9
+first char ms=1087 output span ms=272
+route ms=0
+ASCII 26.
+answer ms=1175 chars=9
+first char ms=942 output span ms=190
+route ms=0
+ASCII 26.
+answer ms=1045 chars=9
+first char ms=746 output span ms=238
+route ms=0
+ASCII 10.
+answer ms=1707 chars=9
+first char ms=1424 output span ms=227
+route ms=0
+The directory stores its size.
+answer ms=2452 chars=30
+first char ms=1580 output span ms=861
+route ms=0
+The directory stores its size.
+answer ms=2134 chars=30
+first char ms=1120 output span ms=995
+route ms=1
+load/recovery ms=154
+active 11 Keyboard terminology
+A code that identifies a physical key.
+answer ms=4314 chars=38
+first char ms=1724 output span ms=2536
+route ms=1
+A code that identifies a physical key.
+answer ms=3842 chars=38
+first char ms=1399 output span ms=2361
+route ms=-53
+Repeated input while a key stays down.
+answer ms=4177 chars=38
+first char ms=2570 output span ms=1598
+route ms=1
+Repeated input while a key stays down.
+answer ms=2926 chars=38
+first char ms=1488 output span ms=1406
+route ms=1
+A key that changes another key's effect.
+answer ms=2452 chars=40
+first char ms=1666 output span ms=760
+route ms=1
+A key that changes another key's effect.
+answer ms=3565 chars=40
+first char ms=1325 output span ms=2156
+route ms=0
+A key that toggles a mode on or off.
+answer ms=2563 chars=36
+first char ms=1913 output span ms=607
+route ms=0
+A key that toggles a mode on or off.
+answer ms=2833 chars=36
+first char ms=1186 output span ms=1616
+route ms=1
+Toggles uppercase letter entry.
+answer ms=2685 chars=31
+first char ms=2202 output span ms=452
+route ms=0
+Toggles uppercase letter entry.
+answer ms=965 chars=31
+first char ms=582 output span ms=354
+route ms=1
+Toggles numeric keypad mode.
+answer ms=1111 chars=28
+first char ms=751 output span ms=332
+route ms=1
+Toggles numeric keypad mode.
+answer ms=853 chars=28
+first char ms=542 output span ms=285
+route ms=0
+load/recovery ms=104
+active 12 BIOS setup glossary
+The order in which boovied and triedr tried.
+answer ms=1938 chars=44
+first char ms=784 output span ms=1118
+route ms=0
+A hut of which is chool.
+answer ms=959 chars=24
+first char ms=653 output span ms=278
+route ms=1
+A utility for changing saved PC settings.
+answer ms=1216 chars=41
+first char ms=612 output span ms=627
+route ms=1
+A utility for changing saved PC settings.
+answer ms=1170 chars=41
+first char ms=632 output span ms=510
+route ms=0
+The order in which boot devices are tried.
+answer ms=1629 chars=42
+first char ms=808 output span ms=833
+route ms=1
+The order in which boot devices are tried.
+answer ms=1578 chars=42
+first char ms=764 output span ms=820
+route ms=0
+Software built into the hardware.
+answer ms=1828 chars=33
+first char ms=968 output span ms=862
+route ms=0
+Software built into the hardware.
+answer ms=2011 chars=33
+first char ms=1265 output span ms=701
+route ms=1
+The real-time clock keeps date and time.
+answer ms=2036 chars=40
+first char ms=1027 output span ms=1010
+route ms=1
+The real-time clock keeps date and time.
+answer ms=2072 chars=40
+first char ms=1078 output span ms=994
+route ms=1
+Preset values supplied by the manufacturer.
+answer ms=2163 chars=43
+first char ms=1325 output span ms=861
+route ms=0
+Preset values supplied by the manufacturer.
+answer ms=1171 chars=43
+first char ms=549 output span ms=592
+route ms=0
+load/recovery ms=54
+active 13 Display adapters
+840 columns by 25 rows.
+answer ms=759 chars=23
+first char ms=473 output span ms=261
+route ms=1
+80 columns by 25 rows.
+answer ms=708 chars=22
+first char ms=459 output span ms=279
+route ms=0
+80 columns by 25 rows.
+answer ms=740 chars=22
+first char ms=460 output span ms=250
+route ms=0
+Text only.
+answer ms=616 chars=10
+first char ms=479 output span ms=112
+route ms=0
+Text only.
+answer ms=598 chars=10
+first char ms=447 output span ms=124
+route ms=0
+Text only.
+answer ms=586 chars=10
+first char ms=453 output span ms=108
+route ms=0
+4 colors.
+answer ms=614 chars=9
+first char ms=505 output span ms=84
+route ms=0
+4 colors.
+answer ms=548 chars=9
+first char ms=446 output span ms=78
+route ms=0
+4 colors.
+answer ms=614 chars=9
+first char ms=455 output span ms=135
+route ms=0
+2 colors.
+answer ms=593 chars=9
+first char ms=490 output span ms=79
+route ms=0
+2 colors.
+answer ms=512 chars=9
+first char ms=419 output span ms=70
+route ms=0
+2 colors.
+answer ms=573 chars=9
+first char ms=474 output span ms=74
+route ms=0
+640 by 350 pixels.
+answer ms=651 chars=18
+first char ms=440 output span ms=241
+route ms=0
+640 by 350 pixels.
+answer ms=753 chars=18
+first char ms=519 output span ms=208
+route ms=0
+640 by 350 pixels.
+answer ms=823 chars=18
+first char ms=477 output span ms=311
+route ms=0
+320 by 200 pixels.
+answer ms=772 chars=18
+first char ms=544 output span ms=203
+route ms=0
+320 by 200 pixels.
+answer ms=738 chars=18
+first char ms=516 output span ms=197
+route ms=0
+320 by 200 pixels.
+answer ms=618 chars=18
+first char ms=360 output span ms=234
+route ms=0
+load/recovery ms=49
+active 14 Text screen layout
+2 bytes.
+answer ms=567 chars=8
+first char ms=491 output span ms=52
+route ms=0
+2 bytes.
+answer ms=523 chars=8
+first char ms=394 output span ms=106
+route ms=0
+2 bytes.
+answer ms=549 chars=8
+first char ms=413 output span ms=112
+route ms=1
+Attribute byte.
+answer ms=638 chars=15
+first char ms=446 output span ms=167
+route ms=0
+Character code.
+answer ms=595 chars=15
+first char ms=409 output span ms=162
+route ms=1
+Character code.
+answer ms=542 chars=15
+first char ms=370 output span ms=149
+route ms=1
+Attribute byte.
+answer ms=1255 chars=15
+first char ms=908 output span ms=300
+route ms=0
+Attribute byte.
+answer ms=1221 chars=15
+first char ms=896 output span ms=332
+route ms=0
+Attribute byte.
+answer ms=999 chars=15
+first char ms=702 output span ms=255
+route ms=1
+Betriut bits with 0 starts.
+answer ms=1588 chars=27
+first char ms=1011 output span ms=535
+route ms=0
+Bits 0 to 3.
+answer ms=872 chars=12
+first char ms=660 output span ms=173
+route ms=1
+Bits 0 to 3.
+answer ms=1026 chars=12
+first char ms=795 output span ms=193
+route ms=0
+Row 0, two computer screen.
+answer ms=1415 chars=27
+first char ms=875 output span ms=554
+route ms=0
+Row 0, column 0.
+answer ms=1113 chars=16
+first char ms=771 output span ms=339
+route ms=0
+Row 0, column 0.
+answer ms=957 chars=16
+first char ms=646 output span ms=274
+route ms=1
+2.
+answer ms=867 chars=2
+first char ms=848 output span ms=-18
+route ms=0
+Separate screen images.
+answer ms=1054 chars=23
+first char ms=623 output span ms=394
+route ms=0
+Separate screen images.
+answer ms=1528 chars=23
+first char ms=1060 output span ms=426
+route ms=1
+load/recovery ms=90
+active 15 Bitmap graphics
+One picture element.
+answer ms=851 chars=20
+first char ms=526 output span ms=343
+route ms=0
+One picture element.
+answer ms=900 chars=20
+first char ms=586 output span ms=278
+route ms=0
+A table of colors.
+answer ms=986 chars=18
+first char ms=590 output span ms=409
+route ms=0
+O.
+answer ms=1183 chars=2
+first char ms=1133 output span ms=-2
+route ms=0
+One bit from every pixel.
+answer ms=1600 chars=25
+first char ms=728 output span ms=804
+route ms=1
+One row of pixels.
+answer ms=1225 chars=18
+first char ms=808 output span ms=427
+route ms=1
+One row of pixels.
+answer ms=1091 chars=18
+first char ms=686 output span ms=360
+route ms=0
+One row of pixels.
+answer ms=1047 chars=18
+first char ms=600 output span ms=382
+route ms=1
+load/recovery ms=107
+active 16 Printer desk
+Pins engage holes along the paper edges.
+answer ms=1353 chars=40
+first char ms=794 output span ms=530
+route ms=1
+The Pack inkey capiecal with a nExthage.
+answer ms=1015 chars=40
+first char ms=495 output span ms=492
+route ms=0
+The roller that supports the paper.
+answer ms=970 chars=35
+first char ms=539 output span ms=458
+route ms=0
+The roller that supports the paper.
+answer ms=854 chars=35
+first char ms=435 output span ms=392
+route ms=1
+It supplies ink when struck.
+answer ms=728 chars=28
+first char ms=391 output span ms=311
+route ms=0
+It supplies ink when struck.
+answer ms=761 chars=28
+first char ms=406 output span ms=329
+route ms=0
+Advance to the top of the next page.
+answer ms=919 chars=36
+first char ms=459 output span ms=433
+route ms=0
+The paper evere fed the grog the paper togratows inkswen.
+answer ms=1311 chars=57
+first char ms=429 output span ms=848
+heap=31080 largest=31080 stack=15860

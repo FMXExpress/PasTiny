@@ -1,0 +1,82 @@
+[
+  {
+    "id": 7,
+    "title": "FAT Volume Terms",
+    "name": "FATVOL.BIN",
+    "source": "specialists/models/FATVOL.BIN",
+    "sha256": "66e4bfb8337f8095dd2161084917e0d95bea586056723d14ff82351f12ff8245",
+    "keyword": "fat"
+  },
+  {
+    "id": 8,
+    "title": "DOS Startup Files",
+    "name": "STARTUP.BIN",
+    "source": "specialists/models/STARTUP.BIN",
+    "sha256": "b24d8ef837d11b19efd410205187d1bb2650bd3595b1aef38411fdbd54e8bfe5",
+    "keyword": "autoexec"
+  },
+  {
+    "id": 9,
+    "title": "Batch file vocabulary",
+    "name": "BATCH.BIN",
+    "source": "specialists/models/BATCH.BIN",
+    "sha256": "04b08de0acd45dfd17ae978c6f2611d7079f3263d6f6abd44a5bf6c2d6c832eb",
+    "keyword": "batch"
+  },
+  {
+    "id": 10,
+    "title": "Text file conventions",
+    "name": "TEXTFILE.BIN",
+    "source": "specialists/models/TEXTFILE.BIN",
+    "sha256": "c055fc7baf25719b12899ed1625ae98e93cc7ee93fbdf9398316c3333b27bed3",
+    "keyword": "crlf"
+  },
+  {
+    "id": 11,
+    "title": "Keyboard terminology",
+    "name": "KEYBOARD.BIN",
+    "source": "specialists/models/KEYBOARD.BIN",
+    "sha256": "a0042cfbed2728d83cf4170a00cf2edc699d8a7488bc71041081ccafdd46eab7",
+    "keyword": "keyboard"
+  },
+  {
+    "id": 12,
+    "title": "BIOS setup glossary",
+    "name": "BIOS.BIN",
+    "source": "specialists/models/BIOS.BIN",
+    "sha256": "7286bd3d38c4d22cb39bd364384bbe9c1ecd2a4f1d5dc46984ac66202c2a7310",
+    "keyword": "bios"
+  },
+  {
+    "id": 13,
+    "title": "Display adapters",
+    "name": "DISPADA.BIN",
+    "source": "specialists/models/DISPADA.BIN",
+    "sha256": "1c1eba746c4e8571258b267a6c4fedb474a2ac58dc93debff1d9e52f2482798f",
+    "keyword": "mda"
+  },
+  {
+    "id": 14,
+    "title": "Text screen layout",
+    "name": "TEXTSCR.BIN",
+    "source": "specialists/models/TEXTSCR.BIN",
+    "sha256": "f808fa2734a7a9eb597926e1cdb35ffb53210d1f5cde79dd21fd187fefa2ac2c",
+    "keyword": "cursor"
+  },
+  {
+    "id": 15,
+    "title": "Bitmap graphics",
+    "name": "BITMAP.BIN",
+    "source": "specialists/models/BITMAP.BIN",
+    "sha256": "3f67a30aa2d2fbbc26b80f640ab18e65a0be10ecf406c2d6687d38dc4bb53268",
+    "keyword": "bitmap"
+  },
+  {
+    "id": 16,
+    "title": "Printer desk",
+    "name": "PRINTER.BIN",
+    "source": "specialists/models/PRINTER.BIN",
+    "sha256": "2fa1dad893894f2c92af6ff4a014ec6044626db0f795e6ec4595967cf4782101",
+    "keyword": "printer"
+  }
+]

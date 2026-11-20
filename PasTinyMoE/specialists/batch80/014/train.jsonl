@@ -1,0 +1,96 @@
+{"question": "bytes per color text cell", "answer": "2 bytes."}
+{"question": "describe bytes per color text cell", "answer": "2 bytes."}
+{"question": "what is the answer for bytes per color text cell", "answer": "2 bytes."}
+{"question": "tell me about bytes per color text cell", "answer": "2 bytes."}
+{"question": "explain bytes per color text cell", "answer": "2 bytes."}
+{"question": "give me bytes per color text cell", "answer": "2 bytes."}
+{"question": "quick question about bytes per color text cell", "answer": "2 bytes."}
+{"question": "please recall bytes per color text cell", "answer": "2 bytes."}
+{"question": "color text cell storage size", "answer": "2 bytes."}
+{"question": "describe color text cell storage size", "answer": "2 bytes."}
+{"question": "what is the answer for color text cell storage size", "answer": "2 bytes."}
+{"question": "tell me about color text cell storage size", "answer": "2 bytes."}
+{"question": "explain color text cell storage size", "answer": "2 bytes."}
+{"question": "give me color text cell storage size", "answer": "2 bytes."}
+{"question": "quick question about color text cell storage size", "answer": "2 bytes."}
+{"question": "please recall color text cell storage size", "answer": "2 bytes."}
+{"question": "first byte of a text cell", "answer": "Character code."}
+{"question": "describe first byte of a text cell", "answer": "Character code."}
+{"question": "what is the answer for first byte of a text cell", "answer": "Character code."}
+{"question": "tell me about first byte of a text cell", "answer": "Character code."}
+{"question": "explain first byte of a text cell", "answer": "Character code."}
+{"question": "give me first byte of a text cell", "answer": "Character code."}
+{"question": "quick question about first byte of a text cell", "answer": "Character code."}
+{"question": "please recall first byte of a text cell", "answer": "Character code."}
+{"question": "text cell byte zero", "answer": "Character code."}
+{"question": "describe text cell byte zero", "answer": "Character code."}
+{"question": "what is the answer for text cell byte zero", "answer": "Character code."}
+{"question": "tell me about text cell byte zero", "answer": "Character code."}
+{"question": "explain text cell byte zero", "answer": "Character code."}
+{"question": "give me text cell byte zero", "answer": "Character code."}
+{"question": "quick question about text cell byte zero", "answer": "Character code."}
+{"question": "please recall text cell byte zero", "answer": "Character code."}
+{"question": "second byte of a text cell", "answer": "Attribute byte."}
+{"question": "describe second byte of a text cell", "answer": "Attribute byte."}
+{"question": "what is the answer for second byte of a text cell", "answer": "Attribute byte."}
+{"question": "tell me about second byte of a text cell", "answer": "Attribute byte."}
+{"question": "explain second byte of a text cell", "answer": "Attribute byte."}
+{"question": "give me second byte of a text cell", "answer": "Attribute byte."}
+{"question": "quick question about second byte of a text cell", "answer": "Attribute byte."}
+{"question": "please recall second byte of a text cell", "answer": "Attribute byte."}
+{"question": "text cell byte one", "answer": "Attribute byte."}
+{"question": "describe text cell byte one", "answer": "Attribute byte."}
+{"question": "what is the answer for text cell byte one", "answer": "Attribute byte."}
+{"question": "tell me about text cell byte one", "answer": "Attribute byte."}
+{"question": "explain text cell byte one", "answer": "Attribute byte."}
+{"question": "give me text cell byte one", "answer": "Attribute byte."}
+{"question": "quick question about text cell byte one", "answer": "Attribute byte."}
+{"question": "please recall text cell byte one", "answer": "Attribute byte."}
+{"question": "foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "describe foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "what is the answer for foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "tell me about foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "explain foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "give me foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "quick question about foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "please recall foreground attribute bits", "answer": "Bits 0 to 3."}
+{"question": "attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "describe attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "what is the answer for attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "tell me about attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "explain attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "give me attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "quick question about attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "please recall attribute foreground bit range", "answer": "Bits 0 to 3."}
+{"question": "top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "describe top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "what is the answer for top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "tell me about top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "explain top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "give me top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "quick question about top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "please recall top left bios cursor coordinates", "answer": "Row 0, column 0."}
+{"question": "bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "describe bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "what is the answer for bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "tell me about bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "explain bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "give me bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "quick question about bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "please recall bios cursor origin", "answer": "Row 0, column 0."}
+{"question": "purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "describe purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "what is the answer for purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "tell me about purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "explain purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "give me purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "quick question about purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "please recall purpose of dos text pages", "answer": "Separate screen images."}
+{"question": "role of alternate display pages", "answer": "Separate screen images."}
+{"question": "describe role of alternate display pages", "answer": "Separate screen images."}
+{"question": "what is the answer for role of alternate display pages", "answer": "Separate screen images."}
+{"question": "tell me about role of alternate display pages", "answer": "Separate screen images."}
+{"question": "explain role of alternate display pages", "answer": "Separate screen images."}
+{"question": "give me role of alternate display pages", "answer": "Separate screen images."}
+{"question": "quick question about role of alternate display pages", "answer": "Separate screen images."}
+{"question": "please recall role of alternate display pages", "answer": "Separate screen images."}

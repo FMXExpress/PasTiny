@@ -1,0 +1,129 @@
+auto
+what does a cluster group together on a fat volume
+how does fat allocate a cluster of disk sectors
+what is the root directory on a fat16 disk
+where does the root directory sit in a fat12 volume
+what does the allocation table track in fat16
+how does a fat allocation table describe a file chain
+what does the volume label identify on a fat12 disk
+what is the purpose of a fat16 volume label
+what is the role of config.sys during ms dos startup
+which startup job does config.sys perform in dos
+what is autoexec.bat used for when dos starts
+what kind of work does autoexec.bat perform at boot
+what role does command.com play in ms dos
+what is command.com in the dos startup sequence
+what does echo hello print
+help me understand echo hello in batch
+give the batch meaning of echo hello
+what does rem note do in a dos batch file
+help me understand rem note in batch
+give the batch meaning of rem note
+where does goto done continue in a batch file
+help me understand goto done in batch
+give the batch meaning of goto done
+what does the colon mean at the start of :done
+help me understand :done in batch
+give the batch meaning of :done
+what value does percent one supply in a dos batch file
+help me understand %1 in batch
+give the batch meaning of %1
+which argument appears in place of percent two
+help me understand %2 in batch
+give the batch meaning of %2
+which ascii number is a carriage return
+help me understand cr in dos text
+give the dos text meaning of cr
+what decimal code represents line feed
+help me understand lf in dos text
+give the dos text meaning of lf
+what number represents a horizontal tab in ascii
+help me understand tab in dos text
+give the dos text meaning of tab
+which two characters usually end a dos text line
+help me understand crlf in dos text
+give the dos text meaning of crlf
+which byte can act as the old dos text eof marker
+help me understand ctrl-z in dos text
+give the dos text meaning of ctrl-z
+how does dos know where a disk file actually ends
+help me understand file length in dos text
+give the dos text meaning of file length
+how should a beginner understand scan code in a keyboard guide
+what does a keyboard scan code identify
+how should a beginner understand typematic repeat in a keyboard guide
+why is holding a keyboard key called typematic repeat
+how should a beginner understand modifier key in a keyboard guide
+on my keyboard what role does a modifier key play
+how should a beginner understand lock key in a keyboard guide
+why does a keyboard lock key stay in effect after release
+how should a beginner understand caps lock in a keyboard guide
+which keyboard behavior changes when i use caps lock
+how should a beginner understand num lock in a keyboard guide
+which part of the keyboard is affected by num lock
+how should a beginner understand post in a bios guide
+when the bios mentions post what check is it describing
+how should a beginner understand cmos setup in a bios guide
+in a bios manual what can the cmos setup utility change
+how should a beginner understand boot sequence in a bios guide
+why are drives listed in a bios boot sequence
+how should a beginner understand firmware in a bios guide
+in bios terminology what sort of software is firmware
+how should a beginner understand rtc in a bios guide
+what information comes from the rtc on a bios screen
+how should a beginner understand defaults in a bios guide
+what does defaults mean when reading a bios menu
+what are the dimensions of the mda text screen
+please describe mda standard text dimensions
+remind me about mda text columns and rows
+does the original mda support pixel graphics
+please describe mda graphics support
+remind me about mda pixel graphics capability
+how many colors can cga show at once at 320x200
+please describe cga colors at 320 by 200
+remind me about cga 320x200 graphics color count
+how many colors can cga display at once at 640x200
+please describe cga colors at 640 by 200
+remind me about cga 640x200 graphics color count
+what pixel dimensions does ega mode 10h use
+please describe ega graphics mode 10h dimensions
+remind me about ega mode 10h resolution
+what pixel dimensions does vga mode 13h use
+please describe vga graphics mode 13h dimensions
+remind me about vga mode 13h resolution
+how many bytes does one color text cell occupy
+please describe bytes per color text cell
+remind me about color text cell storage size
+what does the first byte in a text cell store
+please describe first byte of a text cell
+remind me about text cell byte zero
+what does the second byte in a text cell store
+please describe second byte of a text cell
+remind me about text cell byte one
+which color text attribute bits select the foreground
+please describe foreground attribute bits
+remind me about attribute foreground bit range
+what row and column locate the top left bios cursor
+please describe top left bios cursor coordinates
+remind me about bios cursor origin
+why does dos text mode have multiple video pages
+please describe purpose of dos text pages
+remind me about role of alternate display pages
+what does pixel mean in a bitmap
+explain one pixel of a small bitmap
+what kind of table is a bitmap palette
+what is the purpose of the palette in indexed graphics
+in a bitmap what goes into each bit plane
+describe the contents of a bitplane
+which part of a bitmap is a scan line
+what pixels belong to one scanline
+how does a tractor printer grip continuous paper
+explain how the tractor catches the sheet edges
+what is a printer manual referring to as the platen
+describe the platen of an impact printer
+what is the job of a dot matrix ribbon
+why does the printer head strike a ribbon
+how does form feed move the paper in a printer
+where does a printer advance on form feed
+mem
+quit

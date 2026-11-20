@@ -1,0 +1,6 @@
+{"question": "what is the role of config.sys during ms dos startup", "answer": "Sets system options and loads drivers."}
+{"question": "which startup job does config.sys perform in dos", "answer": "Sets system options and loads drivers."}
+{"question": "what is autoexec.bat used for when dos starts", "answer": "Runs startup commands."}
+{"question": "what kind of work does autoexec.bat perform at boot", "answer": "Runs startup commands."}
+{"question": "what role does command.com play in ms dos", "answer": "The DOS command interpreter."}
+{"question": "what is command.com in the dos startup sequence", "answer": "The DOS command interpreter."}

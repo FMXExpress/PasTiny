@@ -1,0 +1,18 @@
+{"question": "which ascii number is a carriage return", "expected": "ASCII 13.", "output": "ASCII 13.", "exact": true}
+{"question": "help me understand cr in dos text", "expected": "ASCII 13.", "output": "ASCII 13.", "exact": true}
+{"question": "give the dos text meaning of cr", "expected": "ASCII 13.", "output": "ASCII 13.", "exact": true}
+{"question": "what decimal code represents line feed", "expected": "ASCII 10.", "output": "A hunium 3.", "exact": false}
+{"question": "help me understand lf in dos text", "expected": "ASCII 10.", "output": "ASCII 10.", "exact": true}
+{"question": "give the dos text meaning of lf", "expected": "ASCII 10.", "output": "ASCII 10.", "exact": true}
+{"question": "what number represents a horizontal tab in ascii", "expected": "ASCII 9.", "output": "ASCII 92.", "exact": false}
+{"question": "help me understand tab in dos text", "expected": "ASCII 9.", "output": "ASCII 9.", "exact": true}
+{"question": "give the dos text meaning of tab", "expected": "ASCII 9.", "output": "ASCII 9.", "exact": true}
+{"question": "which two characters usually end a dos text line", "expected": "Carriage return then line feed.", "output": "ASCII 13.", "exact": false}
+{"question": "help me understand crlf in dos text", "expected": "Carriage return then line feed.", "output": "ASCII 13.", "exact": false}
+{"question": "give the dos text meaning of crlf", "expected": "Carriage return then line feed.", "output": "Carriage return then line feed.", "exact": true}
+{"question": "which byte can act as the old dos text eof marker", "expected": "ASCII 26.", "output": "ASCII 10.", "exact": false}
+{"question": "help me understand ctrl-z in dos text", "expected": "ASCII 26.", "output": "ASCII 26.", "exact": true}
+{"question": "give the dos text meaning of ctrl-z", "expected": "ASCII 26.", "output": "ASCII 26.", "exact": true}
+{"question": "how does dos know where a disk file actually ends", "expected": "The directory stores its size.", "output": "ASCII 10.", "exact": false}
+{"question": "help me understand file length in dos text", "expected": "The directory stores its size.", "output": "The directory stores its size.", "exact": true}
+{"question": "give the dos text meaning of file length", "expected": "The directory stores its size.", "output": "The directory stores its size.", "exact": true}

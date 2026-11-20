@@ -1,0 +1,18 @@
+{"question": "what does echo hello print", "answer": "It displays hello."}
+{"question": "help me understand echo hello in batch", "answer": "It displays hello."}
+{"question": "give the batch meaning of echo hello", "answer": "It displays hello."}
+{"question": "what does rem note do in a dos batch file", "answer": "It marks a comment."}
+{"question": "help me understand rem note in batch", "answer": "It marks a comment."}
+{"question": "give the batch meaning of rem note", "answer": "It marks a comment."}
+{"question": "where does goto done continue in a batch file", "answer": "It jumps to the done label."}
+{"question": "help me understand goto done in batch", "answer": "It jumps to the done label."}
+{"question": "give the batch meaning of goto done", "answer": "It jumps to the done label."}
+{"question": "what does the colon mean at the start of :done", "answer": "It defines the done label."}
+{"question": "help me understand :done in batch", "answer": "It defines the done label."}
+{"question": "give the batch meaning of :done", "answer": "It defines the done label."}
+{"question": "what value does percent one supply in a dos batch file", "answer": "The first argument."}
+{"question": "help me understand %1 in batch", "answer": "The first argument."}
+{"question": "give the batch meaning of %1", "answer": "The first argument."}
+{"question": "which argument appears in place of percent two", "answer": "The second argument."}
+{"question": "help me understand %2 in batch", "answer": "The second argument."}
+{"question": "give the batch meaning of %2", "answer": "The second argument."}

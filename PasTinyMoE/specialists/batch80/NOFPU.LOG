@@ -1,0 +1,19 @@
+catalog/init ms=8
+FPU no
+heap=515280 largest=515280 stack=15860
+load/recovery ms=1281
+active 1 DOS Guide
+heap=31080 largest=31080 stack=15860
+route ms=17
+load/recovery ms=1014
+active 7 FAT Volume Terms
+A name for the volume.
+answer ms=92679 chars=22
+first char ms=69670 output span ms=21983
+route ms=1
+load/recovery ms=280
+active 8 DOS Startup Files
+Se6 oses system options and loads drivers.
+answer ms=65983 chars=42
+first char ms=36830 output span ms=28722
+heap=31080 largest=31080 stack=15860

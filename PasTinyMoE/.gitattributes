@@ -47,3 +47,6 @@ specialists/batch60/runtime/*.IN -text
 specialists/batch70/*.LOG -text
 specialists/batch70/*.IN -text
 specialists/batch70/runtime/*.IN -text
+specialists/batch80/*.LOG -text
+specialists/batch80/*.IN -text
+specialists/batch80/runtime/*.IN -text

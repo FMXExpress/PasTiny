@@ -1,0 +1,18 @@
+{"question": "what are the dimensions of the mda text screen", "answer": "80 columns by 25 rows.", "output": "840 columns by 25 rows.", "exact": false}
+{"question": "please describe mda standard text dimensions", "answer": "80 columns by 25 rows.", "output": "80 columns by 25 rows.", "exact": true}
+{"question": "remind me about mda text columns and rows", "answer": "80 columns by 25 rows.", "output": "80 columns by 25 rows.", "exact": true}
+{"question": "does the original mda support pixel graphics", "answer": "Text only.", "output": "Text only.", "exact": true}
+{"question": "please describe mda graphics support", "answer": "Text only.", "output": "Text only.", "exact": true}
+{"question": "remind me about mda pixel graphics capability", "answer": "Text only.", "output": "Text only.", "exact": true}
+{"question": "how many colors can cga show at once at 320x200", "answer": "4 colors.", "output": "4 colors.", "exact": true}
+{"question": "please describe cga colors at 320 by 200", "answer": "4 colors.", "output": "4 colors.", "exact": true}
+{"question": "remind me about cga 320x200 graphics color count", "answer": "4 colors.", "output": "4 colors.", "exact": true}
+{"question": "how many colors can cga display at once at 640x200", "answer": "2 colors.", "output": "2 colors.", "exact": true}
+{"question": "please describe cga colors at 640 by 200", "answer": "2 colors.", "output": "2 colors.", "exact": true}
+{"question": "remind me about cga 640x200 graphics color count", "answer": "2 colors.", "output": "2 colors.", "exact": true}
+{"question": "what pixel dimensions does ega mode 10h use", "answer": "640 by 350 pixels.", "output": "640 by 350 pixels.", "exact": true}
+{"question": "please describe ega graphics mode 10h dimensions", "answer": "640 by 350 pixels.", "output": "640 by 350 pixels.", "exact": true}
+{"question": "remind me about ega mode 10h resolution", "answer": "640 by 350 pixels.", "output": "640 by 350 pixels.", "exact": true}
+{"question": "what pixel dimensions does vga mode 13h use", "answer": "320 by 200 pixels.", "output": "320 by 200 pixels.", "exact": true}
+{"question": "please describe vga graphics mode 13h dimensions", "answer": "320 by 200 pixels.", "output": "320 by 200 pixels.", "exact": true}
+{"question": "remind me about vga mode 13h resolution", "answer": "320 by 200 pixels.", "output": "320 by 200 pixels.", "exact": true}

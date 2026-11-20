@@ -1,0 +1,18 @@
+{"question": "which ascii number is a carriage return", "answer": "ASCII 13."}
+{"question": "help me understand cr in dos text", "answer": "ASCII 13."}
+{"question": "give the dos text meaning of cr", "answer": "ASCII 13."}
+{"question": "what decimal code represents line feed", "answer": "ASCII 10."}
+{"question": "help me understand lf in dos text", "answer": "ASCII 10."}
+{"question": "give the dos text meaning of lf", "answer": "ASCII 10."}
+{"question": "what number represents a horizontal tab in ascii", "answer": "ASCII 9."}
+{"question": "help me understand tab in dos text", "answer": "ASCII 9."}
+{"question": "give the dos text meaning of tab", "answer": "ASCII 9."}
+{"question": "which two characters usually end a dos text line", "answer": "Carriage return then line feed."}
+{"question": "help me understand crlf in dos text", "answer": "Carriage return then line feed."}
+{"question": "give the dos text meaning of crlf", "answer": "Carriage return then line feed."}
+{"question": "which byte can act as the old dos text eof marker", "answer": "ASCII 26."}
+{"question": "help me understand ctrl-z in dos text", "answer": "ASCII 26."}
+{"question": "give the dos text meaning of ctrl-z", "answer": "ASCII 26."}
+{"question": "how does dos know where a disk file actually ends", "answer": "The directory stores its size."}
+{"question": "help me understand file length in dos text", "answer": "The directory stores its size."}
+{"question": "give the dos text meaning of file length", "answer": "The directory stores its size."}

@@ -1,0 +1,18 @@
+{"question": "what are the dimensions of the mda text screen", "answer": "80 columns by 25 rows."}
+{"question": "please describe mda standard text dimensions", "answer": "80 columns by 25 rows."}
+{"question": "remind me about mda text columns and rows", "answer": "80 columns by 25 rows."}
+{"question": "does the original mda support pixel graphics", "answer": "Text only."}
+{"question": "please describe mda graphics support", "answer": "Text only."}
+{"question": "remind me about mda pixel graphics capability", "answer": "Text only."}
+{"question": "how many colors can cga show at once at 320x200", "answer": "4 colors."}
+{"question": "please describe cga colors at 320 by 200", "answer": "4 colors."}
+{"question": "remind me about cga 320x200 graphics color count", "answer": "4 colors."}
+{"question": "how many colors can cga display at once at 640x200", "answer": "2 colors."}
+{"question": "please describe cga colors at 640 by 200", "answer": "2 colors."}
+{"question": "remind me about cga 640x200 graphics color count", "answer": "2 colors."}
+{"question": "what pixel dimensions does ega mode 10h use", "answer": "640 by 350 pixels."}
+{"question": "please describe ega graphics mode 10h dimensions", "answer": "640 by 350 pixels."}
+{"question": "remind me about ega mode 10h resolution", "answer": "640 by 350 pixels."}
+{"question": "what pixel dimensions does vga mode 13h use", "answer": "320 by 200 pixels."}
+{"question": "please describe vga graphics mode 13h dimensions", "answer": "320 by 200 pixels."}
+{"question": "remind me about vga mode 13h resolution", "answer": "320 by 200 pixels."}

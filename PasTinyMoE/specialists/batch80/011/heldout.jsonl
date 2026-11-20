@@ -1,0 +1,12 @@
+{"question": "how should a beginner understand scan code in a keyboard guide", "answer": "A code that identifies a physical key.", "fact": "scan code"}
+{"question": "what does a keyboard scan code identify", "answer": "A code that identifies a physical key.", "fact": "scan code"}
+{"question": "how should a beginner understand typematic repeat in a keyboard guide", "answer": "Repeated input while a key stays down.", "fact": "typematic repeat"}
+{"question": "why is holding a keyboard key called typematic repeat", "answer": "Repeated input while a key stays down.", "fact": "typematic repeat"}
+{"question": "how should a beginner understand modifier key in a keyboard guide", "answer": "A key that changes another key's effect.", "fact": "modifier key"}
+{"question": "on my keyboard what role does a modifier key play", "answer": "A key that changes another key's effect.", "fact": "modifier key"}
+{"question": "how should a beginner understand lock key in a keyboard guide", "answer": "A key that toggles a mode on or off.", "fact": "lock key"}
+{"question": "why does a keyboard lock key stay in effect after release", "answer": "A key that toggles a mode on or off.", "fact": "lock key"}
+{"question": "how should a beginner understand caps lock in a keyboard guide", "answer": "Toggles uppercase letter entry.", "fact": "caps lock"}
+{"question": "which keyboard behavior changes when i use caps lock", "answer": "Toggles uppercase letter entry.", "fact": "caps lock"}
+{"question": "how should a beginner understand num lock in a keyboard guide", "answer": "Toggles numeric keypad mode.", "fact": "num lock"}
+{"question": "which part of the keyboard is affected by num lock", "answer": "Toggles numeric keypad mode.", "fact": "num lock"}
