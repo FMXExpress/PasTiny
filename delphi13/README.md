@@ -27,13 +27,13 @@ From the repository root, build the console with FPC 3.2.2 (the current stable r
 mkdir -p build/delphi13
 (cd delphi13 && fpc -B -O2 -Mdelphiunicode -FU../build/delphi13 -FE../build/delphi13 TinyConsole.dpr)
 cp TINY.BIN build/delphi13/
-build/delphi13/TinyConsole 0
+build/delphi13/TinyConsole
 build/delphi13/TinyConsole /BENCH
 build/delphi13/TinyConsole /FLOAT /BENCH
 python3 delphi13/check.py build/delphi13/TinyConsole
 ```
 
-The console reads standard input and writes standard output. Enter `quit` or send EOF to finish. Pass a creativity level from 0 to 9 (default 5), `/FLOAT` for floating-point inference, `/MODEL=path` for another compatible weights file, or `/IN=path` and `/OUT=path` for batch use. The default model path is relative to the executable. Explicit paths are relative to the current working directory.
+The console reads standard input and writes standard output. Enter `quit` or send EOF to finish. Pass a creativity level from 0 to 9 (default 0), `/FLOAT` for floating-point inference, `/MODEL=path` for another compatible weights file, or `/IN=path` and `/OUT=path` for batch use. The default model path is relative to the executable. Explicit paths are relative to the current working directory.
 
 The modern target shares the [Delphi 1 inference source](../delphi1/TNYNET.PAS). The modern build uses Unicode strings, reads the binary header as four bytes and stores quantized vectors as signed 16-bit values. The original Win16 neon UI is available in the [Delphi 1 edition](../delphi1/).
 
@@ -41,10 +41,10 @@ The Linux x86-64 FPC build matched all 60 original C reference answers with both
 
 ## Robot voice
 
-VCL and FireMonkey play each completed answer as square-wave robot chatter. Clear **Sound** to stop playback and mute subsequent answers. The console opts in with `/SOUND` and waits for each answer to finish playing. Benchmarks stay silent. On Linux install ALSA’s `aplay` or FFmpeg’s `ffplay`. Windows uses the system audio output and FireMonkey uses its platform media player.
+VCL and FireMonkey play each completed answer as square-wave robot chatter. Clear **Sound** to stop playback and mute subsequent answers. Interactive console sessions play answers by default. Use `/NOSOUND` to mute them, or `/SOUND` to enable playback for redirected or file-based sessions. Benchmarks stay silent. On Linux install ALSA’s `aplay` or FFmpeg’s `ffplay`. Windows uses the system audio output and FireMonkey uses its platform media player.
 
 ## Neural monitor
 
 The VCL and FireMonkey chat windows stream the answer and show each layer’s activity relative to its recent peak. The confidence meter tracks the latest emitted character. The strip underneath keeps the last 18 character confidences, with denser shading for higher confidence. This measures character prediction, so even a confidently generated answer can be factually wrong. The panel also displays generation speed in letters per second, model dimensions, and creativity.
 
-TinyConsole opens a two-column conversation and neural monitor on Windows VT consoles and Linux terminals of at least 80 columns by 24 rows. The most recent question and answer stay visible while you enter the next question. Use `/PLAIN` for a scrolling transcript. Redirected input, redirected output, file-based sessions and benchmarks use plain text automatically. Add `/SOUND` for robot chatter.
+TinyConsole opens a two-column conversation and neural monitor on Windows VT consoles and Linux terminals of at least 80 columns by 24 rows. The most recent question and answer stay visible while you enter the next question. Use `/PLAIN` for a scrolling transcript. Redirected input, redirected output, file-based sessions and benchmarks use plain text automatically.

@@ -11,7 +11,7 @@ uses
 var
   I: Integer;
   Arg, InputName, OutputName, ModelName: string;
-  Bench, Plain: Boolean;
+  SoundExplicit, Bench, Plain: Boolean;
   Fin, Fout: TextFile;
 
 function Clock: Longint;
@@ -26,7 +26,7 @@ end;
 
 procedure Usage;
 begin
-  Writeln('TinyConsole [0..9] [/PLAIN] [/SOUND] [/FLOAT] [/BENCH] [/IN=file] [/OUT=file] [/MODEL=file]');
+  Writeln('TinyConsole [0..9] [/PLAIN] [/SOUND|/NOSOUND] [/FLOAT] [/BENCH] [/IN=file] [/OUT=file] [/MODEL=file]');
 end;
 
 procedure Run(var Dest: TextFile);
@@ -51,11 +51,15 @@ end;
 begin
   try
     ModelName := IncludeTrailingPathDelimiter(ExtractFilePath(ExpandFileName(ParamStr(0)))) + 'TINY.BIN';
+    Creativity := 0;
     for I := 1 to ParamCount do begin
       Arg := ParamStr(I);
       if (Length(Arg) = 1) and (Arg[1] >= '0') and (Arg[1] <= '9') then
         Creativity := Ord(Arg[1]) - Ord('0')
-      else if SameText(Arg, '/SOUND') then OnAnswer := PlayConsoleVoice
+      else if SameText(Arg, '/SOUND') or SameText(Arg, '/NOSOUND') then begin
+        SoundExplicit := True;
+        if SameText(Arg, '/SOUND') then OnAnswer := PlayConsoleVoice else OnAnswer := nil;
+      end
       else if SameText(Arg, '/PLAIN') then Plain := True
       else if SameText(Arg, '/FLOAT') then UseInt := False
       else if SameText(Arg, '/BENCH') then Bench := True
@@ -69,6 +73,8 @@ begin
        (SameFileName(ExpandFileName(OutputName), ExpandFileName(ModelName)) or
        ((InputName <> '') and SameFileName(ExpandFileName(OutputName), ExpandFileName(InputName)))) then
       raise Exception.Create('Choose an output file separate from the model and input.');
+    if not SoundExplicit and not Bench and (InputName = '') and (OutputName = '') and InteractiveConsole then
+      OnAnswer := PlayConsoleVoice;
     Randomize;
     ClockMs := Clock;
     OnFail := ModelError;

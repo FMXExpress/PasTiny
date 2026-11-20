@@ -4,6 +4,7 @@ unit ConsoleScreen;
 
 interface
 
+function InteractiveConsole: Boolean;
 function StartScreen: Boolean;
 procedure RunScreen;
 
@@ -22,22 +23,33 @@ function isatty(Fd: Integer): Integer; cdecl; external 'c';
 function ioctl(Fd: Integer; Request: NativeUInt; var Size: TWindowSize): Integer; cdecl; external 'c';
 {$ENDIF}
 
+function InteractiveConsole: Boolean;
+{$IFDEF MSWINDOWS}var Mode: DWORD;{$ENDIF}
+begin
+  {$IFDEF MSWINDOWS}
+  Result := GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), Mode) and
+    GetConsoleMode(GetStdHandle(STD_OUTPUT_HANDLE), Mode);
+  {$ELSE}
+  Result := (isatty(0) = 1) and (isatty(1) = 1);
+  {$ENDIF}
+end;
+
 function StartScreen: Boolean;
 {$IFDEF MSWINDOWS}
-var InputMode: DWORD; Info: TConsoleScreenBufferInfo;
+var Info: TConsoleScreenBufferInfo;
 {$ELSE}
 var Size: TWindowSize;
 {$ENDIF}
 begin
   {$IFDEF MSWINDOWS}
   ScreenHandle := GetStdHandle(STD_OUTPUT_HANDLE);
-  Result := GetConsoleMode(GetStdHandle(STD_INPUT_HANDLE), InputMode) and
+  Result := InteractiveConsole and
     GetConsoleMode(ScreenHandle, OldMode) and GetConsoleScreenBufferInfo(ScreenHandle, Info);
   if Result then Result := (Info.srWindow.Right - Info.srWindow.Left >= 79) and
     (Info.srWindow.Bottom - Info.srWindow.Top >= 23);
   if Result then Result := SetConsoleMode(ScreenHandle, OldMode or 4);
   {$ELSE}
-  Result := (isatty(0) = 1) and (isatty(1) = 1) and
+  Result := InteractiveConsole and
     (GetEnvironmentVariable('TERM') <> 'dumb') and
     (ioctl(1, $5413, Size) = 0) and (Size.Cols >= 80) and (Size.Rows >= 24);
   {$ENDIF}
