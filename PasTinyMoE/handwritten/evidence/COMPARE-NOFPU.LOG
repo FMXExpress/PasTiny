@@ -1,0 +1,18 @@
+catalog/init ms=14
+FPU no
+heap=533360 largest=533360 stack=15860
+load/recovery ms=932
+active 1 TINY 2.1 general (trained)
+heap=49160 largest=49160 stack=15860
+route ms=0
+load/recovery ms=268
+active 6 Bigger (hand-written)
+yes
+answer ms=4862 chars=3
+first char ms=4337 output span ms=344
+route ms=0
+load/recovery ms=159
+active 7 Smaller (hand-written)
+yes
+answer ms=4859 chars=3
+first char ms=4383 output span ms=298
