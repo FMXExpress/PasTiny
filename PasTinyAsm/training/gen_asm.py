@@ -311,7 +311,7 @@ def make(r, expert, held=False, pool=None):
             if '{%s}' % name in q:
                 shown, value = SLOTS[name](r)
                 q = q.replace('{%s}' % name, shown); a = a.replace('{%s}' % name, str(value))
-        if r.random() < 0.15 and not held and not a.startswith('PRINT'):
+        if r.random() < 0.15 and not held and pool is None and not a.startswith('PRINT'):
             q = 'please ' + q
         if len(q) <= 72:
             return q, a

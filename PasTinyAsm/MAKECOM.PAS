@@ -82,10 +82,10 @@ function Expert(S:String):Integer;
 const
  NS=9; ScreenWords:array[1..NS] of String[10]=
   ('cursor','border','background','cls','flash','blink','row','column','col');
- NA=35; SoundWords:array[1..NA] of String[12]=
+ NA=34; SoundWords:array[1..NA] of String[12]=
   ('beep','sound','tone','note','notes','noise','siren','alarm','scale','tune','music','melody',
    'song','speaker','hertz','hz','wait','pause','sleep','delay','hold','rest','key','keypress',
-   'repeat','times','twice','again','loop','ms','milliseconds','second','seconds','moment','break');
+   'repeat','times','twice','again','loop','ms','milliseconds','second','seconds','moment');
  NT=10; TextVerbs:array[1..NT] of String[10]=
   ('number','new','next','newline','skip','begin','start','go','move','line');
  NC=11; ScreenNouns:array[1..NC] of String[10]=
