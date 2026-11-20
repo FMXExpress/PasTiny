@@ -1,0 +1,10 @@
+{"question": "what does the caret tell an editor user", "answer": "It marks the current insertion point.", "fact": "caret"}
+{"question": "where does the editor caret point", "answer": "It marks the current insertion point.", "fact": "caret"}
+{"question": "how does an editor display a line with word wrap", "answer": "Text continues on the next display line.", "fact": "wrap"}
+{"question": "what does the editor do when a word wraps", "answer": "Text continues on the next display line.", "fact": "wrap"}
+{"question": "how does typing in insert mode change the editor text", "answer": "New text pushes existing text forward.", "fact": "insert"}
+{"question": "what happens to existing letters in editor insert mode", "answer": "New text pushes existing text forward.", "fact": "insert"}
+{"question": "how does the editor behave in overtype mode", "answer": "Typed characters replace existing ones.", "fact": "overtype"}
+{"question": "what does overtype do to letters under the caret", "answer": "Typed characters replace existing ones.", "fact": "overtype"}
+{"question": "what does a block selection mean in a text editor", "answer": "A marked span of text for an operation.", "fact": "selection"}
+{"question": "what is the selected text block in an editor", "answer": "A marked span of text for an operation.", "fact": "selection"}

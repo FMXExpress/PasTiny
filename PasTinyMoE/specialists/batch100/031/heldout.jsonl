@@ -1,0 +1,8 @@
+{"question": "recognize this sorting example: the field that determines record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "in sorting by age what do we call the age field", "answer": "Sort key.", "fact": "sort key"}
+{"question": "recognize this sorting example: ties always keep their original order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "which sorting method promises that tied names never trade places", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "recognize this sorting example: numbers go from smallest to largest", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "what sorting order gives 2 then 5 then 8", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "recognize this sorting example: two keys are tested against each other", "answer": "Comparison.", "fact": "comparison"}
+{"question": "in sorting what operation asks whether one key precedes another", "answer": "Comparison.", "fact": "comparison"}

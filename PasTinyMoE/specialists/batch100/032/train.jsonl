@@ -1,0 +1,48 @@
+{"question": "what structure uses last in first out", "answer": "Stack.", "fact": "stack"}
+{"question": "name the structure: the newest item is removed first", "answer": "Stack.", "fact": "stack"}
+{"question": "which structure matches push and pop at the top", "answer": "Stack.", "fact": "stack"}
+{"question": "identify the structure: lifo removal", "answer": "Stack.", "fact": "stack"}
+{"question": "data structure for last in first out", "answer": "Stack.", "fact": "stack"}
+{"question": "choose a structure for the newest item is removed first", "answer": "Stack.", "fact": "stack"}
+{"question": "give the structure when push and pop at the top", "answer": "Stack.", "fact": "stack"}
+{"question": "in what structure is it lifo removal", "answer": "Stack.", "fact": "stack"}
+{"question": "what is the structure if last in first out", "answer": "Stack.", "fact": "stack"}
+{"question": "find the structure: the newest item is removed first", "answer": "Stack.", "fact": "stack"}
+{"question": "recognize a structure by push and pop at the top", "answer": "Stack.", "fact": "stack"}
+{"question": "tell me the structure for lifo removal", "answer": "Stack.", "fact": "stack"}
+{"question": "which structure follows last in first out", "answer": "Stack.", "fact": "stack"}
+{"question": "data structure pattern: the newest item is removed first", "answer": "Stack.", "fact": "stack"}
+{"question": "what structure fits the rule push and pop at the top", "answer": "Stack.", "fact": "stack"}
+{"question": "give the data structure label: lifo removal", "answer": "Stack.", "fact": "stack"}
+{"question": "what structure uses first in first out", "answer": "Queue.", "fact": "queue"}
+{"question": "name the structure: the oldest item leaves first", "answer": "Queue.", "fact": "queue"}
+{"question": "which structure matches enqueue at back dequeue at front", "answer": "Queue.", "fact": "queue"}
+{"question": "identify the structure: fifo access", "answer": "Queue.", "fact": "queue"}
+{"question": "data structure for first in first out", "answer": "Queue.", "fact": "queue"}
+{"question": "choose a structure for the oldest item leaves first", "answer": "Queue.", "fact": "queue"}
+{"question": "give the structure when enqueue at back dequeue at front", "answer": "Queue.", "fact": "queue"}
+{"question": "in what structure is it fifo access", "answer": "Queue.", "fact": "queue"}
+{"question": "what is the structure if first in first out", "answer": "Queue.", "fact": "queue"}
+{"question": "find the structure: the oldest item leaves first", "answer": "Queue.", "fact": "queue"}
+{"question": "recognize a structure by enqueue at back dequeue at front", "answer": "Queue.", "fact": "queue"}
+{"question": "tell me the structure for fifo access", "answer": "Queue.", "fact": "queue"}
+{"question": "which structure follows first in first out", "answer": "Queue.", "fact": "queue"}
+{"question": "data structure pattern: the oldest item leaves first", "answer": "Queue.", "fact": "queue"}
+{"question": "what structure fits the rule enqueue at back dequeue at front", "answer": "Queue.", "fact": "queue"}
+{"question": "give the data structure label: fifo access", "answer": "Queue.", "fact": "queue"}
+{"question": "what structure uses each node links to the next", "answer": "Linked list.", "fact": "linked list"}
+{"question": "name the structure: follow links from node to node", "answer": "Linked list.", "fact": "linked list"}
+{"question": "which structure matches one record points to its successor", "answer": "Linked list.", "fact": "linked list"}
+{"question": "identify the structure: nodes store links to their neighbors", "answer": "Linked list.", "fact": "linked list"}
+{"question": "data structure for each node links to the next", "answer": "Linked list.", "fact": "linked list"}
+{"question": "choose a structure for follow links from node to node", "answer": "Linked list.", "fact": "linked list"}
+{"question": "give the structure when one record points to its successor", "answer": "Linked list.", "fact": "linked list"}
+{"question": "in what structure is it nodes store links to their neighbors", "answer": "Linked list.", "fact": "linked list"}
+{"question": "what is the structure if each node links to the next", "answer": "Linked list.", "fact": "linked list"}
+{"question": "find the structure: follow links from node to node", "answer": "Linked list.", "fact": "linked list"}
+{"question": "recognize a structure by one record points to its successor", "answer": "Linked list.", "fact": "linked list"}
+{"question": "tell me the structure for nodes store links to their neighbors", "answer": "Linked list.", "fact": "linked list"}
+{"question": "which structure follows each node links to the next", "answer": "Linked list.", "fact": "linked list"}
+{"question": "data structure pattern: follow links from node to node", "answer": "Linked list.", "fact": "linked list"}
+{"question": "what structure fits the rule one record points to its successor", "answer": "Linked list.", "fact": "linked list"}
+{"question": "give the data structure label: nodes store links to their neighbors", "answer": "Linked list.", "fact": "linked list"}

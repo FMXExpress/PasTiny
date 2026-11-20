@@ -1,0 +1,18 @@
+{"question": "what filename extension identifies a ZIP archive", "answer": ".zip"}
+{"question": "please describe ZIP filename extension", "answer": ".zip"}
+{"question": "remind me about ZIP archive suffix", "answer": ".zip"}
+{"question": "which filename suffix does an ARC archive use", "answer": ".arc"}
+{"question": "please describe ARC filename extension", "answer": ".arc"}
+{"question": "remind me about ARC archive suffix", "answer": ".arc"}
+{"question": "give the usual filename ending for an LZH archive", "answer": ".lzh"}
+{"question": "please describe LZH filename extension", "answer": ".lzh"}
+{"question": "remind me about LZH archive suffix", "answer": ".lzh"}
+{"question": "what does a ZIP central directory list", "answer": "Archive entries."}
+{"question": "please describe ZIP central directory purpose", "answer": "Archive entries."}
+{"question": "remind me about ZIP central directory contents", "answer": "Archive entries."}
+{"question": "does ZIP method zero compress the data", "answer": "No compression."}
+{"question": "please describe ZIP stored compression method", "answer": "No compression."}
+{"question": "remind me about ZIP method zero meaning", "answer": "No compression."}
+{"question": "which DOS archiver is associated with LZH files", "answer": "LHA."}
+{"question": "please describe LZH common archiver name", "answer": "LHA."}
+{"question": "remind me about LZH DOS archiver utility", "answer": "LHA."}

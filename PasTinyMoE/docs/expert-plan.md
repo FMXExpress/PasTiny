@@ -4,7 +4,7 @@ The original catalog excerpt supplies IDs 037–100. IDs 001–003 retain their 
 
 ## Implementation status
 
-**90 of 100 experts are trained and packaged** in [SPEC90](../specialists/batch90/). The release includes IDs 001–026 and 037–100. IDs 027–036 have defined scopes and await training. Expert 027, Compiler messages, is next. SD100 measures catalog capacity using fixture data.
+**100 of 100 experts are trained and packaged** in [SPEC100](../specialists/batch100/). The release includes every ID from 001 through 100. Each entry has independently trained weights, a bounded syllabus and a scored evaluation. SD100 measures catalog capacity using fixture data.
 
 ## Project-defined scopes for IDs 004–036
 

@@ -1,0 +1,12 @@
+{"question": "when is a two input and gate true", "answer": "True when both inputs are true."}
+{"question": "which truth condition defines conjunction", "answer": "True when both inputs are true."}
+{"question": "explain the boolean and operator", "answer": "True when both inputs are true."}
+{"question": "what makes an inclusive or gate true", "answer": "True when at least one input is true."}
+{"question": "when does disjunction return true", "answer": "True when at least one input is true."}
+{"question": "explain the boolean or operator", "answer": "True when at least one input is true."}
+{"question": "when is an exclusive or gate true", "answer": "True when the inputs differ."}
+{"question": "which inputs make xor return true", "answer": "True when the inputs differ."}
+{"question": "explain the boolean xor operator", "answer": "True when the inputs differ."}
+{"question": "what does negation do to a truth value", "answer": "It reverses the truth value."}
+{"question": "how does a not gate change its input", "answer": "It reverses the truth value."}
+{"question": "explain the boolean not operator", "answer": "It reverses the truth value."}

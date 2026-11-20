@@ -1,0 +1,48 @@
+{"question": "define and as a boolean operator", "answer": "True when both inputs are true."}
+{"question": "explain and as a logic gate", "answer": "True when both inputs are true."}
+{"question": "what is and in boolean logic", "answer": "True when both inputs are true."}
+{"question": "describe and in boolean logic", "answer": "True when both inputs are true."}
+{"question": "what is the meaning of and in boolean logic", "answer": "True when both inputs are true."}
+{"question": "and in boolean logic", "answer": "True when both inputs are true."}
+{"question": "tell me about and in boolean logic", "answer": "True when both inputs are true."}
+{"question": "what does and mean in a truth table", "answer": "True when both inputs are true."}
+{"question": "define conjunction in boolean logic", "answer": "True when both inputs are true."}
+{"question": "explain conjunction as a logic gate", "answer": "True when both inputs are true."}
+{"question": "describe conjunction in a logic circuit", "answer": "True when both inputs are true."}
+{"question": "what does conjunction mean in a truth table", "answer": "True when both inputs are true."}
+{"question": "define or as a boolean operator", "answer": "True when at least one input is true."}
+{"question": "explain or as a logic gate", "answer": "True when at least one input is true."}
+{"question": "what is or in boolean logic", "answer": "True when at least one input is true."}
+{"question": "describe or in boolean logic", "answer": "True when at least one input is true."}
+{"question": "what is the meaning of or in boolean logic", "answer": "True when at least one input is true."}
+{"question": "or in boolean logic", "answer": "True when at least one input is true."}
+{"question": "tell me about or in boolean logic", "answer": "True when at least one input is true."}
+{"question": "what does or mean in a truth table", "answer": "True when at least one input is true."}
+{"question": "define disjunction in boolean logic", "answer": "True when at least one input is true."}
+{"question": "explain disjunction as a logic gate", "answer": "True when at least one input is true."}
+{"question": "describe disjunction in a logic circuit", "answer": "True when at least one input is true."}
+{"question": "what does disjunction mean in a truth table", "answer": "True when at least one input is true."}
+{"question": "define xor as a boolean operator", "answer": "True when the inputs differ."}
+{"question": "explain xor as a logic gate", "answer": "True when the inputs differ."}
+{"question": "what is xor in boolean logic", "answer": "True when the inputs differ."}
+{"question": "describe xor in boolean logic", "answer": "True when the inputs differ."}
+{"question": "what is the meaning of xor in boolean logic", "answer": "True when the inputs differ."}
+{"question": "xor in boolean logic", "answer": "True when the inputs differ."}
+{"question": "tell me about xor in boolean logic", "answer": "True when the inputs differ."}
+{"question": "what does xor mean in a truth table", "answer": "True when the inputs differ."}
+{"question": "define exclusive or in boolean logic", "answer": "True when the inputs differ."}
+{"question": "explain exclusive or as a logic gate", "answer": "True when the inputs differ."}
+{"question": "describe exclusive or in a logic circuit", "answer": "True when the inputs differ."}
+{"question": "what does exclusive or mean in a truth table", "answer": "True when the inputs differ."}
+{"question": "define not as a boolean operator", "answer": "It reverses the truth value."}
+{"question": "explain not as a logic gate", "answer": "It reverses the truth value."}
+{"question": "what is not in boolean logic", "answer": "It reverses the truth value."}
+{"question": "describe not in boolean logic", "answer": "It reverses the truth value."}
+{"question": "what is the meaning of not in boolean logic", "answer": "It reverses the truth value."}
+{"question": "not in boolean logic", "answer": "It reverses the truth value."}
+{"question": "tell me about not in boolean logic", "answer": "It reverses the truth value."}
+{"question": "what does not mean in a truth table", "answer": "It reverses the truth value."}
+{"question": "define negation in boolean logic", "answer": "It reverses the truth value."}
+{"question": "explain negation as a logic gate", "answer": "It reverses the truth value."}
+{"question": "describe negation in a logic circuit", "answer": "It reverses the truth value."}
+{"question": "what does negation mean in a truth table", "answer": "It reverses the truth value."}

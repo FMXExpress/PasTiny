@@ -100,6 +100,8 @@ Its network unit gives the same 60 reference answers as `TINY.C` when built with
 
 ## PasTinyMoE
 
+[Download the complete 100-expert DOS edition](PasTinyMoE/dist/SPEC100.ZIP). Extract the archive and run `EXPERT`. On 1,381 in-scope evaluation prompts, automatic routing selected the intended expert 1,381 times and generated 1,138 exact answers. The questions use new wording for topics covered in training. [All 100 scores and example questions](PasTinyMoE/specialists/batch100/scorecard.md)
+
 The [PasTinyMoE runtime and downloads](PasTinyMoE/) add manual and keyword-based model selection to a separate TP7 executable. The three-file FAT12 edition and 100-file SD edition use one resident model. Both currently ship labeled copies of the general model for capacity and recovery testing.
 
 The [three trained pilot specialists](PasTinyMoE/specialists/) are available separately in [SPEC3.ZIP](PasTinyMoE/dist/SPEC3.ZIP).
@@ -113,9 +115,3 @@ The [five-expert SD edition](PasTinyMoE/dist/SPEC5.ZIP) includes [PC Workbench](
 The [nine-expert SD edition](PasTinyMoE/dist/SPEC9.ZIP) adds [Punctuation](PasTinyMoE/specialists/punctuation/).
 
 The [ten-expert SD edition](PasTinyMoE/dist/SPEC10.ZIP) adds [Synonyms](PasTinyMoE/specialists/synonyms/) with separate routing for definitions and substitutions.
-
-### PasTinyMoE 90-expert edition
-
-[Download SPEC90 for DOS](PasTinyMoE/dist/SPEC90.ZIP) or inspect the [expert list and evaluation results](PasTinyMoE/specialists/batch90/README.md).
-
-[Accuracy and example questions for all 90 experts](PasTinyMoE/specialists/batch90/scorecard.md)

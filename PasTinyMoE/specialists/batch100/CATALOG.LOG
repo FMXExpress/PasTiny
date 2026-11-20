@@ -1,0 +1,114 @@
+catalog/init ms=25
+FPU no
+heap=509024 largest=509024 stack=15860
+load/recovery ms=875
+active 1 DOS Guide
+heap=24824 largest=24824 stack=15860
+1 DOS Guide
+2 Turbo Pascal Coach
+51 Pocket Naturalist
+41 Word Bench
+3 PC Workbench
+42 Spelling Helper
+43 Confused Words
+44 Grammar Terms
+45 Punctuation
+46 Synonyms
+47 Antonyms
+48 Abbreviations
+49 Idioms
+50 Word origins
+52 Mammals
+53 Birds
+54 Reptiles
+55 Amphibians
+56 Fish
+57 Insects
+58 Spiders
+59 Trees
+60 Flowers
+61 Solar system
+62 Stars and Sky
+63 Weather
+64 Rocks and geology
+65 Electricity
+66 Forces and motion
+67 Light
+68 Sound
+69 Elements and Matter
+70 Human Body
+71 Countries and Capitals
+72 Flags
+73 Continents
+74 Rivers
+75 Mountains
+76 Oceans and seas
+77 Cities
+78 Landmarks
+79 Map Reader
+80 Navigation Terms
+81 Ancient Egypt
+82 Ancient Greece
+83 Ancient Rome
+84 Medieval life
+85 Exploration
+86 Inventions
+87 Computing history
+88 Spaceflight
+89 Transport History
+90 History vocabulary
+91 Riddle hints
+92 Wordplay
+93 Chess vocabulary
+94 Adventure vocabulary
+95 Dungeon descriptions
+96 Pirate character
+97 Spaceship character
+4 File and Path Terms
+5 DOS memory terms
+6 Floppy disk terms
+37 Modem Desk
+38 BBS and Terminal
+39 WordStar
+40 Lotus 1-2-3
+98 Frontier character
+99 Fairy-tale character
+100 Story sparks
+7 FAT Volume Terms
+8 DOS Startup Files
+9 Batch file vocabulary
+10 Text file conventions
+11 Keyboard terminology
+12 BIOS setup glossary
+13 Display adapters
+14 Text screen layout
+15 Bitmap graphics
+16 Printer desk
+17 Joystick Desk
+18 PC Audio Devices
+19 Serial port glossary
+20 PC expansion slots
+21 Pascal scalar types
+22 Pascal control flow
+23 Pascal records and arrays
+24 Pascal routines
+25 Pascal file types
+26 Pascal units
+27 Compiler Messages
+28 Debugger Vocabulary
+29 Number notation
+30 Boolean logic
+31 Sorting vocabulary
+32 Data structures
+33 Archive formats
+34 Spreadsheet formulas
+35 Database vocabulary
+36 Text editor navigation
+load/recovery ms=366
+active 100 Story sparks
+heap=24824 largest=24824 stack=15860
+load/recovery ms=392
+active 1 DOS Guide
+load/recovery ms=310
+active 100 Story sparks
+heap=24824 largest=24824 stack=15860

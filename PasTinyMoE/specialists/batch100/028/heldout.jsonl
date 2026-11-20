@@ -1,0 +1,8 @@
+{"question": "what happens when a debugger reaches a breakpoint", "answer": "Pauses execution at a chosen location."}
+{"question": "why would i place a breakpoint on a source line", "answer": "Pauses execution at a chosen location."}
+{"question": "what does single step do in a local debugger", "answer": "Execute one step and pause."}
+{"question": "how far does execution go when i single step", "answer": "Execute one step and pause."}
+{"question": "what does a watch display while debugging", "answer": "Displays the value of an expression."}
+{"question": "why add a variable to the debugger watch window", "answer": "Displays the value of an expression."}
+{"question": "how does a call stack show who called this routine", "answer": "Shows the active chain of calls."}
+{"question": "what does the debugger list in its call stack", "answer": "Shows the active chain of calls."}

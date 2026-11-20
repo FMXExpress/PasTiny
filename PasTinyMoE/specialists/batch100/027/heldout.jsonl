@@ -1,0 +1,8 @@
+{"question": "why does assigning true to an integer cause type mismatch", "answer": "The types are incompatible."}
+{"question": "explain type mismatch in the tp7 compiler", "answer": "The types are incompatible."}
+{"question": "what does unknown identifier say about a variable name", "answer": "The name is not declared here."}
+{"question": "why does an undeclared name give unknown identifier", "answer": "The name is not declared here."}
+{"question": "why does reusing a variable name cause duplicate identifier", "answer": "The name is already declared here."}
+{"question": "what does duplicate identifier mean for two declarations", "answer": "The name is already declared here."}
+{"question": "what is missing when tp7 reports semicolon expected", "answer": "A semicolon is missing here."}
+{"question": "why would two statements trigger semicolon expected", "answer": "A semicolon is missing here."}

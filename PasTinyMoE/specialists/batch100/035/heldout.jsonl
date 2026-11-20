@@ -1,0 +1,8 @@
+{"question": "explain the structure of a table in a database", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "what makes up a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "describe one record in a personal database", "answer": "One row about a single item.", "fact": "record"}
+{"question": "what does one record hold in a database", "answer": "One row about a single item.", "fact": "record"}
+{"question": "what does one field of a database record describe", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "explain the meaning of a field in a database", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "what does an index help a database do", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "explain the use of an index in a database", "answer": "It speeds up searches by key.", "fact": "index"}

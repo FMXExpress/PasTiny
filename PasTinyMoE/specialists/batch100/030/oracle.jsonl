@@ -1,0 +1,12 @@
+{"question": "when is a two input and gate true", "expected": "True when both inputs are true.", "output": "It reverses the true.", "exact": false}
+{"question": "which truth condition defines conjunction", "expected": "True when both inputs are true.", "output": "True when both inputs are true.", "exact": true}
+{"question": "explain the boolean and operator", "expected": "True when both inputs are true.", "output": "True when both inputs are true.", "exact": true}
+{"question": "what makes an inclusive or gate true", "expected": "True when at least one input is true.", "output": "True.", "exact": false}
+{"question": "when does disjunction return true", "expected": "True when at least one input is true.", "output": "True least one input is true.", "exact": false}
+{"question": "explain the boolean or operator", "expected": "True when at least one input is true.", "output": "True when at least one input is true.", "exact": true}
+{"question": "when is an exclusive or gate true", "expected": "True when the inputs differ.", "output": "True input is a gairbogit.", "exact": false}
+{"question": "which inputs make xor return true", "expected": "True when the inputs differ.", "output": "True when true letters.", "exact": false}
+{"question": "explain the boolean xor operator", "expected": "True when the inputs differ.", "output": "True when the inputs differ.", "exact": true}
+{"question": "what does negation do to a truth value", "expected": "It reverses the truth value.", "output": "True when at least one input is true.", "exact": false}
+{"question": "how does a not gate change its input", "expected": "It reverses the truth value.", "output": "True when everses the when the when the when the when the werth lever the when the wrist.", "exact": false}
+{"question": "explain the boolean not operator", "expected": "It reverses the truth value.", "output": "True when both inputs are true.", "exact": false}

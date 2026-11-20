@@ -1,0 +1,13 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 90, "validation_pairs": 10, "device": "cpu"}
+{"step": 1, "train_loss": 8.23121, "validation_loss": 7.10855}
+{"step": 50, "train_loss": 0.00122, "validation_loss": 0.0027}
+{"step": 100, "train_loss": 0.00026, "validation_loss": 0.00058}
+{"step": 150, "train_loss": 0.00015, "validation_loss": 0.00038}
+{"step": 200, "train_loss": 0.00011, "validation_loss": 0.0003}
+{"step": 250, "train_loss": 8e-05, "validation_loss": 0.00023}
+{"step": 300, "train_loss": 6e-05, "validation_loss": 0.00018}
+{"step": 350, "train_loss": 6e-05, "validation_loss": 0.00016}
+{"step": 400, "train_loss": 4e-05, "validation_loss": 0.00014}
+{"step": 450, "train_loss": 4e-05, "validation_loss": 0.00011}
+{"step": 500, "train_loss": 3e-05, "validation_loss": 0.0001}
+Exported /tmp/dbeditor/036/model.bin and /tmp/dbeditor/036/model.pt

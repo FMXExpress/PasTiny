@@ -1,0 +1,80 @@
+{"question": "what is a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "in brief what is a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "quick question what is a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "please tell me what is a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "what does a database table hold", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "in brief what does a database table hold", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "quick question what does a database table hold", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "please tell me what does a database table hold", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "describe the layout of a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "in brief describe the layout of a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "quick question describe the layout of a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "please tell me describe the layout of a database table", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "how is a database table organized", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "in brief how is a database table organized", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "quick question how is a database table organized", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "please tell me how is a database table organized", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "what is a table in a database", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "in brief what is a table in a database", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "quick question what is a table in a database", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "please tell me what is a table in a database", "answer": "Related records arranged in rows and columns.", "fact": "table"}
+{"question": "what is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "in brief what is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "quick question what is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "please tell me what is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "what does a database record represent", "answer": "One row about a single item.", "fact": "record"}
+{"question": "in brief what does a database record represent", "answer": "One row about a single item.", "fact": "record"}
+{"question": "quick question what does a database record represent", "answer": "One row about a single item.", "fact": "record"}
+{"question": "please tell me what does a database record represent", "answer": "One row about a single item.", "fact": "record"}
+{"question": "what kind of row is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "in brief what kind of row is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "quick question what kind of row is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "please tell me what kind of row is a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "define a record in a database", "answer": "One row about a single item.", "fact": "record"}
+{"question": "in brief define a record in a database", "answer": "One row about a single item.", "fact": "record"}
+{"question": "quick question define a record in a database", "answer": "One row about a single item.", "fact": "record"}
+{"question": "please tell me define a record in a database", "answer": "One row about a single item.", "fact": "record"}
+{"question": "what is meant by a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "in brief what is meant by a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "quick question what is meant by a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "please tell me what is meant by a database record", "answer": "One row about a single item.", "fact": "record"}
+{"question": "what is a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "in brief what is a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "quick question what is a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "please tell me what is a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "what does one database field describe", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "in brief what does one database field describe", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "quick question what does one database field describe", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "please tell me what does one database field describe", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "define field in a database", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "in brief define field in a database", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "quick question define field in a database", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "please tell me define field in a database", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "what information belongs in a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "in brief what information belongs in a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "quick question what information belongs in a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "please tell me what information belongs in a database field", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "what does a database field represent", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "in brief what does a database field represent", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "quick question what does a database field represent", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "please tell me what does a database field represent", "answer": "One attribute of an item.", "fact": "field"}
+{"question": "why build a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "in brief why build a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "quick question why build a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "please tell me why build a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "what is a database index for", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "in brief what is a database index for", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "quick question what is a database index for", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "please tell me what is a database index for", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "why keep an index in a database", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "in brief why keep an index in a database", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "quick question why keep an index in a database", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "please tell me why keep an index in a database", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "how does a database index help with searches", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "in brief how does a database index help with searches", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "quick question how does a database index help with searches", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "please tell me how does a database index help with searches", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "what is the purpose of a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "in brief what is the purpose of a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "quick question what is the purpose of a database index", "answer": "It speeds up searches by key.", "fact": "index"}
+{"question": "please tell me what is the purpose of a database index", "answer": "It speeds up searches by key.", "fact": "index"}

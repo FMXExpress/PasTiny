@@ -1,0 +1,64 @@
+{"question": "in sorting name this: the field that determines record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "sorting term for the field used to order rows", "answer": "Sort key.", "fact": "sort key"}
+{"question": "what sorting term fits: records are ordered using this field", "answer": "Sort key.", "fact": "sort key"}
+{"question": "identify the sorting concept: the value that decides record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "give a sorting label: the field that determines record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "in sorting what is this called: the field used to order rows", "answer": "Sort key.", "fact": "sort key"}
+{"question": "name the sorting idea: records are ordered using this field", "answer": "Sort key.", "fact": "sort key"}
+{"question": "which sorting term describes this: the value that decides record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "define the sorting label for the field that determines record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "choose the sorting term: the field used to order rows", "answer": "Sort key.", "fact": "sort key"}
+{"question": "give the sorting term when records are ordered using this field", "answer": "Sort key.", "fact": "sort key"}
+{"question": "what is the name in sorting if the value that decides record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "suggest the sorting word: the field that determines record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "sorting glossary lookup: the field used to order rows", "answer": "Sort key.", "fact": "sort key"}
+{"question": "which sorting label matches: records are ordered using this field", "answer": "Sort key.", "fact": "sort key"}
+{"question": "sorting example: the value that decides record order", "answer": "Sort key.", "fact": "sort key"}
+{"question": "in sorting name this: ties always keep their original order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "sorting term for tied records keep their relative order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "what sorting term fits: equal keys preserve input order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "identify the sorting concept: ties stay in arrival order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "give a sorting label: ties always keep their original order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "in sorting what is this called: tied records keep their relative order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "name the sorting idea: equal keys preserve input order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "which sorting term describes this: ties stay in arrival order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "define the sorting label for ties always keep their original order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "choose the sorting term: tied records keep their relative order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "give the sorting term when equal keys preserve input order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "what is the name in sorting if ties stay in arrival order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "suggest the sorting word: ties always keep their original order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "sorting glossary lookup: tied records keep their relative order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "which sorting label matches: equal keys preserve input order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "sorting example: ties stay in arrival order", "answer": "Stable sort.", "fact": "stable sort"}
+{"question": "in sorting name this: numbers go from smallest to largest", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "sorting term for smallest values appear first", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "what sorting term fits: the sequence runs from low to high", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "identify the sorting concept: the list goes from 1 to 9", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "give a sorting label: numbers go from smallest to largest", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "in sorting what is this called: smallest values appear first", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "name the sorting idea: the sequence runs from low to high", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "which sorting term describes this: the list goes from 1 to 9", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "define the sorting label for numbers go from smallest to largest", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "choose the sorting term: smallest values appear first", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "give the sorting term when the sequence runs from low to high", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "what is the name in sorting if the list goes from 1 to 9", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "suggest the sorting word: numbers go from smallest to largest", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "sorting glossary lookup: smallest values appear first", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "which sorting label matches: the sequence runs from low to high", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "sorting example: the list goes from 1 to 9", "answer": "Ascending order.", "fact": "ascending order"}
+{"question": "in sorting name this: two keys are tested against each other", "answer": "Comparison.", "fact": "comparison"}
+{"question": "sorting term for two values are checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "what sorting term fits: one key is tested against another", "answer": "Comparison.", "fact": "comparison"}
+{"question": "identify the sorting concept: a pair of keys is checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "give a sorting label: two keys are tested against each other", "answer": "Comparison.", "fact": "comparison"}
+{"question": "in sorting what is this called: two values are checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "name the sorting idea: one key is tested against another", "answer": "Comparison.", "fact": "comparison"}
+{"question": "which sorting term describes this: a pair of keys is checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "define the sorting label for two keys are tested against each other", "answer": "Comparison.", "fact": "comparison"}
+{"question": "choose the sorting term: two values are checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "give the sorting term when one key is tested against another", "answer": "Comparison.", "fact": "comparison"}
+{"question": "what is the name in sorting if a pair of keys is checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "suggest the sorting word: two keys are tested against each other", "answer": "Comparison.", "fact": "comparison"}
+{"question": "sorting glossary lookup: two values are checked for order", "answer": "Comparison.", "fact": "comparison"}
+{"question": "which sorting label matches: one key is tested against another", "answer": "Comparison.", "fact": "comparison"}
+{"question": "sorting example: a pair of keys is checked for order", "answer": "Comparison.", "fact": "comparison"}

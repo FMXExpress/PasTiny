@@ -1,0 +1,111 @@
+auto
+why does assigning true to an integer cause type mismatch
+explain type mismatch in the tp7 compiler
+what does unknown identifier say about a variable name
+why does an undeclared name give unknown identifier
+why does reusing a variable name cause duplicate identifier
+what does duplicate identifier mean for two declarations
+what is missing when tp7 reports semicolon expected
+why would two statements trigger semicolon expected
+what happens when a debugger reaches a breakpoint
+why would i place a breakpoint on a source line
+what does single step do in a local debugger
+how far does execution go when i single step
+what does a watch display while debugging
+why add a variable to the debugger watch window
+how does a call stack show who called this routine
+what does the debugger list in its call stack
+what base uses only zero and one
+which base is binary notation
+what radix is used by binary digits
+what base is ordinary decimal counting
+which radix does decimal use
+which base has digits zero through nine
+what radix does hexadecimal use
+which base has digits zero through f
+what base do hex numerals use
+how does position affect a digit in a numeral
+what determines the weight of a digit
+what does place value tell me
+when is a two input and gate true
+which truth condition defines conjunction
+explain the boolean and operator
+what makes an inclusive or gate true
+when does disjunction return true
+explain the boolean or operator
+when is an exclusive or gate true
+which inputs make xor return true
+explain the boolean xor operator
+what does negation do to a truth value
+how does a not gate change its input
+explain the boolean not operator
+recognize this sorting example: the field that determines record order
+in sorting by age what do we call the age field
+recognize this sorting example: ties always keep their original order
+which sorting method promises that tied names never trade places
+recognize this sorting example: numbers go from smallest to largest
+what sorting order gives 2 then 5 then 8
+recognize this sorting example: two keys are tested against each other
+in sorting what operation asks whether one key precedes another
+identify a structure with this rule: last in first out
+name the structure where i push a plate and pop the top one
+identify a structure with this rule: first in first out
+which structure serves the earliest arrival at the front
+identify a structure with this rule: each node links to the next
+in which structure do i reach a successor by following a link
+what filename extension identifies a ZIP archive
+please describe ZIP filename extension
+remind me about ZIP archive suffix
+which filename suffix does an ARC archive use
+please describe ARC filename extension
+remind me about ARC archive suffix
+give the usual filename ending for an LZH archive
+please describe LZH filename extension
+remind me about LZH archive suffix
+what does a ZIP central directory list
+please describe ZIP central directory purpose
+remind me about ZIP central directory contents
+does ZIP method zero compress the data
+please describe ZIP stored compression method
+remind me about ZIP method zero meaning
+which DOS archiver is associated with LZH files
+please describe LZH common archiver name
+remind me about LZH DOS archiver utility
+is spreadsheet reference A1 relative or absolute
+please describe spreadsheet reference A1 type
+remind me about classify formula reference A1
+is spreadsheet reference $A$1 relative or absolute
+please describe spreadsheet reference $A$1 type
+remind me about classify formula reference $A$1
+which part stays fixed in spreadsheet reference $A1
+please describe spreadsheet reference $A1 fixed part
+remind me about fixed part of formula reference $A1
+which part stays fixed in spreadsheet reference A$1
+please describe spreadsheet reference A$1 fixed part
+remind me about fixed part of formula reference A$1
+what does A1 become when a spreadsheet formula is copied one row down
+please describe copy spreadsheet reference A1 one row down
+remind me about move formula copy with A1 down one row
+copy a spreadsheet formula one column right: what becomes of A1
+please describe copy spreadsheet reference A1 one column right
+remind me about move formula copy with A1 right one column
+explain the structure of a table in a database
+what makes up a database table
+describe one record in a personal database
+what does one record hold in a database
+what does one field of a database record describe
+explain the meaning of a field in a database
+what does an index help a database do
+explain the use of an index in a database
+what does the caret tell an editor user
+where does the editor caret point
+how does an editor display a line with word wrap
+what does the editor do when a word wraps
+how does typing in insert mode change the editor text
+what happens to existing letters in editor insert mode
+how does the editor behave in overtype mode
+what does overtype do to letters under the caret
+what does a block selection mean in a text editor
+what is the selected text block in an editor
+mem
+quit

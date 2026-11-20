@@ -1,0 +1,15 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 87, "validation_pairs": 9, "device": "cpu"}
+{"step": 1, "train_loss": 13.82912, "validation_loss": 11.58966}
+{"step": 50, "train_loss": 0.00468, "validation_loss": 0.02037}
+{"step": 100, "train_loss": 0.00047, "validation_loss": 0.02009}
+{"step": 150, "train_loss": 0.00027, "validation_loss": 0.00414}
+{"step": 200, "train_loss": 0.00015, "validation_loss": 0.00232}
+{"step": 250, "train_loss": 0.00011, "validation_loss": 0.00114}
+{"step": 300, "train_loss": 0.00011, "validation_loss": 0.00089}
+{"step": 350, "train_loss": 7e-05, "validation_loss": 0.00064}
+{"step": 400, "train_loss": 7e-05, "validation_loss": 0.00046}
+{"step": 450, "train_loss": 5e-05, "validation_loss": 0.00037}
+{"step": 500, "train_loss": 4e-05, "validation_loss": 0.00024}
+{"step": 550, "train_loss": 4e-05, "validation_loss": 0.00019}
+{"step": 600, "train_loss": 5e-05, "validation_loss": 0.00015}
+Exported specialists/batch100/034/model.bin and specialists/batch100/034/model.pt

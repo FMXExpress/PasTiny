@@ -1,0 +1,6 @@
+{"question": "identify a structure with this rule: last in first out", "answer": "Stack.", "fact": "stack", "output": "Stack.", "exact": true}
+{"question": "name the structure where i push a plate and pop the top one", "answer": "Stack.", "fact": "stack", "output": "Stack.", "exact": true}
+{"question": "identify a structure with this rule: first in first out", "answer": "Queue.", "fact": "queue", "output": "Queue.", "exact": true}
+{"question": "which structure serves the earliest arrival at the front", "answer": "Queue.", "fact": "queue", "output": "Stack.", "exact": false}
+{"question": "identify a structure with this rule: each node links to the next", "answer": "Linked list.", "fact": "linked list", "output": "Linked list.", "exact": true}
+{"question": "in which structure do i reach a successor by following a link", "answer": "Linked list.", "fact": "linked list", "output": "Linked list.", "exact": true}

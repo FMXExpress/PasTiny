@@ -1,0 +1,12 @@
+{"question": "what base uses only zero and one", "expected": "Binary uses base two.", "output": "Aboutium and Sureind.", "exact": false}
+{"question": "which base is binary notation", "expected": "Binary uses base two.", "output": "Binary uses base two.", "exact": true}
+{"question": "what radix is used by binary digits", "expected": "Binary uses base two.", "output": "Binary uses base two.", "exact": true}
+{"question": "what base is ordinary decimal counting", "expected": "Decimal uses base ten.", "output": "BASSS.km4.", "exact": false}
+{"question": "which radix does decimal use", "expected": "Decimal uses base ten.", "output": "Decimal uses base ten.", "exact": true}
+{"question": "which base has digits zero through nine", "expected": "Decimal uses base ten.", "output": "Decimal uses base ten.", "exact": true}
+{"question": "what radix does hexadecimal use", "expected": "Hexadecimal uses base sixteen.", "output": "Hexadecimal uses base sixteen.", "exact": true}
+{"question": "which base has digits zero through f", "expected": "Hexadecimal uses base sixteen.", "output": "Hexadecimal uses base sixteen.", "exact": true}
+{"question": "what base do hex numerals use", "expected": "Hexadecimal uses base sixteen.", "output": "Decimal uses base ten.", "exact": false}
+{"question": "how does position affect a digit in a numeral", "expected": "A digit gets its weight from its position.", "output": "A digit gets its weight from its position.", "exact": true}
+{"question": "what determines the weight of a digit", "expected": "A digit gets its weight from its position.", "output": "A digit gets its weight from its position.", "exact": true}
+{"question": "what does place value tell me", "expected": "A digit gets its weight from its position.", "output": "A digit gets its weight from its position.", "exact": true}

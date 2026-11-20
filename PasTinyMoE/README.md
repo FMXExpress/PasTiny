@@ -1,6 +1,12 @@
 # PasTinyMoE for DOS
 
-PasTinyMoE runs one complete TNY2 network at a time on a 386 with conventional memory. Both editions ship the same 30,320-byte real-mode Turbo Pascal 7 executable with integer assembly inference and built-in software floating point.
+[Download SPEC100.ZIP](dist/SPEC100.ZIP) for the complete catalog of 100 trained experts. The 386 real-mode DOS executable loads one 381,808-byte model at a time and supports a machine without a coprocessor. The ZIP includes all models, the catalog and the runtime in DOS 8.3 format.
+
+Extract the ZIP into a new directory on your DOS drive. Run `EXPERT`, type `LIST` for IDs or ask a question. For manual selection type `USE 2` (Turbo Pascal Coach). Type `AUTO` to resume automatic routing or `QUIT` to exit.
+
+On 1,381 in-scope evaluation prompts, automatic routing selected the intended expert 1,381 times and generated 1,138 exact answers. The questions use new wording for topics covered in training. [Per-expert scores, examples and comparison with original Tiny](specialists/batch100/scorecard.md)
+
+## Capacity fixtures and earlier editions
 
 | Download | Runtime bytes before ZIP compression | Contents |
 |---|---:|---|
@@ -8,13 +14,13 @@ PasTinyMoE runs one complete TNY2 network at a time on a 386 with conventional m
 | [SD100.ZIP](dist/SD100.ZIP) | 38,218,349 | 100 model files, 38,180,800 bytes of weights |
 | [Comparison builds](dist/COMPARE.ZIP) | | Pure Pascal integer, float and debug executables |
 
-**Ten trained pilot specialists are available.** [SPEC10.ZIP](dist/SPEC10.ZIP) adds [Synonyms, expert 046](specialists/synonyms/). [SPEC9.ZIP](dist/SPEC9.ZIP) adds [Punctuation, expert 045](specialists/punctuation/). [SPEC8.ZIP](dist/SPEC8.ZIP) adds Spelling Helper, Confused Words and Grammar Terms. See the [word desk results](specialists/worddesk/) and [100-expert plan](docs/expert-plan.md). The [five-expert SD package](dist/SPEC5.ZIP) adds [PC Workbench](specialists/pcbench/) for 386 hardware questions. The [four-expert SD package](dist/SPEC4.ZIP) adds [Word Bench, expert 041](specialists/wordbench/), covering eight common adjectives. In the three-expert floppy edition, DOS Guide, Turbo Pascal Coach and Pocket Naturalist each cover four facts. Download [SPEC3.ZIP](dist/SPEC3.ZIP) or the [specialist floppy image](dist/SPEC3.IMG). See the [syllabi and evaluation](specialists/README.md). FLOPPY3 and SD100 in the table above are the original capacity fixtures. The five-bank shared-core edition is deferred.
+**Earlier specialist editions.** [SPEC10.ZIP](dist/SPEC10.ZIP) adds [Synonyms, expert 046](specialists/synonyms/). [SPEC9.ZIP](dist/SPEC9.ZIP) adds [Punctuation, expert 045](specialists/punctuation/). [SPEC8.ZIP](dist/SPEC8.ZIP) adds Spelling Helper, Confused Words and Grammar Terms. See the [word desk results](specialists/worddesk/) and [100-expert plan](docs/expert-plan.md). The [five-expert SD package](dist/SPEC5.ZIP) adds [PC Workbench](specialists/pcbench/) for 386 hardware questions. The [four-expert SD package](dist/SPEC4.ZIP) adds [Word Bench, expert 041](specialists/wordbench/), covering eight common adjectives. In the three-expert floppy edition, DOS Guide, Turbo Pascal Coach and Pocket Naturalist each cover four facts. Download [SPEC3.ZIP](dist/SPEC3.ZIP) or the [specialist floppy image](dist/SPEC3.IMG). See the [syllabi and evaluation](specialists/README.md). FLOPPY3 and SD100 in the table above are the original capacity fixtures. The five-bank shared-core edition is deferred.
 
 The [expert plan](docs/expert-plan.md) defines the proposed scopes, routing behavior and training order. The first three planned specialists are DOS Guide, Turbo Pascal Coach and Pocket Naturalist.
 
 ## Running it
 
-Extract either runtime ZIP into its own new DOS directory, change to that directory and run `EXPERT`. Use `LIST`, `USE 2`, `AUTO`, `MEM` or `QUIT`. Escape during an interactive answer cancels generation. Redirected input takes one command or question per line. A successful USE pins the model. AUTO routes the word “capital” to fixture 2 and “times” to fixture 3. A tie or unknown word selects the first catalog entry.
+For the capacity fixtures, extract either runtime ZIP into its own new DOS directory, change to that directory and run `EXPERT`. Use `LIST`, `USE 2`, `AUTO`, `MEM` or `QUIT`. Escape during an interactive answer cancels generation. Redirected input takes one command or question per line. A successful USE pins the model. AUTO routes the word “capital” to fixture 2 and “times” to fixture 3. A tie or unknown word selects the first catalog entry.
 
 The loader streams 4 KiB at a time into fixed allocations, checks shape, exact size, finite scale/gain fields and CRC32, then marks the new model ready. The same ID reuses the loaded network. Each question starts at position zero and overwrites every cache position before attending to it. A failed replacement reloads the previous file; failed recovery leaves the runtime unloaded.
 
@@ -55,9 +61,3 @@ Derived from FMXExpress/PasTiny commit 619052aab899ad837b003093752bc36008558eff 
 The production TP7 build matched all 60 reference answers in DOSBox-X with the emulated FPU disabled. With the FPU enabled, each of the integer/ASM, NOASM and float builds matched 60/60. Free heap and largest free block both stayed at 49,160 bytes across 300 switches. [Transcripts, memory observations and timing results](evidence/README.md)
 
 Pass `--report summary.json` to the evaluation command to record the held-out results and SHA-256 hashes of the corpus, host executable, catalog and model files. Use a manifest split of `test` or `heldout`. An optional `group` on each JSONL row identifies a slice such as ambiguous or out-of-domain. Each mode reports sample count, exact answers, intended-expert selections and median host answer time overall and by group. Select a different general model with `--baseline ID`. Redirect stdout to a JSONL file to keep every question and answer alongside the summary.
-
-### PasTinyMoE 90-expert edition
-
-[Download SPEC90 for DOS](dist/SPEC90.ZIP) or inspect the [expert list and evaluation results](specialists/batch90/README.md).
-
-[Accuracy and example questions for all 90 experts](specialists/batch90/scorecard.md)

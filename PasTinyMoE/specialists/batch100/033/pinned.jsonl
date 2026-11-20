@@ -1,0 +1,18 @@
+{"question": "what filename extension identifies a ZIP archive", "answer": ".zip", "output": ".zip", "exact": true}
+{"question": "please describe ZIP filename extension", "answer": ".zip", "output": ".zip", "exact": true}
+{"question": "remind me about ZIP archive suffix", "answer": ".zip", "output": ".zip", "exact": true}
+{"question": "which filename suffix does an ARC archive use", "answer": ".arc", "output": "No carrove entries.", "exact": false}
+{"question": "please describe ARC filename extension", "answer": ".arc", "output": ".arc", "exact": true}
+{"question": "remind me about ARC archive suffix", "answer": ".arc", "output": ".arc", "exact": true}
+{"question": "give the usual filename ending for an LZH archive", "answer": ".lzh", "output": ".lzh", "exact": true}
+{"question": "please describe LZH filename extension", "answer": ".lzh", "output": ".lzh", "exact": true}
+{"question": "remind me about LZH archive suffix", "answer": ".lzh", "output": ".lzh", "exact": true}
+{"question": "what does a ZIP central directory list", "answer": "Archive entries.", "output": "Archive entries.", "exact": true}
+{"question": "please describe ZIP central directory purpose", "answer": "Archive entries.", "output": "Archive entries.", "exact": true}
+{"question": "remind me about ZIP central directory contents", "answer": "Archive entries.", "output": "Archive entries.", "exact": true}
+{"question": "does ZIP method zero compress the data", "answer": "No compression.", "output": "No compression.", "exact": true}
+{"question": "please describe ZIP stored compression method", "answer": "No compression.", "output": "No compression.", "exact": true}
+{"question": "remind me about ZIP method zero meaning", "answer": "No compression.", "output": "No compression.", "exact": true}
+{"question": "which DOS archiver is associated with LZH files", "answer": "LHA.", "output": "LHA.", "exact": true}
+{"question": "please describe LZH common archiver name", "answer": "LHA.", "output": "LHA.", "exact": true}
+{"question": "remind me about LZH DOS archiver utility", "answer": "LHA.", "output": "LHA.", "exact": true}

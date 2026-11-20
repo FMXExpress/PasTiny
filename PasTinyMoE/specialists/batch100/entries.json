@@ -1,0 +1,82 @@
+[
+  {
+    "id": 27,
+    "title": "Compiler Messages",
+    "name": "COMPILE.BIN",
+    "source": "specialists/models/COMPILE.BIN",
+    "sha256": "062e5431084ceffb96074a8e48d1a91aeb45db1573a8645afd26942489064072",
+    "keyword": "diagnostic"
+  },
+  {
+    "id": 28,
+    "title": "Debugger Vocabulary",
+    "name": "DEBUGGER.BIN",
+    "source": "specialists/models/DEBUGGER.BIN",
+    "sha256": "a77901f81b8f616c2b4a0702267a1ce38a40644a61b8fb832d278ed3cd1da52f",
+    "keyword": "breakpoint"
+  },
+  {
+    "id": 29,
+    "title": "Number notation",
+    "name": "NUMBASE.BIN",
+    "source": "specialists/models/NUMBASE.BIN",
+    "sha256": "c9be39fe71d6bc93ee81187b27e6e861ee7c970181c67c70da6c8c78ec18f06b",
+    "keyword": "binary"
+  },
+  {
+    "id": 30,
+    "title": "Boolean logic",
+    "name": "BOOLLOG.BIN",
+    "source": "specialists/models/BOOLLOG.BIN",
+    "sha256": "e4d2d0514f88af29defa037759bc63686bb8345cd3fe343ddfcab14f07f35ae3",
+    "keyword": "xor"
+  },
+  {
+    "id": 31,
+    "title": "Sorting vocabulary",
+    "name": "SORTING.BIN",
+    "source": "specialists/models/SORTING.BIN",
+    "sha256": "c33ff2f93b762f270681cc7444cf06dcc0871b4151359b0157e59095e6f44c49",
+    "keyword": "sorting"
+  },
+  {
+    "id": 32,
+    "title": "Data structures",
+    "name": "DATASTR.BIN",
+    "source": "specialists/models/DATASTR.BIN",
+    "sha256": "60c1a41011fc0c8268e1c45f73038d19c83e4c0e5f08b60c8983974c445f6a88",
+    "keyword": "structure"
+  },
+  {
+    "id": 33,
+    "title": "Archive formats",
+    "name": "ARCHIVES.BIN",
+    "source": "specialists/models/ARCHIVES.BIN",
+    "sha256": "4995427df2cfddfd8a3be402fe2f958c0fcadc9bc4dce812ff89108dc023cce1",
+    "keyword": "zip"
+  },
+  {
+    "id": 34,
+    "title": "Spreadsheet formulas",
+    "name": "FORMULAS.BIN",
+    "source": "specialists/models/FORMULAS.BIN",
+    "sha256": "fbe86321e818e1c8c27d5948c39a6c9202ab283c6deb84877542f7b5bdf404b9",
+    "keyword": "spreadsheets"
+  },
+  {
+    "id": 35,
+    "title": "Database vocabulary",
+    "name": "DATABASE.BIN",
+    "source": "specialists/models/DATABASE.BIN",
+    "sha256": "7cb6f3dec89f8c74fbefeab0519ce138401af2c4859248a201b8ff31749ff8de",
+    "keyword": "database"
+  },
+  {
+    "id": 36,
+    "title": "Text editor navigation",
+    "name": "EDITNAV.BIN",
+    "source": "specialists/models/EDITNAV.BIN",
+    "sha256": "80854fbd0f7aa81a5889dbc3b893ba434f7179adcf31c1df214452d952f53f40",
+    "keyword": "editor"
+  }
+]

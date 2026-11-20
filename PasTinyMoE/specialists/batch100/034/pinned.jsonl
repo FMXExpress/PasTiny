@@ -1,0 +1,18 @@
+{"question": "is spreadsheet reference A1 relative or absolute", "answer": "Relative.", "output": "Relative.", "exact": true}
+{"question": "please describe spreadsheet reference A1 type", "answer": "Relative.", "output": "Relative.", "exact": true}
+{"question": "remind me about classify formula reference A1", "answer": "Relative.", "output": "Relative.", "exact": true}
+{"question": "is spreadsheet reference $A$1 relative or absolute", "answer": "Absolute.", "output": "Absolute.", "exact": true}
+{"question": "please describe spreadsheet reference $A$1 type", "answer": "Absolute.", "output": "Absolute.", "exact": true}
+{"question": "remind me about classify formula reference $A$1", "answer": "Absolute.", "output": "Absolute.", "exact": true}
+{"question": "which part stays fixed in spreadsheet reference $A1", "answer": "Column A.", "output": "Column A.", "exact": true}
+{"question": "please describe spreadsheet reference $A1 fixed part", "answer": "Column A.", "output": "Column A.", "exact": true}
+{"question": "remind me about fixed part of formula reference $A1", "answer": "Column A.", "output": "Column A.", "exact": true}
+{"question": "which part stays fixed in spreadsheet reference A$1", "answer": "Row 1.", "output": "Absolute.", "exact": false}
+{"question": "please describe spreadsheet reference A$1 fixed part", "answer": "Row 1.", "output": "Row 1.", "exact": true}
+{"question": "remind me about fixed part of formula reference A$1", "answer": "Row 1.", "output": "Row 1.", "exact": true}
+{"question": "what does A1 become when a spreadsheet formula is copied one row down", "answer": "A2.", "output": "A2.", "exact": true}
+{"question": "please describe copy spreadsheet reference A1 one row down", "answer": "A2.", "output": "A2.", "exact": true}
+{"question": "remind me about move formula copy with A1 down one row", "answer": "A2.", "output": "A2.", "exact": true}
+{"question": "copy a spreadsheet formula one column right: what becomes of A1", "answer": "B1.", "output": "B1.", "exact": true}
+{"question": "please describe copy spreadsheet reference A1 one column right", "answer": "B1.", "output": "B1.", "exact": true}
+{"question": "remind me about move formula copy with A1 right one column", "answer": "B1.", "output": "B1.", "exact": true}

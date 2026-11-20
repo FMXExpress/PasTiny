@@ -1,0 +1,459 @@
+catalog/init ms=59
+FPU yes
+heap=509024 largest=509024 stack=15860
+load/recovery ms=686
+active 1 DOS Guide
+heap=24824 largest=24824 stack=15860
+route ms=1
+load/recovery ms=138
+active 27 Compiler Messages
+The types are incompatible.
+answer ms=4362 chars=27
+first char ms=2543 output span ms=1758
+route ms=0
+The the the the the the the the the the the the the the the the the rest.
+answer ms=5844 chars=73
+first char ms=1782 output span ms=4000
+route ms=0
+The name is not declared here.
+answer ms=4581 chars=30
+first char ms=3021 output span ms=1496
+route ms=0
+The name is not declared here.
+answer ms=4293 chars=30
+first char ms=2280 output span ms=1932
+route ms=0
+The name is already declared here.
+answer ms=4623 chars=34
+first char ms=2661 output span ms=1929
+route ms=0
+The the the the the the the the the the the the the the the the the t.
+answer ms=9312 chars=70
+first char ms=2890 output span ms=6281
+route ms=0
+A semicolon is missing here.
+answer ms=2398 chars=28
+first char ms=1435 output span ms=944
+route ms=1
+A semicolon is missing here.
+answer ms=2135 chars=28
+first char ms=1205 output span ms=933
+route ms=0
+load/recovery ms=113
+active 28 Debugger Vocabulary
+Pauses execution at a chosen location.
+answer ms=3807 chars=38
+first char ms=1359 output span ms=2412
+route ms=1
+Sunes pexecution a chosen location.
+answer ms=3833 chars=35
+first char ms=1790 output span ms=1977
+route ms=0
+Executicuticuticuticuticuticuticuti, blacticuticuti8 a sten pexecutiqle of a is a.
+answer ms=4248 chars=82
+first char ms=1946 output span ms=2310
+route ms=0
+Execution at a chosen location.
+answer ms=2182 chars=31
+first char ms=1205 output span ms=888
+route ms=0
+Displays the value of an expression.
+answer ms=1493 chars=36
+first char ms=891 output span ms=569
+route ms=0
+Displays the value of an expression.
+answer ms=1798 chars=36
+first char ms=856 output span ms=894
+route ms=0
+Shows the active chain of calls.
+answer ms=1896 chars=32
+first char ms=937 output span ms=916
+route ms=0
+Shows the active chain of calls.
+answer ms=2295 chars=32
+first char ms=1264 output span ms=1009
+route ms=0
+load/recovery ms=109
+active 29 Number notation
+Aboutium and Sureind.
+answer ms=1374 chars=21
+first char ms=854 output span ms=537
+route ms=0
+Binary uses base two.
+answer ms=1934 chars=21
+first char ms=1161 output span ms=778
+route ms=0
+Binary uses base two.
+answer ms=1635 chars=21
+first char ms=1121 output span ms=523
+route ms=1
+BASSS.km4.
+answer ms=1206 chars=10
+first char ms=935 output span ms=264
+route ms=0
+Decimal uses base ten.
+answer ms=1265 chars=22
+first char ms=744 output span ms=521
+route ms=0
+Decimal uses base ten.
+answer ms=1257 chars=22
+first char ms=649 output span ms=582
+route ms=1
+Hexadecimal uses base sixteen.
+answer ms=1768 chars=30
+first char ms=792 output span ms=968
+route ms=0
+Hexadecimal uses base sixteen.
+answer ms=1943 chars=30
+first char ms=959 output span ms=918
+route ms=0
+Decimal uses base ten.
+answer ms=1383 chars=22
+first char ms=800 output span ms=555
+route ms=0
+A digit gets its weight from its position.
+answer ms=3219 chars=42
+first char ms=1458 output span ms=1703
+route ms=0
+A digit gets its weight from its position.
+answer ms=2426 chars=42
+first char ms=1019 output span ms=1364
+route ms=0
+A digit gets its weight from its position.
+answer ms=2366 chars=42
+first char ms=889 output span ms=1406
+route ms=0
+load/recovery ms=179
+active 30 Boolean logic
+It reverses the true.
+answer ms=1705 chars=21
+first char ms=1078 output span ms=618
+route ms=1
+True when both inputs are true.
+answer ms=2201 chars=31
+first char ms=1096 output span ms=1096
+route ms=0
+True when both inputs are true.
+answer ms=1722 chars=31
+first char ms=844 output span ms=840
+route ms=0
+True.
+answer ms=793 chars=5
+first char ms=680 output span ms=69
+route ms=1
+True least one input is true.
+answer ms=2622 chars=29
+first char ms=1032 output span ms=1562
+route ms=0
+True when at least one input is true.
+answer ms=2298 chars=37
+first char ms=965 output span ms=1323
+route ms=0
+True input is a gairbogit.
+answer ms=1341 chars=26
+first char ms=655 output span ms=651
+route ms=1
+True when true letters.
+answer ms=1182 chars=23
+first char ms=729 output span ms=464
+route ms=0
+True when the inputs differ.
+answer ms=1917 chars=28
+first char ms=841 output span ms=1080
+route ms=0
+True when at least one input is true.
+answer ms=2195 chars=37
+first char ms=1059 output span ms=1132
+route ms=0
+True when everses the when the when the when the when the werth lever the when the wrist.
+answer ms=4329 chars=89
+first char ms=1081 output span ms=3220
+route ms=0
+True when both inputs are true.
+answer ms=1898 chars=31
+first char ms=824 output span ms=992
+route ms=0
+load/recovery ms=84
+active 31 Sorting vocabulary
+Sort key.
+answer ms=2818 chars=9
+first char ms=2424 output span ms=356
+route ms=0
+Sort key.
+answer ms=1627 chars=9
+first char ms=1333 output span ms=229
+route ms=0
+Stable sort.
+answer ms=3251 chars=12
+first char ms=2911 output span ms=345
+route ms=0
+Sort key.
+answer ms=2835 chars=9
+first char ms=2281 output span ms=484
+route ms=0
+Ascending order.
+answer ms=3417 chars=16
+first char ms=2429 output span ms=928
+route ms=0
+Ascending order.
+answer ms=2238 chars=16
+first char ms=1666 output span ms=581
+route ms=0
+Comparison.
+answer ms=2745 chars=11
+first char ms=2360 output span ms=375
+route ms=0
+A pretown of eatctinides.
+answer ms=3695 chars=25
+first char ms=2348 output span ms=1282
+route ms=1
+load/recovery ms=133
+active 32 Data structures
+Stack.
+answer ms=1949 chars=6
+first char ms=1604 output span ms=280
+route ms=3
+Stack.
+answer ms=2552 chars=6
+first char ms=2197 output span ms=295
+route ms=1
+Queue.
+answer ms=1594 chars=6
+first char ms=1402 output span ms=190
+route ms=1
+Stack.
+answer ms=1567 chars=6
+first char ms=1421 output span ms=142
+route ms=0
+Linked list.
+answer ms=2483 chars=12
+first char ms=2240 output span ms=207
+route ms=1
+Linked list.
+answer ms=1426 chars=12
+first char ms=1037 output span ms=329
+route ms=0
+load/recovery ms=77
+active 33 Archive formats
+.zip
+answer ms=1239 chars=4
+first char ms=1128 output span ms=116
+route ms=0
+.zip
+answer ms=923 chars=4
+first char ms=856 output span ms=77
+route ms=0
+.zip
+answer ms=903 chars=4
+first char ms=747 output span ms=95
+route ms=0
+No carrove entries.
+answer ms=1535 chars=19
+first char ms=1028 output span ms=457
+route ms=0
+.arc
+answer ms=968 chars=4
+first char ms=858 output span ms=52
+route ms=0
+.arc
+answer ms=741 chars=4
+first char ms=708 output span ms=52
+route ms=0
+.lzh
+answer ms=756 chars=4
+first char ms=680 output span ms=43
+route ms=0
+.lzh
+answer ms=541 chars=4
+first char ms=495 output span ms=22
+route ms=0
+.lzh
+answer ms=437 chars=4
+first char ms=401 output span ms=13
+route ms=0
+Archive entries.
+answer ms=610 chars=16
+first char ms=386 output span ms=200
+route ms=1
+Archive entries.
+answer ms=634 chars=16
+first char ms=461 output span ms=202
+route ms=0
+Archive entries.
+answer ms=742 chars=16
+first char ms=532 output span ms=186
+route ms=0
+No compression.
+answer ms=978 chars=15
+first char ms=794 output span ms=157
+route ms=0
+No compression.
+answer ms=695 chars=15
+first char ms=493 output span ms=177
+route ms=0
+No compression.
+answer ms=584 chars=15
+first char ms=387 output span ms=172
+route ms=0
+LHA.
+answer ms=561 chars=4
+first char ms=521 output span ms=16
+route ms=0
+LHA.
+answer ms=441 chars=4
+first char ms=399 output span ms=72
+route ms=0
+LHA.
+answer ms=534 chars=4
+first char ms=438 output span ms=72
+route ms=0
+load/recovery ms=53
+active 34 Spreadsheet formulas
+Relative.
+answer ms=635 chars=9
+first char ms=512 output span ms=151
+route ms=0
+Relative.
+answer ms=742 chars=9
+first char ms=561 output span ms=146
+route ms=0
+Relative.
+answer ms=783 chars=9
+first char ms=631 output span ms=123
+route ms=0
+Absolute.
+answer ms=705 chars=9
+first char ms=623 output span ms=110
+route ms=0
+Absolute.
+answer ms=703 chars=9
+first char ms=582 output span ms=95
+route ms=0
+Absolute.
+answer ms=631 chars=9
+first char ms=506 output span ms=98
+route ms=0
+Column A.
+answer ms=1135 chars=9
+first char ms=753 output span ms=379
+route ms=0
+Column A.
+answer ms=1222 chars=9
+first char ms=1044 output span ms=188
+route ms=0
+Column A.
+answer ms=1105 chars=9
+first char ms=955 output span ms=163
+route ms=0
+Absolute.
+answer ms=1092 chars=9
+first char ms=936 output span ms=168
+route ms=0
+Row 1.
+answer ms=1062 chars=6
+first char ms=924 output span ms=151
+route ms=0
+Row 1.
+answer ms=1064 chars=6
+first char ms=927 output span ms=95
+route ms=0
+A2.
+answer ms=1299 chars=3
+first char ms=1222 output span ms=88
+route ms=0
+A2.
+answer ms=1149 chars=3
+first char ms=1070 output span ms=89
+route ms=0
+A2.
+answer ms=1052 chars=3
+first char ms=991 output span ms=22
+route ms=0
+B1.
+answer ms=1107 chars=3
+first char ms=1037 output span ms=28
+route ms=0
+B1.
+answer ms=1356 chars=3
+first char ms=1277 output span ms=35
+route ms=0
+B1.
+answer ms=1106 chars=3
+first char ms=1033 output span ms=85
+route ms=0
+load/recovery ms=97
+active 35 Database vocabulary
+One row about a single item.
+answer ms=1365 chars=28
+first char ms=850 output span ms=476
+route ms=0
+It speeds up searches by key.
+answer ms=865 chars=29
+first char ms=433 output span ms=452
+route ms=0
+One row about a single item.
+answer ms=1053 chars=28
+first char ms=639 output span ms=435
+route ms=0
+One row about a single item.
+answer ms=1012 chars=28
+first char ms=582 output span ms=395
+route ms=0
+One row about a single item.
+answer ms=1232 chars=28
+first char ms=693 output span ms=499
+route ms=0
+One attribute of an item.
+answer ms=1050 chars=25
+first char ms=629 output span ms=440
+route ms=0
+It speeds up searches by key.
+answer ms=1006 chars=29
+first char ms=553 output span ms=474
+route ms=1
+It speeds up searches by key.
+answer ms=1327 chars=29
+first char ms=760 output span ms=529
+route ms=0
+load/recovery ms=81
+active 36 Text editor navigation
+It marks the current insertion point.
+answer ms=1280 chars=37
+first char ms=537 output span ms=699
+route ms=0
+It marks the current insertion point.
+answer ms=1080 chars=37
+first char ms=511 output span ms=589
+route ms=0
+Text continues on the next display line.
+answer ms=1407 chars=40
+first char ms=714 output span ms=656
+route ms=0
+Text continues on the next display line.
+answer ms=1286 chars=40
+first char ms=601 output span ms=648
+route ms=0
+New text pushas choosting up existing text lexisting text forward.
+answer ms=2022 chars=66
+first char ms=750 output span ms=1228
+route ms=0
+New text pushes existing text forward.
+answer ms=1599 chars=38
+first char ms=895 output span ms=665
+route ms=0
+Typed characters replace existing ones.
+answer ms=1258 chars=39
+first char ms=622 output span ms=653
+route ms=1
+Text crotint bet wert pnders int Crountrints with coctinut text word.
+answer ms=2079 chars=69
+first char ms=684 output span ms=1350
+route ms=0
+A marked span of text for an operation.
+answer ms=1469 chars=39
+first char ms=727 output span ms=702
+route ms=0
+A marked span of text for an operation.
+answer ms=1301 chars=39
+first char ms=652 output span ms=666
+heap=24824 largest=24824 stack=15860
