@@ -106,6 +106,8 @@ The [modern Pascal edition](delphi13/) includes Delphi 13 FireMonkey and Windows
 
 [Download the complete 100-expert DOS edition](PasTinyMoE/dist/SPEC100.ZIP). Extract the archive and run `EXPERT`. On 1,381 in-scope evaluation prompts, automatic routing selected the intended expert 1,381 times and generated 1,138 exact answers. The questions use new wording for topics covered in training. [All 100 scores and example questions](PasTinyMoE/specialists/batch100/scorecard.md)
 
+**AUTO has no fallback to the original Tiny model**. If no expert matches, rephrase the question or use `LIST` and `USE` to select an expert.
+
 The [PasTinyMoE runtime and downloads](PasTinyMoE/) add manual and keyword-based model selection to a separate TP7 executable. The three-file FAT12 edition and 100-file SD edition use one resident model. Both currently ship labeled copies of the general model for capacity and recovery testing.
 
 The [three trained pilot specialists](PasTinyMoE/specialists/) are available separately in [SPEC3.ZIP](PasTinyMoE/dist/SPEC3.ZIP).

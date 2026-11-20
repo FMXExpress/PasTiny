@@ -4,6 +4,8 @@
 
 Extract the ZIP into a new directory on your DOS drive. Run `EXPERT`, type `LIST` for IDs or ask a question. For manual selection type `USE 2` (Turbo Pascal Coach). Type `AUTO` to resume automatic routing or `QUIT` to exit.
 
+**AUTO has no fallback to the original Tiny model**. If no expert matches, rephrase the question or use `LIST` and `USE` to select an expert.
+
 On 1,381 in-scope evaluation prompts, automatic routing selected the intended expert 1,381 times and generated 1,138 exact answers. The questions use new wording for topics covered in training. [Per-expert scores, examples and comparison with original Tiny](specialists/batch100/scorecard.md)
 
 ## Capacity fixtures and earlier editions
