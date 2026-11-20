@@ -1,344 +1,394 @@
-catalog/init ms=10
+catalog/init ms=11
 FPU yes
 heap=533360 largest=533360 stack=15860
-load/recovery ms=771
+load/recovery ms=752
 active 1 TINY 2.1 general (trained)
 heap=49160 largest=49160 stack=15860
 route ms=0
-load/recovery ms=160
+load/recovery ms=149
 active 2 Reverse (hand-written)
 "
-answer ms=127 chars=1
-first char ms=99 output span ms=0
+answer ms=185 chars=1
+first char ms=157 output span ms=0
 route ms=0
 +L
-answer ms=152 chars=2
-first char ms=163 output span ms=-33
+answer ms=138 chars=2
+first char ms=97 output span ms=20
 route ms=0
 $&1
-answer ms=155 chars=3
-first char ms=143 output span ms=-10
+answer ms=132 chars=3
+first char ms=125 output span ms=41
 route ms=0
 !{,d3
-answer ms=208 chars=5
-first char ms=163 output span ms=25
+answer ms=187 chars=5
+first char ms=140 output span ms=23
 route ms=0
 t)h]mx:p
-answer ms=232 chars=8
-first char ms=143 output span ms=71
+answer ms=282 chars=8
+first char ms=216 output span ms=46
 route ms=0
 sIl'ynEEQw`8[
-answer ms=291 chars=13
-first char ms=153 output span ms=118
+answer ms=344 chars=13
+first char ms=197 output span ms=126
 route ms=0
 P4xi#!|`D@GQ}mi=Zqo#1
-answer ms=450 chars=21
-first char ms=278 output span ms=153
+answer ms=521 chars=21
+first char ms=290 output span ms=209
 route ms=0
 p<Tdh8Zw?}+)H8i[Q~D9Y|_AH72~Nkmx65
-answer ms=667 chars=34
-first char ms=357 output span ms=289
+answer ms=694 chars=34
+first char ms=371 output span ms=356
 route ms=0
 2$8["JklAc2>\|iv7o(&qk){<3r0>228mprA_-/GR,kzX`O;pFHi_i
-answer ms=1189 chars=54
-first char ms=530 output span ms=633
-route ms=1
+answer ms=1205 chars=54
+first char ms=580 output span ms=600
+route ms=0
 q1?>A.K#,_;]N~tP6Rk)|"tKt-qjLZOt]\F7z9T=/x{-U49LIS#Rp^T
-answer ms=1313 chars=55
-first char ms=571 output span ms=711
+answer ms=1098 chars=55
+first char ms=509 output span ms=619
 route ms=0
 cbazyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcba
-answer ms=1260 chars=55
-first char ms=583 output span ms=652
+answer ms=1461 chars=55
+first char ms=603 output span ms=825
 route ms=0
 eeepfbizy
-answer ms=235 chars=9
-first char ms=141 output span ms=77
+answer ms=352 chars=9
+first char ms=261 output span ms=68
 route ms=0
 ifhwizonw
-answer ms=321 chars=9
-first char ms=224 output span ms=80
+answer ms=378 chars=9
+first char ms=270 output span ms=80
 route ms=0
 pdpdiltgb
-answer ms=217 chars=9
-first char ms=129 output span ms=72
+answer ms=366 chars=9
+first char ms=255 output span ms=86
 route ms=0
-load/recovery ms=34
+load/recovery ms=64
 active 3 Rot13 (hand-written)
 >
-answer ms=72 chars=1
-first char ms=58 output span ms=0
+answer ms=111 chars=1
+first char ms=92 output span ms=0
 route ms=0
 w*
-answer ms=101 chars=2
-first char ms=72 output span ms=14
+answer ms=89 chars=2
+first char ms=52 output span ms=18
 route ms=0
 uc+
-answer ms=72 chars=3
-first char ms=28 output span ms=29
+answer ms=124 chars=3
+first char ms=69 output span ms=37
 route ms=0
 v\b9!
-answer ms=131 chars=5
-first char ms=112 output span ms=4
+answer ms=138 chars=5
+first char ms=100 output span ms=19
 route ms=0
 $h@sunei
-answer ms=236 chars=8
-first char ms=108 output span ms=105
+answer ms=279 chars=8
+first char ms=185 output span ms=70
 route ms=0
 @xh`upo~k#w[e
-answer ms=347 chars=13
-first char ms=183 output span ms=142
+answer ms=292 chars=13
+first char ms=149 output span ms=124
 route ms=0
 :^,riqk{x^xh.?#ktfh.y
-answer ms=545 chars=21
-first char ms=206 output span ms=302
-route ms=0
+answer ms=440 chars=21
+first char ms=258 output span ms=162
+route ms=1
 vdlo;|zu[x_`5:3@>v6$%\fn*8c^vlwukb
-answer ms=812 chars=34
-first char ms=452 output span ms=337
+answer ms=968 chars=34
+first char ms=497 output span ms=497
 route ms=0
 !edf='tsds^w){u420r7,p2;/am{y_-}mek7t!9,vycka=?h%jr7<fi#
-answer ms=1287 chars=56
-first char ms=557 output span ms=704
+answer ms=1368 chars=56
+first char ms=585 output span ms=754
 route ms=0
 c'^^3dco=rxnvbwx@?'d!p;bx_r6\23"\~w2z9+0slr23//{oyg~=ku)m
-answer ms=1211 chars=57
-first char ms=516 output span ms=669
+answer ms=1268 chars=57
+first char ms=578 output span ms=664
 route ms=0
 nopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqr
-answer ms=1133 chars=57
-first char ms=525 output span ms=584
+answer ms=1170 chars=57
+first char ms=556 output span ms=589
 route ms=0
 gubrcviwq
-answer ms=246 chars=9
-first char ms=157 output span ms=73
+answer ms=254 chars=9
+first char ms=162 output span ms=75
 route ms=0
 vlbxsoqov
-answer ms=275 chars=9
-first char ms=181 output span ms=78
+answer ms=276 chars=9
+first char ms=211 output span ms=100
 route ms=0
 bnmafonpf
-answer ms=188 chars=9
-first char ms=152 output span ms=20
+answer ms=238 chars=9
+first char ms=191 output span ms=29
 route ms=0
-load/recovery ms=92
+load/recovery ms=95
 active 4 Atbash (hand-written)
 2
-answer ms=91 chars=1
-first char ms=75 output span ms=0
+answer ms=43 chars=1
+first char ms=83 output span ms=0
 route ms=0
 mk
-answer ms=69 chars=2
-first char ms=38 output span ms=16
+answer ms=123 chars=2
+first char ms=93 output span ms=15
 route ms=0
 !x]
-answer ms=102 chars=3
-first char ms=55 output span ms=31
+answer ms=100 chars=3
+first char ms=53 output span ms=31
 route ms=0
 ysjcb
-answer ms=164 chars=5
-first char ms=85 output span ms=63
+answer ms=110 chars=5
+first char ms=85 output span ms=64
 route ms=0
 wzq1ueiy
-answer ms=150 chars=8
-first char ms=75 output span ms=58
+answer ms=207 chars=8
+first char ms=133 output span ms=58
 route ms=0
 i!.1+]v`4t~"y
-answer ms=255 chars=13
-first char ms=149 output span ms=89
+answer ms=256 chars=13
+first char ms=150 output span ms=89
 route ms=0
 /;ro=c3\e>k6>n2:g?,a]
-answer ms=421 chars=21
-first char ms=220 output span ms=183
+answer ms=439 chars=21
+first char ms=225 output span ms=195
 route ms=0
 z.)m_zv#~:n*ix1j?4a:;ot:czu!6462ra
-answer ms=659 chars=34
-first char ms=329 output span ms=309
+answer ms=664 chars=34
+first char ms=340 output span ms=303
 route ms=0
 #;';w}bqhmpefu&<tu5-q=wl>kc5dk]hj,k$1hd0r7o#gl_f|w~rwx6
-answer ms=1136 chars=55
-first char ms=512 output span ms=599
+answer ms=1155 chars=55
+first char ms=502 output span ms=628
 route ms=0
 :rq+w5_c@p5ncj;l-f8&,1mb2c:m=dvs8g:uhqjio@ec~+'2w=67-}(u
-answer ms=1195 chars=56
-first char ms=544 output span ms=626
-route ms=0
+answer ms=1168 chars=56
+first char ms=545 output span ms=653
+route ms=1
 zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbazyxw
-answer ms=1417 chars=56
-first char ms=653 output span ms=737
+answer ms=1490 chars=56
+first char ms=764 output span ms=752
 route ms=0
 zirzpgvub
-answer ms=243 chars=9
-first char ms=198 output span ms=28
+answer ms=295 chars=9
+first char ms=235 output span ms=41
 route ms=0
 bzeczpubo
-answer ms=321 chars=9
-first char ms=219 output span ms=85
+answer ms=329 chars=9
+first char ms=265 output span ms=45
 route ms=0
 qmaflvwht
-answer ms=211 chars=9
-first char ms=119 output span ms=75
+answer ms=236 chars=9
+first char ms=136 output span ms=82
 route ms=0
-load/recovery ms=35
+load/recovery ms=93
 active 5 Echo (hand-written)
 m
-answer ms=59 chars=1
-first char ms=99 output span ms=0
+answer ms=61 chars=1
+first char ms=46 output span ms=0
 route ms=0
 j&
-answer ms=87 chars=2
-first char ms=58 output span ms=14
+answer ms=36 chars=2
+first char ms=61 output span ms=-40
 route ms=0
 -tw
-answer ms=116 chars=3
-first char ms=72 output span ms=30
+answer ms=123 chars=3
+first char ms=77 output span ms=30
 route ms=0
 ?<{&c
-answer ms=116 chars=5
-first char ms=43 output span ms=58
+answer ms=82 chars=5
+first char ms=57 output span ms=64
 route ms=0
 0"gne2fz
-answer ms=154 chars=8
-first char ms=87 output span ms=51
+answer ms=185 chars=8
+first char ms=160 output span ms=8
 route ms=0
 ,],\n<dtjsae0
-answer ms=235 chars=13
-first char ms=111 output span ms=104
-route ms=1
+answer ms=254 chars=13
+first char ms=195 output span ms=96
+route ms=0
 0)kfn@`*+#p|e@6&cre2@
-answer ms=482 chars=21
-first char ms=267 output span ms=194
+answer ms=415 chars=21
+first char ms=259 output span ms=137
 route ms=0
 el&v{jeh#ht@9bubj*c,sj~0\b3a>.7*p|
-answer ms=700 chars=34
-first char ms=315 output span ms=363
+answer ms=813 chars=34
+first char ms=327 output span ms=507
 route ms=0
 ~xjcz3svh*f4t}c{iu>uprzv1z*1b$|_m<lqhj2g;c'gf*{v|]sxi4q.n
-answer ms=1164 chars=57
-first char ms=545 output span ms=594
+answer ms=1755 chars=57
+first char ms=802 output span ms=920
 route ms=0
 _y}&?u~$`^p6hcnl7dwe_iwtx1bgn]cao;afku:irme-v&4:xe7hlnekdj
-answer ms=1390 chars=58
-first char ms=610 output span ms=752
+answer ms=1525 chars=58
+first char ms=661 output span ms=891
 route ms=0
 abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdef
-answer ms=1230 chars=58
-first char ms=578 output span ms=627
+answer ms=1274 chars=58
+first char ms=625 output span ms=678
 route ms=0
 deoaatsto
-answer ms=234 chars=9
-first char ms=143 output span ms=74
+answer ms=250 chars=9
+first char ms=156 output span ms=77
 route ms=0
 ekxxpzsuz
-answer ms=260 chars=9
-first char ms=167 output span ms=77
+answer ms=320 chars=9
+first char ms=190 output span ms=103
 route ms=0
 ucbgeuduz
-answer ms=215 chars=9
-first char ms=137 output span ms=52
+answer ms=299 chars=9
+first char ms=198 output span ms=78
 route ms=0
-load/recovery ms=70
+load/recovery ms=56
 active 6 Bigger (hand-written)
 yes
-answer ms=312 chars=3
-first char ms=243 output span ms=46
+answer ms=277 chars=3
+first char ms=218 output span ms=39
 route ms=0
 no
-answer ms=201 chars=2
-first char ms=217 output span ms=20
+answer ms=213 chars=2
+first char ms=177 output span ms=18
+route ms=0
+no
+answer ms=183 chars=2
+first char ms=148 output span ms=17
+route ms=0
+yes
+answer ms=225 chars=3
+first char ms=172 output span ms=36
 route ms=0
 no
 answer ms=200 chars=2
-first char ms=219 output span ms=-37
+first char ms=165 output span ms=18
+route ms=0
+no
+answer ms=179 chars=2
+first char ms=145 output span ms=17
+route ms=0
+yes
+answer ms=192 chars=3
+first char ms=143 output span ms=33
+route ms=0
+no
+answer ms=341 chars=2
+first char ms=356 output span ms=20
+route ms=0
+yes
+answer ms=524 chars=3
+first char ms=499 output span ms=-1
+route ms=0
+no
+answer ms=462 chars=2
+first char ms=473 output span ms=22
+route ms=0
+no
+answer ms=337 chars=2
+first char ms=297 output span ms=20
+route ms=0
+yes
+answer ms=194 chars=3
+first char ms=196 output span ms=-20
+route ms=0
+load/recovery ms=95
+active 7 Smaller (hand-written)
+no
+answer ms=251 chars=2
+first char ms=204 output span ms=24
+route ms=0
+yes
+answer ms=239 chars=3
+first char ms=235 output span ms=-16
+route ms=0
+no
+answer ms=202 chars=2
+first char ms=167 output span ms=17
+route ms=0
+no
+answer ms=221 chars=2
+first char ms=186 output span ms=18
 route ms=0
 yes
 answer ms=235 chars=3
-first char ms=237 output span ms=-19
-route ms=0
-no
-answer ms=234 chars=2
-first char ms=186 output span ms=24
-route ms=0
-no
-answer ms=255 chars=2
-first char ms=213 output span ms=21
+first char ms=183 output span ms=35
 route ms=0
 yes
-answer ms=180 chars=3
-first char ms=175 output span ms=42
+answer ms=161 chars=3
+first char ms=165 output span ms=-21
 route ms=0
 no
-answer ms=472 chars=2
-first char ms=476 output span ms=-28
+answer ms=199 chars=2
+first char ms=165 output span ms=17
 route ms=0
 yes
-answer ms=447 chars=3
-first char ms=388 output span ms=39
+answer ms=369 chars=3
+first char ms=367 output span ms=-17
+route ms=0
+no
+answer ms=370 chars=2
+first char ms=386 output span ms=-35
+route ms=0
+yes
+answer ms=510 chars=3
+first char ms=494 output span ms=-8
+route ms=0
+no
+answer ms=311 chars=2
+first char ms=326 output span ms=-35
+route ms=0
+no
+answer ms=213 chars=2
+first char ms=229 output span ms=19
+route ms=0
+load/recovery ms=101
+active 8 Plus (hand-written)
+0
+answer ms=134 chars=1
+first char ms=116 output span ms=0
+route ms=0
+7
+answer ms=186 chars=1
+first char ms=169 output span ms=0
+route ms=0
+15
+answer ms=130 chars=2
+first char ms=129 output span ms=26
+route ms=0
+10
+answer ms=290 chars=2
+first char ms=245 output span ms=23
+route ms=0
+37
+answer ms=233 chars=2
+first char ms=187 output span ms=23
+route ms=0
+125
+answer ms=178 chars=3
+first char ms=175 output span ms=-16
+route ms=0
+198
+answer ms=207 chars=3
+first char ms=155 output span ms=35
 route ms=1
-no
-answer ms=315 chars=2
-first char ms=334 output span ms=-37
+100
+answer ms=124 chars=3
+first char ms=127 output span ms=34
 route ms=0
-no
-answer ms=242 chars=2
-first char ms=263 output span ms=17
+102
+answer ms=176 chars=3
+first char ms=179 output span ms=34
 route ms=0
-yes
-answer ms=199 chars=3
-first char ms=205 output span ms=-22
+100
+answer ms=177 chars=3
+first char ms=182 output span ms=-22
 route ms=0
-load/recovery ms=90
-active 7 Smaller (hand-written)
-no
-answer ms=164 chars=2
-first char ms=187 output span ms=16
+100
+answer ms=171 chars=3
+first char ms=178 output span ms=-23
 route ms=0
-yes
-answer ms=246 chars=3
-first char ms=197 output span ms=33
+99
+answer ms=134 chars=2
+first char ms=157 output span ms=16
 route ms=0
-no
-answer ms=165 chars=2
-first char ms=177 output span ms=-34
-route ms=0
-no
-answer ms=257 chars=2
-first char ms=272 output span ms=-35
-route ms=0
-yes
-answer ms=301 chars=3
-first char ms=284 output span ms=-7
-route ms=0
-yes
-answer ms=256 chars=3
-first char ms=195 output span ms=41
-route ms=1
-no
-answer ms=204 chars=2
-first char ms=166 output span ms=19
-route ms=1
-yes
-answer ms=388 chars=3
-first char ms=381 output span ms=41
-route ms=0
-no
-answer ms=396 chars=2
-first char ms=411 output span ms=-35
-route ms=0
-yes
-answer ms=381 chars=3
-first char ms=378 output span ms=-16
-route ms=0
-no
-answer ms=297 chars=2
-first char ms=260 output span ms=18
-route ms=0
-no
-answer ms=175 chars=2
-first char ms=194 output span ms=18
-route ms=0
-load/recovery ms=95
+load/recovery ms=92
 active 1 TINY 2.1 general (trained)
 7 times 8 is 56.
-answer ms=280 chars=16
-first char ms=172 output span ms=90
+answer ms=393 chars=16
+first char ms=211 output span ms=157
