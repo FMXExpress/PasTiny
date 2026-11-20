@@ -7,7 +7,7 @@
 The trained models can only show that two engines agree with each other.  These
 networks have answers known by construction, so any engine build can be checked
 against the truth: the questions below push attention to exact positions up to
-the end of the 128-position context, through the 8-bit key cache, the integer
+the end of the 128-position context and rank positions one step apart, through the 8-bit key cache, the integer
 or float arithmetic and the ReLU layers.  One wrong letter means the engine
 deviates.
 
@@ -28,7 +28,8 @@ sys.path.insert(0, str(here / 'cipher'))
 from harness import Runtime
 
 MODELS = [(here / 'reverse/REVERSE.BIN', 'reverse'), (here / 'cipher/ROT13.BIN', 'rot13'),
-          (here / 'cipher/ATBASH.BIN', 'atbash'), (here / 'cipher/ECHO.BIN', 'echo')]
+          (here / 'cipher/ATBASH.BIN', 'atbash'), (here / 'cipher/ECHO.BIN', 'echo'),
+          (here / 'compare/BIGGER.BIN', 'bigger'), (here / 'compare/SMALLER.BIN', 'smaller')]
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 SUBST = {'rot13': {c: ALPHABET[(i + 13) % 26] for i, c in enumerate(ALPHABET)},
          'atbash': {c: ALPHABET[25 - i] for i, c in enumerate(ALPHABET)}, 'echo': {}}
@@ -55,6 +56,12 @@ def vectors():
         for lead in ('a b c', 'please now', 'x'):          # spaces close together before the keyword
             word = ''.join(rng.choice(ALPHABET) for _ in range(9))
             out.append((lead + ' ' + keyword + ' ' + word, expected(keyword, word)))
+    for word in ('bigger', 'smaller'):                     # numbers that differ late, by length, or not at all
+        for a, b in [(842, 837), (837, 842), (7, 7), (1000, 999), (999, 1000), (5, 12), (90, 9),
+                     (123456789012, 123456789013), (123456789013, 123456789012), (99999999999, 100000000000),
+                     (4000000, 4000000), (60, 59)]:
+            want = a > b if word == 'bigger' else a < b
+            out.append(('is %d %s than %d' % (a, word, b), 'yes' if want else 'no'))
     out.append(('what is 7 times 8', '7 times 8 is 56.'))  # the trained general model still answers
     return out
 

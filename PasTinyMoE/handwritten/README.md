@@ -8,9 +8,10 @@ The idea comes from work on "weight-space programming", and in particular from L
 | --- | --- | --- |
 | [`reverse/`](reverse/) | `REVERSE.BIN` | Spells the last word of the question backwards |
 | [`cipher/`](cipher/) | `ROT13.BIN`, `ATBASH.BIN`, `ECHO.BIN` | Write the last word forwards through a letter substitution |
+| [`compare/`](compare/) | `BIGGER.BIN`, `SMALLER.BIN` | Say whether the first number in the question is bigger (or smaller) than the second |
 | [`rules/`](rules/) | `DIGIT.BIN`, `QMARK.BIN`, `EXCLAIM.BIN` | Exact yes/no rules for PasTinyJev |
 
-[`conformance.py`](conformance.py) uses the first two folders to check any engine build against answers known by construction. [`tny2.py`](tny2.py) holds the shared pieces: weight arrays, phase tables, the ReLU square and the file writer.
+[`conformance.py`](conformance.py) uses the first three folders to check any engine build against answers known by construction. [`tny2.py`](tny2.py) holds the shared pieces: weight arrays, phase tables, the ReLU square and the file writer.
 
 ## Reverse
 
@@ -86,6 +87,43 @@ Reading forwards needs the position where the last word starts, which reverse ne
 
 Each letter has its own dimension, so any substitution is an exact permutation in the copy step; the three files differ only there. [`cipher/test.py`](cipher/test.py) rebuilds the models, requires a byte match, and asks 726 questions through the stock runtime: random words of 1 to 40 printable characters after zero to two lead-in words, and questions with no space at all.
 
+## Number comparison
+
+[`compare/build.py`](compare/build.py) writes two networks that read two whole numbers from the question, A then B, and answer `yes` or `no`. The wording around the numbers does not matter. Numbers are compared digit by digit, so size is not limited by arithmetic precision.
+
+```
+> is 842 bigger than 837
+yes
+> is 99999999999 bigger than 100000000000
+no
+> which is smaller 100 or 99
+no
+```
+
+This one uses all four layers:
+
+1. **Layer 1 attention**, two heads at every position: the latest non-digit, which gives the start of the number a digit belongs to, and the earliest digit, which gives the start of A.
+2. **Layer 1 feed-forward** works out each digit's place in its number, counted from its start.
+3. **Layer 2 attention**, three heads: each digit of B looks at the digit of A in the same place; and, at the end of the question, the last digit of B and the last digit of A, whose places give the two lengths.
+4. **Layer 2 feed-forward** marks, on each digit of B, whether A's digit is larger or smaller, and at the end of the question works out the difference in length.
+5. **Layer 3** finds the earliest place where the digits differ and clips both results to -1, 0 or +1.
+6. **Layer 4 feed-forward** decides: a longer number wins, and with equal lengths the first differing digit decides. It also spells the answer: after `y` comes `e`, then `s`; after `n` comes `o`.
+
+| Test, 1,200 pairs of 1 to 12 digits | Hand-written | Trained `TINY.BIN` |
+| --- | ---: | ---: |
+| "Bigger" questions | 1,200/1,200 | 648/1,200 |
+| "Smaller" questions | 1,200/1,200 | not run |
+
+The pairs are chosen to be hard: equal numbers, numbers differing in one digit at a random place, numbers one digit longer or shorter, neighbours, and unrelated numbers, in six wordings. [`compare/test.py`](compare/test.py) runs them through the stock runtime and checks each answer against Python's own comparison; `--general` adds the trained model's score. The integer, `NOASM`, `FLOATMATH` and `DEBUG` host builds all answer every pair exactly.
+
+Getting this exact in the 8-bit runtime took three changes, each after a failure:
+
+- Picking "the latest digit" with a large constant times an "is a digit" flag failed once later layers had written uneven amounts into the residual. A feed-forward layer now makes position values that are already zero off the digits.
+- Ranking positions with one counter failed because 8-bit rounding of the tables makes each position's overall size wobble by about 0.1%, which the large constants amplified. Position is now ranked by a coarse counter (blocks of eight) and a fine one (within the block), stored as exact 8-bit multiples.
+- Matching "same start as the first number" was noisy because each key is rounded on its own scale. A constant entry larger than everything else now fixes that scale.
+
+Limits: a number may not be the very first thing in the question; the question may be at most 72 characters; numbers are plain digits without signs, points, separators or leading zeros; and a question with more than two numbers is not supported (the answer mixes them).
+
 ## Exact rules for PasTinyJev
 
 [`rules/build.py`](rules/build.py) writes three one-layer networks for [PasTinyJev](../../PasTinyJev/), which reads a decision as the score of the letter y minus the letter n. Each answers one fixed rule with a probability near 1 or near 0: the text contains a digit, a question mark, or an exclamation mark.
@@ -101,7 +139,7 @@ They sit in the PasTinyJev catalog beside the trained triage model with the keyw
 
 ## Engine conformance
 
-The trained models can only show that two engine builds agree with each other. These networks have answers known by construction, so a build can be checked against the truth. [`conformance.py`](conformance.py) asks 57 fixed questions, including the longest the context allows, where attention must land on exact positions through the 8-bit key cache.
+The trained models can only show that two engine builds agree with each other. These networks have answers known by construction, so a build can be checked against the truth. [`conformance.py`](conformance.py) asks 81 fixed questions, including the longest the context allows, where attention must land on exact positions through the 8-bit key cache, and number comparisons that rank positions one step apart.
 
 ```sh
 python3 handwritten/conformance.py build/EXPERT            # any host builds
@@ -109,6 +147,6 @@ python3 handwritten/conformance.py --write DIR             # package for a DOS E
 python3 handwritten/conformance.py --check CONFORM.LOG     # check its transcript
 ```
 
-All four host builds (integer, `NOASM`, `FLOATMATH`, `DEBUG`) answer all 57 exactly.
+All four host builds (integer, `NOASM`, `FLOATMATH`, `DEBUG`) answer all 81 exactly.
 
 So do the four DOS executables in this repository, run in DOSBox-X with an emulated FPU: `bin/EXPERT.EXE` (integer with assembly) and the pure Pascal, float and debug builds from `dist/COMPARE.ZIP`. Their transcripts are in [`evidence/`](evidence/) as `CONF-ASM.LOG`, `CONF-NOASM.LOG`, `CONF-FLOAT.LOG` and `CONF-DEBUG.LOG`. A no-FPU run and the other engines (the C original, the browser port, the Delphi ports) have not been tried.
