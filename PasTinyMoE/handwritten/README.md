@@ -160,6 +160,29 @@ Two digits is what fits exactly in four layers. A third place needs its carry an
 
 Limits: a number may not be the very first thing in the question; at most 72 characters; exactly two numbers of one or two plain digits, without a leading zero.
 
+### As a starting point for training
+
+One idea was that a hand-written network could give training a head start. It does not: starting from `PLUS.BIN` is worse than starting from random weights.
+
+The task was "what is A plus B" for A and B from 0 to 999, which is one digit more than `PLUS.BIN` was built for. Each run trained for 6,000 steps of 128 questions. Scores are exact answers on pairs never trained on, at the end of the run.
+
+| Start | Learning rate | Both numbers below 100 (of 500) | A number of 100 or more (of 1,000) |
+|---|---:|---:|---:|
+| Random weights | 0.001 | 494 | 980 |
+| Random weights | 0.0003 | 495 | 946 |
+| Trained `TINY.BIN` | 0.001 | 500 | 977 |
+| Trained `TINY.BIN` | 0.0003 | 494 | 977 |
+| `PLUS.BIN` | 0.001 | 74 | 21 |
+| `PLUS.BIN` | 0.0003 | 24 | 21 |
+| `PLUS.BIN` | 0.0001 | 3 | 2 |
+| `PLUS.BIN` | 0.00003 | 455 | 45 |
+
+`PLUS.BIN` starts at 500 of 500 on the smaller pairs. At the three larger rates training destroys that within 500 to 2,000 steps and never recovers. At the smallest rate the circuit mostly survives (455) but almost nothing new is learned (45). The trained general model is the best start: after 500 steps at rate 0.001 it has 729 of 1,000 where random weights have 405, and the two are level by the end.
+
+The likely cause, which was not tested, is that hand-written weights are extreme: large constants, saturated units and many all-zero rows, which leave gradients badly scaled and give zeroed units no signal.
+
+Each row is one run with one seed, so the small differences among the random and `TINY.BIN` rows mean little. Training and scoring were in floating point in PyTorch, not in the 8-bit runtime, and no trained model was exported. [`add/training_start.py`](add/training_start.py) is the script and [`add/training_start.json`](add/training_start.json) has the scores every 500 steps.
+
 ## Exact rules for PasTinyJev
 
 [`rules/build.py`](rules/build.py) writes three one-layer networks for [PasTinyJev](../../PasTinyJev/), which reads a decision as the score of the letter y minus the letter n. Each answers one fixed rule with a probability near 1 or near 0: the text contains a digit, a question mark, or an exclamation mark.
