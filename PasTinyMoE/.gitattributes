@@ -31,3 +31,7 @@ specialists/synonyms/runtime/*.IN -text
 specialists/batch20/*.LOG -text
 specialists/batch20/*.IN -text
 specialists/batch20/runtime/*.IN -text
+
+specialists/batch30/*.LOG -text
+specialists/batch30/*.IN -text
+specialists/batch30/runtime/*.IN -text

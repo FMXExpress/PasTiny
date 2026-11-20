@@ -1,0 +1,18 @@
+{"question": "what is fog near the ground", "expected": "A cloud touching the ground.", "output": "A cloud touching the ground.", "exact": true}
+{"question": "please give me a description of fog", "expected": "A cloud touching the ground.", "output": "A cloud touching the ground.", "exact": true}
+{"question": "how can i explain fog in a few words", "expected": "A cloud touching the ground.", "output": "A counders.", "exact": false}
+{"question": "what is dew on the morning grass", "expected": "Water droplets on a cool surface.", "output": "Water moousak Mozart.", "exact": false}
+{"question": "please give me a description of dew", "expected": "Water droplets on a cool surface.", "output": "Water droplets on a cool surface.", "exact": true}
+{"question": "how can i explain dew in a few words", "expected": "Water droplets on a cool surface.", "output": "Woe have of a countries.", "exact": false}
+{"question": "what is hail made of when it falls", "expected": "Balls or lumps of ice.", "output": "Balls or lumps of ice.", "exact": true}
+{"question": "please give me a description of hail", "expected": "Balls or lumps of ice.", "output": "Balls or lumps of ice.", "exact": true}
+{"question": "how can i explain hail in a few words", "expected": "Balls or lumps of ice.", "output": "Balls or lumps of ice.", "exact": true}
+{"question": "what kind of rain is drizzle", "expected": "Very small drops of rain.", "output": "Very small drops of rain.", "exact": true}
+{"question": "please give me a description of drizzle", "expected": "Very small drops of rain.", "output": "Very small drops of rain.", "exact": true}
+{"question": "how can i explain drizzle in a few words", "expected": "Very small drops of rain.", "output": "Very small drops of rain.", "exact": true}
+{"question": "what is moving when there is wind", "expected": "Moving air.", "output": "Moving air.", "exact": true}
+{"question": "please give me a description of wind", "expected": "Moving air.", "output": "Moving air.", "exact": true}
+{"question": "how can i explain wind in a few words", "expected": "Moving air.", "output": "Moving air.", "exact": true}
+{"question": "what happens to the wind in a gust", "expected": "A brief increase in wind speed.", "output": "A cloud touching the ground.", "exact": false}
+{"question": "please give me a description of a gust", "expected": "A brief increase in wind speed.", "output": "A brief increase in wind speed.", "exact": true}
+{"question": "how can i explain a gust in a few words", "expected": "A brief increase in wind speed.", "output": "A cloud touching the ground.", "exact": false}

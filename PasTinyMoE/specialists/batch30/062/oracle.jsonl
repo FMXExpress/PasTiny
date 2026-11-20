@@ -1,0 +1,18 @@
+{"question": "what is another name for polaris", "expected": "The North Star.", "output": "The North Star.", "exact": true}
+{"question": "please give me a description of polaris", "expected": "The North Star.", "output": "The North Star.", "exact": true}
+{"question": "how can i explain polaris in a few words", "expected": "The North Star.", "output": "The North Star.", "exact": true}
+{"question": "what nickname is used for sirius", "expected": "The Dog Star.", "output": "The Dog Star.", "exact": true}
+{"question": "please give me a description of sirius", "expected": "The Dog Star.", "output": "The point directly overhead.", "exact": false}
+{"question": "how can i explain sirius in a few words", "expected": "The Dog Star.", "output": "The Dog Star.", "exact": true}
+{"question": "what point in the sky is called the zenith", "expected": "The point directly overhead.", "output": "The point directly overhead.", "exact": true}
+{"question": "please give me a description of the zenith", "expected": "The point directly overhead.", "output": "The point directly overhead.", "exact": true}
+{"question": "how can i explain the zenith in a few words", "expected": "The point directly overhead.", "output": "The point directly overhead.", "exact": true}
+{"question": "what does horizon mean when looking at the sky", "expected": "Where sky appears to meet land or sea.", "output": "Where sky appears to meet land or sea.", "exact": true}
+{"question": "please give me a description of the horizon", "expected": "Where sky appears to meet land or sea.", "output": "Where sky appears to meet land or sea.", "exact": true}
+{"question": "how can i explain the horizon in a few words", "expected": "Where sky appears to meet land or sea.", "output": "Worse!", "exact": false}
+{"question": "is orion a single star or a constellation", "expected": "A constellation.", "output": "The North Star.", "exact": false}
+{"question": "please give me a description of orion", "expected": "A constellation.", "output": "A constellation.", "exact": true}
+{"question": "how can i explain orion in a few words", "expected": "A constellation.", "output": "A constellation.", "exact": true}
+{"question": "what kind of object is a nebula", "expected": "A cloud of gas and dust in space.", "output": "A cloud of gas and dust in space.", "exact": true}
+{"question": "please give me a description of a nebula", "expected": "A cloud of gas and dust in space.", "output": "A cloud of gas and dust in space.", "exact": true}
+{"question": "how can i explain a nebula in a few words", "expected": "A cloud of gas and dust in space.", "output": "A cloud of gas and dust in space.", "exact": true}

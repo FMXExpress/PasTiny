@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC30}{$DEFINE SPEC20}{$ENDIF}
 {$IFDEF SPEC20}{$DEFINE SPEC10}{$ENDIF}
 {$IFDEF SPEC10}{$DEFINE SPEC9}{$ENDIF}
 {$IFDEF SPEC9}{$DEFINE SPEC8}{$ENDIF}
@@ -45,9 +46,10 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}
+{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -91,8 +93,10 @@ const DOSWords='|dos|dir|cd|cls|type|file|files|directory|directories|folder|fol
 var I,Start:Integer; WordKey:String; Hits:Byte;
  {$IFDEF SPEC8}Extra,Matched:Byte;{$ENDIF}
  {$IFDEF SPEC9}SpecificPascal:Boolean;{$ENDIF}
+ {$IFDEF SPEC30}HasDOSWord,VerbAffect:Boolean;{$ENDIF}
 begin
  Hits:=0; I:=1;
+ {$IFDEF SPEC30}HasDOSWord:=False; VerbAffect:=Pos(' how does ',WordLine(Q))>0;{$ENDIF}
  {$IFDEF SPEC8}Extra:=0;{$ENDIF}
  {$IFDEF SPEC9}SpecificPascal:=False;{$ENDIF}
  {$IFDEF SPEC5}if Pos(' read only memory ',WordLine(Q))>0 then Hits:=16;{$ENDIF}
@@ -105,13 +109,20 @@ begin
   if I>Start then begin
    {$IFDEF SPEC8}
    Matched:=TopicId(Copy(Q,Start,I-Start));
+   {$IFDEF SPEC30}
+   { In a causal question, affect is a verb rather than a vocabulary headword. }
+   if VerbAffect and (Copy(Q,Start,I-Start)='affect') then Matched:=0;
+   {$ENDIF}
    if Matched<>0 then begin
     if (Extra<>0) and (Extra<>Matched) then begin PilotDomain:=0; Exit end;
     Extra:=Matched
    end;
    {$ENDIF}
    WordKey:='|'+Copy(Q,Start,I-Start)+'|';
-   if Pos(WordKey,DOSWords)>0 then Hits:=Hits or 1;
+   if Pos(WordKey,DOSWords)>0 then begin
+    Hits:=Hits or 1;
+    {$IFDEF SPEC30}if WordKey<>'|type|' then HasDOSWord:=True;{$ENDIF}
+   end;
    if Pos(WordKey,PascalWords)>0 then begin
     Hits:=Hits or 2;
     {$IFDEF SPEC9}
@@ -139,6 +150,12 @@ begin
   if (Hits=1) and (Pos(' type of ',Q)>0) and (Pos(' dos ',Q)=0) then Hits:=0
  end;
  if (Extra=50) and (Hits=4) and (Pos(' language ',Q)>0) then Hits:=0;
+ {$IFDEF SPEC30}
+ { In geology, type usually asks for the classification of the rock. }
+ if (Extra=64) and (Hits=1) and not HasDOSWord then Hits:=0;
+ { Specific spider anatomy belongs to Spiders; general counts remain in Naturalist. }
+ if (Extra=58) and (Hits=4) then Hits:=0;
+ {$ENDIF}
  { A species clue specializes a generic animal question. }
  if (Extra>=52) and (Extra<=57) and (Hits=4) then Hits:=0;
  {$ENDIF}

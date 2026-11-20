@@ -1,0 +1,82 @@
+[
+  {
+    "id": 58,
+    "title": "Spiders",
+    "name": "SPIDERS.BIN",
+    "source": "specialists/models/SPIDERS.BIN",
+    "sha256": "8d624149d8932678d29da850629f8d3d97c9dc393d3427609b08451ec531536b",
+    "keyword": "chelicera"
+  },
+  {
+    "id": 59,
+    "title": "Trees",
+    "name": "TREES.BIN",
+    "source": "specialists/models/TREES.BIN",
+    "sha256": "4110239ff66da00043feccd4a31fe535b33c5ed50f29fb81efd6c2543b5c6d31",
+    "keyword": "bark"
+  },
+  {
+    "id": 60,
+    "title": "Flowers",
+    "name": "FLOWERS.BIN",
+    "source": "specialists/models/FLOWERS.BIN",
+    "sha256": "9b79ce5513985e93cb436a0719645809b4ee4b6e89ed446c735c97f87fae7795",
+    "keyword": "anther"
+  },
+  {
+    "id": 61,
+    "title": "Solar system",
+    "name": "SOLARSYS.BIN",
+    "source": "specialists/models/SOLARSYS.BIN",
+    "sha256": "ba3ae8d78a3f02a3105d20120c067571d3137a5170edf3fd5ebc6b9495f674bb",
+    "keyword": "moon"
+  },
+  {
+    "id": 62,
+    "title": "Stars and Sky",
+    "name": "STARSKY.BIN",
+    "source": "specialists/models/STARSKY.BIN",
+    "sha256": "e0ec9cb87dd75025c502b3491a38f66676fac9645becb494eeb597fcb6957129",
+    "keyword": "polaris"
+  },
+  {
+    "id": 63,
+    "title": "Weather",
+    "name": "WEATHER.BIN",
+    "source": "specialists/models/WEATHER.BIN",
+    "sha256": "c346faada9b2c3d8dc018283bee1dd1e9e7627d9df512db52124aa1abcd9981f",
+    "keyword": "fog"
+  },
+  {
+    "id": 64,
+    "title": "Rocks and geology",
+    "name": "GEOLOGY.BIN",
+    "source": "specialists/models/GEOLOGY.BIN",
+    "sha256": "24ab8bbf9738802d2e299f94bc9a5d205b8e6f1f19ba21ac992d07f9f0cf5a89",
+    "keyword": "geology"
+  },
+  {
+    "id": 65,
+    "title": "Electricity",
+    "name": "CIRCUITS.BIN",
+    "source": "specialists/models/CIRCUITS.BIN",
+    "sha256": "e93dbcd83be7db5daf2ca416c822755e5f9d80896ee7278d8c145a1c1816017b",
+    "keyword": "electricity"
+  },
+  {
+    "id": 66,
+    "title": "Forces and motion",
+    "name": "FORCES.BIN",
+    "source": "specialists/models/FORCES.BIN",
+    "sha256": "72a4c1f53a7d064861c36f0f7f89c7e57a2548413c3c11749c7eaab4eae54b32",
+    "keyword": "inertia"
+  },
+  {
+    "id": 67,
+    "title": "Light",
+    "name": "LIGHT.BIN",
+    "source": "specialists/models/LIGHT.BIN",
+    "sha256": "52b573bae6e3a0124850a27544c7d7933723f0e4927e0163bdde97a83cf59e08",
+    "keyword": "reflection"
+  }
+]

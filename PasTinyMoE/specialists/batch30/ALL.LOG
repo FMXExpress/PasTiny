@@ -1,0 +1,563 @@
+catalog/init ms=-8
+FPU yes
+heap=525488 largest=525488 stack=15860
+load/recovery ms=753
+active 1 DOS Guide
+heap=41288 largest=41288 stack=15860
+route ms=0
+load/recovery ms=65
+active 58 Spiders
+Release silk.
+answer ms=2242 chars=13
+first char ms=1812 output span ms=429
+route ms=0
+Release silk.
+answer ms=2410 chars=13
+first char ms=1976 output span ms=379
+route ms=0
+A silk safety line.
+answer ms=2762 chars=19
+first char ms=1435 output span ms=1229
+route ms=1
+A silk safety line.
+answer ms=1915 chars=19
+first char ms=1332 output span ms=526
+route ms=0
+Bear the fangs.
+answer ms=1491 chars=15
+first char ms=1049 output span ms=385
+route ms=1
+Bear the fangs.
+answer ms=2309 chars=15
+first char ms=1819 output span ms=435
+route ms=1
+Help sense and handle prey.
+answer ms=2059 chars=27
+first char ms=1370 output span ms=650
+route ms=0
+Help sense and handle prey.
+answer ms=1869 chars=27
+first char ms=952 output span ms=821
+route ms=0
+Bear the fangs.
+answer ms=1697 chars=15
+first char ms=1173 output span ms=463
+route ms=1
+Sense air movement.
+answer ms=2295 chars=19
+first char ms=1401 output span ms=809
+route ms=0
+load/recovery ms=98
+active 59 Trees
+Transports water and minerals.
+answer ms=2178 chars=30
+first char ms=1233 output span ms=872
+route ms=1
+Transports water and minerals.
+answer ms=2458 chars=30
+first char ms=1521 output span ms=878
+route ms=0
+Transports sugars.
+answer ms=1839 chars=18
+first char ms=1297 output span ms=520
+route ms=1
+Transports sugars.
+answer ms=1994 chars=18
+first char ms=1283 output span ms=707
+route ms=0
+Protects the stem.
+answer ms=1790 chars=18
+first char ms=1256 output span ms=518
+route ms=1
+Protects the stem.
+answer ms=2102 chars=18
+first char ms=1204 output span ms=894
+route ms=0
+Produces new vascular tissue.
+answer ms=1702 chars=29
+first char ms=1089 output span ms=633
+route ms=0
+Produces new vascular tissue.
+answer ms=1321 chars=29
+first char ms=619 output span ms=668
+route ms=0
+Conducts water.
+answer ms=1036 chars=15
+first char ms=743 output span ms=263
+route ms=0
+Conducts water.
+answer ms=802 chars=15
+first char ms=582 output span ms=244
+route ms=1
+Supports the supports the tree.
+answer ms=1222 chars=31
+first char ms=690 output span ms=553
+route ms=0
+Supports the tree.
+answer ms=794 chars=18
+first char ms=555 output span ms=213
+route ms=0
+load/recovery ms=52
+active 60 Flowers
+Produces pollen.
+answer ms=706 chars=16
+first char ms=475 output span ms=205
+route ms=0
+A fruit.
+answer ms=609 chars=8
+first char ms=514 output span ms=68
+route ms=0
+Redieved by pollen.
+answer ms=743 chars=19
+first char ms=491 output span ms=224
+route ms=0
+Receives pollen.
+answer ms=625 chars=16
+first char ms=399 output span ms=201
+route ms=0
+Protects the flower bud.
+answer ms=743 chars=24
+first char ms=445 output span ms=272
+route ms=0
+Protects the flower bud.
+answer ms=898 chars=24
+first char ms=597 output span ms=329
+route ms=0
+A fruit.
+answer ms=719 chars=8
+first char ms=577 output span ms=117
+route ms=0
+A fruit.
+answer ms=475 chars=8
+first char ms=399 output span ms=52
+route ms=0
+load/recovery ms=51
+active 61 Solar system
+Mercury.
+answer ms=730 chars=8
+first char ms=542 output span ms=143
+route ms=0
+Mercury.
+answer ms=1040 chars=8
+first char ms=855 output span ms=137
+route ms=1
+Jupiter.
+answer ms=849 chars=8
+first char ms=684 output span ms=131
+route ms=0
+Jupiter.
+answer ms=637 chars=8
+first char ms=547 output span ms=65
+route ms=0
+Ganymede.
+answer ms=687 chars=9
+first char ms=571 output span ms=91
+route ms=0
+Ganymede.
+answer ms=761 chars=9
+first char ms=640 output span ms=95
+route ms=0
+Mars.
+answer ms=538 chars=5
+first char ms=467 output span ms=46
+route ms=1
+Mars.
+answer ms=533 chars=5
+first char ms=471 output span ms=39
+route ms=0
+load/recovery ms=49
+active 62 Stars and Sky
+The North Star.
+answer ms=529 chars=15
+first char ms=361 output span ms=144
+route ms=0
+The North Star.
+answer ms=551 chars=15
+first char ms=356 output span ms=170
+route ms=0
+The North Star.
+answer ms=594 chars=15
+first char ms=402 output span ms=168
+route ms=0
+The Dog Star.
+answer ms=498 chars=13
+first char ms=318 output span ms=157
+route ms=1
+The point directly overhead.
+answer ms=747 chars=28
+first char ms=390 output span ms=307
+route ms=1
+The Dog Star.
+answer ms=903 chars=13
+first char ms=653 output span ms=213
+route ms=0
+The point directly overhead.
+answer ms=1208 chars=28
+first char ms=696 output span ms=472
+route ms=0
+The point directly overhead.
+answer ms=1390 chars=28
+first char ms=744 output span ms=659
+route ms=1
+The point directly overhead.
+answer ms=1352 chars=28
+first char ms=773 output span ms=539
+route ms=1
+Where sky appears to meet land or sea.
+answer ms=1454 chars=38
+first char ms=692 output span ms=719
+route ms=1
+Where sky appears to meet land or sea.
+answer ms=1397 chars=38
+first char ms=653 output span ms=703
+route ms=0
+Worse!
+answer ms=874 chars=6
+first char ms=775 output span ms=64
+route ms=0
+The North Star.
+answer ms=874 chars=15
+first char ms=615 output span ms=222
+route ms=0
+A constellation.
+answer ms=888 chars=16
+first char ms=607 output span ms=245
+route ms=0
+A constellation.
+answer ms=741 chars=16
+first char ms=532 output span ms=183
+route ms=0
+A cloud of gas and dust in space.
+answer ms=733 chars=33
+first char ms=333 output span ms=375
+route ms=1
+A cloud of gas and dust in space.
+answer ms=786 chars=33
+first char ms=380 output span ms=380
+route ms=0
+A cloud of gas and dust in space.
+answer ms=874 chars=33
+first char ms=395 output span ms=439
+route ms=0
+load/recovery ms=81
+active 63 Weather
+A cloud touching the ground.
+answer ms=681 chars=28
+first char ms=338 output span ms=318
+route ms=1
+A cloud touching the ground.
+answer ms=844 chars=28
+first char ms=432 output span ms=383
+route ms=0
+A counders.
+answer ms=509 chars=11
+first char ms=409 output span ms=75
+route ms=0
+Water moousak Mozart.
+answer ms=590 chars=21
+first char ms=333 output span ms=233
+route ms=0
+Water droplets on a cool surface.
+answer ms=864 chars=33
+first char ms=374 output span ms=463
+route ms=0
+Woe have of a countries.
+answer ms=641 chars=24
+first char ms=335 output span ms=281
+route ms=0
+Balls or lumps of ice.
+answer ms=581 chars=22
+first char ms=356 output span ms=256
+route ms=1
+Balls or lumps of ice.
+answer ms=659 chars=22
+first char ms=375 output span ms=313
+route ms=1
+Balls or lumps of ice.
+answer ms=667 chars=22
+first char ms=415 output span ms=282
+route ms=0
+Very small drops of rain.
+answer ms=567 chars=25
+first char ms=282 output span ms=261
+route ms=0
+Very small drops of rain.
+answer ms=686 chars=25
+first char ms=409 output span ms=305
+route ms=0
+Very small drops of rain.
+answer ms=840 chars=25
+first char ms=476 output span ms=327
+route ms=0
+Moving air.
+answer ms=618 chars=11
+first char ms=425 output span ms=164
+route ms=0
+Moving air.
+answer ms=708 chars=11
+first char ms=514 output span ms=161
+route ms=0
+Moving air.
+answer ms=568 chars=11
+first char ms=452 output span ms=87
+route ms=0
+A cloud touching the ground.
+answer ms=1114 chars=28
+first char ms=632 output span ms=451
+route ms=0
+A brief increase in wind speed.
+answer ms=862 chars=31
+first char ms=466 output span ms=369
+route ms=-55
+A cloud touching the ground.
+answer ms=762 chars=28
+first char ms=421 output span ms=316
+route ms=0
+load/recovery ms=104
+active 64 Rocks and geology
+Igneous.
+answer ms=414 chars=8
+first char ms=342 output span ms=104
+route ms=0
+Igneous.
+answer ms=564 chars=8
+first char ms=433 output span ms=107
+route ms=0
+Igneous.
+answer ms=449 chars=8
+first char ms=327 output span ms=100
+route ms=0
+Igneous.
+answer ms=539 chars=8
+first char ms=410 output span ms=105
+route ms=0
+Sedimentary.
+answer ms=482 chars=12
+first char ms=374 output span ms=140
+route ms=0
+Sedimentary.
+answer ms=685 chars=12
+first char ms=552 output span ms=108
+route ms=0
+Sedimentary.
+answer ms=512 chars=12
+first char ms=404 output span ms=139
+route ms=0
+Sedimentary.
+answer ms=565 chars=12
+first char ms=448 output span ms=93
+route ms=0
+Metamorphic.
+answer ms=495 chars=12
+first char ms=386 output span ms=86
+route ms=1
+Metamorphic.
+answer ms=651 chars=12
+first char ms=525 output span ms=156
+route ms=0
+Metamorphic.
+answer ms=513 chars=12
+first char ms=356 output span ms=134
+route ms=0
+Metamorphic.
+answer ms=643 chars=12
+first char ms=512 output span ms=161
+route ms=0
+load/recovery ms=104
+active 65 Electricity
+Potential difference.
+answer ms=669 chars=21
+first char ms=443 output span ms=201
+route ms=0
+Potential diference.
+answer ms=926 chars=20
+first char ms=679 output span ms=220
+route ms=0
+Electric current.
+answer ms=683 chars=17
+first char ms=441 output span ms=218
+route ms=1
+Electric current.
+answer ms=722 chars=17
+first char ms=482 output span ms=215
+route ms=0
+Electrical resistance.
+answer ms=653 chars=22
+first char ms=409 output span ms=219
+route ms=0
+Electric current.
+answer ms=761 chars=17
+first char ms=564 output span ms=171
+route ms=0
+Power.
+answer ms=519 chars=6
+first char ms=437 output span ms=59
+route ms=0
+Power.
+answer ms=504 chars=6
+first char ms=476 output span ms=59
+route ms=0
+Capacitance.
+answer ms=623 chars=12
+first char ms=453 output span ms=146
+route ms=0
+Capacitance.
+answer ms=624 chars=12
+first char ms=505 output span ms=150
+route ms=0
+Frequency.
+answer ms=575 chars=10
+first char ms=453 output span ms=98
+route ms=1
+The rad scapital of fracty, capitance.
+answer ms=1104 chars=38
+first char ms=603 output span ms=473
+route ms=0
+load/recovery ms=48
+active 66 Forces and motion
+Resistance to changes in velocity.
+answer ms=994 chars=34
+first char ms=525 output span ms=442
+route ms=0
+Resistance to changes in velocity.
+answer ms=867 chars=34
+first char ms=439 output span ms=401
+route ms=0
+Resistance to changes in velocity.
+answer ms=955 chars=34
+first char ms=519 output span ms=408
+route ms=0
+Speed with direction.
+answer ms=878 chars=21
+first char ms=565 output span ms=286
+route ms=0
+Speed with direction.
+answer ms=692 chars=21
+first char ms=406 output span ms=261
+route ms=0
+Speed with direction.
+answer ms=768 chars=21
+first char ms=474 output span ms=269
+route ms=1
+Rate of change of velocity.
+answer ms=895 chars=27
+first char ms=534 output span ms=334
+route ms=0
+Rate of change of velocity.
+answer ms=833 chars=27
+first char ms=497 output span ms=310
+route ms=0
+Rate of change of velocity.
+answer ms=919 chars=27
+first char ms=564 output span ms=328
+route ms=1
+A then spospee sum of sum sum othens.
+answer ms=908 chars=37
+first char ms=431 output span ms=450
+route ms=0
+A force opposing relative sliding.
+answer ms=836 chars=34
+first char ms=448 output span ms=416
+route ms=0
+A force opposing relative sliding.
+answer ms=936 chars=34
+first char ms=517 output span ms=446
+route ms=0
+A fistancests gels.
+answer ms=808 chars=19
+first char ms=529 output span ms=298
+route ms=0
+Mass times velocity.
+answer ms=814 chars=20
+first char ms=579 output span ms=264
+route ms=1
+Mass times velocity.
+answer ms=885 chars=20
+first char ms=655 output span ms=256
+route ms=0
+The vector sum of all forces.
+answer ms=923 chars=29
+first char ms=534 output span ms=362
+route ms=0
+The vector sum of all forces.
+answer ms=880 chars=29
+first char ms=507 output span ms=346
+route ms=0
+The vector sum of all forces.
+answer ms=914 chars=29
+first char ms=513 output span ms=374
+route ms=1
+load/recovery ms=49
+active 67 Light
+Light bouncing from a surface.
+answer ms=961 chars=30
+first char ms=564 output span ms=369
+route ms=0
+Light bouncing from a surface.
+answer ms=831 chars=30
+first char ms=464 output span ms=341
+route ms=0
+Light bouncing from a surface.
+answer ms=923 chars=30
+first char ms=544 output span ms=352
+route ms=0
+The super sking says crifence.
+answer ms=993 chars=30
+first char ms=605 output span ms=416
+route ms=0
+Bending of light as its speed changes.
+answer ms=927 chars=38
+first char ms=490 output span ms=410
+route ms=0
+Bending of light as its speed changes.
+answer ms=1035 chars=38
+first char ms=508 output span ms=500
+route ms=0
+Light energy taken up by matter.
+answer ms=890 chars=32
+first char ms=476 output span ms=386
+route ms=0
+Lightcapital borders five crontonium croatives.
+answer ms=1045 chars=47
+first char ms=472 output span ms=600
+route ms=1
+Light energy taken up by matter.
+answer ms=983 chars=32
+first char ms=567 output span ms=389
+route ms=0
+Sits, with computer speak Sparing Fings.
+answer ms=1026 chars=40
+first char ms=481 output span ms=497
+route ms=0
+Separation of light into colors.
+answer ms=1127 chars=32
+first char ms=714 output span ms=386
+route ms=0
+Separation of light into colors.
+answer ms=952 chars=32
+first char ms=535 output span ms=390
+route ms=0
+Distance between successive wave crests.
+answer ms=949 chars=40
+first char ms=451 output span ms=470
+route ms=0
+Distance between successive wave crests.
+answer ms=924 chars=40
+first char ms=439 output span ms=451
+route ms=0
+Distance between successive wave crests.
+answer ms=1195 chars=40
+first char ms=646 output span ms=574
+route ms=1
+Cycles per second.
+answer ms=1032 chars=18
+first char ms=666 output span ms=329
+route ms=0
+Cycles per second.
+answer ms=791 chars=18
+first char ms=555 output span ms=211
+route ms=1
+Cycles per second.
+answer ms=748 chars=18
+first char ms=520 output span ms=202
+heap=41288 largest=41288 stack=15860

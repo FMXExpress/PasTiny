@@ -1,0 +1,19 @@
+catalog/init ms=-11
+FPU no
+heap=525488 largest=525488 stack=15860
+load/recovery ms=955
+active 1 DOS Guide
+heap=41288 largest=41288 stack=15860
+route ms=3
+load/recovery ms=479
+active 58 Spiders
+Release silk.
+answer ms=43991 chars=13
+first char ms=39521 output span ms=4174
+route ms=1
+load/recovery ms=154
+active 59 Trees
+Transports water and minerals.
+answer ms=22636 chars=30
+first char ms=10128 output span ms=12164
+heap=41288 largest=41288 stack=15860
