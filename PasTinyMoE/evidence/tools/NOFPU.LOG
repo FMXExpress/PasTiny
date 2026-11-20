@@ -1,0 +1,43 @@
+catalog/init ms=9
+FPU no
+heap=515072 largest=515072 stack=15860
+load/recovery ms=980
+active 1 Baseline fixture 1
+heap=30872 largest=30872 stack=15860
+458 plus 367 is 825.
+answer ms=0 chars=20 tool
+17 divided by 5 is 3 remainder 2.
+answer ms=0 chars=33 tool
+Half of 45 is 22 and a half.
+answer ms=0 chars=28 tool
+The square root of 169 is 13.
+answer ms=0 chars=29 tool
+One thousand two hundred and thirty-four.
+answer ms=0 chars=41 tool
+1986 is MCMLXXXVI in Roman numerals.
+answer ms=0 chars=36 tool
+MCMIV is 1904.
+answer ms=0 chars=14 tool
+Yes, 842 is bigger than 837.
+answer ms=0 chars=28 tool
+depmuj
+answer ms=0 chars=6 tool
+L-A-U-G-H.
+answer ms=0 chars=10 tool
+Q comes before R.
+answer ms=0 chars=17 tool
+That number is too big for me.
+answer ms=0 chars=30 tool
+route ms=0
+load/recovery ms=253
+active 2 Baseline fixture 2
+Lima.
+answer ms=8139 chars=5
+first char ms=6773 output span ms=1041
+route ms=0
+load/recovery ms=174
+active 1 Baseline fixture 1
+458 plus 367 is 968.
+answer ms=10266 chars=20
+first char ms=4626 output span ms=5259
+heap=30872 largest=30872 stack=15860

@@ -26,6 +26,40 @@ For the capacity fixtures, extract either runtime ZIP into its own new DOS direc
 
 The loader streams 4 KiB at a time into fixed allocations, checks shape, exact size, finite scale/gain fields and CRC32, then marks the new model ready. The same ID reuses the loaded network. Each question starts at position zero and overwrites every cache position before attending to it. A failed replacement reloads the previous file; failed recovery leaves the runtime unloaded.
 
+## Exact answers in code
+
+Sums, counting and spelling are things a small network gets wrong and a few lines of code get right. The unit [`TOOLS.PAS`](TOOLS.PAS) recognises such questions and answers them itself, before any model is loaded. The general model says "458 plus 367 is 968."; the tool says "458 plus 367 is 825."
+
+| Kind | Examples |
+|---|---|
+| Sums | `what is 458 plus 367`, `7 x 8`, `subtract 3 from 10`, `divide 17 by 5`, `one more than 9` |
+| One number | `double 17`, `half of 45`, `13 squared`, `square root of 169`, `what number comes after 842` |
+| Counting | `count up from 48 to 52` |
+| Number words | `write 1234 in words`, `write sixty-one in numbers` |
+| Roman numerals | `roman numeral for 1986`, `what number is XIX` |
+| Comparison | `is 842 bigger than 837`, `which is smaller 100 or 99` |
+| Words | `reverse jumped`, `how do you spell laugh`, `make knives uppercase` |
+| Letters | `how many letters in jumped`, `first letter of tear`, `what letter does moon end with` |
+| Alphabet | `what comes before r in the alphabet`, `which letter of the alphabet is c` |
+
+Numbers are whole, in digits or in words, and results must fit in 32 bits. A question the unit does not recognise for certain goes to a model as before. A tool answer is marked on its timing line: `answer ms=0 chars=20 tool`.
+
+`TOOLS ON` and `TOOLS OFF` switch it. It starts on at the keyboard and off when input is redirected, so existing transcripts and regressions are unchanged. `USE n` also bypasses it, because that asks for one model's own answer.
+
+Measured on the 780 held-out questions of the TINY 2.1 training kit, with the general model alone and then with the tools on:
+
+| | Questions | Model alone | With tools | Answered by a tool |
+|---|---:|---:|---:|---:|
+| Numbers | 60 | 43 | 59 | 53 |
+| Squares, roots, Roman numerals | 60 | 38 | 60 | 60 |
+| Letters and spelling | 60 | 48 | 59 | 54 |
+| The other nine kinds | 600 | 352 | 352 | 0 |
+| All | 780 | 481 | 530 | 167 |
+
+Every one of the 167 tool answers was right. The one numbers question still counted wrong is "651 is larger." where the reference says "bigger". None of the 600 other questions set a tool off.
+
+`python3 tests/test_tools.py ./EXPERT` checks 33 exact answers, 10 questions that must be left to the models, and the off-by-default rule, with a host build. Under DOS, a Turbo Pascal 7 build ran [`evidence/tools/TOOLS.IN`](evidence/tools/TOOLS.IN) in DOSBox-X with an emulated FPU ([`FPU.LOG`](evidence/tools/FPU.LOG)) and on an emulated 386 without one ([`NOFPU.LOG`](evidence/tools/NOFPU.LOG)). The unit adds about 18 KB to the executable (30,320 to 48,624 bytes in the plain build) and leaves the free heap after loading a model unchanged at 30,872 bytes. The executables in `bin/` and `dist/` were built before this unit and do not contain it; run BUILD.BAT to get it.
+
 ## Rebuild and package
 
 Use your own TPC.EXE and TURBO.TPL from Borland Turbo Pascal 7 on DOS. Run BUILD.BAT from this directory. EXPERT.EXE is the integer/ASM build. EXPNO.EXE, EXPFLT.EXE and EXPDBG.EXE are alternatives. The program uses far callbacks, a 16 KiB stack and TP7 software emulation. The compiler stays on the development machine.
