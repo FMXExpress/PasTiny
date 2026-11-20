@@ -1,63 +1,63 @@
-{"suite": "original60", "question": "what is the capital of peru", "target": "Lima.", "intended": 0, "original": "Lima.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "is a whale a fish", "target": "No, a whale is a mammal.", "intended": 0, "original": "No, a whale is a mammal.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "paris is the capital of which country", "target": "It is in France.", "intended": 0, "original": "It is in France.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the capital of texas", "target": "It is Austin.", "intended": 0, "original": "It is Austin.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what language do they speak in canada", "target": "People there speak English and French.", "intended": 0, "original": "People there speak English and French.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what money do people use in japan", "target": "The Japanese yen.", "intended": 0, "original": "The Japanese yen.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "which countries border estonia", "target": "Latvia and Russia.", "intended": 0, "original": "Latvia and Russia.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "does france border spain", "target": "Yes, France borders Spain.", "intended": 0, "original": "Yes, France borders Spain.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is 7 times 8", "target": "7 times 8 is 56.", "intended": 0, "original": "7 times 8 is 56.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what comes after 199", "target": "It is 200.", "intended": 0, "original": "It is 200.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "which is bigger, 405 or 450", "target": "450 is bigger.", "intended": 0, "original": "450 is bigger.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "write 47 in words", "target": "Forty-seven.", "intended": 0, "original": "Forty-seven.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "is 31 even or odd", "target": "31 is odd.", "intended": 0, "original": "31 is odd.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what is the capital of peru", "target": "Lima.", "intended": 0, "original": "Lima.", "routed": 0, "specialist": "Lima."}
+{"suite": "original60", "question": "is a whale a fish", "target": "No, a whale is a mammal.", "intended": 0, "original": "No, a whale is a mammal.", "routed": 0, "specialist": "No, a whale is a mammal."}
+{"suite": "original60", "question": "paris is the capital of which country", "target": "It is in France.", "intended": 0, "original": "It is in France.", "routed": 0, "specialist": "It is in France."}
+{"suite": "original60", "question": "what is the capital of texas", "target": "It is Austin.", "intended": 0, "original": "It is Austin.", "routed": 0, "specialist": "It is Austin."}
+{"suite": "original60", "question": "what language do they speak in canada", "target": "People there speak English and French.", "intended": 0, "original": "People there speak English and French.", "routed": 0, "specialist": "People there speak English and French."}
+{"suite": "original60", "question": "what money do people use in japan", "target": "The Japanese yen.", "intended": 0, "original": "The Japanese yen.", "routed": 0, "specialist": "The Japanese yen."}
+{"suite": "original60", "question": "which countries border estonia", "target": "Latvia and Russia.", "intended": 0, "original": "Latvia and Russia.", "routed": 0, "specialist": "Latvia and Russia."}
+{"suite": "original60", "question": "does france border spain", "target": "Yes, France borders Spain.", "intended": 0, "original": "Yes, France borders Spain.", "routed": 0, "specialist": "Yes, France borders Spain."}
+{"suite": "original60", "question": "what is 7 times 8", "target": "7 times 8 is 56.", "intended": 0, "original": "7 times 8 is 56.", "routed": 0, "specialist": "7 times 8 is 56."}
+{"suite": "original60", "question": "what comes after 199", "target": "It is 200.", "intended": 0, "original": "It is 200.", "routed": 0, "specialist": "It is 200."}
+{"suite": "original60", "question": "which is bigger, 405 or 450", "target": "450 is bigger.", "intended": 0, "original": "450 is bigger.", "routed": 0, "specialist": "450 is bigger."}
+{"suite": "original60", "question": "write 47 in words", "target": "Forty-seven.", "intended": 0, "original": "Forty-seven.", "routed": 0, "specialist": "Forty-seven."}
+{"suite": "original60", "question": "is 31 even or odd", "target": "31 is odd.", "intended": 0, "original": "31 is odd.", "routed": 0, "specialist": "31 is odd."}
 {"suite": "original60", "question": "what is 14 in roman numerals", "target": "XIV.", "intended": 0, "original": "XIV.", "routed": 83, "specialist": "XVIV."}
 {"suite": "original60", "question": "spell elephant", "target": "E-L-E-P-H-A-N-T.", "intended": 0, "original": "E-L-E-P-H-A-N-T.", "routed": 52, "specialist": "E-L-E-P-H-A-N-T."}
-{"suite": "original60", "question": "what is cat backwards", "target": "Tac.", "intended": 0, "original": "Tac.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what letter comes after k", "target": "L.", "intended": 0, "original": "L.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "plural of mouse", "target": "Mice.", "intended": 0, "original": "Mice.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "past tense of go", "target": "It is went.", "intended": 0, "original": "It is went.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "opposite of hot", "target": "It is cold.", "intended": 0, "original": "It is cold.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is another word for big", "target": "Large.", "intended": 0, "original": "Large.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the superlative of good", "target": "It is best.", "intended": 0, "original": "It is best.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what sound does a cow make", "target": "A cow says moo.", "intended": 0, "original": "A cow says moo.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is a baby kangaroo called", "target": "A joey.", "intended": 0, "original": "A joey.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what is cat backwards", "target": "Tac.", "intended": 0, "original": "Tac.", "routed": 0, "specialist": "Tac."}
+{"suite": "original60", "question": "what letter comes after k", "target": "L.", "intended": 0, "original": "L.", "routed": 0, "specialist": "L."}
+{"suite": "original60", "question": "plural of mouse", "target": "Mice.", "intended": 0, "original": "Mice.", "routed": 0, "specialist": "Mice."}
+{"suite": "original60", "question": "past tense of go", "target": "It is went.", "intended": 0, "original": "It is went.", "routed": 0, "specialist": "It is went."}
+{"suite": "original60", "question": "opposite of hot", "target": "It is cold.", "intended": 0, "original": "It is cold.", "routed": 0, "specialist": "It is cold."}
+{"suite": "original60", "question": "what is another word for big", "target": "Large.", "intended": 0, "original": "Large.", "routed": 0, "specialist": "Large."}
+{"suite": "original60", "question": "what is the superlative of good", "target": "It is best.", "intended": 0, "original": "It is best.", "routed": 0, "specialist": "It is best."}
+{"suite": "original60", "question": "what sound does a cow make", "target": "A cow says moo.", "intended": 0, "original": "A cow says moo.", "routed": 0, "specialist": "A cow says moo."}
+{"suite": "original60", "question": "what is a baby kangaroo called", "target": "A joey.", "intended": 0, "original": "A joey.", "routed": 0, "specialist": "A joey."}
 {"suite": "original60", "question": "how many legs does a spider have", "target": "Eight.", "intended": 0, "original": "Eight.", "routed": 51, "specialist": "Eight."}
 {"suite": "original60", "question": "which animal says hoot", "target": "An owl.", "intended": 0, "original": "An owl.", "routed": 51, "specialist": "An owl."}
-{"suite": "original60", "question": "what is a group of lions called", "target": "A pride.", "intended": 0, "original": "A pride.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what is a group of lions called", "target": "A pride.", "intended": 0, "original": "A pride.", "routed": 0, "specialist": "A pride."}
 {"suite": "original60", "question": "what is the fastest land animal", "target": "The cheetah.", "intended": 0, "original": "The cheetah.", "routed": 51, "specialist": "The cheetalf the Sunday."}
-{"suite": "original60", "question": "what is the symbol for gold", "target": "It is Au.", "intended": 0, "original": "It is Au.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what is the symbol for gold", "target": "It is Au.", "intended": 0, "original": "It is Au.", "routed": 0, "specialist": "It is Au."}
 {"suite": "original60", "question": "how many moons does mars have", "target": "Two.", "intended": 0, "original": "Two.", "routed": 61, "specialist": "Mars has four legs."}
-{"suite": "original60", "question": "how do you say thank you in spanish", "target": "In Spanish it is gracias.", "intended": 0, "original": "In Spanish it is gracias.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "who invented the telephone", "target": "Alexander Graham Bell.", "intended": 0, "original": "Alexander Graham Bell.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the biggest ocean", "target": "The Pacific Ocean.", "intended": 0, "original": "The Pacific Ocean.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "how do you say thank you in spanish", "target": "In Spanish it is gracias.", "intended": 0, "original": "In Spanish it is gracias.", "routed": 0, "specialist": "In Spanish it is gracias."}
+{"suite": "original60", "question": "who invented the telephone", "target": "Alexander Graham Bell.", "intended": 0, "original": "Alexander Graham Bell.", "routed": 0, "specialist": "Alexander Graham Bell."}
+{"suite": "original60", "question": "what is the biggest ocean", "target": "The Pacific Ocean.", "intended": 0, "original": "The Pacific Ocean.", "routed": 0, "specialist": "The Pacific Ocean."}
 {"suite": "original60", "question": "where is the eiffel tower", "target": "Paris, France.", "intended": 0, "original": "Paris, France.", "routed": 78, "specialist": "Paris."}
-{"suite": "original60", "question": "how many strings does a guitar have", "target": "Six.", "intended": 0, "original": "Six.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "how many strings does a guitar have", "target": "Six.", "intended": 0, "original": "Six.", "routed": 0, "specialist": "Six."}
 {"suite": "original60", "question": "what is dos", "target": "Disk Operating System.", "intended": 0, "original": "Disk Operating System.", "routed": 1, "specialist": "DOS."}
-{"suite": "original60", "question": "what time is it", "target": "I cannot see a clock. Try the TIME command.", "intended": 0, "original": "I cannot see a clock. Try the TIME command.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "tell me a joke", "target": "Why did the PC go to the doctor? It had a virus.", "intended": 0, "original": "Why did the PC go to the doctor? It had a virus.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is 15 minus 6", "target": "15 minus 6 is 9.", "intended": 0, "original": "15 minus 6 is 9.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "how do you say thank you in german", "target": "In German it is danke.", "intended": 0, "original": "In German it is danke.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the capital of estonia", "target": "The capital of Estonia is Tallinn.", "intended": 0, "original": "The capital of Estonia is Tallinn.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "spell computer", "target": "C-O-M-P-U-T-E-R.", "intended": 0, "original": "C-O-M-P-U-T-E-R.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "how do you say thank you in spanish", "target": "In Spanish it is gracias.", "intended": 0, "original": "In Spanish it is gracias.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what time is it", "target": "I cannot see a clock. Try the TIME command.", "intended": 0, "original": "I cannot see a clock. Try the TIME command.", "routed": 0, "specialist": "I cannot see a clock. Try the TIME command."}
+{"suite": "original60", "question": "tell me a joke", "target": "Why did the PC go to the doctor? It had a virus.", "intended": 0, "original": "Why did the PC go to the doctor? It had a virus.", "routed": 0, "specialist": "Why did the PC go to the doctor? It had a virus."}
+{"suite": "original60", "question": "what is 15 minus 6", "target": "15 minus 6 is 9.", "intended": 0, "original": "15 minus 6 is 9.", "routed": 0, "specialist": "15 minus 6 is 9."}
+{"suite": "original60", "question": "how do you say thank you in german", "target": "In German it is danke.", "intended": 0, "original": "In German it is danke.", "routed": 0, "specialist": "In German it is danke."}
+{"suite": "original60", "question": "what is the capital of estonia", "target": "The capital of Estonia is Tallinn.", "intended": 0, "original": "The capital of Estonia is Tallinn.", "routed": 0, "specialist": "The capital of Estonia is Tallinn."}
+{"suite": "original60", "question": "spell computer", "target": "C-O-M-P-U-T-E-R.", "intended": 0, "original": "C-O-M-P-U-T-E-R.", "routed": 0, "specialist": "C-O-M-P-U-T-E-R."}
+{"suite": "original60", "question": "how do you say thank you in spanish", "target": "In Spanish it is gracias.", "intended": 0, "original": "In Spanish it is gracias.", "routed": 0, "specialist": "In Spanish it is gracias."}
 {"suite": "original60", "question": "name the continents", "target": "Africa, Antarctica, Asia, Australia, Europe, North America and South America.", "intended": 0, "original": "Africa, Antarctica, Asia, Australia, Europe, North America and South America.", "routed": 73, "specialist": "Antarctica."}
-{"suite": "original60", "question": "what is 12 times 11", "target": "12 times 11 is 132.", "intended": 0, "original": "12 times 11 is 132.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is 9 plus 13", "target": "It is 22.", "intended": 0, "original": "It is 22.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "who wrote hamlet", "target": "William Shakespeare.", "intended": 0, "original": "William Shakespeare.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the capital of australia", "target": "The capital of Australia is Canberra.", "intended": 0, "original": "The capital of Australia is Canberra.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what is 12 times 11", "target": "12 times 11 is 132.", "intended": 0, "original": "12 times 11 is 132.", "routed": 0, "specialist": "12 times 11 is 132."}
+{"suite": "original60", "question": "what is 9 plus 13", "target": "It is 22.", "intended": 0, "original": "It is 22.", "routed": 0, "specialist": "It is 22."}
+{"suite": "original60", "question": "who wrote hamlet", "target": "William Shakespeare.", "intended": 0, "original": "William Shakespeare.", "routed": 0, "specialist": "William Shakespeare."}
+{"suite": "original60", "question": "what is the capital of australia", "target": "The capital of Australia is Canberra.", "intended": 0, "original": "The capital of Australia is Canberra.", "routed": 0, "specialist": "The capital of Australia is Canberra."}
 {"suite": "original60", "question": "how many legs does an insect have", "target": "It has two legs.", "intended": 0, "original": "It has two legs.", "routed": 51, "specialist": "Six."}
-{"suite": "original60", "question": "what is the opposite of big", "target": "Small.", "intended": 0, "original": "Small.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is dog backwards", "target": "God.", "intended": 0, "original": "God.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what is the opposite of big", "target": "Small.", "intended": 0, "original": "Small.", "routed": 0, "specialist": "Small."}
+{"suite": "original60", "question": "what is dog backwards", "target": "God.", "intended": 0, "original": "God.", "routed": 0, "specialist": "God."}
 {"suite": "original60", "question": "what is 99 in roman numerals", "target": "XCIX.", "intended": 0, "original": "XCIX.", "routed": 83, "specialist": "XCVIX."}
-{"suite": "original60", "question": "write 315 in words", "target": "Three hundred and fifteen.", "intended": 0, "original": "Three hundred and fifteen.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the capital of mongolia", "target": "The capital of Mongolia is Ulan Bator.", "intended": 0, "original": "The capital of Mongolia is Ulan Bator.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "which is smaller, 72 or 27", "target": "27 is smaller.", "intended": 0, "original": "27 is smaller.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the plural of child", "target": "It is children.", "intended": 0, "original": "It is children.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "write 315 in words", "target": "Three hundred and fifteen.", "intended": 0, "original": "Three hundred and fifteen.", "routed": 0, "specialist": "Three hundred and fifteen."}
+{"suite": "original60", "question": "what is the capital of mongolia", "target": "The capital of Mongolia is Ulan Bator.", "intended": 0, "original": "The capital of Mongolia is Ulan Bator.", "routed": 0, "specialist": "The capital of Mongolia is Ulan Bator."}
+{"suite": "original60", "question": "which is smaller, 72 or 27", "target": "27 is smaller.", "intended": 0, "original": "27 is smaller.", "routed": 0, "specialist": "27 is smaller."}
+{"suite": "original60", "question": "what is the plural of child", "target": "It is children.", "intended": 0, "original": "It is children.", "routed": 0, "specialist": "It is children."}
 {"suite": "original60", "question": "what is the chemical symbol for iron", "target": "It is Fe.", "intended": 0, "original": "It is Fe.", "routed": 69, "specialist": "Fe."}
 {"suite": "original60", "question": "what continent is kenya in", "target": "In Africa.", "intended": 0, "original": "In Africa.", "routed": 73, "specialist": "Africa."}
-{"suite": "original60", "question": "what language do they speak in brazil", "target": "Portuguese.", "intended": 0, "original": "Portuguese.", "routed": 0, "specialist": null}
-{"suite": "original60", "question": "what is the capital of canada", "target": "Ottawa.", "intended": 0, "original": "Ottawa.", "routed": 0, "specialist": null}
+{"suite": "original60", "question": "what language do they speak in brazil", "target": "Portuguese.", "intended": 0, "original": "Portuguese.", "routed": 0, "specialist": "Portuguese."}
+{"suite": "original60", "question": "what is the capital of canada", "target": "Ottawa.", "intended": 0, "original": "Ottawa.", "routed": 0, "specialist": "Ottawa."}
 {"suite": "specialists", "question": "what command lists my files", "target": "DIR.", "intended": 1, "original": "Type WIN.", "routed": 1, "specialist": "TYPE."}
 {"suite": "specialists", "question": "how can i empty the screen", "target": "CLS.", "intended": 1, "original": "Type CLS.", "routed": 1, "specialist": "CPD."}
 {"suite": "specialists", "question": "which operator computes an integer quotient", "target": "div.", "intended": 2, "original": "A fint on on Your of a computer.", "routed": 2, "specialist": "div."}

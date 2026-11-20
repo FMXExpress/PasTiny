@@ -28,7 +28,7 @@ def summary(label, rows):
     n = len(rows)
     original = sum(r["original"] == r["target"] for r in rows)
     current = sum(r["specialist"] == r["target"] for r in rows)
-    asks = sum(r["routed"] == 0 for r in rows)
+    asks = sum(r["specialist"] is None for r in rows)
     return f"| {label} | {original}/{n} | {current}/{n} | {asks} |"
 
 
@@ -38,7 +38,7 @@ def scorecard(rows):
     lines = [
         "# SPEC100 paired evaluation",
         "",
-        "The native Pascal runtime answered each question twice, first with the original Tiny weights pinned and then with SPEC100 automatic routing. Original questions use the C transcript as their reference. Specialist questions test alternate phrasings of covered material and use each expert’s published reference answers. Exact match includes punctuation. A request to select an expert counts as a miss.",
+        "Each question compares the original Tiny weights with SPEC100 automatic routing. The original 60 were replayed under DOS before and after adding the general-model fallback. Original questions use the C transcript as their reference. Specialist questions test alternate phrasings of covered material and use each expert’s published reference answers. Exact match includes punctuation. A request to select an expert counts as a miss.",
         "",
         "| Prompt set | Original exact | SPEC100 AUTO exact | Asked for selection |",
         "| --- | ---: | ---: | ---: |",

@@ -15,6 +15,7 @@ program Expert;
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
 uses TNYNET,TNYSYS,EXPCAT{$IFDEF SPEC5},PILOTRT{$ENDIF};
+{$IFDEF SPEC100}const OriginalSlot=129;{$ENDIF}
 var Active,J,K,Code:Integer; Pinned,Interactive:Boolean; Q,A:String; Tokens,T,First,Last,Elapsed,Start:Longint;
 procedure MemoryReport;
 begin
@@ -51,6 +52,12 @@ begin
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
  WriteLn('catalog/init ms=',NowMs-Start);
  Creativity:=0; WriteLn('FPU ',FPUName); MemoryReport;
+ {$IFDEF SPEC100}
+ Items[OriginalSlot].Id:=0;
+ Items[OriginalSlot].Name:='TINY.BIN';
+ Items[OriginalSlot].Title:='Original Tiny';
+ Items[OriginalSlot].Check:=$15282977;
+ {$ENDIF}
  Switch(1); AllocMemory; MemoryReport;
  if Interactive then WriteLn('LIST, USE id, AUTO, MEM, QUIT. Escape cancels an answer.');
  while True do begin
@@ -68,8 +75,13 @@ begin
    if J=0 then WriteLn('unknown id') else begin Switch(J); Pinned:=Active=J end
   end else if Q<>'' then begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); WriteLn('route ms=',NowMs-T);
+    {$IFDEF SPEC100}
+    if J=0 then J:=OriginalSlot;
+    Switch(J);
+    {$ELSE}
     if J=0 then WriteLn('Choose an expert with LIST and USE, or rephrase the question.')
     else Switch(J);
+    {$ENDIF}
     if Active<>J then J:=0
     {$IFDEF SPEC8}else if Corrected<>'' then begin WriteLn('read as: ',Corrected); Q:=Corrected end{$ENDIF}
     end else J:=Active;

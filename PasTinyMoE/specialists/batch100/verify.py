@@ -8,6 +8,7 @@ from zipfile import ZipFile
 batch = Path(__file__).resolve().parent
 project = batch.parents[1]
 with ZipFile(project / "dist/SPEC100.ZIP") as package:
+    assert package.read("TINY.BIN") == (project / "TINY.BIN").read_bytes()
     catalog = package.read("EXPERTS.CAT")
     assert catalog[:5] == b"PEC1\x64" and len(catalog) == 5 + 100 * 68
     with ZipFile(project / "dist/SPEC90.ZIP") as previous:

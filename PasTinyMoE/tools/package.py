@@ -15,7 +15,7 @@ def field(value, width):
         raise ValueError(value)
     return bytes([len(raw)]) + raw.ljust(width, b"\0")
 
-def build(entries, exe, dest, extras=None):
+def build(entries, exe, dest, extras=None, original=None):
     if not 1 <= len(entries) <= 128:
         raise ValueError("catalog capacity")
     ids, names = set(), set()
@@ -40,6 +40,11 @@ def build(entries, exe, dest, extras=None):
         root = Path(__file__).resolve().parents[1]
         folder = extras or (root if name == "NOTICE.TXT" else root / "tests")
         shutil.copyfile(folder / name, dest / name)
+    if original is not None:
+        model = original.read_bytes()
+        if hashlib.sha256(model).hexdigest() != "4b603237070ad9084433537bf8d6c7470d0fc583e6a4f1f03c00cd17264e7095":
+            raise ValueError("original Tiny model hash mismatch")
+        (dest / "TINY.BIN").write_bytes(model)
     with ZipFile(dest.with_suffix(".ZIP"),"w",ZIP_DEFLATED) as archive:
         for path in sorted(dest.iterdir()):
             archive.write(path,path.name)

@@ -43,4 +43,4 @@ if __name__ == "__main__":
     if args.index:
         index()
     if args.dest:
-        build(entries(), project / "bin/SPEC100.EXE", args.dest, root / "runtime")
+        build(entries(), project / "bin/SPEC100.EXE", args.dest, root / "runtime", project / "TINY.BIN")

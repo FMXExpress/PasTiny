@@ -17,7 +17,7 @@ unit EXPCAT;
 interface
 type Entry=packed record Id:Byte; Name:String[12]; Title:String[28];
  Keyword:String[20]; Check:Longint end;
-var Items:array[1..128] of Entry; Count:Integer;
+var Items:array[1..{$IFDEF SPEC100}129{$ELSE}128{$ENDIF}] of Entry; Count:Integer;
 {$IFDEF SPEC8}var Corrected:String; (* the question with typos fixed, when that is what routed it *){$ENDIF}
 function ReadCatalog:Boolean;
 function FindId(Id:Integer):Integer;

@@ -1,10 +1,10 @@
 # SPEC100 paired evaluation
 
-The native Pascal runtime answered each question twice, first with the original Tiny weights pinned and then with SPEC100 automatic routing. Original questions use the C transcript as their reference. Specialist questions test alternate phrasings of covered material and use each expert’s published reference answers. Exact match includes punctuation. A request to select an expert counts as a miss.
+Each question compares the original Tiny weights with SPEC100 automatic routing. The original 60 were replayed under DOS before and after adding the general-model fallback. Original questions use the C transcript as their reference. Specialist questions test alternate phrasings of covered material and use each expert’s published reference answers. Exact match includes punctuation. A request to select an expert counts as a miss.
 
 | Prompt set | Original exact | SPEC100 AUTO exact | Asked for selection |
 | --- | ---: | ---: | ---: |
-| Original 60 questions | 60/60 | 3/60 | 47 |
+| Original 60 questions | 60/60 | 50/60 | 0 |
 | Previous 90 experts | 7/1273 | 1056/1273 | 0 |
 | Latest ten experts | 0/108 | 82/108 | 0 |
 | All 100 experts | 7/1381 | 1138/1381 | 0 |
