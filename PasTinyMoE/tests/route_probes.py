@@ -18,8 +18,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-FLOORS = {'fresh': 178, 'typo': 61, 'none': 19}      # correct outcomes, of 180, 90 and 20
-MAX_WRONG_TYPO = 6                                   # typo probes sent to a wrong expert
+FLOORS = {'fresh': 198, 'typo': 67, 'none': 19}      # correct outcomes, of 200, 100 and 20
+MAX_WRONG_TYPO = 7                                   # typo probes sent to a wrong expert
 
 exe, runtime = Path(sys.argv[1]).resolve(), Path(sys.argv[2])
 rows = list(csv.DictReader(open(Path(__file__).with_name('route_probes.tsv'), newline=''), delimiter='\t'))

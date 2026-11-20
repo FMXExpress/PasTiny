@@ -66,12 +66,12 @@ Pass `--report summary.json` to the evaluation command to record the held-out re
 
 When the topic rules claim no expert, the router looks for a word of six or more letters that is one typing slip (a letter changed, added, dropped, or two neighbours swapped) from a topic term of seven or more letters. If the slips point to a single expert, the question is routed with the term corrected, the program prints `read as:` with the corrected question, and the expert answers that. Routes chosen by the rules are never changed. Shorter terms are left alone because ordinary words sit one letter from them, such as state and slate.
 
-[tests/route_probes.tsv](tests/route_probes.tsv) holds 290 probe questions written before either router was run on them: two freshly worded questions and one with a typo for each of 90 experts, and 20 questions outside every expert. Measured with the SPEC100 build:
+[tests/route_probes.tsv](tests/route_probes.tsv) holds 320 probe questions written before either router was run on them: two freshly worded questions and one with a typo for each of the 100 experts, and 20 questions outside every expert. Measured with the SPEC100 build:
 
 | Probes | Rules alone | With the fallback |
 | --- | ---: | ---: |
-| Fresh wording, term spelled correctly | 178/180 | 178/180 |
-| One typo in the key term | 29/90 | 61/90 |
+| Fresh wording, term spelled correctly | 198/200 | 198/200 |
+| One typo in the key term | 33/100 | 67/100 |
 | Outside every expert, asks for a choice | 19/20 | 19/20 |
 
-Six typo probes go to a wrong expert under both. The fallback leaves the 1,187 reserved prompts and the 1,312 replayed outcomes unchanged, and uses about 1.6 KB of conventional memory. To rerun, build `tests/ROUTEPRB.PAS` with FPC and `-Mtp -B -dSPEC100`, then run `python3 tests/route_probes.py ROUTEPRB RUNTIME_DIR` with an extracted SPEC100 package. The executables in `bin/` and the packages in `dist/` were built before this change and do not include it.
+Seven typo probes go to a wrong expert under both. The fallback leaves the 1,312 replayed outcomes unchanged, and uses about 1.6 KB of conventional memory. To rerun, build `tests/ROUTEPRB.PAS` with FPC and `-Mtp -B -dSPEC100`, then run `python3 tests/route_probes.py ROUTEPRB RUNTIME_DIR` with an extracted SPEC100 package. The executables in `bin/` and the packages in `dist/` were built before this change and do not include it.

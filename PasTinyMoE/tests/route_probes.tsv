@@ -1,4 +1,13 @@
 expert	kind	question
+1	fresh	what dos command clears the screen
+1	fresh	how do i change to another directory in dos
+1	typo	how do i list the files in this directry
+2	fresh	in pascal which operator gives the remainder
+2	fresh	what keyword ends a compound statement in pascal
+2	typo	which operater gives an integer quotient
+3	fresh	what does the cpu do
+3	fresh	what is a parallel port used for
+3	typo	what is the procesor for
 4	fresh	i keep seeing the word pathname, what is that
 4	fresh	how would you describe a wildcard when naming files
 4	typo	what is a subdirectry
@@ -110,6 +119,24 @@ expert	kind	question
 40	fresh	in lotus 1-2-3 how do i sum a range
 40	fresh	which key recalculates a lotus worksheet
 40	typo	lotis open command menu
+41	fresh	what does fragile mean
+41	fresh	give me the definition of vacant
+41	typo	define fragle
+42	fresh	how do you spell recieve correctly
+42	fresh	fix the spelling of definately
+42	typo	correct the speling of untill
+43	fresh	what does compliment mean as opposed to complement
+43	fresh	in the pair affect and effect what does affect mean
+43	typo	in a confusng pair what does effect mean
+44	fresh	what does an adverb do in a sentence
+44	fresh	what is a conjunction in grammar
+44	typo	what is a pronuon
+45	fresh	when do i use a semicolon
+45	fresh	what is an apostrophe used for
+45	typo	what is a semicolan for
+46	fresh	what is another word for fragile
+46	fresh	give me a synonym of rapid
+46	typo	give a synonim for damp
 47	fresh	what word means the opposite of silent
 47	fresh	give me an antonym for ancient
 47	typo	what is the oposite of narrow
@@ -122,6 +149,9 @@ expert	kind	question
 50	fresh	what is the origin of the word robot
 50	fresh	which language gave us the word tsunami
 50	typo	where does the word algbra come from
+51	fresh	how many legs has a spider got
+51	fresh	how many body regions does an insect have
+51	typo	how many legs does an adult insct have
 52	fresh	what does a manatee eat
 52	fresh	how does the platypus reproduce
 52	typo	what covers a pangolan
