@@ -60,10 +60,13 @@ begin
   Rows := TStringList.Create;
   try
     Line := MonitorText;
-    Line := StringReplace(Line, #$2588, '#', [rfReplaceAll]);
-    Line := StringReplace(Line, #$2593, '*', [rfReplaceAll]);
-    Line := StringReplace(Line, #$2592, '+', [rfReplaceAll]);
-    Line := StringReplace(Line, #$2591, '.', [rfReplaceAll]);
+    for I := 1 to Length(Line) do
+      case Ord(Line[I]) of
+        $2588: Line[I] := '#';
+        $2593: Line[I] := '*';
+        $2592: Line[I] := '+';
+        $2591: Line[I] := '.';
+      end;
     Rows.Text := Line;
     for I := 0 to Rows.Count-1 do begin
       Line := Rows[I];
