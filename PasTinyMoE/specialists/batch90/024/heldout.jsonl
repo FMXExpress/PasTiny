@@ -1,0 +1,18 @@
+{"question": "which pascal routine kind has no function result", "answer": "Procedure."}
+{"question": "please describe routine with no result", "answer": "Procedure."}
+{"question": "remind me about pascal routine without a return value", "answer": "Procedure."}
+{"question": "which pascal routine kind can return an integer", "answer": "Function."}
+{"question": "please describe routine that returns a value", "answer": "Function."}
+{"question": "remind me about pascal routine with a result", "answer": "Function."}
+{"question": "how is a var parameter passed", "answer": "By reference."}
+{"question": "please describe var parameter passing method", "answer": "By reference."}
+{"question": "remind me about parameter declared with var", "answer": "By reference."}
+{"question": "how is an ordinary value parameter passed", "answer": "By value."}
+{"question": "please describe ordinary value parameter passing method", "answer": "By value."}
+{"question": "remind me about parameter declared without var or const", "answer": "By value."}
+{"question": "which type does function count: integer return", "answer": "Integer."}
+{"question": "please describe result type of function count: integer", "answer": "Integer."}
+{"question": "remind me about return type of function count: integer", "answer": "Integer."}
+{"question": "how do i set a function result in tp7", "answer": "Assign to the function name."}
+{"question": "please describe return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "remind me about set the function result in turbo pascal", "answer": "Assign to the function name."}

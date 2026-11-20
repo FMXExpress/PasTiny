@@ -1,0 +1,483 @@
+catalog/init ms=2
+FPU yes
+heap=511904 largest=511904 stack=15860
+load/recovery ms=645
+active 1 DOS Guide
+heap=27704 largest=27704 stack=15860
+route ms=2
+load/recovery ms=153
+active 17 Joystick Desk
+Left and right movement.
+answer ms=2614 chars=24
+first char ms=1652 output span ms=902
+route ms=0
+A digital on or off input.
+answer ms=2838 chars=26
+first char ms=1297 output span ms=1485
+route ms=1
+Forward and backward movement.
+answer ms=4302 chars=30
+first char ms=2513 output span ms=1624
+route ms=2
+A digital on or off input.
+answer ms=2615 chars=26
+first char ms=1871 output span ms=724
+route ms=0
+A digital on or off input.
+answer ms=3671 chars=26
+first char ms=2191 output span ms=1418
+route ms=1
+A digital on or off input.
+answer ms=3374 chars=26
+first char ms=2378 output span ms=952
+route ms=1
+Returning the stick to neutral.
+answer ms=2562 chars=31
+first char ms=1327 output span ms=1178
+route ms=2
+A digital on or off input.
+answer ms=3027 chars=26
+first char ms=1810 output span ms=1192
+route ms=1
+It beeppsia.
+answer ms=1654 chars=12
+first char ms=1219 output span ms=425
+route ms=0
+Measuring the center and range.
+answer ms=2084 chars=31
+first char ms=1281 output span ms=797
+route ms=0
+load/recovery ms=115
+active 18 PC Audio Devices
+Musside from tellues insucfer 100.
+answer ms=3590 chars=34
+first char ms=2229 output span ms=1325
+route ms=0
+Built-in speaker for pecopus for simple tones.
+answer ms=4245 chars=46
+first char ms=1582 output span ms=2582
+route ms=0
+Creates sound by modulating frequency.
+answer ms=2697 chars=38
+first char ms=1196 output span ms=1451
+route ms=1
+Creates sound by modulating frequency.
+answer ms=3326 chars=38
+first char ms=1588 output span ms=1673
+route ms=1
+Musical performance instructions.
+answer ms=2847 chars=33
+first char ms=1327 output span ms=1437
+route ms=1
+Musical performance instructions.
+answer ms=3150 chars=33
+first char ms=1559 output span ms=1487
+route ms=2
+Replays stored waveform samples.
+answer ms=4896 chars=32
+first char ms=2575 output span ms=2255
+route ms=1
+M carbodium carbodium carbodium carbod!
+answer ms=2624 chars=39
+first char ms=1368 output span ms=1252
+route ms=0
+load/recovery ms=141
+active 19 Serial port glossary
+Symbols transmitted per second.
+answer ms=1867 chars=31
+first char ms=1050 output span ms=760
+route ms=0
+Symbols transmitted per second.
+answer ms=3109 chars=31
+first char ms=1391 output span ms=1699
+route ms=1
+Symbols transmitted per second.
+answer ms=2666 chars=31
+first char ms=1256 output span ms=1349
+route ms=1
+They mark the end of a character.
+answer ms=2795 chars=33
+first char ms=1599 output span ms=1119
+route ms=1
+An extra bit for error checking.
+answer ms=2567 chars=32
+first char ms=948 output span ms=1543
+route ms=1
+An extra bit for error checking.
+answer ms=1830 chars=32
+first char ms=923 output span ms=823
+route ms=0
+It paces the sender for the receiver.
+answer ms=3155 chars=37
+first char ms=2002 output span ms=1142
+route ms=0
+They mark the end of a character.
+answer ms=1948 chars=33
+first char ms=826 output span ms=1042
+route ms=0
+They mark the end of a character.
+answer ms=2175 chars=33
+first char ms=1193 output span ms=963
+route ms=0
+They mark the end of a character.
+answer ms=3711 chars=33
+first char ms=2565 output span ms=1086
+route ms=0
+It paces the sender for the receiver.
+answer ms=2091 chars=37
+first char ms=956 output span ms=1129
+route ms=0
+It paces the sender for the receiver.
+answer ms=3314 chars=37
+first char ms=1511 output span ms=1748
+route ms=0
+load/recovery ms=95
+active 20 PC expansion slots
+ISA.
+answer ms=1907 chars=4
+first char ms=1799 output span ms=95
+route ms=0
+ISA.
+answer ms=1904 chars=4
+first char ms=1747 output span ms=84
+route ms=0
+ISA.
+answer ms=795 chars=4
+first char ms=707 output span ms=39
+route ms=0
+IM.
+answer ms=2168 chars=3
+first char ms=2072 output span ms=30
+route ms=0
+MCA.
+answer ms=1189 chars=4
+first char ms=1081 output span ms=99
+route ms=0
+MCA.
+answer ms=975 chars=4
+first char ms=787 output span ms=116
+route ms=0
+ISA.
+answer ms=2349 chars=4
+first char ms=2238 output span ms=55
+route ms=0
+VLB.
+answer ms=1475 chars=4
+first char ms=1294 output span ms=169
+route ms=0
+VLB.
+answer ms=1230 chars=4
+first char ms=969 output span ms=166
+route ms=1
+PCI.
+answer ms=1928 chars=4
+first char ms=1809 output span ms=75
+route ms=0
+PCI.
+answer ms=1614 chars=4
+first char ms=1504 output span ms=91
+route ms=0
+PCI.
+answer ms=857 chars=4
+first char ms=802 output span ms=13
+route ms=0
+load/recovery ms=91
+active 21 Pascal scalar types
+It holds False or True.
+answer ms=2017 chars=23
+first char ms=1245 output span ms=709
+route ms=1
+It holds False or True.
+answer ms=2284 chars=23
+first char ms=1382 output span ms=842
+route ms=0
+It stores one 8-bit character.
+answer ms=3852 chars=30
+first char ms=1938 output span ms=1826
+route ms=2
+It holds False or True.
+answer ms=2592 chars=23
+first char ms=1913 output span ms=671
+route ms=0
+It holds an integer from 0 to 255.
+answer ms=3229 chars=34
+first char ms=1647 output span ms=1547
+route ms=2
+It holds False or True.
+answer ms=2764 chars=23
+first char ms=2011 output span ms=694
+route ms=0
+It stores a signed 16-bit integer.
+answer ms=1824 chars=34
+first char ms=798 output span ms=937
+route ms=1
+It holds Frence.
+answer ms=2104 chars=16
+first char ms=1129 output span ms=892
+route ms=1
+It stores a signed 32-bit integer.
+answer ms=4417 chars=34
+first char ms=2311 output span ms=2036
+route ms=2
+1812.
+answer ms=1571 chars=5
+first char ms=1380 output span ms=130
+route ms=0
+load/recovery ms=154
+active 22 Pascal control flow
+Increment n only if ok is true.
+answer ms=2894 chars=31
+first char ms=2140 output span ms=719
+route ms=0
+Increment n only if ok is true.
+answer ms=1432 chars=31
+first char ms=894 output span ms=502
+route ms=1
+Set x to 9 if k equals 1.
+answer ms=1284 chars=25
+first char ms=861 output span ms=379
+route ms=0
+Set x to 9 if k equals 1.
+answer ms=2474 chars=25
+first char ms=1730 output span ms=724
+route ms=0
+Test n first and decrement while positive.
+answer ms=1474 chars=42
+first char ms=854 output span ms=589
+route ms=0
+Test n first and decrement while positive.
+answer ms=1540 chars=42
+first char ms=768 output span ms=789
+route ms=0
+Increment at least once, then test n.
+answer ms=1399 chars=37
+first char ms=765 output span ms=600
+route ms=0
+Increment at least once, then test n.
+answer ms=1348 chars=37
+first char ms=754 output span ms=561
+route ms=0
+Increment n once for each i from 1 to 3.
+answer ms=1360 chars=40
+first char ms=740 output span ms=586
+route ms=0
+Increment n once for each i from 1 to 3.
+answer ms=1351 chars=40
+first char ms=707 output span ms=652
+route ms=1
+load/recovery ms=83
+active 23 Pascal records and arrays
+A dot.
+answer ms=705 chars=6
+first char ms=604 output span ms=74
+route ms=0
+A dot.
+answer ms=577 chars=6
+first char ms=485 output span ms=67
+route ms=0
+A dot.
+answer ms=513 chars=6
+first char ms=472 output span ms=15
+route ms=0
+Square brackets.
+answer ms=694 chars=16
+first char ms=459 output span ms=209
+route ms=1
+Square brackets.
+answer ms=636 chars=16
+first char ms=463 output span ms=147
+route ms=0
+Square brackets.
+answer ms=600 chars=16
+first char ms=373 output span ms=202
+route ms=0
+A field.
+answer ms=606 chars=8
+first char ms=515 output span ms=66
+route ms=0
+A field.
+answer ms=593 chars=8
+first char ms=453 output span ms=115
+route ms=1
+A field.
+answer ms=514 chars=8
+first char ms=428 output span ms=116
+route ms=1
+A stared.
+answer ms=699 chars=9
+first char ms=585 output span ms=88
+route ms=0
+An element.
+answer ms=475 chars=11
+first char ms=375 output span ms=75
+route ms=1
+An element.
+answer ms=577 chars=11
+first char ms=421 output span ms=131
+route ms=1
+3.
+answer ms=451 chars=2
+first char ms=458 output span ms=24
+route ms=0
+3.
+answer ms=491 chars=2
+first char ms=497 output span ms=24
+route ms=0
+3.
+answer ms=490 chars=2
+first char ms=497 output span ms=24
+route ms=0
+3.
+answer ms=464 chars=2
+first char ms=472 output span ms=-32
+route ms=0
+8.
+answer ms=550 chars=2
+first char ms=550 output span ms=-27
+route ms=1
+8.
+answer ms=528 chars=2
+first char ms=480 output span ms=24
+route ms=0
+load/recovery ms=52
+active 24 Pascal routines
+Function.
+answer ms=690 chars=9
+first char ms=570 output span ms=94
+route ms=1
+Procedure.
+answer ms=491 chars=10
+first char ms=366 output span ms=100
+route ms=0
+Procedure.
+answer ms=689 chars=10
+first char ms=604 output span ms=114
+route ms=0
+conteger.
+answer ms=634 chars=9
+first char ms=519 output span ms=89
+route ms=1
+Function.
+answer ms=809 chars=9
+first char ms=662 output span ms=167
+route ms=1
+Function.
+answer ms=920 chars=9
+first char ms=775 output span ms=110
+route ms=0
+By reference.
+answer ms=543 chars=13
+first char ms=364 output span ms=152
+route ms=0
+By reference.
+answer ms=744 chars=13
+first char ms=546 output span ms=169
+route ms=0
+By reference.
+answer ms=957 chars=13
+first char ms=729 output span ms=244
+route ms=0
+By value.
+answer ms=1077 chars=9
+first char ms=895 output span ms=143
+route ms=0
+By value.
+answer ms=1156 chars=9
+first char ms=947 output span ms=168
+route ms=1
+By value.
+answer ms=1232 chars=9
+first char ms=1028 output span ms=212
+route ms=1
+Integer.
+answer ms=1057 chars=8
+first char ms=867 output span ms=154
+route ms=1
+Integer.
+answer ms=992 chars=8
+first char ms=809 output span ms=194
+route ms=1
+Integer.
+answer ms=1094 chars=8
+first char ms=948 output span ms=162
+route ms=1
+Assign to the function name.
+answer ms=1698 chars=28
+first char ms=1028 output span ms=624
+route ms=0
+Assign to the function name.
+answer ms=1829 chars=28
+first char ms=1285 output span ms=509
+route ms=1
+Assign to the function name.
+answer ms=1625 chars=28
+first char ms=842 output span ms=727
+route ms=0
+load/recovery ms=105
+active 25 Pascal file types
+Elements of one declared type.
+answer ms=908 chars=30
+first char ms=477 output span ms=403
+route ms=0
+Elements of one declared type.
+answer ms=820 chars=30
+first char ms=429 output span ms=363
+route ms=0
+File without an element type.
+answer ms=767 chars=29
+first char ms=403 output span ms=336
+route ms=0
+Elements of one declared ten linets of charang int beterf charanguar ten letters.
+answer ms=1724 chars=81
+first char ms=482 output span ms=1207
+route ms=1
+Characters arranged in lines.
+answer ms=931 chars=29
+first char ms=463 output span ms=435
+route ms=1
+Characters arranged in lines.
+answer ms=965 chars=29
+first char ms=562 output span ms=372
+route ms=0
+It reads blocks into a buffer.
+answer ms=1015 chars=30
+first char ms=394 output span ms=588
+route ms=0
+File without an element type.
+answer ms=851 chars=29
+first char ms=452 output span ms=371
+route ms=0
+load/recovery ms=112
+active 26 Pascal units
+It declares the public names.
+answer ms=764 chars=29
+first char ms=408 output span ms=328
+route ms=0
+It declares the public names.
+answer ms=926 chars=29
+first char ms=510 output span ms=387
+route ms=0
+It contains routine bodies and private declarations.
+answer ms=1553 chars=52
+first char ms=731 output span ms=789
+route ms=0
+It contains routine bodies and private declarations.
+answer ms=1453 chars=52
+first char ms=630 output span ms=833
+route ms=0
+It names the units to import.
+answer ms=839 chars=29
+first char ms=472 output span ms=381
+route ms=0
+It names the units to import.
+answer ms=1044 chars=29
+first char ms=615 output span ms=399
+route ms=0
+Once before the main program starts.
+answer ms=1331 chars=36
+first char ms=517 output span ms=766
+route ms=1
+Once before the main program starts.
+answer ms=1795 chars=36
+first char ms=845 output span ms=969
+heap=27704 largest=27704 stack=15860

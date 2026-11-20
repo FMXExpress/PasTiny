@@ -1,0 +1,19 @@
+catalog/init ms=3
+FPU no
+heap=511904 largest=511904 stack=15860
+load/recovery ms=647
+active 1 DOS Guide
+heap=27704 largest=27704 stack=15860
+route ms=4
+load/recovery ms=350
+active 17 Joystick Desk
+Left and right movement.
+answer ms=65443 chars=24
+first char ms=44883 output span ms=19721
+route ms=0
+load/recovery ms=314
+active 18 PC Audio Devices
+Musside from tellues insucfer 100.
+answer ms=73858 chars=34
+first char ms=39856 output span ms=33415
+heap=27704 largest=27704 stack=15860

@@ -1,0 +1,13 @@
+{"config": {"d": 96, "layers": 4, "heads": 4, "hidden": 256}, "train_pairs": 72, "validation_pairs": 8, "device": "cpu"}
+{"step": 1, "train_loss": 8.44301, "validation_loss": 7.30721}
+{"step": 50, "train_loss": 0.00129, "validation_loss": 0.0014}
+{"step": 100, "train_loss": 0.00023, "validation_loss": 0.00034}
+{"step": 150, "train_loss": 0.00017, "validation_loss": 0.00022}
+{"step": 200, "train_loss": 0.00011, "validation_loss": 0.00016}
+{"step": 250, "train_loss": 0.0001, "validation_loss": 0.00012}
+{"step": 300, "train_loss": 7e-05, "validation_loss": 0.0001}
+{"step": 350, "train_loss": 6e-05, "validation_loss": 8e-05}
+{"step": 400, "train_loss": 5e-05, "validation_loss": 6e-05}
+{"step": 450, "train_loss": 3e-05, "validation_loss": 5e-05}
+{"step": 500, "train_loss": 3e-05, "validation_loss": 5e-05}
+Exported /tmp/unitsfiles/026/model.bin and /tmp/unitsfiles/026/model.pt

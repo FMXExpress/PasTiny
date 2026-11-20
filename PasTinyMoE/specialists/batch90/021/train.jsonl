@@ -1,0 +1,80 @@
+{"question": "explain this declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "what does the declaration mean: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "describe this pascal declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "read the tp7 declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "give the meaning of the declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "interpret the declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "explain in plain words: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "tell me about the declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "in turbo pascal what does this mean: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "explain the example declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "describe the effect of this declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "how should i read this declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "what happens here: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "decode this pascal declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "in tp7 explain this: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "give a gloss for this declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean"}
+{"question": "explain this declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "what does the declaration mean: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "describe this pascal declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "read the tp7 declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "give the meaning of the declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "interpret the declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "explain in plain words: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "tell me about the declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "in turbo pascal what does this mean: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "explain the example declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "describe the effect of this declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "how should i read this declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "what happens here: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "decode this pascal declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "in tp7 explain this: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "give a gloss for this declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char"}
+{"question": "explain this declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "what does the declaration mean: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "describe this pascal declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "read the tp7 declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "give the meaning of the declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "interpret the declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "explain in plain words: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "tell me about the declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "in turbo pascal what does this mean: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "explain the example declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "describe the effect of this declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "how should i read this declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "what happens here: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "decode this pascal declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "in tp7 explain this: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "give a gloss for this declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte"}
+{"question": "explain this declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "what does the declaration mean: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "describe this pascal declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "read the tp7 declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "give the meaning of the declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "interpret the declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "explain in plain words: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "tell me about the declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "in turbo pascal what does this mean: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "explain the example declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "describe the effect of this declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "how should i read this declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "what happens here: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "decode this pascal declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "in tp7 explain this: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "give a gloss for this declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer"}
+{"question": "explain this declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "what does the declaration mean: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "describe this pascal declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "read the tp7 declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "give the meaning of the declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "interpret the declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "explain in plain words: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "tell me about the declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "in turbo pascal what does this mean: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "explain the example declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "describe the effect of this declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "how should i read this declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "what happens here: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "decode this pascal declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "in tp7 explain this: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}
+{"question": "give a gloss for this declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint"}

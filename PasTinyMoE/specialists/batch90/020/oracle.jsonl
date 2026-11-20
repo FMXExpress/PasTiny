@@ -1,0 +1,12 @@
+{"question": "which bus extended the original pc design to 16 bits in the at", "expected": "ISA.", "output": "ISA.", "exact": true}
+{"question": "help me identify industry standard architecture in pc bus", "expected": "ISA.", "output": "ISA.", "exact": true}
+{"question": "what does isa mean for pc bus", "expected": "ISA.", "output": "ISA.", "exact": true}
+{"question": "which proprietary expansion bus appeared in many ibm ps/2 models", "expected": "MCA.", "output": "IM.", "exact": false}
+{"question": "help me identify micro channel architecture in pc bus", "expected": "MCA.", "output": "MCA.", "exact": true}
+{"question": "what does mca mean for pc bus", "expected": "MCA.", "output": "MCA.", "exact": true}
+{"question": "which vesa local expansion bus was common on 486 boards", "expected": "VLB.", "output": "ISA.", "exact": false}
+{"question": "help me identify vesa local bus in pc bus", "expected": "VLB.", "output": "VLB.", "exact": true}
+{"question": "what does vlb mean for pc bus", "expected": "VLB.", "output": "VLB.", "exact": true}
+{"question": "what is the common processor independent local bus called", "expected": "PCI.", "output": "PCI.", "exact": true}
+{"question": "help me identify peripheral component interconnect in pc bus", "expected": "PCI.", "output": "PCI.", "exact": true}
+{"question": "what does pci mean for pc bus", "expected": "PCI.", "output": "PCI.", "exact": true}

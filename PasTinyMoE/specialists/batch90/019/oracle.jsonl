@@ -1,0 +1,12 @@
+{"question": "what unit counts symbols sent each second", "expected": "Symbols transmitted per second.", "output": "Symbols transmitted per second.", "exact": true}
+{"question": "help me identify symbols per second in serial", "expected": "Symbols transmitted per second.", "output": "Symbols transmitted per second.", "exact": true}
+{"question": "what does baud rate mean for serial", "expected": "Symbols transmitted per second.", "output": "Symbols transmitted per second.", "exact": true}
+{"question": "how does serial parity help detect a transmission error", "expected": "An extra bit for error checking.", "output": "They mark the end of a character.", "exact": false}
+{"question": "help me identify parity bit in serial", "expected": "An extra bit for error checking.", "output": "An extra bit for error checking.", "exact": true}
+{"question": "what does parity mean for serial", "expected": "An extra bit for error checking.", "output": "An extra bit for error checking.", "exact": true}
+{"question": "what marks the end of an asynchronous serial character", "expected": "They mark the end of a character.", "output": "It paces the sender for the receiver.", "exact": false}
+{"question": "help me identify stop bit in serial", "expected": "They mark the end of a character.", "output": "They mark the end of a character.", "exact": true}
+{"question": "what does stop bits mean for serial", "expected": "They mark the end of a character.", "output": "They mark the end of a character.", "exact": true}
+{"question": "what keeps a fast serial sender from overrunning the receiver", "expected": "It paces the sender for the receiver.", "output": "They mark the end of a character.", "exact": false}
+{"question": "help me identify flow regulation in serial", "expected": "It paces the sender for the receiver.", "output": "It paces the sender for the receiver.", "exact": true}
+{"question": "what does flow control mean for serial", "expected": "It paces the sender for the receiver.", "output": "It paces the sender for the receiver.", "exact": true}

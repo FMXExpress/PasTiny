@@ -1,0 +1,80 @@
+{"question": "explain this snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "what does the snippet mean: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "describe this pascal snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "read the tp7 snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "give the meaning of the snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "interpret the snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "explain in plain words: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "tell me about the snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "in turbo pascal what does this mean: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "explain the example snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "describe the effect of this snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "how should i read this snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "what happens here: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "decode this pascal snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "in tp7 explain this: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "give a gloss for this snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if"}
+{"question": "explain this snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "what does the snippet mean: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "describe this pascal snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "read the tp7 snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "give the meaning of the snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "interpret the snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "explain in plain words: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "tell me about the snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "in turbo pascal what does this mean: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "explain the example snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "describe the effect of this snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "how should i read this snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "what happens here: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "decode this pascal snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "in tp7 explain this: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "give a gloss for this snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case"}
+{"question": "explain this snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "what does the snippet mean: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "describe this pascal snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "read the tp7 snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "give the meaning of the snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "interpret the snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "explain in plain words: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "tell me about the snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "in turbo pascal what does this mean: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "explain the example snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "describe the effect of this snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "how should i read this snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "what happens here: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "decode this pascal snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "in tp7 explain this: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "give a gloss for this snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while"}
+{"question": "explain this snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "what does the snippet mean: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "describe this pascal snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "read the tp7 snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "give the meaning of the snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "interpret the snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "explain in plain words: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "tell me about the snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "in turbo pascal what does this mean: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "explain the example snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "describe the effect of this snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "how should i read this snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "what happens here: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "decode this pascal snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "in tp7 explain this: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "give a gloss for this snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat"}
+{"question": "explain this snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "what does the snippet mean: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "describe this pascal snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "read the tp7 snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "give the meaning of the snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "interpret the snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "explain in plain words: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "tell me about the snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "in turbo pascal what does this mean: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "explain the example snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "describe the effect of this snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "how should i read this snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "what happens here: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "decode this pascal snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "in tp7 explain this: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}
+{"question": "give a gloss for this snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for"}

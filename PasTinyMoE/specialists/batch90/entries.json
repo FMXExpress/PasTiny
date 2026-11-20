@@ -1,0 +1,82 @@
+[
+  {
+    "id": 17,
+    "title": "Joystick Desk",
+    "name": "JOYSTICK.BIN",
+    "source": "specialists/models/JOYSTICK.BIN",
+    "sha256": "99491491b93ba1904282cdd243a64fed1a4edfd0673c4fc5c4032faf80a3bb57",
+    "keyword": "joystick"
+  },
+  {
+    "id": 18,
+    "title": "PC Audio Devices",
+    "name": "PCAUDIO.BIN",
+    "source": "specialists/models/PCAUDIO.BIN",
+    "sha256": "e2f995912d8e7c5a1f37bc1d3ee30bc20666750245906185cd7fec642b91d241",
+    "keyword": "midi"
+  },
+  {
+    "id": 19,
+    "title": "Serial port glossary",
+    "name": "SERIAL.BIN",
+    "source": "specialists/models/SERIAL.BIN",
+    "sha256": "da21a7a4b6a670ef2bd8f0a17984b348583c0240b5858bd46a802cc3f34c9aa7",
+    "keyword": "baud"
+  },
+  {
+    "id": 20,
+    "title": "PC expansion slots",
+    "name": "EXPBUS.BIN",
+    "source": "specialists/models/EXPBUS.BIN",
+    "sha256": "00bf41ad50bbc9dd89851159b3b608953fd488bbdf5470a04e6cf7bbc28d263f",
+    "keyword": "isa"
+  },
+  {
+    "id": 21,
+    "title": "Pascal scalar types",
+    "name": "SCALAR.BIN",
+    "source": "specialists/models/SCALAR.BIN",
+    "sha256": "ce2bfb8767424df549840fe247c301fc51f9233de5f20e64a11d899a05371f40",
+    "keyword": "declaration"
+  },
+  {
+    "id": 22,
+    "title": "Pascal control flow",
+    "name": "FLOW.BIN",
+    "source": "specialists/models/FLOW.BIN",
+    "sha256": "607030790b9939875973407a3ab125bd5b12f4f635438ca37f60f2b4dcae132d",
+    "keyword": "snippet"
+  },
+  {
+    "id": 23,
+    "title": "Pascal records and arrays",
+    "name": "RECORDS.BIN",
+    "source": "specialists/models/RECORDS.BIN",
+    "sha256": "2ba511289f4e0431041560e8733b18152ae1e5a1a58dd13cc5bffd0c30765b40",
+    "keyword": "record"
+  },
+  {
+    "id": 24,
+    "title": "Pascal routines",
+    "name": "ROUTINES.BIN",
+    "source": "specialists/models/ROUTINES.BIN",
+    "sha256": "3559ef157bddff8c4a38f1a7dffcdd1fd26580f0683afab8353823b3091f9131",
+    "keyword": "procedure"
+  },
+  {
+    "id": 25,
+    "title": "Pascal file types",
+    "name": "PASFILES.BIN",
+    "source": "specialists/models/PASFILES.BIN",
+    "sha256": "f05e7d9877924419abba08a5c6c52c08c4b5b70a6d5bfed10f83af10adba9b29",
+    "keyword": "typed"
+  },
+  {
+    "id": 26,
+    "title": "Pascal units",
+    "name": "UNITS.BIN",
+    "source": "specialists/models/UNITS.BIN",
+    "sha256": "e2ad1683939fb47ec04af60fe203d39c5b6dde2838f02d0edd0b012730c316fa",
+    "keyword": "interface"
+  }
+]

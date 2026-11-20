@@ -1,0 +1,10 @@
+{"question": "summarize the following snippet: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if", "output": "Increment n only if ok is true.", "exact": true}
+{"question": "in this snippet when does n change: if ok then inc(n);", "answer": "Increment n only if ok is true.", "fact": "if", "output": "Increment n only if ok is true.", "exact": true}
+{"question": "summarize the following snippet: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case", "output": "Set x to 9 if k equals 1.", "exact": true}
+{"question": "what assignment can this snippet make: case k of 1: x := 9 end;", "answer": "Set x to 9 if k equals 1.", "fact": "case", "output": "Set x to 9 if k equals 1.", "exact": true}
+{"question": "summarize the following snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while", "output": "Test n first and decrement while positive.", "exact": true}
+{"question": "what happens to positive n in this snippet: while n > 0 do dec(n);", "answer": "Test n first and decrement while positive.", "fact": "while", "output": "Test n first and decrement while positive.", "exact": true}
+{"question": "summarize the following snippet: repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat", "output": "Increment at least once, then test n.", "exact": true}
+{"question": "which happens first in the snippet repeat inc(n) until n >= 3;", "answer": "Increment at least once, then test n.", "fact": "repeat", "output": "Increment at least once, then test n.", "exact": true}
+{"question": "summarize the following snippet: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for", "output": "Increment n once for each i from 1 to 3.", "exact": true}
+{"question": "how does this snippet count: for i := 1 to 3 do inc(n);", "answer": "Increment n once for each i from 1 to 3.", "fact": "for", "output": "Increment n once for each i from 1 to 3.", "exact": true}

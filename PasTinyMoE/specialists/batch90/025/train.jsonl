@@ -1,0 +1,80 @@
+{"question": "what does a typed file contain", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "in brief what does a typed file contain", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "quick question what does a typed file contain", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "please tell me what does a typed file contain", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "what values go into a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "in brief what values go into a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "quick question what values go into a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "please tell me what values go into a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "what can be stored in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "in brief what can be stored in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "quick question what can be stored in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "please tell me what can be stored in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "describe the elements in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "in brief describe the elements in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "quick question describe the elements in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "please tell me describe the elements in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "what kind of elements fill a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "in brief what kind of elements fill a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "quick question what kind of elements fill a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "please tell me what kind of elements fill a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "what is an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "in brief what is an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "quick question what is an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "please tell me what is an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "what is meant by an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "in brief what is meant by an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "quick question what is meant by an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "please tell me what is meant by an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "define an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "in brief define an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "quick question define an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "please tell me define an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "how is an untyped file different in its declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "in brief how is an untyped file different in its declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "quick question how is an untyped file different in its declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "please tell me how is an untyped file different in its declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "what is missing in an untyped file declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "in brief what is missing in an untyped file declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "quick question what is missing in an untyped file declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "please tell me what is missing in an untyped file declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "what does a textfile contain", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "in brief what does a textfile contain", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "quick question what does a textfile contain", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "please tell me what does a textfile contain", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "how is a textfile organized", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "in brief how is a textfile organized", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "quick question how is a textfile organized", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "please tell me how is a textfile organized", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "describe the contents of a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "in brief describe the contents of a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "quick question describe the contents of a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "please tell me describe the contents of a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "what makes up a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "in brief what makes up a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "quick question what makes up a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "please tell me what makes up a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "what data is read from a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "in brief what data is read from a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "quick question what data is read from a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "please tell me what data is read from a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "what does blockread do", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "in brief what does blockread do", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "quick question what does blockread do", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "please tell me what does blockread do", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "what is blockread used for", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "in brief what is blockread used for", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "quick question what is blockread used for", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "please tell me what is blockread used for", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "explain the role of blockread", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "in brief explain the role of blockread", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "quick question explain the role of blockread", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "please tell me explain the role of blockread", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "how does blockread move data", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "in brief how does blockread move data", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "quick question how does blockread move data", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "please tell me how does blockread move data", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "what does blockread do to the buffer", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "in brief what does blockread do to the buffer", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "quick question what does blockread do to the buffer", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "please tell me what does blockread do to the buffer", "answer": "It reads blocks into a buffer.", "fact": "blockread"}

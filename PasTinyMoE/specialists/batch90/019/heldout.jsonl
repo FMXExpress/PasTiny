@@ -1,0 +1,12 @@
+{"question": "what unit counts symbols sent each second", "answer": "Symbols transmitted per second."}
+{"question": "help me identify symbols per second in serial", "answer": "Symbols transmitted per second."}
+{"question": "what does baud rate mean for serial", "answer": "Symbols transmitted per second."}
+{"question": "how does serial parity help detect a transmission error", "answer": "An extra bit for error checking."}
+{"question": "help me identify parity bit in serial", "answer": "An extra bit for error checking."}
+{"question": "what does parity mean for serial", "answer": "An extra bit for error checking."}
+{"question": "what marks the end of an asynchronous serial character", "answer": "They mark the end of a character."}
+{"question": "help me identify stop bit in serial", "answer": "They mark the end of a character."}
+{"question": "what does stop bits mean for serial", "answer": "They mark the end of a character."}
+{"question": "what keeps a fast serial sender from overrunning the receiver", "answer": "It paces the sender for the receiver."}
+{"question": "help me identify flow regulation in serial", "answer": "It paces the sender for the receiver."}
+{"question": "what does flow control mean for serial", "answer": "It paces the sender for the receiver."}

@@ -1,0 +1,12 @@
+{"question": "which bus extended the original pc design to 16 bits in the at", "answer": "ISA."}
+{"question": "help me identify industry standard architecture in pc bus", "answer": "ISA."}
+{"question": "what does isa mean for pc bus", "answer": "ISA."}
+{"question": "which proprietary expansion bus appeared in many ibm ps/2 models", "answer": "MCA."}
+{"question": "help me identify micro channel architecture in pc bus", "answer": "MCA."}
+{"question": "what does mca mean for pc bus", "answer": "MCA."}
+{"question": "which vesa local expansion bus was common on 486 boards", "answer": "VLB."}
+{"question": "help me identify vesa local bus in pc bus", "answer": "VLB."}
+{"question": "what does vlb mean for pc bus", "answer": "VLB."}
+{"question": "what is the common processor independent local bus called", "answer": "PCI."}
+{"question": "help me identify peripheral component interconnect in pc bus", "answer": "PCI."}
+{"question": "what does pci mean for pc bus", "answer": "PCI."}

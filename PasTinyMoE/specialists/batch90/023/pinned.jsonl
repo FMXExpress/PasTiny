@@ -1,0 +1,18 @@
+{"question": "which symbol selects a field of a pascal record", "answer": "A dot.", "output": "A dot.", "exact": true}
+{"question": "please describe record field selection operator", "answer": "A dot.", "output": "A dot.", "exact": true}
+{"question": "remind me about record field access symbol", "answer": "A dot.", "output": "A dot.", "exact": true}
+{"question": "which brackets enclose a pascal array index", "answer": "Square brackets.", "output": "Square brackets.", "exact": true}
+{"question": "please describe array subscript delimiters", "answer": "Square brackets.", "output": "Square brackets.", "exact": true}
+{"question": "remind me about array index brackets", "answer": "Square brackets.", "output": "Square brackets.", "exact": true}
+{"question": "what is a named member of a pascal record called", "answer": "A field.", "output": "A field.", "exact": true}
+{"question": "please describe record component identifier", "answer": "A field.", "output": "A field.", "exact": true}
+{"question": "remind me about named component of a record", "answer": "A field.", "output": "A field.", "exact": true}
+{"question": "what is one indexed item of a pascal array called", "answer": "An element.", "output": "A stared.", "exact": false}
+{"question": "please describe array component name", "answer": "An element.", "output": "An element.", "exact": true}
+{"question": "remind me about indexed item of an array", "answer": "An element.", "output": "An element.", "exact": true}
+{"question": "where do the indices of array [3..8] begin", "answer": "3.", "output": "3.", "exact": true}
+{"question": "please describe lower bound of array [3..8]", "answer": "3.", "output": "3.", "exact": true}
+{"question": "remind me about first index of array [3..8]", "answer": "3.", "output": "3.", "exact": true}
+{"question": "where do the indices of array [3..8] end", "answer": "8.", "output": "3.", "exact": false}
+{"question": "please describe upper bound of array [3..8]", "answer": "8.", "output": "8.", "exact": true}
+{"question": "remind me about last index of array [3..8]", "answer": "8.", "output": "8.", "exact": true}

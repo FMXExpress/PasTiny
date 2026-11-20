@@ -1,0 +1,8 @@
+{"question": "which names appear in a unit interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what does a unit put in its interface section", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what appears inside the implementation section", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "what does a unit put in its implementation part", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "what is the role of the uses list", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "what names does the uses clause contain", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "when will a units initialization code execute", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "how often and when does unit initialization run", "answer": "Once before the main program starts.", "fact": "initialization"}

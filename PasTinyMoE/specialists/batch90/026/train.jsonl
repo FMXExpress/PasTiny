@@ -1,0 +1,80 @@
+{"question": "what does the interface section do", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "in brief what does the interface section do", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "quick question what does the interface section do", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "please tell me what does the interface section do", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what goes in the interface section of a unit", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "in brief what goes in the interface section of a unit", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "quick question what goes in the interface section of a unit", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "please tell me what goes in the interface section of a unit", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what is the interface part of a unit for", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "in brief what is the interface part of a unit for", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "quick question what is the interface part of a unit for", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "please tell me what is the interface part of a unit for", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what is the purpose of a unit interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "in brief what is the purpose of a unit interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "quick question what is the purpose of a unit interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "please tell me what is the purpose of a unit interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what does a unit expose in its interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "in brief what does a unit expose in its interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "quick question what does a unit expose in its interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "please tell me what does a unit expose in its interface", "answer": "It declares the public names.", "fact": "interface"}
+{"question": "what belongs in a unit implementation", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "in brief what belongs in a unit implementation", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "quick question what belongs in a unit implementation", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "please tell me what belongs in a unit implementation", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "what does the implementation section contain", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "in brief what does the implementation section contain", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "quick question what does the implementation section contain", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "please tell me what does the implementation section contain", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "what goes in the implementation part of a unit", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "in brief what goes in the implementation part of a unit", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "quick question what goes in the implementation part of a unit", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "please tell me what goes in the implementation part of a unit", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "what is a unit implementation for", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "in brief what is a unit implementation for", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "quick question what is a unit implementation for", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "please tell me what is a unit implementation for", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "where does the implementation keep private details", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "in brief where does the implementation keep private details", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "quick question where does the implementation keep private details", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "please tell me where does the implementation keep private details", "answer": "It contains routine bodies and private declarations.", "fact": "implementation"}
+{"question": "what does a uses clause do", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "in brief what does a uses clause do", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "quick question what does a uses clause do", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "please tell me what does a uses clause do", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "what is the uses list for", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "in brief what is the uses list for", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "quick question what is the uses list for", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "please tell me what is the uses list for", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "what goes after the uses keyword", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "in brief what goes after the uses keyword", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "quick question what goes after the uses keyword", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "please tell me what goes after the uses keyword", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "what is named in a uses clause", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "in brief what is named in a uses clause", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "quick question what is named in a uses clause", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "please tell me what is named in a uses clause", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "what does a units uses clause identify", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "in brief what does a units uses clause identify", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "quick question what does a units uses clause identify", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "please tell me what does a units uses clause identify", "answer": "It names the units to import.", "fact": "uses"}
+{"question": "when does unit initialization run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "in brief when does unit initialization run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "quick question when does unit initialization run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "please tell me when does unit initialization run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "when is a units initialization executed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "in brief when is a units initialization executed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "quick question when is a units initialization executed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "please tell me when is a units initialization executed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "at what point does unit initialization happen", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "in brief at what point does unit initialization happen", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "quick question at what point does unit initialization happen", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "please tell me at what point does unit initialization happen", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "when does the initialization code in a unit run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "in brief when does the initialization code in a unit run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "quick question when does the initialization code in a unit run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "please tell me when does the initialization code in a unit run", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "when is unit initialization performed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "in brief when is unit initialization performed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "quick question when is unit initialization performed", "answer": "Once before the main program starts.", "fact": "initialization"}
+{"question": "please tell me when is unit initialization performed", "answer": "Once before the main program starts.", "fact": "initialization"}

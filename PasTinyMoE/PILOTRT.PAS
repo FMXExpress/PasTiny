@@ -1,4 +1,5 @@
 unit PILOTRT;
+{$IFDEF SPEC90}{$DEFINE SPEC80}{$ENDIF}
 {$IFDEF SPEC80}{$DEFINE SPEC70}{$ENDIF}
 {$IFDEF SPEC70}{$DEFINE SPEC60}{$ENDIF}
 {$IFDEF SPEC60}{$DEFINE SPEC50}{$ENDIF}
@@ -51,6 +52,7 @@ end;
 {$ENDIF}
 {$IFDEF SPEC8}
 type TopicEntry=record Term:String[20]; Id:Byte end;
+{$IFDEF SPEC90}{$I TOPIC90.INC}{$ELSE}
 {$IFDEF SPEC80}{$I TOPIC80.INC}{$ELSE}
 {$IFDEF SPEC70}{$I TOPIC70.INC}{$ELSE}
 {$IFDEF SPEC60}{$I TOPIC60.INC}{$ELSE}
@@ -59,7 +61,7 @@ type TopicEntry=record Term:String[20]; Id:Byte end;
 {$IFDEF SPEC30}{$I TOPIC30.INC}{$ELSE}
 {$IFDEF SPEC20}{$I TOPICS20.INC}{$ELSE}
 {$IFDEF SPEC9}{$I TOPICS9.INC}{$ELSE}{$I TOPICS.INC}{$ENDIF}
-{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
+{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}{$ENDIF}
 function TopicId(Token:String):Byte;
 var Low,High,Mid:Integer;
 begin
@@ -87,6 +89,35 @@ begin
  Q:=WordLine(Q);
  WantsAntonym:=(Pos(' opposite ',Q)>0) or (Pos(' opposites ',Q)>0) or
   (Pos(' antonym ',Q)>0) or (Pos(' antonyms ',Q)>0) or (Pos(' reverse meaning ',Q)>0)
+end;
+{$ENDIF}
+{$IFDEF SPEC90}
+{ Recognize named PC facilities and Pascal syntax before interpreting general English terms. }
+function PCAndPascalDomain(Q,C:String):Byte;
+begin
+ PCAndPascalDomain:=0;
+ if (Pos(' pc speaker ',C)>0) or ((Pos(' simple tones ',C)>0) and (Pos(' pc ',C)>0))
+  then PCAndPascalDomain:=18
+ else if (Pos(' symbols per second ',C)>0) or (Pos(' symbols sent each second ',C)>0) or
+  ((Pos(' stop bit ',C)>0) or (Pos(' stop bits ',C)>0)) or (Pos(' flow control ',C)>0) or (Pos(' flow regulation ',C)>0) or
+  (Pos(' asynchronous serial ',C)>0) or (Pos(' serial sender ',C)>0) then PCAndPascalDomain:=19
+ else if (Pos(' pc bus ',C)>0) or (Pos(' expansion bus ',C)>0) or (Pos(' local bus ',C)>0)
+  or (Pos(' standard architecture ',C)>0) or (Pos(' micro channel ',C)>0)
+  or (Pos(' peripheral component interconnect ',C)>0) or (Pos(' at expansion ',C)>0)
+  or ((Pos(' bus ',C)>0) and (Pos(' 16 bits ',C)>0)) then PCAndPascalDomain:=20
+ else if (Pos(' typed file ',C)>0) or ((Pos(' untyped ',C)>0) and (Pos(' file ',C)>0)) or
+  (((Pos(' pascal ',C)>0) or (Pos(' tp7 ',C)>0)) and ((Pos(' text file ',C)>0)
+  or (Pos(' text stream ',C)>0))) then PCAndPascalDomain:=25
+ else if (Pos(' var ',C)>0) and (Pos(':',Q)>0) and
+  (Pos(' function ',C)=0) and (Pos(' procedure ',C)=0) and ((Pos(' char ',C)>0) or
+  (Pos(' byte ',C)>0) or (Pos(' integer ',C)>0) or (Pos(' boolean ',C)>0)
+  or (Pos(' longint ',C)>0)) then PCAndPascalDomain:=21
+ else if (Pos(';',Q)>0) and (((Pos(' if ',C)>0) and (Pos(' then ',C)>0)) or
+  ((Pos(' case ',C)>0) and (Pos(' of ',C)>0)) or ((Pos(' while ',C)>0) and
+  (Pos(' do ',C)>0)) or ((Pos(' for ',C)>0) and (Pos(' do ',C)>0)) or
+  ((Pos(' repeat ',C)>0) and (Pos(' until ',C)>0))) then PCAndPascalDomain:=22
+ else if (Pos(' uses clause ',C)>0) or (Pos(' uses list ',C)>0) or
+  (Pos(' uses keyword ',C)>0) then PCAndPascalDomain:=26
 end;
 {$ENDIF}
 {$IFDEF SPEC80}
@@ -138,6 +169,10 @@ begin
  Hits:=0; I:=1;
  {$IFDEF SPEC40}
  Context:=WordLine(Q);
+ {$IFDEF SPEC90}
+ Extra:=PCAndPascalDomain(Q,Context);
+ if Extra<>0 then begin PilotDomain:=Extra; Exit end;
+ {$ENDIF}
  {$IFDEF SPEC80}
  Extra:=DOSGlossaryDomain(Q,Context);
  if Extra<>0 then begin PilotDomain:=Extra; Exit end;
@@ -181,6 +216,18 @@ begin
    {$ENDIF}
    {$IFDEF SPEC40}
    WordKey:=Copy(Q,Start,I-Start);
+   {$IFDEF SPEC90}
+   if (WordKey='until') and (Pos(' repeat ',Context)=0) then Matched:=0;
+   if ((WordKey='field') or (WordKey='fields') or (WordKey='bounds')) and
+    (Pos(' record',Context)=0) and (Pos(' array',Context)=0) and
+    (Pos(' pascal ',Context)=0) then Matched:=0;
+   if (WordKey='typed') or (WordKey='clause') then Matched:=0;
+   if (WordKey='interface') and (Pos(' interface section ',Context)=0) and
+    (Pos(' unit ',Context)=0) then Matched:=0;
+   if (WordKey='function') and (Pos(' function count ',Context)=0) and
+    (Pos(' result ',Context)=0) and (Pos(' tp7 ',Context)=0) and
+    (Pos(' pascal ',Context)=0) then Matched:=0;
+   {$ENDIF}
    {$IFDEF SPEC80}
    if (Matched=14) and ((WordKey='cell') or (WordKey='cells')) and
       (Pos(' text ',Context)=0) then Matched:=0;
@@ -273,6 +320,10 @@ begin
  {$IFDEF SPEC70}
  { A narrower DOS term specializes its parent domain. }
  {$IFDEF SPEC80}
+ {$IFDEF SPEC90}
+ if (Extra in [17..20]) and (Hits in [1,16,17]) then Hits:=0;
+ if (Extra in [21..26]) and (Hits in [1,2,3]) then Hits:=0;
+ {$ENDIF}
  if (Extra in [7..16]) and (Hits in [1,16,17]) then Hits:=0;
  {$ENDIF}
  if (Extra=4) and (Hits=1) then Hits:=0;

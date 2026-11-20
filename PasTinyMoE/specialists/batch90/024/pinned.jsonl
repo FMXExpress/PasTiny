@@ -1,0 +1,18 @@
+{"question": "which pascal routine kind has no function result", "answer": "Procedure.", "output": "Function.", "exact": false}
+{"question": "please describe routine with no result", "answer": "Procedure.", "output": "Procedure.", "exact": true}
+{"question": "remind me about pascal routine without a return value", "answer": "Procedure.", "output": "Procedure.", "exact": true}
+{"question": "which pascal routine kind can return an integer", "answer": "Function.", "output": "conteger.", "exact": false}
+{"question": "please describe routine that returns a value", "answer": "Function.", "output": "Function.", "exact": true}
+{"question": "remind me about pascal routine with a result", "answer": "Function.", "output": "Function.", "exact": true}
+{"question": "how is a var parameter passed", "answer": "By reference.", "output": "By reference.", "exact": true}
+{"question": "please describe var parameter passing method", "answer": "By reference.", "output": "By reference.", "exact": true}
+{"question": "remind me about parameter declared with var", "answer": "By reference.", "output": "By reference.", "exact": true}
+{"question": "how is an ordinary value parameter passed", "answer": "By value.", "output": "By value.", "exact": true}
+{"question": "please describe ordinary value parameter passing method", "answer": "By value.", "output": "By value.", "exact": true}
+{"question": "remind me about parameter declared without var or const", "answer": "By value.", "output": "By value.", "exact": true}
+{"question": "which type does function count: integer return", "answer": "Integer.", "output": "Integer.", "exact": true}
+{"question": "please describe result type of function count: integer", "answer": "Integer.", "output": "Integer.", "exact": true}
+{"question": "remind me about return type of function count: integer", "answer": "Integer.", "output": "Integer.", "exact": true}
+{"question": "how do i set a function result in tp7", "answer": "Assign to the function name.", "output": "Assign to the function name.", "exact": true}
+{"question": "please describe return a value from a tp7 function", "answer": "Assign to the function name.", "output": "Assign to the function name.", "exact": true}
+{"question": "remind me about set the function result in turbo pascal", "answer": "Assign to the function name.", "output": "Assign to the function name.", "exact": true}

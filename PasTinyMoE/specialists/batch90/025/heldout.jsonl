@@ -1,0 +1,8 @@
+{"question": "which elements belong in a typed file", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "what type of data can a typed file hold", "answer": "Elements of one declared type.", "fact": "typed"}
+{"question": "how would you describe an untyped file", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "what does untyped mean in a file declaration", "answer": "File without an element type.", "fact": "untyped"}
+{"question": "what do you find inside a textfile", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "how does a textfile organize its characters", "answer": "Characters arranged in lines.", "fact": "textfile"}
+{"question": "what job does blockread perform", "answer": "It reads blocks into a buffer.", "fact": "blockread"}
+{"question": "describe blockread on an untyped file", "answer": "It reads blocks into a buffer.", "fact": "blockread"}

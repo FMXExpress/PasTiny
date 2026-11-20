@@ -4,7 +4,7 @@ The original catalog excerpt supplies IDs 037–100. IDs 001–003 retain their 
 
 ## Implementation status
 
-**80 of 100 experts are trained and packaged** in [SPEC80](../specialists/batch80/). The release includes IDs 001–016 and 037–100. IDs 017–036 have defined scopes and await training. Expert 017, Joystick desk, is next. SD100 measures catalog capacity using fixture data.
+**90 of 100 experts are trained and packaged** in [SPEC90](../specialists/batch90/). The release includes IDs 001–026 and 037–100. IDs 027–036 have defined scopes and await training. Expert 027, Compiler messages, is next. SD100 measures catalog capacity using fixture data.
 
 ## Project-defined scopes for IDs 004–036
 

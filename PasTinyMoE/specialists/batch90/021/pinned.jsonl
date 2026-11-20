@@ -1,0 +1,10 @@
+{"question": "summarize the following declaration: var x: boolean;", "answer": "It holds False or True.", "fact": "boolean", "output": "It holds False or True.", "exact": true}
+{"question": "in a declaration what values fit a boolean variable", "answer": "It holds False or True.", "fact": "boolean", "output": "It holds False or True.", "exact": true}
+{"question": "summarize the following declaration: var x: char;", "answer": "It stores one 8-bit character.", "fact": "char", "output": "It stores one 8-bit character.", "exact": true}
+{"question": "what can a char hold in a turbo pascal declaration", "answer": "It stores one 8-bit character.", "fact": "char", "output": "It holds False or True.", "exact": false}
+{"question": "summarize the following declaration: var x: byte;", "answer": "It holds an integer from 0 to 255.", "fact": "byte", "output": "It holds an integer from 0 to 255.", "exact": true}
+{"question": "what is the range of byte in this declaration", "answer": "It holds an integer from 0 to 255.", "fact": "byte", "output": "It holds False or True.", "exact": false}
+{"question": "summarize the following declaration: var x: integer;", "answer": "It stores a signed 16-bit integer.", "fact": "integer", "output": "It stores a signed 16-bit integer.", "exact": true}
+{"question": "how wide is integer in a tp7 declaration", "answer": "It stores a signed 16-bit integer.", "fact": "integer", "output": "It holds Frence.", "exact": false}
+{"question": "summarize the following declaration: var x: longint;", "answer": "It stores a signed 32-bit integer.", "fact": "longint", "output": "It stores a signed 32-bit integer.", "exact": true}
+{"question": "what sort of number fits a longint declaration", "answer": "It stores a signed 32-bit integer.", "fact": "longint", "output": "1812.", "exact": false}

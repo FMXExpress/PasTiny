@@ -1,0 +1,96 @@
+{"question": "routine with no result", "answer": "Procedure."}
+{"question": "describe routine with no result", "answer": "Procedure."}
+{"question": "what is the answer for routine with no result", "answer": "Procedure."}
+{"question": "tell me about routine with no result", "answer": "Procedure."}
+{"question": "explain routine with no result", "answer": "Procedure."}
+{"question": "give me routine with no result", "answer": "Procedure."}
+{"question": "quick question about routine with no result", "answer": "Procedure."}
+{"question": "please recall routine with no result", "answer": "Procedure."}
+{"question": "pascal routine without a return value", "answer": "Procedure."}
+{"question": "describe pascal routine without a return value", "answer": "Procedure."}
+{"question": "what is the answer for pascal routine without a return value", "answer": "Procedure."}
+{"question": "tell me about pascal routine without a return value", "answer": "Procedure."}
+{"question": "explain pascal routine without a return value", "answer": "Procedure."}
+{"question": "give me pascal routine without a return value", "answer": "Procedure."}
+{"question": "quick question about pascal routine without a return value", "answer": "Procedure."}
+{"question": "please recall pascal routine without a return value", "answer": "Procedure."}
+{"question": "routine that returns a value", "answer": "Function."}
+{"question": "describe routine that returns a value", "answer": "Function."}
+{"question": "what is the answer for routine that returns a value", "answer": "Function."}
+{"question": "tell me about routine that returns a value", "answer": "Function."}
+{"question": "explain routine that returns a value", "answer": "Function."}
+{"question": "give me routine that returns a value", "answer": "Function."}
+{"question": "quick question about routine that returns a value", "answer": "Function."}
+{"question": "please recall routine that returns a value", "answer": "Function."}
+{"question": "pascal routine with a result", "answer": "Function."}
+{"question": "describe pascal routine with a result", "answer": "Function."}
+{"question": "what is the answer for pascal routine with a result", "answer": "Function."}
+{"question": "tell me about pascal routine with a result", "answer": "Function."}
+{"question": "explain pascal routine with a result", "answer": "Function."}
+{"question": "give me pascal routine with a result", "answer": "Function."}
+{"question": "quick question about pascal routine with a result", "answer": "Function."}
+{"question": "please recall pascal routine with a result", "answer": "Function."}
+{"question": "var parameter passing method", "answer": "By reference."}
+{"question": "describe var parameter passing method", "answer": "By reference."}
+{"question": "what is the answer for var parameter passing method", "answer": "By reference."}
+{"question": "tell me about var parameter passing method", "answer": "By reference."}
+{"question": "explain var parameter passing method", "answer": "By reference."}
+{"question": "give me var parameter passing method", "answer": "By reference."}
+{"question": "quick question about var parameter passing method", "answer": "By reference."}
+{"question": "please recall var parameter passing method", "answer": "By reference."}
+{"question": "parameter declared with var", "answer": "By reference."}
+{"question": "describe parameter declared with var", "answer": "By reference."}
+{"question": "what is the answer for parameter declared with var", "answer": "By reference."}
+{"question": "tell me about parameter declared with var", "answer": "By reference."}
+{"question": "explain parameter declared with var", "answer": "By reference."}
+{"question": "give me parameter declared with var", "answer": "By reference."}
+{"question": "quick question about parameter declared with var", "answer": "By reference."}
+{"question": "please recall parameter declared with var", "answer": "By reference."}
+{"question": "ordinary value parameter passing method", "answer": "By value."}
+{"question": "describe ordinary value parameter passing method", "answer": "By value."}
+{"question": "what is the answer for ordinary value parameter passing method", "answer": "By value."}
+{"question": "tell me about ordinary value parameter passing method", "answer": "By value."}
+{"question": "explain ordinary value parameter passing method", "answer": "By value."}
+{"question": "give me ordinary value parameter passing method", "answer": "By value."}
+{"question": "quick question about ordinary value parameter passing method", "answer": "By value."}
+{"question": "please recall ordinary value parameter passing method", "answer": "By value."}
+{"question": "parameter declared without var or const", "answer": "By value."}
+{"question": "describe parameter declared without var or const", "answer": "By value."}
+{"question": "what is the answer for parameter declared without var or const", "answer": "By value."}
+{"question": "tell me about parameter declared without var or const", "answer": "By value."}
+{"question": "explain parameter declared without var or const", "answer": "By value."}
+{"question": "give me parameter declared without var or const", "answer": "By value."}
+{"question": "quick question about parameter declared without var or const", "answer": "By value."}
+{"question": "please recall parameter declared without var or const", "answer": "By value."}
+{"question": "result type of function count: integer", "answer": "Integer."}
+{"question": "describe result type of function count: integer", "answer": "Integer."}
+{"question": "what is the answer for result type of function count: integer", "answer": "Integer."}
+{"question": "tell me about result type of function count: integer", "answer": "Integer."}
+{"question": "explain result type of function count: integer", "answer": "Integer."}
+{"question": "give me result type of function count: integer", "answer": "Integer."}
+{"question": "quick question about result type of function count: integer", "answer": "Integer."}
+{"question": "please recall result type of function count: integer", "answer": "Integer."}
+{"question": "return type of function count: integer", "answer": "Integer."}
+{"question": "describe return type of function count: integer", "answer": "Integer."}
+{"question": "what is the answer for return type of function count: integer", "answer": "Integer."}
+{"question": "tell me about return type of function count: integer", "answer": "Integer."}
+{"question": "explain return type of function count: integer", "answer": "Integer."}
+{"question": "give me return type of function count: integer", "answer": "Integer."}
+{"question": "quick question about return type of function count: integer", "answer": "Integer."}
+{"question": "please recall return type of function count: integer", "answer": "Integer."}
+{"question": "return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "describe return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "what is the answer for return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "tell me about return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "explain return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "give me return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "quick question about return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "please recall return a value from a tp7 function", "answer": "Assign to the function name."}
+{"question": "set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "describe set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "what is the answer for set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "tell me about set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "explain set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "give me set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "quick question about set the function result in turbo pascal", "answer": "Assign to the function name."}
+{"question": "please recall set the function result in turbo pascal", "answer": "Assign to the function name."}

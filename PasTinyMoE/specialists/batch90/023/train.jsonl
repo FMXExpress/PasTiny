@@ -1,0 +1,96 @@
+{"question": "record field selection operator", "answer": "A dot."}
+{"question": "describe record field selection operator", "answer": "A dot."}
+{"question": "what is the answer for record field selection operator", "answer": "A dot."}
+{"question": "tell me about record field selection operator", "answer": "A dot."}
+{"question": "explain record field selection operator", "answer": "A dot."}
+{"question": "give me record field selection operator", "answer": "A dot."}
+{"question": "quick question about record field selection operator", "answer": "A dot."}
+{"question": "please recall record field selection operator", "answer": "A dot."}
+{"question": "record field access symbol", "answer": "A dot."}
+{"question": "describe record field access symbol", "answer": "A dot."}
+{"question": "what is the answer for record field access symbol", "answer": "A dot."}
+{"question": "tell me about record field access symbol", "answer": "A dot."}
+{"question": "explain record field access symbol", "answer": "A dot."}
+{"question": "give me record field access symbol", "answer": "A dot."}
+{"question": "quick question about record field access symbol", "answer": "A dot."}
+{"question": "please recall record field access symbol", "answer": "A dot."}
+{"question": "array subscript delimiters", "answer": "Square brackets."}
+{"question": "describe array subscript delimiters", "answer": "Square brackets."}
+{"question": "what is the answer for array subscript delimiters", "answer": "Square brackets."}
+{"question": "tell me about array subscript delimiters", "answer": "Square brackets."}
+{"question": "explain array subscript delimiters", "answer": "Square brackets."}
+{"question": "give me array subscript delimiters", "answer": "Square brackets."}
+{"question": "quick question about array subscript delimiters", "answer": "Square brackets."}
+{"question": "please recall array subscript delimiters", "answer": "Square brackets."}
+{"question": "array index brackets", "answer": "Square brackets."}
+{"question": "describe array index brackets", "answer": "Square brackets."}
+{"question": "what is the answer for array index brackets", "answer": "Square brackets."}
+{"question": "tell me about array index brackets", "answer": "Square brackets."}
+{"question": "explain array index brackets", "answer": "Square brackets."}
+{"question": "give me array index brackets", "answer": "Square brackets."}
+{"question": "quick question about array index brackets", "answer": "Square brackets."}
+{"question": "please recall array index brackets", "answer": "Square brackets."}
+{"question": "record component identifier", "answer": "A field."}
+{"question": "describe record component identifier", "answer": "A field."}
+{"question": "what is the answer for record component identifier", "answer": "A field."}
+{"question": "tell me about record component identifier", "answer": "A field."}
+{"question": "explain record component identifier", "answer": "A field."}
+{"question": "give me record component identifier", "answer": "A field."}
+{"question": "quick question about record component identifier", "answer": "A field."}
+{"question": "please recall record component identifier", "answer": "A field."}
+{"question": "named component of a record", "answer": "A field."}
+{"question": "describe named component of a record", "answer": "A field."}
+{"question": "what is the answer for named component of a record", "answer": "A field."}
+{"question": "tell me about named component of a record", "answer": "A field."}
+{"question": "explain named component of a record", "answer": "A field."}
+{"question": "give me named component of a record", "answer": "A field."}
+{"question": "quick question about named component of a record", "answer": "A field."}
+{"question": "please recall named component of a record", "answer": "A field."}
+{"question": "array component name", "answer": "An element."}
+{"question": "describe array component name", "answer": "An element."}
+{"question": "what is the answer for array component name", "answer": "An element."}
+{"question": "tell me about array component name", "answer": "An element."}
+{"question": "explain array component name", "answer": "An element."}
+{"question": "give me array component name", "answer": "An element."}
+{"question": "quick question about array component name", "answer": "An element."}
+{"question": "please recall array component name", "answer": "An element."}
+{"question": "indexed item of an array", "answer": "An element."}
+{"question": "describe indexed item of an array", "answer": "An element."}
+{"question": "what is the answer for indexed item of an array", "answer": "An element."}
+{"question": "tell me about indexed item of an array", "answer": "An element."}
+{"question": "explain indexed item of an array", "answer": "An element."}
+{"question": "give me indexed item of an array", "answer": "An element."}
+{"question": "quick question about indexed item of an array", "answer": "An element."}
+{"question": "please recall indexed item of an array", "answer": "An element."}
+{"question": "lower bound of array [3..8]", "answer": "3."}
+{"question": "describe lower bound of array [3..8]", "answer": "3."}
+{"question": "what is the answer for lower bound of array [3..8]", "answer": "3."}
+{"question": "tell me about lower bound of array [3..8]", "answer": "3."}
+{"question": "explain lower bound of array [3..8]", "answer": "3."}
+{"question": "give me lower bound of array [3..8]", "answer": "3."}
+{"question": "quick question about lower bound of array [3..8]", "answer": "3."}
+{"question": "please recall lower bound of array [3..8]", "answer": "3."}
+{"question": "first index of array [3..8]", "answer": "3."}
+{"question": "describe first index of array [3..8]", "answer": "3."}
+{"question": "what is the answer for first index of array [3..8]", "answer": "3."}
+{"question": "tell me about first index of array [3..8]", "answer": "3."}
+{"question": "explain first index of array [3..8]", "answer": "3."}
+{"question": "give me first index of array [3..8]", "answer": "3."}
+{"question": "quick question about first index of array [3..8]", "answer": "3."}
+{"question": "please recall first index of array [3..8]", "answer": "3."}
+{"question": "upper bound of array [3..8]", "answer": "8."}
+{"question": "describe upper bound of array [3..8]", "answer": "8."}
+{"question": "what is the answer for upper bound of array [3..8]", "answer": "8."}
+{"question": "tell me about upper bound of array [3..8]", "answer": "8."}
+{"question": "explain upper bound of array [3..8]", "answer": "8."}
+{"question": "give me upper bound of array [3..8]", "answer": "8."}
+{"question": "quick question about upper bound of array [3..8]", "answer": "8."}
+{"question": "please recall upper bound of array [3..8]", "answer": "8."}
+{"question": "last index of array [3..8]", "answer": "8."}
+{"question": "describe last index of array [3..8]", "answer": "8."}
+{"question": "what is the answer for last index of array [3..8]", "answer": "8."}
+{"question": "tell me about last index of array [3..8]", "answer": "8."}
+{"question": "explain last index of array [3..8]", "answer": "8."}
+{"question": "give me last index of array [3..8]", "answer": "8."}
+{"question": "quick question about last index of array [3..8]", "answer": "8."}
+{"question": "please recall last index of array [3..8]", "answer": "8."}
