@@ -14,9 +14,9 @@ program Expert;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
-uses TNYNET,TNYSYS,EXPCAT{$IFDEF SPEC5},PILOTRT{$ENDIF};
+uses TNYNET,TNYSYS,EXPCAT,TOOLS{$IFDEF SPEC5},PILOTRT{$ENDIF};
 {$IFDEF SPEC100}const OriginalSlot=129;{$ENDIF}
-var Active,J,K,Code:Integer; Pinned,Interactive:Boolean; Q,A:String; Tokens,T,First,Last,Elapsed,Start:Longint;
+var Active,J,K,Code:Integer; Pinned,Interactive,ToolsOn:Boolean; Q,A:String; Tokens,T,First,Last,Elapsed,Start:Longint;
 procedure MemoryReport;
 begin
  {$IFDEF VER70}WriteLn('heap=',MemAvail,' largest=',MaxAvail,' stack=',Sptr);{$ENDIF}
@@ -49,6 +49,9 @@ begin
 end;
 begin
  Start:=NowMs; Interactive:=ConsoleIO;
+ (* Exact answers from TOOLS.PAS: on at the keyboard, off for redirected
+    input so recorded transcripts stay the same.  TOOLS ON / TOOLS OFF. *)
+ ToolsOn:=Interactive;
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
  WriteLn('catalog/init ms=',NowMs-Start);
  Creativity:=0; WriteLn('FPU ',FPUName); MemoryReport;
@@ -59,7 +62,7 @@ begin
  Items[OriginalSlot].Check:=$15282977;
  {$ENDIF}
  Switch(1); AllocMemory; MemoryReport;
- if Interactive then WriteLn('LIST, USE id, AUTO, MEM, QUIT. Escape cancels an answer.');
+ if Interactive then WriteLn('LIST, USE id, AUTO, TOOLS ON/OFF, MEM, QUIT. Escape cancels an answer.');
  while True do begin
   if Interactive then begin Write('> '); System.Flush(Output) end;
   if Eof(Input) then Break;
@@ -67,12 +70,16 @@ begin
   if Q='quit' then Break
   else if Q='list' then begin for J:=1 to Count do WriteLn(Items[J].Id,' ',Items[J].Title) end
   else if Q='auto' then Pinned:=False
+  else if Q='tools on' then ToolsOn:=True
+  else if Q='tools off' then ToolsOn:=False
   {$IFDEF SPEC5}else if FPUQuestion(Q) then WriteLn('FPU detected: ',FPUName)
   else if OtherPCStatus(Q) then WriteLn('Use MEM for program heap or FPU for coprocessor detection.'){$ENDIF}
   else if Q='mem' then MemoryReport
   else if Copy(Q,1,4)='use ' then begin
    Val(Copy(Q,5,255),K,Code); J:=0; if Code=0 then J:=FindId(K);
    if J=0 then WriteLn('unknown id') else begin Switch(J); Pinned:=Active=J end
+  end else if (Q<>'') and ToolsOn and (not Pinned) and ToolAnswer(Q,A) then begin
+   WriteLn(A); WriteLn('answer ms=0 chars=',Length(A),' tool')
   end else if Q<>'' then begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); WriteLn('route ms=',NowMs-T);
     {$IFDEF SPEC100}
