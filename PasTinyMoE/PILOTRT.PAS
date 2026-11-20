@@ -99,8 +99,10 @@ end;
    of seven or more letters that start with the same letter.  If it is one
    slip away from terms of exactly one expert, the term replaces it.
    Shorter terms are left alone: too many ordinary words sit one letter
-   from them (state and slate, another and anther).  Returns True when
-   Fixed differs from Q; the caller routes Fixed as usual. *)
+   from them (state and slate, another and anther).  The Spelling Helper's
+   terms (expert 42) are skipped too: they are misspellings, so the
+   correct word is always one slip away.  Returns True when Fixed differs
+   from Q; the caller routes Fixed as usual. *)
 function FixTypos(Q:String; var Fixed:String):Boolean;
 var I,J,Start,Hit:Integer; W:String; Found:Byte; Clash:Boolean;
 begin
@@ -114,7 +116,7 @@ begin
    Hit:=0; Found:=0; Clash:=False;
    if (Length(W)>=6) and (TopicId(W)=0) then
     for J:=1 to SizeOf(Topics) div SizeOf(TopicEntry) do
-     if (Topics[J].Term[1]=W[1]) and (Length(Topics[J].Term)>=7) then
+     if (Topics[J].Term[1]=W[1]) and (Length(Topics[J].Term)>=7) and (Topics[J].Id<>42) then
       if Near(W,Topics[J].Term) then begin
        if (Found<>0) and (Topics[J].Id<>Found) then Clash:=True;
        Found:=Topics[J].Id; Hit:=J

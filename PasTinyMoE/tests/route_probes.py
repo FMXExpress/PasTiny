@@ -7,6 +7,8 @@ RUNTIME_DIR holds EXPERTS.CAT (for example an extracted dist/SPEC100.ZIP).
 tests/route_probes.tsv has three kinds of question, written before either
 router was run on them:
   fresh  a covered fact in new wording, key term spelled correctly
+         (one, about the word "separate", was added after the fallback first
+         sent it to the Spelling Helper, whose terms are misspellings)
   typo   the same, with one typing slip in the key term
   none   outside every expert; the right outcome is "choose an expert" (0)
 Each is routed twice: by the topic rules alone, and as EXPERT routes it (rules,
@@ -18,7 +20,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-FLOORS = {'fresh': 198, 'typo': 67, 'none': 19}      # correct outcomes, of 200, 100 and 20
+FLOORS = {'fresh': 198, 'typo': 67, 'none': 19}      # correct outcomes, of 201, 100 and 20
 MAX_WRONG_TYPO = 7                                   # typo probes sent to a wrong expert
 
 exe, runtime = Path(sys.argv[1]).resolve(), Path(sys.argv[2])
@@ -41,6 +43,8 @@ for kind in ('fresh', 'typo', 'none'):
     print('%-6s %5d   %-28s %s' % (kind, len(part), cells[0], cells[1]))
     if right < FLOORS[kind]:
         failed.append('%s: %d correct, floor %d' % (kind, right, FLOORS[kind]))
+    if kind == 'fresh' and wrong:
+        failed.append('fresh: %d sent to a wrong expert' % wrong)
     if kind == 'typo' and wrong > MAX_WRONG_TYPO:
         failed.append('typo: %d sent to a wrong expert, limit %d' % (wrong, MAX_WRONG_TYPO))
 changed = [(r['question'], a, b) for r, (a, b) in zip(rows, routes) if a != 0 and a != b]
