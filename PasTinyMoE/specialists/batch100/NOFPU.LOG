@@ -1,19 +1,19 @@
-catalog/init ms=234
+catalog/init ms=101
 FPU no
-heap=509024 largest=509024 stack=15860
-load/recovery ms=957
+heap=507408 largest=507408 stack=15860
+load/recovery ms=775
 active 1 DOS Guide
-heap=24824 largest=24824 stack=15860
-route ms=2
-load/recovery ms=451
+heap=23208 largest=23208 stack=15860
+route ms=0
+load/recovery ms=204
 active 27 Compiler Messages
 The types are incompatible.
-answer ms=78960 chars=27
-first char ms=54115 output span ms=23982
-route ms=3
-load/recovery ms=288
+answer ms=22344 chars=27
+first char ms=14092 output span ms=7962
+route ms=1
+load/recovery ms=162
 active 28 Debugger Vocabulary
 Pauses execution at a chosen location.
-answer ms=65325 chars=38
-first char ms=34307 output span ms=30507
-heap=24824 largest=24824 stack=15860
+answer ms=22147 chars=38
+first char ms=10968 output span ms=10887
+heap=23208 largest=23208 stack=15860
