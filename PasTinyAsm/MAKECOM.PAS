@@ -82,14 +82,14 @@ function Expert(S:String):Integer;
 const
  NS=9; ScreenWords:array[1..NS] of String[10]=
   ('cursor','border','background','cls','flash','blink','row','column','col');
- NA=26; SoundWords:array[1..NA] of String[10]=
+ NA=35; SoundWords:array[1..NA] of String[12]=
   ('beep','sound','tone','note','notes','noise','siren','alarm','scale','tune','music','melody',
-   'speaker','hertz','hz','wait','pause','sleep','delay','hold','key','keypress','repeat','times',
-   'twice','ms');
+   'song','speaker','hertz','hz','wait','pause','sleep','delay','hold','rest','key','keypress',
+   'repeat','times','twice','again','loop','ms','milliseconds','second','seconds','moment','break');
  NT=10; TextVerbs:array[1..NT] of String[10]=
   ('number','new','next','newline','skip','begin','start','go','move','line');
- NC=8; ScreenNouns:array[1..NC] of String[10]=
-  ('screen','display','text','letters','color','colour','clear','wipe');
+ NC=11; ScreenNouns:array[1..NC] of String[10]=
+  ('screen','display','text','letters','writing','color','colour','clear','wipe','erase','everything');
 var I:Integer; F:String;
 begin
  if Copy(S,1,7)='please ' then Delete(S,1,7);
@@ -105,7 +105,7 @@ begin
  for I:=1 to NC do if HasWord(S,ScreenNouns[I]) then
   if not HasWord(S,'line') then Exit;
  Expert:=XTEXT;
- for I:=1 to NT do if (F=TextVerbs[I]) or HasWord(S,'line') then Exit;
+ for I:=1 to NT do if (F=TextVerbs[I]) or HasWord(S,'line') or HasWord(S,'number') then Exit;
  Expert:=0
 end;
 
