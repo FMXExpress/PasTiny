@@ -4,6 +4,14 @@ Networks in the TINY 2.1 file format whose weights were written by hand instead 
 
 The idea comes from work on "weight-space programming", and in particular from Lex Toumbourou's observation in [Weight-Space Programming builds neural networks like a 1990s researcher](https://notesbylex.com/weight-space-programming-1990s) that a model writing weights from scratch is really compiling a classical algorithm into them. That suits tasks with an exact algorithm, where a small trained model memorises examples and fails on anything new.
 
+| Folder | Models | What they do |
+| --- | --- | --- |
+| [`reverse/`](reverse/) | `REVERSE.BIN` | Spells the last word of the question backwards |
+| [`cipher/`](cipher/) | `ROT13.BIN`, `ATBASH.BIN`, `ECHO.BIN` | Write the last word forwards through a letter substitution |
+| [`rules/`](rules/) | `DIGIT.BIN`, `QMARK.BIN`, `EXCLAIM.BIN` | Exact yes/no rules for PasTinyJev |
+
+[`conformance.py`](conformance.py) uses the first two folders to check any engine build against answers known by construction. [`tny2.py`](tny2.py) holds the shared pieces: weight arrays, phase tables, the ReLU square and the file writer.
+
 ## Reverse
 
 [`reverse/REVERSE.BIN`](reverse/REVERSE.BIN) spells the last word of the question backwards. [`reverse/build.py`](reverse/build.py) writes every weight; it needs NumPy only and uses no training and no data. 8,390 of the 366,528 weights are non-zero.
@@ -54,3 +62,51 @@ On DOS, the unmodified Turbo Pascal 7 `bin/EXPERT.EXE` ran that two-model catalo
 - Question and answer share the 128-position context, so the question can be at most 63 characters.
 - It is not in the SPEC100 catalog or its topic rules. Routing here uses the plain keyword router.
 - Only this one task has been written. Counting letters, comparing numbers and similar exact tasks should suit the same approach; facts and fuzzy judgement do not.
+
+## Ciphers and echo
+
+[`cipher/build.py`](cipher/build.py) writes three networks that answer with the last word of the question, read forwards, with each letter passed through a fixed substitution. Capital letters are read as small letters; digits and punctuation pass through.
+
+```
+> rot13 hello
+uryyb
+> atbash wizard
+draziw
+> echo jumped
+jumped
+```
+
+Reading forwards needs the position where the last word starts, which reverse never needed. With n the end of the question, s the start of the last word and p the current position:
+
+1. **Layer 1 attention** looks at the latest space, or at position 0 when there is none, and reads a table entry encoding s. A space always beats a letter, and among spaces the later one wins, using a position counter that takes exactly one 8-bit step per position.
+2. **Layer 1 feed-forward** subtracts its own position, which at the end of the question gives s-n.
+3. **Layer 2 attention** lets every answer position fetch that from the end-of-question token.
+4. **Layer 2 feed-forward** adds its own position: s-n+p, which walks s, s+1, s+2 and so on as the answer is written.
+5. **Layer 3 attention** copies the letter at that position through the substitution. When the walk reaches the end-of-question token, copying it ends the answer.
+
+Each letter has its own dimension, so any substitution is an exact permutation in the copy step; the three files differ only there. [`cipher/test.py`](cipher/test.py) rebuilds the models, requires a byte match, and asks 726 questions through the stock runtime: random words of 1 to 40 printable characters after zero to two lead-in words, and questions with no space at all.
+
+## Exact rules for PasTinyJev
+
+[`rules/build.py`](rules/build.py) writes three one-layer networks for [PasTinyJev](../../PasTinyJev/), which reads a decision as the score of the letter y minus the letter n. Each answers one fixed rule with a probability near 1 or near 0: the text contains a digit, a question mark, or an exclamation mark.
+
+```
+STATE Where is my order 4412? It was due Friday!
+NOUL a | does the text contain a digit        ->  a noul=0.9998
+STATE thanks, all good now
+NOUL a | does the text contain a digit        ->  a noul=0.0002
+```
+
+They sit in the PasTinyJev catalog beside the trained triage model with the keywords `digit`, `question mark` and `exclamation mark`; an instruction containing one of those goes to the rule, and everything else to the trained model. [`rules/test.py`](rules/test.py) checks 900 random states. The rule looks at the whole read, state and instructions together.
+
+## Engine conformance
+
+The trained models can only show that two engine builds agree with each other. These networks have answers known by construction, so a build can be checked against the truth. [`conformance.py`](conformance.py) asks 57 fixed questions, including the longest the context allows, where attention must land on exact positions through the 8-bit key cache.
+
+```sh
+python3 handwritten/conformance.py build/EXPERT            # any host builds
+python3 handwritten/conformance.py --write DIR             # package for a DOS EXPERT.EXE
+python3 handwritten/conformance.py --check CONFORM.LOG     # check its transcript
+```
+
+All four host builds (integer, `NOASM`, `FLOATMATH`, `DEBUG`) answer all 57 exactly.
