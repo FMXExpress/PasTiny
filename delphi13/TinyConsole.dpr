@@ -51,7 +51,7 @@ end;
 begin
   try
     ModelName := IncludeTrailingPathDelimiter(ExtractFilePath(ExpandFileName(ParamStr(0)))) + 'TINY.BIN';
-    Creativity := 0;
+    Creativity := 5;
     for I := 1 to ParamCount do begin
       Arg := ParamStr(I);
       if (Length(Arg) = 1) and (Arg[1] >= '0') and (Arg[1] <= '9') then

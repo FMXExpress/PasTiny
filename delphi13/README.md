@@ -33,7 +33,7 @@ build/delphi13/TinyConsole /FLOAT /BENCH
 python3 delphi13/check.py build/delphi13/TinyConsole
 ```
 
-The console reads standard input and writes standard output. Enter `quit` or send EOF to finish. Pass a creativity level from 0 to 9 (default 0), `/FLOAT` for floating-point inference, `/MODEL=path` for another compatible weights file, or `/IN=path` and `/OUT=path` for batch use. The default model path is relative to the executable. Explicit paths are relative to the current working directory.
+The console reads standard input and writes standard output. Enter `quit` or send EOF to finish. Pass a creativity level from 0 to 9 (default 5, matching the original Tiny.C), `/FLOAT` for floating-point inference, `/MODEL=path` for another compatible weights file, or `/IN=path` and `/OUT=path` for batch use. The default model path is relative to the executable. Explicit paths are relative to the current working directory.
 
 The modern target shares the [Delphi 1 inference source](../delphi1/TNYNET.PAS). The modern build uses Unicode strings, reads the binary header as four bytes and stores quantized vectors as signed 16-bit values. The original Win16 neon UI is available in the [Delphi 1 edition](../delphi1/).
 
