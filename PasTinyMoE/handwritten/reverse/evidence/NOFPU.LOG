@@ -1,0 +1,12 @@
+catalog/init ms=8
+FPU no
+heap=533360 largest=533360 stack=15860
+load/recovery ms=856
+active 1 TINY 2.1 general (trained)
+heap=49160 largest=49160 stack=15860
+route ms=0
+load/recovery ms=241
+active 2 Reverse (hand-written)
+depmuj
+answer ms=4298 chars=6
+first char ms=2862 output span ms=1268
