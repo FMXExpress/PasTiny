@@ -1,6 +1,6 @@
 # PasTinyAsm
 
-Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode and fits on one floppy: [dist/PASASM.ZIP](dist/PASASM.ZIP) unpacks to 1,187,845 bytes.
+Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode and fits on one floppy: [dist/PASASM.ZIP](dist/PASASM.ZIP) unpacks to 1,188,069 bytes.
 
 ```
 C:\ASM> MAKECOM
