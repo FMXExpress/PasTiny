@@ -18,10 +18,10 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / 'tools')); sys.path.insert(0, str(root / 'training'))
-import buildlib, gen_asm, gen_tasks
+import buildlib, gen_asm, gen_recipes, gen_tasks
 
 exe = Path(sys.argv[1]).resolve()
-FILES = ['EXPERTS.CAT', 'SCREEN.BIN', 'SOUND.BIN', 'TEXT.BIN', 'TASKS.BIN']
+FILES = ['EXPERTS.CAT', 'SCREEN.BIN', 'SOUND.BIN', 'TEXT.BIN', 'TASKS.BIN', 'RECIPES.BIN']
 
 
 def run(dest, lines):
@@ -102,7 +102,7 @@ with tempfile.TemporaryDirectory() as tmp:
     if not models:                       # any valid model will do: no step reaches it
         import struct, zlib
         tiny = (root.parent / 'PasTinyMoE/TINY.BIN').read_bytes()
-        cat = bytearray(b'PEC1\x04')
+        cat = bytearray(b'PEC1\x05')
         for i, name in enumerate(FILES[1:], 1):
             (dest / name).write_bytes(tiny)
             f = lambda v, w: bytes([len(v)]) + v.encode().ljust(w, b'\0')
@@ -183,4 +183,44 @@ with tempfile.TemporaryDirectory() as tmp:
                   % (label + ':', right, len(pairs) - right - len(wrong), len(wrong), len(pairs)))
             if '--show' in sys.argv:
                 for w in sorted(set(wrong))[:12]:
+                    print('         %s\n            -> %s\n          want %s' % w)
+
+        # The recipes expert expands a short request into steps, one step per question,
+        # and the steps are then planned like typed sentences.
+        def plan_of(lines):
+            """The program lines MAKECOM ends up with for a session, or None if nothing was written."""
+            out = run(dest, ['new'] + lines + ['show'])
+            if 'wrote' not in out:
+                return None
+            return [re.sub(r'^\s*\d+\s+', '', l).strip() for l in out[out.rindex('> show'):].splitlines()[1:]
+                    if re.match(r'\s*\d+ ', l)]
+
+        # 1. every recipe's own steps, typed by hand, must be accepted: the second stage has to be sound
+        r = random.Random(11); bad = []
+        for name in gen_recipes.RECIPES:
+            while True:
+                q, steps = gen_recipes.request(r, 'seen')
+                if gen_recipes.RECIPES[name][4][0].split('{')[0] in ' '.join(steps) and ', ' not in q and ' on a ' not in q:
+                    break
+            if plan_of(steps) is None:
+                bad.append((name, steps))
+        assert not bad, bad
+        print('Recipes: the steps of all %d recipes, typed by hand, are accepted.' % len(gen_recipes.RECIPES))
+        # 2. end to end: the request alone must give the same program as its steps typed by hand
+        for label, split in (('trained recipes and pairs', 'seen'), ('held-out recipe and change pairs', 'combo'),
+                             ('new names and wordings', 'words')):
+            r = random.Random(13); right = refused = 0; wrong = []
+            for _ in range(100):
+                q, steps = gen_recipes.request(r, split)
+                want, got = plan_of(steps), plan_of([q])
+                if got is None:
+                    refused += 1
+                elif got == want:
+                    right += 1
+                else:
+                    wrong.append((q, got, want))
+            print('recipes %-34s %d right, %d refused, %d wrong but accepted, of 100 requests'
+                  % (label + ':', right, refused, len(wrong)))
+            if '--show' in sys.argv:
+                for w in wrong[:6]:
                     print('         %s\n            -> %s\n          want %s' % w)
