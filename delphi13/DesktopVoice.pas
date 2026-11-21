@@ -66,6 +66,9 @@ begin
   StartVoice(Answer, True);
 end;
 
+initialization
+  Wave := nil;
+
 finalization
   StopVoice;
 end.
