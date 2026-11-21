@@ -1,3 +1,7 @@
+HELLO: hello world 1234 Bye!hello world 1234 Bye!
+BLUE: 1F 
+WAIT: 54387 54423 54464 
+ALL: all done 4E 
 P1: 10 9 8 liftoff 
 P2: 7 14 21 28 35 42 49 56 63 70 5050 
 P3:   17 60 7 2 
@@ -15,4 +19,11 @@ C6: hello 1 2 3 hi hi
 C7: 4 3 2 1 
 C8A:  yes 
 C8B:  no 
-N1: 3 2 1 liftoff 
+B1: hello1 2 3 hello1 2 3 done
+B2A:  42 big
+B2B:  6 small
+B3: again again 
+B4: next next next 
+N1: 3 2 1 liftoff hi hi 
+END: finished 
+END2: finished 

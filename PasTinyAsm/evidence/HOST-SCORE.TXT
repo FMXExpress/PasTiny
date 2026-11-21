@@ -1,4 +1,5 @@
 Compiler: 12 programs match NASM byte for byte.
+Blocks: 5 sessions give the expected outline, and their programs match NASM.
 Plans: 6 requests give the expected calls; 4 bad requests write nothing.
 screen trained wordings:                 300 right, 0 refused, 0 wrong but accepted, of 300
 screen first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300

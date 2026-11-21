@@ -1,23 +1,31 @@
-PasTinyAsm 1.0  FPU yes
+PasTinyAsm 1.1  FPU yes
+heap=489480
+new program
 name P1
 1 FOR I=10 DOWNTO 8:OUT I:NEXT:ECHO liftoff -> FOR I=10 DOWNTO 8:OUT I:NEXT:ECHO liftoff   (no model)
 wrote P1.COM 170 bytes, P1.ASM
+new program
 name P2
 1 for i=1 to 10:out i*7:next -> FOR I=1 TO 10:OUT I*7:NEXT   (no model)
 2 let s=0:for i=1 to 100:let s=s+i:next:out s -> LET S=0:FOR I=1 TO 100:LET S=S+I:NEXT:OUT S   (no model)
 wrote P2.COM 229 bytes, P2.ASM
+new program
 name P3
 1 INPUT A:INPUT B:OUT A+B:OUT A*B:OUT A-B:OUT A/B -> INPUT A:INPUT B:OUT A+B:OUT A*B:OUT A-B:OUT A/B   (no model)
 wrote P3.COM 227 bytes, P3.ASM
+new program
 name P4
 1 INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END -> INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END   (no model)
 wrote P4.COM 174 bytes, P4.ASM
+new program
 name P5
 1 LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END -> LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END   (no model)
 wrote P5.COM 226 bytes, P5.ASM
+new program
 name P6
 1 FOR I=0 DOWNTO 0:OUT I:NEXT:FOR I=65534 TO 65535:OUT I:NEXT:TIMES 0:ECHO never:END:ECHO edge -> FOR I=0 DOWNTO 0:OUT I:NEXT:FOR I=65534 TO 65535:OUT I:NEXT:TIMES 0:ECHO never:END:ECHO edge   (no model)
 wrote P6.COM 251 bytes, P6.ASM
+new program
 name P7
 1 INPUT A:TIMES A:ECHO x:END -> INPUT A:TIMES A:ECHO x:END   (no model)
 2 LET Z=0:FLASH Z:SIREN Z:BEEP Z 100 -> LET Z=0:FLASH Z:SIREN Z:BEEP Z 100   (no model)

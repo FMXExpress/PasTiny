@@ -24,18 +24,31 @@ program MakeCom;
 
    A step that is already a line of the language is used as it is, and
    a step with text in double quotes prints that text exactly; neither
-   asks a model.  Commands: NAME file, LIST, HELP, MEM, QUIT. *)
+   asks a model.
+
+   The program is built up over a session.  Each request adds its lines
+   at the place marked ">", and the .COM file is written again after
+   every change.  Words before a colon open a block ("repeat 3 times:");
+   what is typed next goes inside it until END.  The arrow keys, Tab
+   and Shift-Tab move the place; HELP lists the commands. *)
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
 uses TNYNET,TNYSYS,EXPCAT,TBC;
 const
- MAXSTEPS=40;
+ MAXSTEPS=40; MAXPEND=16;
  XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4;    (* catalog ids of the experts *)
 type TLine=String[120];
 var
  Active:Integer; Interactive:Boolean;
- Plan:array[1..MAXSTEPS] of TLine; Steps:Integer;
+ (* The program: its lines, and for each line whether it opens a block
+    (O), closes one (C), is an ELSE (E) or is ordinary (space).  New
+    lines go in before line Cur. *)
+ Plan:array[1..MAXSTEPS] of TLine; Kind:array[1..MAXSTEPS] of Char; Steps,Cur:Integer;
+ (* Lines of the request being planned.  They join the program only if
+    every one of them is accepted. *)
+ Pend:array[1..MAXPEND] of TLine; PKind:array[1..MAXPEND] of Char; NPend:Integer;
+ Closers:array[1..4] of TLine; NClose:Integer;
  OutName:String[8]; Line:String;
 
 procedure PollEscape(I,N:Integer);
@@ -184,12 +197,24 @@ begin
   and (U<>'BEEP') and (U<>'FLASH') and (U<>'SIREN') and (U<>'WAIT')
 end;
 
-(* One step of the request, as typed, into the plan.  Force is the
-   expert to ask, or 0 to let the router choose. *)
-function AddStep(Raw:String; Force:Integer):Boolean;
-var S,A,Why,Up:String; Id,K,K2:Integer; Tokens:Longint; Direct:Boolean;
+(* Put a line with the request's other lines, and say so. *)
+function Accept(Shown,L:String; K:Char; Note:String):Boolean;
 begin
- AddStep:=False; A:=''; Direct:=True;
+ Accept:=False;
+ if (NPend=MAXPEND) or (Steps+NPend+NClose>=MAXSTEPS) then begin WriteLn('too many lines'); Exit end;
+ if Length(L)>120 then begin WriteLn(Shown,': line too long'); Exit end;
+ Inc(NPend); Pend[NPend]:=L; PKind[NPend]:=K;
+ if L[1]=#255 then L:='PRINT '+Copy(L,2,255);
+ WriteLn(Cur+NPend-1,' ',Shown,' -> ',L,Note);
+ Accept:=True
+end;
+
+(* One step of the request, as typed.  Force is the expert to ask, or 0
+   to let the router choose. *)
+function AddStep(Raw:String; Force:Integer):Boolean;
+var S,A,Why,Up:String; Id,K,K2:Integer; Tokens:Longint;
+begin
+ AddStep:=False; A:='';
  while (Raw<>'') and (Raw[1]=' ') do Delete(Raw,1,1);
  while (Raw<>'') and (Raw[Length(Raw)]=' ') do Delete(Raw,Length(Raw),1);
  Up:=Raw; for K:=1 to Length(Up) do Up[K]:=UpCase(Up[K]);
@@ -198,37 +223,30 @@ begin
   (* quoted text is printed exactly as typed *)
   A:=Copy(Raw,K+1,255); K2:=Pos('"',A); if K2>0 then A:=Copy(A,1,K2-1);
   S:=Tidy(Copy(Raw,1,K-1))+' "'+A+'"';
-  if (A='') or (Length(A)>60) then begin WriteLn(Steps+1,' ',S,': no text'); Exit end;
-  A:=#255+A
- end else begin
-  S:=Tidy(Raw);
-  if Copy(S,1,5)='then ' then Delete(S,1,5);
-  if Copy(S,1,5)='also ' then Delete(S,1,5);
-  if S='' then begin AddStep:=True; Exit end;
-  if IsCode(Up) then begin
-   A:=Raw; S:=Raw;    (* typed as a line of the language *)
-   if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=Up
-  end else begin
-   Direct:=False; Id:=Force; if Id=0 then Id:=Expert(S);
-   if Id=0 then begin WriteLn(Steps+1,' ',S,': not understood'); Exit end;
-   if not Switch(Id) then Exit;
-   Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
-   if Cancelled then begin WriteLn('cancelled'); Exit end;
-   if not CheckLine(A,Why) then begin
-    WriteLn(Steps+1,' ',S,': refused "',A,'" (',Why,')'); Exit end;
-   if not TextsAgree(S,A) then begin
-    WriteLn(Steps+1,' ',S,': refused "',A,'" (text was not in the request)'); Exit end;
-   if not NumbersAgree(S,A) then begin
-    WriteLn(Steps+1,' ',S,': refused "',A,'" (numbers do not match the request)'); Exit end
-  end
+  if (A='') or (Length(A)>60) then begin WriteLn(Cur+NPend,' ',S,': no text'); Exit end;
+  AddStep:=Accept(S,#255+A,' ','   (no model)'); Exit
  end;
- if Steps=MAXSTEPS then begin WriteLn('too many steps'); Exit end;
- if Length(A)>120 then begin WriteLn(Steps+1,' ',S,': line too long'); Exit end;
- Inc(Steps); Plan[Steps]:=A;
- if A[1]=#255 then A:='PRINT '+Copy(A,2,255);
- Write(Steps,' ',S,' -> ',A); if Direct then Write('   (no model)');
- WriteLn;
- AddStep:=True
+ S:=Tidy(Raw);
+ if Copy(S,1,5)='then ' then Delete(S,1,5);
+ if Copy(S,1,5)='also ' then Delete(S,1,5);
+ if S='' then begin AddStep:=True; Exit end;
+ if IsCode(Up) then begin
+  (* typed as a line of the language *)
+  A:=Raw; if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=Up;
+  AddStep:=Accept(Raw,A,' ','   (no model)'); Exit
+ end;
+ Id:=Force; if Id=0 then Id:=Expert(S);
+ if Id=0 then begin WriteLn(Cur+NPend,' ',S,': not understood'); Exit end;
+ if not Switch(Id) then Exit;
+ Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
+ if Cancelled then begin WriteLn('cancelled'); Exit end;
+ if not CheckLine(A,Why) then begin
+  WriteLn(Cur+NPend,' ',S,': refused "',A,'" (',Why,')'); Exit end;
+ if not TextsAgree(S,A) then begin
+  WriteLn(Cur+NPend,' ',S,': refused "',A,'" (text was not in the request)'); Exit end;
+ if not NumbersAgree(S,A) then begin
+  WriteLn(Cur+NPend,' ',S,': refused "',A,'" (numbers do not match the request)'); Exit end;
+ AddStep:=Accept(S,A,' ','')
 end;
 
 (* Is this sentence a request for a small program with a loop, a
@@ -263,46 +281,275 @@ begin
  SplitSteps:=Ok
 end;
 
-(* Split the request into sentences at . and ; and plan each one. *)
-function MakePlan(R:String):Boolean;
-var I:Integer; Part:String; Quote,Ok:Boolean;
- function Sentence(P:String):Boolean;
- var U:String; K:Integer;
+(* ---------------------------------------------------------- blocks *)
+
+(* A number written in digits or as a word up to twenty. *)
+function WordNumber(W:String; var V:Longint):Boolean;
+const Names:array[0..20] of String[9]=('zero','one','two','three','four','five','six','seven',
+ 'eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen',
+ 'eighteen','nineteen','twenty');
+var I:Integer;
+begin
+ WordNumber:=Number(W,V);
+ for I:=0 to 20 do if W=Names[I] then begin V:=I; WordNumber:=True end
+end;
+
+(* The counter of the count loop the new line will stand in (X, Y or
+   Z), or #0 outside any; Depth is how many such loops there are. *)
+function Counter(var Depth:Integer):Char;
+var Stack:array[1..MAXSTEPS] of Char; N,I:Integer;
+ procedure See(L:TLine; K:Char);
  begin
-  U:=P; for K:=1 to Length(U) do U[K]:=UpCase(U[K]);
-  if Tidy(P)='' then Sentence:=True
-  else if Pos('"',P)>0 then Sentence:=SplitSteps(P)
-  else if IsCode(U) then Sentence:=AddStep(P,0)
-  else if IsTask(Tidy(P)) then Sentence:=AddStep(P,XTASKS)
-  else Sentence:=SplitSteps(P)
+  if K='O' then begin
+   Inc(N); Stack[N]:=#0;
+   if (Copy(L,1,4)='FOR ') and (L[5] in ['X','Y','Z']) then Stack[N]:=L[5]
+  end else if (K='C') and (N>0) then Dec(N)
  end;
 begin
- Steps:=0; Part:=''; Quote:=False; Ok:=True; R:=R+'.';
+ N:=0;
+ for I:=1 to Cur-1 do See(Plan[I],Kind[I]);
+ for I:=1 to NPend do See(Pend[I],PKind[I]);
+ Counter:=#0; Depth:=0;
+ for I:=1 to N do if Stack[I]<>#0 then begin Counter:=Stack[I]; Inc(Depth) end
+end;
+
+(* The words before a colon that open a block: "repeat 3 times",
+   "count from 1 to 10", "forever", "if the key is q", "if it is bigger
+   than 5".  Open and Shut are the lines that start and end it. *)
+function Opener(S:String; var Open,Shut:TLine):Boolean;
+var W:array[1..16] of String[12]; N,I,D,Nums:Integer; V,A,B:Longint; T,F:String; Op:String[2]; Down:Boolean; C:Char;
+begin
+ Opener:=False; N:=0; T:=S;
+ while (T<>'') and (N<16) do begin Inc(N); W[N]:=NextWord(T) end;
+ if N=0 then Exit;
+ F:=W[1]; Nums:=0; A:=0; B:=0; Shut:='END';
+ for I:=1 to N do if WordNumber(W[I],V) then begin
+  Inc(Nums); if Nums=1 then A:=V else B:=V
+ end;
+ if HasWord(S,'forever') or (S='keep going') then begin Open:='FOREVER'; Opener:=True end
+ else if (W[N]='times') and (Nums=1) then begin
+  Str(A,T); Open:='TIMES '+T; Opener:=True
+ end
+ else if ((F='count') or (F='for')) and (Nums>=1) then begin
+  Down:=HasWord(S,'down') or HasWord(S,'backwards');
+  if Nums=1 then if Down then B:=1 else begin B:=A; A:=1 end;
+  C:=Counter(D);
+  if D>=3 then Exit;
+  C:=Chr(Ord('X')+D);
+  Str(A,T); Open:='FOR '+C+'='+T;
+  if A<=B then Open:=Open+' TO ' else Open:=Open+' DOWNTO ';
+  Str(B,T); Open:=Open+T; Shut:='NEXT'; Opener:=True
+ end
+ else if (F='if') or (F='when') then begin
+  if HasWord(S,'key') or HasWord(S,'press') or HasWord(S,'pressed') then begin
+   T:=W[N];
+   if (T='space') then Open:='IF K=32'
+   else if (T='escape') or (T='esc') then Open:='IF K=27'
+   else if (T='enter') or (T='return') then Open:='IF K=13'
+   else if Length(T)=1 then Open:='IF K='+#39+T+#39
+   else Exit;
+   Opener:=True
+  end else if Nums>=1 then begin
+   if Nums>1 then A:=B;
+   Op:='=';
+   if HasWord(S,'bigger') or HasWord(S,'more') or HasWord(S,'greater') or HasWord(S,'above') or HasWord(S,'over') then Op:='>';
+   if HasWord(S,'smaller') or HasWord(S,'less') or HasWord(S,'below') or HasWord(S,'under') then Op:='<';
+   if HasWord(S,'least') then Op:='>=';
+   if HasWord(S,'most') then Op:='<=';
+   if HasWord(S,'not') and (Op='=') then Op:='<>';
+   Str(A,T); Open:='IF A'+Op+T; Opener:=True
+  end
+ end
+end;
+
+(* A few sentences that code answers itself, because they depend on
+   where in the program they stand. *)
+function Special(S:String; var Ok:Boolean):Boolean;
+var C:Char; D:Integer; F:String;
+begin
+ Special:=True; F:=FirstWord(S);
+ if (S='else') or (S='otherwise') then Ok:=Accept(S,'ELSE','E','   (no model)')
+ else if (S='stop') or (S='stop the program') or (S='end the program') or (S='exit the program') then
+  Ok:=Accept(S,'STOP',' ','   (no model)')
+ else if ((F='print') or (F='say') or (F='show')) and (HasWord(S,'count') or HasWord(S,'counter')) then begin
+  C:=Counter(D);
+  if C=#0 then begin WriteLn(Cur+NPend,' ',S,': there is no count here'); Ok:=False end
+  else Ok:=Accept(S,'OUT '+C,' ','   (no model)')
+ end
+ else Special:=False
+end;
+
+function Sentence(P:String):Boolean;
+var U,Head,Why:String; K,Delta:Integer; Open,Shut:TLine; Ok,Found:Boolean;
+begin
+ U:=P; for K:=1 to Length(U) do U[K]:=UpCase(U[K]);
+ if Tidy(P)='' then Sentence:=True
+ else if (Pos('"',P)=0) and IsCode(U) then Sentence:=AddStep(P,0)
+ else begin
+  K:=Pos(':',P); Found:=False;
+  if (Pos('"',P)>0) and (Pos('"',P)<K) then K:=0;     (* a colon inside quoted text *)
+  if K>0 then begin
+   (* the words before a colon may open a block *)
+   Head:=Copy(U,1,K-1);
+   while (Head<>'') and (Head[1]=' ') do Delete(Head,1,1);
+   if CheckPart(Head,Delta,Why) and (Delta=1) then begin
+    Open:=Head; Shut:='END'; if Copy(Head,1,4)='FOR ' then Shut:='NEXT'; Found:=True
+   end else Found:=Opener(Tidy(Copy(P,1,K-1)),Open,Shut);
+   if Found and (NClose=4) then begin WriteLn('blocks too deep'); Sentence:=False; Exit end
+  end;
+  if Found then begin
+   Ok:=Accept(Tidy(Copy(P,1,K-1))+':',Open,'O','   (no model)');
+   if Ok then begin
+    Inc(NClose); Closers[NClose]:=Shut;
+    Ok:=Sentence(Copy(P,K+1,255))
+   end;
+   Sentence:=Ok
+  end
+  else if Pos('"',P)>0 then Sentence:=SplitSteps(P)
+  else if Special(Tidy(P),Ok) then Sentence:=Ok
+  else if IsTask(Tidy(P)) then Sentence:=AddStep(P,XTASKS)
+  else Sentence:=SplitSteps(P)
+ end
+end;
+
+(* Compile the whole program; ListName as for BeginProgram. *)
+function Build(ListName:String):Boolean;
+var I:Integer; Loops:Word;
+begin
+ Loops:=0;
+ for I:=1 to Steps do if RepeatCount(Plan[I])>0 then Loops:=RepeatCount(Plan[I]);
+ BeginProgram(Loops,ListName); AllowOpen:=True;
+ for I:=1 to Steps do if CompileLine(Plan[I]) then ;
+ Build:=EndProgram; AllowOpen:=False
+end;
+
+procedure Remove(From,Count:Integer);
+var I:Integer;
+begin
+ for I:=From to Steps-Count do begin Plan[I]:=Plan[I+Count]; Kind[I]:=Kind[I+Count] end;
+ Dec(Steps,Count)
+end;
+
+(* Plan a request: split it into sentences at . and ; and put the lines
+   they give into the program before line Cur, all or none. *)
+function MakePlan(R:String):Boolean;
+var I,Body:Integer; Part:String; Quote,Ok:Boolean;
+begin
+ MakePlan:=False;
+ NPend:=0; NClose:=0; Part:=''; Quote:=False; Ok:=True; R:=R+'.';
  for I:=1 to Length(R) do if Ok then begin
   if R[I]='"' then Quote:=not Quote;
   if (not Quote) and (R[I] in ['.',';']) then begin Ok:=Sentence(Part); Part:='' end
   else Part:=Part+R[I]
  end;
- MakePlan:=Ok and (Steps>0)
+ if not Ok or (NPend=0) then Exit;
+ Body:=NPend;
+ while NClose>0 do begin      (* blocks opened by this request end after its lines *)
+  if NPend=MAXPEND then begin WriteLn('too many lines'); Exit end;
+  Inc(NPend); Pend[NPend]:=Closers[NClose]; PKind[NPend]:='C'; Dec(NClose)
+ end;
+ if Steps+NPend>MAXSTEPS then begin WriteLn('too many lines'); Exit end;
+ for I:=Steps downto Cur do begin Plan[I+NPend]:=Plan[I]; Kind[I+NPend]:=Kind[I] end;
+ for I:=1 to NPend do begin Plan[Cur+I-1]:=Pend[I]; Kind[Cur+I-1]:=PKind[I] end;
+ Inc(Steps,NPend);
+ if not Build('') then begin
+  WriteLn('does not fit here: ',CompErr); Remove(Cur,NPend); Exit
+ end;
+ Inc(Cur,Body);      (* stay inside a block that was opened *)
+ MakePlan:=True
+end;
+
+procedure Outline;
+var I,D,K:Integer;
+ procedure Marker;
+ var J:Integer;
+ begin Write('   >'); for J:=1 to D do Write('  '); WriteLn end;
+begin
+ D:=0;
+ if Steps=0 then WriteLn('   (empty program)');
+ for I:=1 to Steps do begin
+  if (Kind[I]='C') and (D>0) then Dec(D);
+  if I=Cur then begin
+   if Kind[I]='C' then begin Inc(D); Marker; Dec(D) end else Marker
+  end;
+  Write(I:3,' ');
+  if Kind[I]='E' then K:=D-1 else K:=D;
+  while K>0 do begin Write('  '); Dec(K) end;
+  if Plan[I][1]=#255 then WriteLn('PRINT "',Copy(Plan[I],2,255),'"') else WriteLn(Plan[I]);
+  if Kind[I]='O' then Inc(D)
+ end;
+ if Cur>Steps then begin D:=0; if Steps>0 then Marker end
 end;
 
 procedure Save;
-var F:File; I:Integer; Loops:Word;
+var F:File;
 begin
- Loops:=0;
- for I:=1 to Steps do if RepeatCount(Plan[I])>0 then Loops:=RepeatCount(Plan[I]);
- BeginProgram(Loops,OutName+'.ASM');
- for I:=1 to Steps do if CompileLine(Plan[I]) then ;
- if not EndProgram then begin WriteLn('cannot compile: ',CompErr); Exit end;
+ if Steps=0 then begin WriteLn('empty program'); Exit end;
+ if not Build(OutName+'.ASM') then begin WriteLn('cannot compile: ',CompErr); Exit end;
  Assign(F,OutName+'.COM'); Rewrite(F,1); BlockWrite(F,Code^,Size); Close(F);
  WriteLn('wrote ',OutName,'.COM ',Size,' bytes, ',OutName,'.ASM')
 end;
 
-procedure Handle(L:String);
-var Cmd,Rest:String; I:Integer;
+(* Move the place where lines go in.  END leaves the block, TAB and
+   BACK go to the end of the next or the last block. *)
+procedure Move(Cmd:String; N:Longint);
+var I,D:Integer; Found:Boolean;
 begin
- Rest:=L; Cmd:=NextWord(Rest);
+ if Cmd='UP' then begin if Cur>1 then Dec(Cur) end
+ else if Cmd='DOWN' then begin if Cur<=Steps then Inc(Cur) end
+ else if Cmd='TOP' then Cur:=1
+ else if Cmd='BOTTOM' then Cur:=Steps+1
+ else if Cmd='GO' then begin if (N>=1) and (N<=Steps+1) then Cur:=N else WriteLn('there is no line ',N) end
+ else if Cmd='TAB' then begin
+  I:=Cur+1; while (I<=Steps) and (Kind[I]<>'C') do Inc(I);
+  Cur:=I; if Cur>Steps+1 then Cur:=Steps+1
+ end
+ else if Cmd='BACK' then begin
+  I:=Cur-1; while (I>=1) and (Kind[I]<>'C') do Dec(I);
+  if I<1 then Cur:=1 else Cur:=I
+ end
+ else begin    (* END *)
+  D:=0; Found:=False;
+  for I:=Cur to Steps do if not Found then begin
+   if Kind[I]='O' then Inc(D)
+   else if Kind[I]='C' then begin
+    if D=0 then begin Cur:=I+1; Found:=True end else Dec(D)
+   end
+  end;
+  if not Found then WriteLn('not inside a block')
+ end
+end;
+
+(* Delete line T, or the whole block if T opens one. *)
+function DeleteAt(T:Integer):Boolean;
+var I,D,Last:Integer; Found:Boolean;
+begin
+ DeleteAt:=False;
+ if (T<1) or (T>Steps) then begin WriteLn('there is no line there'); Exit end;
+ if Kind[T]='C' then begin WriteLn('delete the first line of the block instead'); Exit end;
+ Last:=T;
+ if Kind[T]='O' then begin
+  D:=0; Found:=False;
+  for I:=T+1 to Steps do if not Found then begin
+   if Kind[I]='O' then Inc(D)
+   else if Kind[I]='C' then begin
+    if D=0 then begin Last:=I; Found:=True end else Dec(D)
+   end
+  end
+ end;
+ Remove(T,Last-T+1);
+ if Cur>Last then Dec(Cur,Last-T+1) else if Cur>T then Cur:=T;
+ if not Build('') then WriteLn('note: ',CompErr);
+ DeleteAt:=True
+end;
+
+procedure Handle(L:String);
+var Cmd,Rest:String; I:Integer; V:Longint; Changed:Boolean;
+begin
+ Rest:=L; Cmd:=NextWord(Rest); Changed:=False;
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
+ while (Rest<>'') and (Rest[Length(Rest)]=' ') do Delete(Rest,Length(Rest),1);
+ V:=0;
  if (Cmd='LIST') and (Rest='') then begin
   for I:=1 to LIBCOUNT do if Lib[I].Kind<4 then begin
    Write(Lib[I].Name);
@@ -313,43 +560,97 @@ begin
    end;
    WriteLn
   end;
-  WriteLn('OUT n   ECHO text   LET v=n   INPUT v');
+  WriteLn('OUT n   ECHO text   LET v=n   INPUT v   STOP');
   WriteLn('FOR v=n TO n ... NEXT   FOR v=n DOWNTO n ... NEXT');
-  WriteLn('TIMES n ... END   IF n<n ... ELSE ... END   REPEAT n')
+  WriteLn('TIMES n ... END   FOREVER ... END   IF n<n ... ELSE ... END   REPEAT n');
+  Exit
  end
  else if (Cmd='HELP') and (Rest='') then begin
-  WriteLn('Say what the program should do, for example:');
+  WriteLn('Say what the program should do, a sentence at a time:');
   WriteLn('  make screen flash, play sound');
-  WriteLn('  clear the screen, say "Hello!", wait two seconds, beep');
   WriteLn('  count down from 10 and beep each time then say liftoff');
-  WriteLn('  FOR I=1 TO 5:OUT I*I:NEXT');
-  WriteLn('NAME file   name of the program to write (now ',OutName,')');
-  WriteLn('LIST        the library calls.  QUIT ends.')
+  WriteLn('A colon opens a block; the next sentences go inside it:');
+  WriteLn('  repeat 3 times:      count from 1 to 5:      forever:');
+  WriteLn('  if it is bigger than 5:      if the key is q:      else');
+  WriteLn('END leaves the block.  Arrows or UP, DOWN, TOP, BOTTOM, GO n move the');
+  WriteLn('place where lines go in; Tab and Shift-Tab (TAB, BACK) jump from');
+  WriteLn('block to block.  DEL or DEL n deletes a line or a whole block.');
+  WriteLn('SHOW lists the program, NEW empties it, NAME file names it (now ',OutName,').');
+  WriteLn('LIST shows the language.  QUIT ends.');
+  Exit
  end
  else if (Cmd='MEM') and (Rest='') then begin
   {$IFDEF VER70}WriteLn('heap=',MemAvail,' largest=',MaxAvail,' stack=',Sptr);{$ENDIF}
+  Exit
  end
  else if Cmd='NAME' then begin
   Rest:=Tidy(Rest);
   for I:=1 to Length(Rest) do Rest[I]:=UpCase(Rest[I]);
   if (Rest='') or (Length(Rest)>8) or (Pos(' ',Rest)>0) then WriteLn('a name has 1 to 8 letters or digits')
-  else begin OutName:=Rest; WriteLn('name ',OutName) end
+  else begin OutName:=Rest; WriteLn('name ',OutName) end;
+  Exit
  end
- else if MakePlan(L) then Save
- else WriteLn('nothing written')
+ else if (Cmd='SHOW') and (Rest='') then begin Outline; Exit end
+ else if (Cmd='NEW') and (Rest='') then begin Steps:=0; Cur:=1; WriteLn('new program') end
+ else if ((Cmd='UP') or (Cmd='DOWN') or (Cmd='TOP') or (Cmd='BOTTOM') or (Cmd='TAB') or (Cmd='BACK') or
+          (Cmd='END')) and (Rest='') then begin
+  Move(Cmd,0); if not Interactive then WriteLn('at ',Cur)
+ end
+ else if (Cmd='GO') and Number(Rest,V) then begin
+  Move(Cmd,V); if not Interactive then WriteLn('at ',Cur)
+ end
+ else if ((Cmd='DEL') or (Cmd='DELETE')) and ((Rest='') or Number(Rest,V)) then begin
+  if Rest='' then V:=Cur;
+  Changed:=DeleteAt(V)
+ end
+ else if MakePlan(L) then Changed:=True
+ else WriteLn('nothing added');
+ if Changed then Save;
+ if Interactive then Outline
+end;
+
+(* A line from the keyboard.  On an empty line the arrow keys, Tab,
+   Shift-Tab and Del give the moving commands. *)
+procedure ReadCommand(var L:String);
+var K:Integer;
+begin
+ L:='';
+ if not Interactive then begin ReadLn(L); Exit end;
+ while True do begin
+  K:=ReadKey;
+  if K=13 then begin WriteLn; Exit end
+  else if K=8 then begin
+   if L<>'' then begin Delete(L,Length(L),1); Write(#8' '#8) end
+  end
+  else if K=27 then begin
+   while L<>'' do begin Delete(L,Length(L),1); Write(#8' '#8) end
+  end
+  else if (K>=32) and (K<=126) then begin
+   if Length(L)<250 then begin L:=L+Chr(K); Write(Chr(K)) end
+  end
+  else if L='' then begin
+   if K=256+72 then L:='UP' else if K=256+80 then L:='DOWN'
+   else if K=9 then L:='TAB' else if K=256+15 then L:='BACK'
+   else if K=256+83 then L:='DEL' else if K=256+71 then L:='TOP'
+   else if K=256+79 then L:='BOTTOM';
+   if L<>'' then begin WriteLn(L); Exit end
+  end;
+  System.Flush(Output)
+ end
 end;
 
 begin
- Interactive:=ConsoleIO; Active:=0; OutName:='OUT';
+ Interactive:=ConsoleIO; Active:=0; OutName:='OUT'; Steps:=0; Cur:=1;
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
- Creativity:=0; WriteLn('PasTinyAsm 1.0  FPU ',FPUName);
+ Creativity:=0; WriteLn('PasTinyAsm 1.1  FPU ',FPUName);
+ {$IFDEF VER70}WriteLn('heap=',MemAvail);{$ENDIF}
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
- if Interactive then WriteLn('Say what the program should do.  HELP, LIST, NAME file, QUIT.');
+ if Interactive then WriteLn('Say what the program should do.  HELP, LIST, SHOW, NAME file, QUIT.');
  while True do begin
-  if Interactive then begin Write('> '); System.Flush(Output) end;
-  if Eof(Input) then Break;
-  ReadLn(Line);
+  if Interactive then begin Write('> '); System.Flush(Output) end
+  else if Eof(Input) then Break;
+  ReadCommand(Line);
   while (Line<>'') and (Line[1]=' ') do Delete(Line,1,1);
   if (Tidy(Line)='quit') then Break;
   if Line<>'' then Handle(Line);

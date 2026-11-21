@@ -1,0 +1,91 @@
+PasTinyAsm 1.1  FPU yes
+heap=489480
+name B1
+1 repeat 2 times: -> TIMES 2   (no model)
+wrote B1.COM 78 bytes, B1.ASM
+2 say hello -> PRINT hello
+wrote B1.COM 95 bytes, B1.ASM
+3 count from 1 to 3: -> FOR X=1 TO 3   (no model)
+wrote B1.COM 137 bytes, B1.ASM
+4 print the count -> OUT X   (no model)
+wrote B1.COM 183 bytes, B1.ASM
+at 6
+6 beep -> BEEP 440 300
+wrote B1.COM 251 bytes, B1.ASM
+at 8
+8 say "done" -> PRINT done   (no model)
+wrote B1.COM 262 bytes, B1.ASM
+  1 TIMES 2
+  2   PRINT hello
+  3   FOR X=1 TO 3
+  4     OUT X
+  5   NEXT
+  6   BEEP 440 300
+  7 END
+  8 PRINT "done"
+   >
+new program
+name B2
+1 ask for a number and print its double -> INPUT A:OUT A*2
+wrote B2.COM 165 bytes, B2.ASM
+2 if it is bigger than 10: -> IF A>10   (no model)
+3 say big -> PRINT big
+wrote B2.COM 197 bytes, B2.ASM
+4 else -> ELSE   (no model)
+wrote B2.COM 200 bytes, B2.ASM
+5 say small -> PRINT small
+wrote B2.COM 212 bytes, B2.ASM
+  1 INPUT A:OUT A*2
+  2 IF A>10
+  3   PRINT big
+  4 ELSE
+  5   PRINT small
+   >  
+  6 END
+new program
+name B3
+1 forever: -> FOREVER   (no model)
+2 wait for a key -> KEY
+wrote B3.COM 76 bytes, B3.ASM
+3 if the key is q: -> IF K='q'   (no model)
+4 stop -> STOP   (no model)
+wrote B3.COM 98 bytes, B3.ASM
+at 6
+6 say again -> PRINT again
+7 new line -> NEWLINE
+wrote B3.COM 129 bytes, B3.ASM
+  1 FOREVER
+  2   KEY
+  3   IF K='q'
+  4     STOP
+  5   END
+  6   PRINT again
+  7   NEWLINE
+   >  
+  8 END
+new program
+name B4
+1 count from 1 to 3: -> FOR X=1 TO 3   (no model)
+wrote B4.COM 102 bytes, B4.ASM
+2 count down from 2: -> FOR Y=2 DOWNTO 1   (no model)
+wrote B4.COM 144 bytes, B4.ASM
+3 print the count -> OUT Y   (no model)
+wrote B4.COM 190 bytes, B4.ASM
+at 5
+5 say next -> PRINT next
+6 new line -> NEWLINE
+wrote B4.COM 209 bytes, B4.ASM
+at 1
+1 clear the screen -> CLS
+wrote B4.COM 218 bytes, B4.ASM
+at 4
+wrote B4.COM 183 bytes, B4.ASM
+  1 CLS
+  2 FOR X=1 TO 3
+  3   FOR Y=2 DOWNTO 1
+   >    
+  4   NEXT
+  5   PRINT next
+  6   NEWLINE
+  7 NEXT
+heap=5280 largest=5280 stack=15080

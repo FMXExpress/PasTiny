@@ -21,9 +21,14 @@ unit TBC;
      FOR v=n DOWNTO n ... NEXT   count down by one; with plain numbers
                                  the direction must fit them
      TIMES n ... END             do the block n times
+     FOREVER ... END             do the block again and again
+     STOP                        end the program at once
      IF n<n ... ELSE ... END     tests: = <> < > <= >=
      REPEAT n              on a line of its own: run the whole program n
                            times (1 to 100)
+
+   KEY waits for a key and keeps its code in K, so IF K='q' tests it.
+   A character in single quotes is its code.
 
    Variables are the letters A to Z, whole numbers from 0 to 65535.  A
    number n may be an expression of numbers and variables with + - * /
@@ -41,11 +46,12 @@ unit TBC;
 interface
 type TCall=record Name:String[7]; Kind:Byte; Lo1,Hi1,Lo2,Hi2,Ofs,Len:Word end;
 {$I LIB.INC}
-const MAXCODE=6144; ORIGIN=$100; VARBASE=$103;
+const MAXCODE=4096; ORIGIN=$100; VARBASE=$103;
 type TCode=array[0..MAXCODE-1] of Byte;
 (* The program being built.  The big tables live on the heap: the data
    segment of the DOS program is nearly full. *)
 var Code:^TCode; Size:Word; CompErr:String[60];
+ AllowOpen:Boolean;   (* may a line leave a block open for a later line to close? *)
 
 (* Loops is 0, or how often the whole program runs.  ListName is the
    file for the listing, or '' for none. *)
@@ -56,12 +62,15 @@ function CompileLine(S:String):Boolean;
 function EndProgram:Boolean;
 (* Is S one valid line?  Changes nothing that lasts. *)
 function CheckLine(S:String; var Why:String):Boolean;
+(* Is S valid as part of a program, where it may open a block or close
+   one?  Delta is how many blocks deeper the program is after it. *)
+function CheckPart(S:String; var Delta:Integer; var Why:String):Boolean;
 (* If the line is "REPEAT n", n; otherwise 0. *)
 function RepeatCount(S:String):Word;
 function FindCall(S:String):Integer;
 
 implementation
-const MAXLAB=400; MAXFIX=700; MAXTEXT=40; MAXDEPTH=12;
+const MAXLAB=300; MAXFIX=400; MAXTEXT=24; MAXDEPTH=12;
 type TBlock=record Kind:Char; L1,L2,V:Integer end;
  TFix=record Pos:Word; Kind:Byte; Id:Integer end;
  TFixes=array[1..MAXFIX] of TFix;
@@ -73,7 +82,7 @@ var Lst:Text; Listing,Failed:Boolean;
  Used:array[1..LIBCOUNT] of Boolean;
  Texts:^TTexts;
  Blocks:array[1..MAXDEPTH] of TBlock;
- St:String; P:Integer;    (* the statement being read, and the place in it *)
+ St,RawSt:String; P:Integer;    (* the statement being read (in capitals, and as typed), and the place in it *)
 
 procedure Error(Msg:String);
 begin if not Failed then CompErr:=Msg; Failed:=True end;
@@ -160,6 +169,11 @@ begin
    Inc(P)
   end;
   if V>65535 then Error('number too big');
+  B($B8); W(Word(V)); T('mov     ax,'+NumStr(V))
+ end
+ else if (Cur=#39) and (P+2<=Length(St)) and (St[P+2]=#39) then begin
+  (* a character in quotes is its code: 'q' is 113 *)
+  V:=Ord(RawSt[P+1]); Inc(P,3);
   B($B8); W(Word(V)); T('mov     ax,'+NumStr(V))
  end
  else if ReadVar(K) then LoadVar(K)
@@ -263,7 +277,7 @@ end;
 procedure Statement(Up,Raw:String);
 var Key,Op:String; I,V,L1,L2:Integer; Down:Boolean; Bl:TBlock; First,Last:Longint;
 begin
- St:=Up; P:=1; Blanks; Key:='';
+ St:=Up; RawSt:=Raw; P:=1; Blanks; Key:='';
  while IsLetter(Cur) do begin Key:=Key+Cur; Inc(P) end;
  if Key='' then begin Error('statement expected'); Exit end;
  I:=FindCall(Key);
@@ -285,7 +299,17 @@ begin
    B($89); B($C3); T('mov     bx,ax');
    B($58); T('pop     ax')
   end;
-  CallLib(I)
+  CallLib(I);
+  if Key='KEY' then begin
+   (* the key that was pressed is kept in K *)
+   B($30); B($E4); T('xor     ah,ah'); StoreVar(Ord('K')-65)
+  end
+ end
+ else if Key='STOP' then begin
+  B($B8); W($4C00); T('mov     ax,4C00h'); B($CD); B($21); T('int     21h')
+ end
+ else if Key='FOREVER' then begin
+  L1:=NewLabel; Place(L1); Push('V',L1,0,0)
  end
  else if Key='OUT' then begin
   Argument(0,65535); CallLib(FindCall('NUMBER')); CallLib(FindCall('NEWLINE'))
@@ -352,11 +376,13 @@ begin
   Blocks[Depth].Kind:='E'; Blocks[Depth].L1:=L2
  end
  else if Key='END' then begin
-  if (Depth=0) or not (Blocks[Depth].Kind in ['T','I','E']) then begin Error('END without TIMES or IF'); Exit end;
+  if (Depth=0) or not (Blocks[Depth].Kind in ['T','I','E','V']) then begin Error('END without TIMES, IF or FOREVER'); Exit end;
   Bl:=Blocks[Depth]; Dec(Depth);
   if Bl.Kind='T' then begin
    B($59); T('pop     cx'); B($49); T('dec     cx'); JmpNear(Bl.L1); Place(Bl.L2)
-  end else Place(Bl.L1)
+  end
+  else if Bl.Kind='V' then JmpNear(Bl.L1)
+  else Place(Bl.L1)
  end
  else begin Error('unknown word '+Key); Exit end;
  Blanks;
@@ -413,7 +439,7 @@ begin
    K:=Pos(':',S); Part:=Copy(S,1,K-1); Delete(S,1,K);
    Statement(Upper(Part),Part)
   end;
-  if (Depth<>Before) and not Failed then Error('a block is not closed on its line')
+  if (Depth<>Before) and not AllowOpen and not Failed then Error('a block is not closed on its line')
  end;
  CompileLine:=not Failed
 end;
@@ -452,12 +478,29 @@ end;
 
 function CheckLine(S:String; var Why:String):Boolean;
 begin
- BeginProgram(0,'');
+ BeginProgram(0,''); AllowOpen:=False;
  if RepeatCount(S)>0 then CheckLine:=True
  else if Copy(Upper(S),1,6)='REPEAT' then begin CompErr:='REPEAT n, 1 to 100, on a line of its own'; CheckLine:=False end
  else CheckLine:=CompileLine(S) and EndProgram;
  Why:=CompErr
 end;
+
+function CheckPart(S:String; var Delta:Integer; var Why:String):Boolean;
+var U:String; Ok:Boolean;
 begin
- New(Code); New(Fix); New(Texts)
+ U:=Upper(S);
+ while (U<>'') and (U[1]=' ') do Delete(U,1,1);
+ while (U<>'') and (U[Length(U)]=' ') do Delete(U,Length(U),1);
+ Delta:=0;
+ (* a closing word alone cannot be compiled alone; the whole program
+    is checked when it is saved *)
+ if (U='END') or (U='NEXT') then begin Delta:=-1; CheckPart:=True; Why:=''; Exit end;
+ if U='ELSE' then begin CheckPart:=True; Why:=''; Exit end;
+ BeginProgram(0,''); AllowOpen:=True;
+ Ok:=CompileLine(S); Delta:=Depth; AllowOpen:=False;
+ CheckPart:=Ok; Why:=CompErr
+end;
+
+begin
+ New(Code); New(Fix); New(Texts); AllowOpen:=False
 end.

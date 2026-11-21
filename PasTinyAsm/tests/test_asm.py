@@ -55,7 +55,7 @@ DIRECT = [
     'INPUT A:TIMES A:FLASH:SIREN:WAIT:END:FOR I=1 TO A:BEEP I*100+200 100:NEXT',
     'LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END',
 ]
-BADLINES = ['FOR I=1 TO 5:OUT I', 'FOR I=9 TO 3:OUT I:NEXT', 'FOR I=3 DOWNTO 9:OUT I:NEXT', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
+BADLINES = ['FOR I=9 TO 3:OUT I:NEXT', 'FOR I=3 DOWNTO 9:OUT I:NEXT', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
             'OUT 70000', 'JUMP 5', 'OUT A+', 'END']
 PLANS = [   # request, the calls it must become
     ('make screen flash, play sound', ['FLASH 3', 'BEEP 440 300']),
@@ -66,6 +66,21 @@ PLANS = [   # request, the calls it must become
     ('hide the cursor, go to row 12 column 30, print "Press a key", wait for a key, show the cursor',
      ['HIDE', 'GOTO 12 30', 'PRINT Press a key', 'KEY', 'SHOW']),
     ('print the number 1234, new line, play a tune', ['NUMBER 1234', 'NEWLINE', 'SCALE']),
+]
+BLOCKS = [
+    (['repeat 3 times:', 'CLS', 'count from 1 to 4:', 'print the count', 'end', 'NEWLINE', 'end', 'print "bye"'],
+     ['  1 TIMES 3', '  2   CLS', '  3   FOR X=1 TO 4', '  4     OUT X', '  5   NEXT', '  6   NEWLINE', '  7 END',
+      '  8 PRINT "bye"', '   >']),
+    (['count down from 3: count to 2: print the count', 'bottom', 'SCALE', 'go 2', 'HIDE', 'top', 'CLS'],
+     ['  1 CLS', '   >', '  2 FOR X=3 DOWNTO 1', '  3   HIDE', '  4   FOR Y=1 TO 2', '  5     OUT Y', '  6   NEXT',
+      '  7 NEXT', '  8 SCALE']),
+    (['forever: KEY', 'if the key is q: stop', 'end', 'if the key is space: BEEP 880 100', 'end', 'else', 'end'],
+     None),      # an ELSE outside an IF does not fit, and nothing may be lost
+    (['INPUT A', 'if it is bigger than 10: print "big"', 'else', 'print "small"', 'end', 'if it is not 7: SIREN 1',
+      'tab', 'back', 'back', 'del 2'],
+     ['  1 INPUT A', '   >', '  2 IF A<>7', '  3   SIREN 1', '  4 END']),
+    (['TIMES 2:', 'FOR I=1 TO 3:', 'OUT I*I', 'end', 'end', 'del 3', 'del 1', 'print "empty now"', 'up', 'KEY'],
+     ['  1 KEY', '   >', '  2 PRINT "empty now"']),
 ]
 REFUSED = ['format the hard disk', 'FLASH 99', 'beep at 5 hertz', 'what is the capital of peru']
 
@@ -94,8 +109,19 @@ with tempfile.TemporaryDirectory() as tmp:
     if not models:
         for bad in BADLINES:             # not valid lines; with any model behind them they must not be written
             out = run(dest, ['name bad', bad])
-            assert 'nothing written' in out and not (dest / 'BAD.COM').exists(), (bad, out)
+            assert 'wrote' not in out and not (dest / 'BAD.COM').exists(), (bad, out)
         print('Compiler: %d invalid lines write nothing.' % len(BADLINES))
+    # Block mode: words before a colon open a block, later lines go inside it, and
+    # the insertion point can be moved.  None of these lines needs a model.
+    for script, want in BLOCKS:
+        out = run(dest, script + ['show'])
+        if want is None:
+            assert 'does not fit here' in out and '\n  9 END\n' in out and '\n 10 ' not in out, out
+            continue
+        got = [l for l in out[out.rindex('wrote'):].splitlines()[1:] if l.strip() and not l.startswith('at ')]
+        assert got == want, (script, got, out)
+        assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp), script
+    print('Blocks: %d sessions give the expected outline, and their programs match NASM.' % len(BLOCKS))
     if models:
         for req, want in PLANS:
             out = run(dest, [req])
@@ -104,7 +130,7 @@ with tempfile.TemporaryDirectory() as tmp:
             assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp)
         for req in REFUSED:
             out = run(dest, ['name bad', req])
-            assert 'nothing written' in out and not (dest / 'BAD.COM').exists(), (req, out)
+            assert 'nothing added' in out and not (dest / 'BAD.COM').exists(), (req, out)
         print('Plans: %d requests give the expected calls; %d bad requests write nothing.' % (len(PLANS), len(REFUSED)))
         sets = [('trained wordings', lambda e: None),
                 ('first held-out set (now trained)', lambda e: gen_asm.V1HELD[e]),
@@ -117,7 +143,7 @@ with tempfile.TemporaryDirectory() as tmp:
                     p = gen_asm.make(r, expert, pool=pool(expert))
                     if ' and ' not in ' %s ' % p[0]:
                         pairs.append(p)
-                lines = run(dest, [q for q, _ in pairs]).splitlines()
+                lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
                 rows = [re.sub(r'\s+\(no model\)$', '', l) for l in lines if re.match(r'\d+ ', l)]
                 assert len(rows) == len(pairs), (len(rows), len(pairs))
                 right = sum('1 %s -> %s' % (q, a) == l for (q, a), l in zip(pairs, rows))
@@ -132,7 +158,7 @@ with tempfile.TemporaryDirectory() as tmp:
         for label, split in (('trained combinations', 'seen'), ('held-out combinations', 'combo'), ('new wordings', 'words')):
             r = random.Random(7)
             pairs = [gen_tasks.make(r, split) for _ in range(300)]
-            lines = run(dest, [q for q, _ in pairs]).splitlines()
+            lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
             rows = [l for l in lines if re.match(r'\d+ ', l)]
             assert len(rows) == len(pairs), (len(rows), len(pairs))
             got = [l.split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused

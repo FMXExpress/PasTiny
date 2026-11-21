@@ -42,6 +42,55 @@ Four experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.
 
 Two kinds of step skip the model: a step that is already a line of the language, and a step with text in double quotes, which prints that text exactly (`print "Hello, World!"`).
 
+## Building a program in blocks
+
+The program is built up over a session, a sentence at a time, and the `.COM` file is written again after every change. Words before a colon open a block, and what you type next goes inside it:
+
+```
+> repeat 2 times:
+> say hello
+> count from 1 to 3:
+> print the count
+> end
+> beep
+> end
+> say "done"
+> show
+  1 TIMES 2
+  2   PRINT hello
+  3   FOR X=1 TO 3
+  4     OUT X
+  5   NEXT
+  6   BEEP 440 300
+  7 END
+  8 PRINT "done"
+   >
+```
+
+The `>` in the listing is where the next line will go. Every block has its closing line, so the place alone says whether you are inside a block (before its `END`) or after it.
+
+| Key | Typed command | What it does |
+|---|---|---|
+| Up, Down | `UP`, `DOWN` | move the place one line |
+| Home, End | `TOP`, `BOTTOM`, `GO n` | move to the start, the end, or before line n |
+| Tab, Shift-Tab | `TAB`, `BACK` | jump to the end of the next or the previous block |
+| | `END` | leave the block you are in |
+| Del | `DEL`, `DEL n` | delete a line, or the whole block if it is the block's first line |
+| | `SHOW`, `NEW` | list the program, or empty it |
+
+The keys work on an empty input line. Blocks are opened by code, not by a model, from a small set of wordings:
+
+| You type | Opens |
+|---|---|
+| `repeat 3 times:` | `TIMES 3 ... END` |
+| `count from 1 to 10:`, `count down from 5:` | `FOR X=1 TO 10 ... NEXT`; nested counts use Y and Z; inside, `print the count` gives `OUT X` |
+| `forever:` | `FOREVER ... END`; `stop` inside it ends the program |
+| `if it is bigger than 5:` (also smaller, not, at least, at most) | `IF A>5 ... END`, about the number last asked for; `else` adds the other branch |
+| `if the key is q:` (a letter, a digit, space, enter, escape) | `IF K='q' ... END`, about the key last waited for |
+| any opening line of the language, such as `FOR I=1 TO 5:` | itself |
+
+Inside a block, sentences go to the experts as usual, so one-sentence programs from the tasks expert can be nested too. A request is added whole or not at all, and a line that does not fit where it is put ("else" outside an "if") is refused.
+
 ## The language
 
 The language exists because Tiny's window is 128 characters for request and answer together. Raw assembly spends that in three or four instructions; this fits a whole small program in one answer. [`TBC.PAS`](TBC.PAS) is the compiler and has the full description.
@@ -60,16 +109,17 @@ TIMES 3:FOR I=0 TO 7:COLOR I:WAIT 300:NEXT:END
 | `LET v=n`, `INPUT v` | set a variable, or read a number from the keyboard |
 | `FOR v=n TO n ... NEXT`, `FOR v=n DOWNTO n ... NEXT` | count up or down by one |
 | `TIMES n ... END` | do the block n times |
+| `FOREVER ... END`, `STOP` | loop without end; end the program |
 | `IF n<n ... ELSE ... END` | tests are `=` `<>` `<` `>` `<=` `>=` |
 | `REPEAT n` | on a line of its own: run the whole program n times |
 
-Variables are the letters A to Z, whole numbers from 0 to 65535. A number may be an expression with `+ - * /` and no spaces (`I*100+200`). Statements are separated by colons, and a line must close the blocks it opens. You can type the language yourself; nothing is asked of a model then.
+`KEY` keeps the key that was pressed in K, and a character in single quotes is its code, so `IF K='q'` tests it. Variables are the letters A to Z, whole numbers from 0 to 65535. A number may be an expression with `+ - * /` and no spaces (`I*100+200`). Statements are separated by colons. A line typed whole must close the blocks it opens; a block that spans lines is opened in block mode. You can type the language yourself; nothing is asked of a model then.
 
 Beside the `.COM` file the program writes a complete `.ASM` listing of the main part, instruction by instruction. The 17 library routines are in [`LIB.ASM`](LIB.ASM), 456 bytes of 8086 code; a program holds only the ones it uses.
 
 ## What was measured
 
-**The compiler is exact.** For 12 programs typed in the language (every call, loops both ways, nested blocks, tests, arithmetic, input), the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM`. 14 invalid lines are refused.
+**The compiler is exact.** For 12 programs typed in the language (every call, loops both ways, nested blocks, tests, arithmetic, input), the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM`. 13 invalid lines are refused. Five block-mode sessions, with nesting, navigation, deleting and a refused `ELSE`, give the expected outlines and also match NASM.
 
 **The tasks expert combines parts it knows in ways it has not seen.** This was the experiment. A request is built from parts: a head (count up, count down, N times, ask for a number), an optional action in each round, and an optional action at the end. Some combinations were held out of training, though every part was trained in other combinations. Scored in the 8-bit runtime, 300 requests per set:
 
@@ -101,7 +151,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (50,560 bytes). In DOSBox-X with an emulated FPU it ran three request files and the programs it wrote were then run. All outputs are in [`evidence/lang/OUTPUTS.TXT`](evidence/lang/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (60,752 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -109,27 +159,34 @@ So more wordings make the experts right on more phrasings, but do not make them 
 | ask for a number and print its double (typed 21) | 42 |
 | print the 7 times table | 7 14 21 ... 70 |
 | add up the numbers from 1 to 100 | 5050 |
-| ask for a number and count to it then play a tune (typed 3) | 1 2 3 |
-| clear the screen, say hello, new line. count to 3. 2 times, each time say hi and flash | hello 1 2 3 hi hi |
 | count down from 4 and beep each time then play a siren (a held-out combination) | 4 3 2 1 |
 | ask for a number and say yes if it is 7 otherwise no (typed 7, then 3) | yes, then no |
 | count from 9 to 3 | refused: the expert wrote `TO`, and that loop would not run |
+| the block session shown above | hello 1 2 3 hello 1 2 3 done |
+| ask for a number and print its double, then an if/else block (typed 21, then 3) | 42 big, then 6 small |
+| forever: wait for a key; if the key is q: stop; say again (keys a, b, q) | again again |
+| a count inside a count, edited with TOP, GO and DEL | next next next |
 
-- [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) has those plans. [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) has seven programs typed in the language, covering arithmetic, nested tests, loops ending at 0 and at 65535, and zero counts; all printed the right results.
-- The earlier checks still pass with this build ([`evidence/FPU.LOG`](evidence/FPU.LOG)): printed text, `COLOR 1` leaving `1F` in screen memory, `WAIT 2000` taking 36 clock ticks (1.98 seconds), a 12-step program using every screen call.
-- On an emulated 386 without an FPU, a countdown request gave the same program and it ran ([`evidence/lang/NOFPU.LOG`](evidence/lang/NOFPU.LOG)).
+- Transcripts: [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) (sentences), [`evidence/blocks/BLOCKS.LOG`](evidence/blocks/BLOCKS.LOG) (block sessions), [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) (seven programs typed in the language: arithmetic, nested tests, loops ending at 0 and at 65535, zero counts), [`evidence/FPU.LOG`](evidence/FPU.LOG) (single calls).
+- The earlier checks still pass: `COLOR 1` leaves `1F` in screen memory, `WAIT 2000` takes 36 clock ticks (1.98 seconds), a 12-step program using every screen call ends with the right colours.
+- **Keys.** The arrow keys cannot be fed from a file, so they were typed into the running program by the emulator: `cls`, `hide`, Up, `key` gave CLS, KEY, HIDE, and with Tab in place of Up gave CLS, HIDE, KEY. No transcript exists for this; the listings it wrote were read.
+- On an emulated 386 without an FPU, a countdown request and a block gave a program that printed 3 2 1 liftoff hi hi ([`evidence/NOFPU.LOG`](evidence/NOFPU.LOG)).
 
 ## Limits
 
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
-- A step holds 72 characters, a line 120, and a program 40 lines.
+- A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with four experts it unpacks to 1,580,427 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with four experts it unpacks to 1,591,166 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- Free memory is tight: 12,448 bytes of heap remain with a model loaded.
+- Memory is tight. The program needs about 610 KB of free conventional memory, more than `EXPERT.EXE`, and 5,280 bytes of heap remain with a model loaded. A DOS setup that loads drivers low may not have enough.
+- There is no RUN command: with the model in memory there is no room to start another program. Quit, then run the `.COM` file.
+- Keys typed while an expert is working can be lost, because the same keyboard check watches for Escape.
+- Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
+- The outline shows the code, not your sentences, and is not a full-screen editor: it is printed again after each change.
 - The router is a word list in `MAKECOM.PAS`, not a model.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
 - One training run per expert and version; the scores above are from those runs.

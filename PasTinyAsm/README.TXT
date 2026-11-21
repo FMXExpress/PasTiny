@@ -2,7 +2,7 @@ PasTinyAsm 1.0 - say what a program should do, get a .COM file
 ================================================================
 Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN,
 TASKS.BIN.
-Keep them in one directory.  Needs a 386 and about 570 KB of free
+Keep them in one directory.  Needs a 386 and about 610 KB of free
 conventional memory.  A coprocessor is optional.
 
   C:\ASM> MAKECOM
@@ -32,6 +32,16 @@ A whole sentence can ask for a small program:
   ask for a number and print its double
   print the 7 times table
   3 times, each time say hi and flash
+
+BLOCKS.  The program grows a sentence at a time; it is written to
+disk after every change.  Words before a colon open a block, and
+what you type next goes inside it until END:
+  repeat 3 times:          count from 1 to 10:      forever:
+  if it is bigger than 5:  if the key is q:         else
+SHOW lists the program.  The mark > is where the next line goes.
+Up, Down, Home, End move it; Tab and Shift-Tab jump from block to
+block; Del deletes a line or a whole block; NEW starts again.
+(Typed: UP DOWN TOP BOTTOM GO n TAB BACK DEL n.)
 
 You can also type the language itself (LIST shows it):
   FOR I=1 TO 5:OUT I*I:NEXT
