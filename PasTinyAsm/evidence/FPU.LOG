@@ -36,9 +36,16 @@ name ALL
 11 say all done -> PRINT all done
 12 new line -> NEWLINE
 wrote ALL.COM 315 bytes, ALL.ASM
+name FIXED
+1 make the cursor invisible -> HIDE
+2 make an alarm sound -> SIREN 2
+3 hold on for half a second -> WAIT 500
+4 display the text all fixed -> PRINT all fixed
+5 new line -> NEWLINE
+wrote FIXED.COM 144 bytes, FIXED.ASM
 name BAD
 1 format the hard disk: not understood
 nothing written
-1 beep at 5 hertz: refused "BEEP 53 300" (numbers do not match the request)
+1 beep at 5 hertz: refused "BEEP 5 300" (number out of range)
 nothing written
-heap=33544 largest=33544 stack=15086
+heap=33320 largest=33320 stack=15086

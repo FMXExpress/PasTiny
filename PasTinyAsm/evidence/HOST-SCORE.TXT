@@ -1,8 +1,11 @@
 Writer: 5 programs match NASM byte for byte.
 Plans: 6 requests give the expected calls; 4 bad requests write nothing.
-screen trained wordings: 300 right, 0 refused, 0 wrong but accepted, of 300
-screen new     wordings: 289 right, 0 refused, 11 wrong but accepted, of 300
-sound  trained wordings: 300 right, 0 refused, 0 wrong but accepted, of 300
-sound  new     wordings: 243 right, 1 refused, 56 wrong but accepted, of 300
-text   trained wordings: 300 right, 0 refused, 0 wrong but accepted, of 300
-text   new     wordings: 258 right, 1 refused, 41 wrong but accepted, of 300
+screen trained wordings:                 300 right, 0 refused, 0 wrong but accepted, of 300
+screen first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+screen new wordings:                     291 right, 0 refused, 9 wrong but accepted, of 300
+sound  trained wordings:                 300 right, 0 refused, 0 wrong but accepted, of 300
+sound  first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+sound  new wordings:                     207 right, 20 refused, 73 wrong but accepted, of 300
+text   trained wordings:                 299 right, 1 refused, 0 wrong but accepted, of 300
+text   first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+text   new wordings:                     113 right, 0 refused, 187 wrong but accepted, of 300
