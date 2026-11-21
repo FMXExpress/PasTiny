@@ -77,7 +77,7 @@ begin
   {$IF Defined(MSWINDOWS)}
   { RAD Studio normally builds into Win32/Debug or Win64/Release. }
   if not TFile.Exists(ThemePath) then
-    ThemePath := ExpandFileName(ExtractFilePath(Path) + '..\..\styles\' + ThemeName);
+    ThemePath := ExpandFileName(ExtractFilePath(Path) + '..\..\' + ThemeName);
   {$ENDIF}
   if TFile.Exists(ThemePath) then
   begin
