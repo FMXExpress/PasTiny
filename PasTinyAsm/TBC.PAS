@@ -383,8 +383,9 @@ begin
   end
   else if Bl.Kind='V' then JmpNear(Bl.L1)
   else begin
-   (* an ELSE with nothing after it is a mistake, not a program *)
-   if (Bl.Kind='E') and (Size=Word(Bl.V)) then begin Error('ELSE with nothing after it'); Exit end;
+   (* in one line an ELSE with nothing after it is a mistake; in a block
+      being built it is only not filled in yet *)
+   if (Bl.Kind='E') and (Size=Word(Bl.V)) and not AllowOpen then begin Error('ELSE with nothing after it'); Exit end;
    Place(Bl.L1)
   end
  end

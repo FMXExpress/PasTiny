@@ -162,7 +162,7 @@ It knows 30 recipes (alarm clock, kitchen timer, metronome, traffic light, doorb
 - Giving it the previous step was meant to let it say only "what comes next". It made trained requests perfect and did nothing for held-out pairs (33 and 24 of 100 are the same result within the noise of 100 requests). So the trouble is not keeping its place; it has not learned that a change applies to every recipe.
 - This is the opposite of the tasks expert, which combines parts it knows at 281 of 300. That expert writes one answer in which the parts stand side by side; here a change has to alter the answer to a different question.
 - The remedy is the rule that has held everywhere else in this project: let code do the structure. Have the expert name the recipe, its number and the change, recall the plain steps, and let code wrap, prepend or append. That is not built.
-- The second stage is sound only as far as its experts are: the steps of all 30 recipes, typed by hand, are accepted, but accepted is not the same as right (see Limits on two-text tests).
+- The second stage is checked only for acceptance: the steps of all 30 recipes, typed by hand, are accepted, and the recipes run under DOS printed the right things, but no test yet compares every recipe's program with what it should be.
 
 ![A program built from two recipes, a block and two sentences](docs/demo-listing.png)
 
@@ -231,15 +231,15 @@ Beside the `.COM` file the program writes a complete `.ASM` listing of the main 
 
 | Set | Right | Refused | Wrong but accepted |
 |---|---:|---:|---:|
-| Trained shapes and combinations, new numbers and texts | 298 | 2 | 0 |
-| Held-out combinations of trained parts | 281 | 12 | 7 |
+| Trained shapes and combinations, new numbers and texts | 300 | 0 | 0 |
+| Held-out combinations of trained parts | 299 | 0 | 1 |
 | The first version's held-out wordings, trained on since | 300 | 0 | 0 |
-| Wordings never trained on | 298 | 2 | 0 |
+| Wordings never trained on | 298 | 0 | 2 |
 
 - **Shapes.** About 60: counting with actions, `TIMES` loops, tests on a typed number with one or two actions, tables, multiples, squares, cubes, powers, sums, products, star patterns, colour cycles, tones, timers, and loops that run until a key or a number.
-- **Held-out combinations** are 10 of 40 count forms with two actions, 8 of 42 action pairs in a `TIMES` loop, two actions never seen after "that many times", 9 of 42 test-and-action pairs, every "ask and count" with both an each-round and an end action, and every "if ... otherwise" with two actions. The misses are nearly all in the last two classes, which ask for a longer program than any trained with those parts.
+- **Held-out combinations** are 10 of 40 count forms with two actions, 8 of 42 action pairs in a `TIMES` loop, two actions never seen after "that many times", 9 of 42 test-and-action pairs, every "ask and count" with both an each-round and an end action, and every "if ... otherwise" with two actions. The one miss is in the last class.
 - **Wordings.** The first version of this expert got 133 of 300 on wordings it had not seen, and each wording was right every time or wrong every time. Training on three to five wordings per part, in place of two or three, brought a fresh unseen set to 298. The two sets are different phrases, so this shows that variety helps, not that any wording will work.
-- The two refusals in the first row were this program's own text check turning down a "yes" the program prints; that check has since been relaxed.
+- An earlier training round of this expert got 281 on the held-out combinations and could not write a test with two texts ("say yes if it is 7 otherwise say no") at all, because the generator never produced one. Adding that shape and the bare wording "if it is 7" brought it to the figures above.
 
 **Second choices.** When an expert's first answer fails a check, the planner goes back to the place in that answer where the expert was least sure, takes its second choice there and lets it write on, and does the same for the next two such places. The first answer that passes every check is taken and marked `(second choice)`. One check was added to make this bite: a single call must be about something the step names, so `SHOW` needs "show", "on", "visible" or the like in the step. On the 300 unseen wordings per expert:
 
@@ -250,24 +250,24 @@ Beside the `.COM` file the program writes a complete `.ASM` listing of the main 
 
 "take the cursor away" now gives `HIDE`, "repeat the program 5 times" gives `REPEAT 5`, "take a break for two seconds" gives `WAIT 2000`. Trained wordings are unaffected (no second choice was needed in 1,200 of them). The word lists behind the new check are short and hand-written, which is why 21 more sound steps are refused: a refusal is the safe way to be wrong. The text and tasks experts are not helped, because their lines have no single key word to hold them to.
 
-**The three single-call experts** (the table below is from before second choices) are exact on trained wordings and unreliable on new ones. Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
+**The three single-call experts** (the table below includes second choices) are exact on trained wordings and unreliable on new ones. Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
 
 | Expert | Trained wordings | First held-out set, after training on it | New held-out set: right | refused | wrong but accepted |
 |---|---:|---:|---:|---:|---:|
-| Screen | 300 of 300 | 300 of 300 | 291 | 0 | 9 |
-| Sound | 300 of 300 | 300 of 300 | 207 | 20 | 73 |
-| Text | 299 of 300 | 300 of 300 | 113 | 0 | 187 |
-| All | 899 of 900 | 900 of 900 | 611 | 20 | 269 |
+| Screen | 300 of 300 | 300 of 300 | 297 | 0 | 3 |
+| Sound | 300 of 300 | 300 of 300 | 259 | 41 | 0 |
+| Text | 298 of 300 | 299 of 300 | 113 | 3 | 184 |
+| All | 898 of 900 | 899 of 900 | 669 | 44 | 187 |
 
 How this came about. The first version was trained on fixed phrases and scored 790 of 900 on a held-out set, with 108 valid calls for the wrong thing ("make the cursor invisible" gave `SHOW`). For this version those wordings went into training, the phrase lists became combinable patterns (about 4,800 distinct screen wordings where there were about 60), and a fresh held-out set was written. Every earlier failure is now right. The fresh set shows the same weakness again:
 
-- **A wording is either always right or always wrong.** "take the cursor away" gives `SHOW` every time; "repeat the program 5 times" gives `SIREN 5` every time; "take a break for two seconds" gives a beep. Words the expert has never seen ("program", "break") are not understood from their meaning.
+- **An expert's first answer to a wording is either always right or always wrong.** Before second choices, "take the cursor away" gave `SHOW` every time, "repeat the program 5 times" gave `SIREN 5` and "take a break for two seconds" gave a beep: 269 such answers in 900. Words the expert has never seen ("program", "break") are not understood from their meaning. Second choices and the key-word check now put most of the screen and sound ones right or refuse them.
 - **The text expert's low score has one cause.** It cannot tell wrapping words it has not met from the text itself: "display the phrase hello" prints "the phrase hello", "show me hello" prints "me hello". Quotes avoid this: `display the phrase "hello"`.
-- **The numbers check helps where it applies.** The 20 refusals are wrong calls it caught.
+- **The checks help where they apply.** The refusals are wrong calls they caught.
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (67,744 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (81,632 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -297,10 +297,10 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with four experts it unpacks to 1,598,842 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with five experts and the exporter it unpacks to 2,015,118 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and about 3 KB of heap remain with a model loaded; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 2,320 bytes of heap remain with a model loaded; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.

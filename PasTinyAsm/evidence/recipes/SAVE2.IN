@@ -1,0 +1,6 @@
+load keep
+name k2
+edit 1 repeat 3 times
+show
+run
+quit

@@ -79,6 +79,8 @@ BLOCKS = [
     (['INPUT A', 'if it is bigger than 10: print "big"', 'else', 'print "small"', 'end', 'if it is not 7: SIREN 1',
       'tab', 'back', 'back', 'del 2'],
      ['  1 INPUT A', '   >', '  2 IF A<>7', '  3   SIREN 1', '  4 END']),
+    (['INPUT A', 'if it is bigger than 10: print "big"', 'else', 'print "small"', 'end', 'CLS'],
+     ['  1 INPUT A', '  2 IF A>10', '  3   PRINT "big"', '  4 ELSE', '  5   PRINT "small"', '  6 END', '  7 CLS', '   >']),
     (['TIMES 2:', 'FOR I=1 TO 3:', 'OUT I*I', 'end', 'end', 'del 3', 'del 1', 'print "empty now"', 'up', 'KEY'],
      ['  1 KEY', '   >', '  2 PRINT "empty now"']),
 ]

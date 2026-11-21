@@ -1,0 +1,10 @@
+name keep
+repeat 2 times:
+say hello
+count from 1 to 3:
+print the count
+end
+end
+print "Bye, now: done"
+mem
+quit

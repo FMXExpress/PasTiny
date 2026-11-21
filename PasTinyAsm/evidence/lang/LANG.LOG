@@ -1,5 +1,6 @@
 PasTinyAsm 1.2  FPU yes
-heap=499352
+heap=486520
+extended memory: 14912 KB free, experts will be kept there
 > new
 new program
 > name p1

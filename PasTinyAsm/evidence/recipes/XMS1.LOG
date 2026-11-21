@@ -1,0 +1,58 @@
+PasTinyAsm 1.2  FPU yes
+heap=486520
+extended memory: 14912 KB free, experts will be kept there
+> name x1
+name X1
+> make the screen blue
+1 make the screen blue -> COLOR 1
+wrote X1.COM 96 bytes, X1.ASM
+> beep
+2 beep -> BEEP 440 300
+wrote X1.COM 164 bytes, X1.ASM
+> say hello
+3 say hello -> PRINT hello
+wrote X1.COM 181 bytes, X1.ASM
+> count to 3
+4 count to 3 -> FOR I=1 TO 3:OUT I:NEXT
+wrote X1.COM 269 bytes, X1.ASM
+> make the text yellow
+5 make the text yellow -> INK 14
+wrote X1.COM 306 bytes, X1.ASM
+> play a siren
+6 play a siren -> SIREN 2
+wrote X1.COM 383 bytes, X1.ASM
+> say bye
+7 say bye -> PRINT bye
+wrote X1.COM 393 bytes, X1.ASM
+> count down from 3
+8 count down from 3 -> FOR I=3 DOWNTO 1:OUT I:NEXT
+wrote X1.COM 444 bytes, X1.ASM
+> red border
+9 red border -> BORDER 4
+wrote X1.COM 459 bytes, X1.ASM
+> wait a second
+10 wait a second -> WAIT 1000
+wrote X1.COM 479 bytes, X1.ASM
+> new line
+11 new line -> NEWLINE
+wrote X1.COM 482 bytes, X1.ASM
+> run
+hello1
+2
+3
+bye3
+2
+1
+
+ran X1.COM
+> flash the screen
+12 flash the screen -> FLASH 3
+wrote X1.COM 543 bytes, X1.ASM
+> beep at 880 hertz for 100 ms
+13 beep at 880 hertz for 100 ms -> BEEP 880 100
+wrote X1.COM 556 bytes, X1.ASM
+> mem
+heap=2320 largest=2320 stack=18152
+experts loaded: 13 times from extended memory (922 ms), 0 times from disk (0 ms)
+kept in extended memory: 4 (207 ms to read them in), 13408 KB free there
+> quit
