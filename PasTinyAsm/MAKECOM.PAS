@@ -998,8 +998,7 @@ begin
 end;
 
 procedure Editor;
-const RunDone:String[40]=#13#10'-- press a key to go back --$';
-var K,I:Integer; L:String; Done:Boolean; F:File; Rg:Registers;
+var K,I:Integer; L:String; Done:Boolean; F:File;
 begin
  System.Move(Output,SavedOut,SizeOf(TextRec));
  with TextRec(Output) do begin
@@ -1065,8 +1064,16 @@ begin
    (* F5: let the program have the screen and the machine, then come back *)
    NMsg:=0; TextAttr:=7; Window(1,1,80,25); ClrScr; GotoXY(1,1); Flush;
    if RunProgram then begin
-    Rg.AH:=9; Rg.DS:=Seg(RunDone); Rg.DX:=Ofs(RunDone)+1; MsDos(Rg);
-    K:=GetKey
+    (* keep what the program left on the screen until a key is pressed *)
+    System.Move(Mem[$B800:0],Screen,4000);
+    Row(25,' The program has ended.  Press a key to go back to the editor.',$70);
+    Window(1,1,80,25); GotoXY(1,25); Flush;
+    repeat
+     K:=GetKey;
+     if K=256+67 then begin
+      Assign(F,'SNAP.SCR'); Rewrite(F,1); BlockWrite(F,Screen,4000); Close(F)
+     end
+    until K<>256+67
    end
   end
   else if (K=256+83) and (Field='') then begin NMsg:=0; Handle('DEL') end
