@@ -373,7 +373,7 @@ begin
  else if Key='ELSE' then begin
   if (Depth=0) or (Blocks[Depth].Kind<>'I') then begin Error('ELSE without IF'); Exit end;
   L2:=NewLabel; JmpNear(L2); Place(Blocks[Depth].L1);
-  Blocks[Depth].Kind:='E'; Blocks[Depth].L1:=L2
+  Blocks[Depth].Kind:='E'; Blocks[Depth].L1:=L2; Blocks[Depth].V:=Size
  end
  else if Key='END' then begin
   if (Depth=0) or not (Blocks[Depth].Kind in ['T','I','E','V']) then begin Error('END without TIMES, IF or FOREVER'); Exit end;
@@ -382,7 +382,11 @@ begin
    B($59); T('pop     cx'); B($49); T('dec     cx'); JmpNear(Bl.L1); Place(Bl.L2)
   end
   else if Bl.Kind='V' then JmpNear(Bl.L1)
-  else Place(Bl.L1)
+  else begin
+   (* an ELSE with nothing after it is a mistake, not a program *)
+   if (Bl.Kind='E') and (Size=Word(Bl.V)) then begin Error('ELSE with nothing after it'); Exit end;
+   Place(Bl.L1)
+  end
  end
  else begin Error('unknown word '+Key); Exit end;
  Blanks;

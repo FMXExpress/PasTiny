@@ -150,17 +150,19 @@ Each step is then planned exactly like a sentence typed by hand, so every check 
 
 It knows 30 recipes (alarm clock, kitchen timer, metronome, traffic light, doorbell, police car, SOS, rocket launch, guessing game, piano, fireworks, star tree, welcome screen and others; the list is in [`training/gen_recipes.py`](training/gen_recipes.py)), some with a number, and three changes: "N times", "with ... at the end", "on a blue screen".
 
-**It recalls recipes; it does not adapt them.** End to end, the request alone against its steps typed by hand, 100 requests per set:
+**It recalls recipes; it does not adapt them.** End to end, the request alone against its steps typed by hand, 100 requests per set. Two ways of asking were tried: with the step number and the whole request, and (the one in use) with the step number, the request cut to its core and the first 20 characters of the previous step:
 
-| Set | Same program | Refused | Different program |
-|---|---:|---:|---:|
-| Trained recipes and recipe-with-change pairs, new numbers | 96 | 4 | 0 |
-| Recipe-with-change pairs held out of training | 33 | 12 | 55 |
-| Names and request wordings never trained on | 21 | 20 | 59 |
+| Set | Same program, first way | Same program, with the previous step |
+|---|---:|---:|
+| Trained recipes and recipe-with-change pairs, new numbers | 96 | 100 |
+| Recipe-with-change pairs held out of training | 33 | 24 |
+| Names and request wordings never trained on | 21 | 36 |
 
-- A change moves the steps: "on a blue screen" puts a new step first, so every later step has a new number. For pairs it was trained on the expert gets that right; for a recipe it has only seen without that change, it mostly loses its place, and steps from other recipes appear.
-- This is the opposite of the tasks expert, which combines parts it knows at 281 of 300. The difference is that the tasks expert writes its whole answer at once, while this one must answer "what is step 4?" with nothing but the request to go on.
-- So the idea works as a recipe book and the second stage is sound (the steps of all 30 recipes, typed by hand, are accepted). As a way to compose, it does not work yet. Asking with the previous step in the question, so that the expert only has to say what comes next, is the obvious thing to try.
+- A change moves the steps: "on a blue screen" puts a new step first, so every later step has a new number. For pairs it was trained on the expert gets that right. For a recipe it has only seen without that change, it mostly loses its place: steps go missing or steps from other recipes appear.
+- Giving it the previous step was meant to let it say only "what comes next". It made trained requests perfect and did nothing for held-out pairs (33 and 24 of 100 are the same result within the noise of 100 requests). So the trouble is not keeping its place; it has not learned that a change applies to every recipe.
+- This is the opposite of the tasks expert, which combines parts it knows at 281 of 300. That expert writes one answer in which the parts stand side by side; here a change has to alter the answer to a different question.
+- The remedy is the rule that has held everywhere else in this project: let code do the structure. Have the expert name the recipe, its number and the change, recall the plain steps, and let code wrap, prepend or append. That is not built.
+- The second stage is sound only as far as its experts are: the steps of all 30 recipes, typed by hand, are accepted, but accepted is not the same as right (see Limits on two-text tests).
 
 ![A program built from two recipes, a block and two sentences](docs/demo-listing.png)
 
