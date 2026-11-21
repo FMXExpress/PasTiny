@@ -10,6 +10,8 @@ name noise
 beep at 880 hertz for half a second, play a siren
 name all
 clear the screen, flash the screen twice, make the screen red, make the text yellow, green border, go to row 3 column 5, hide the cursor, show the cursor, play a tune, wait for a key, say all done, new line
+name fixed
+make the cursor invisible, make an alarm sound, hold on for half a second, display the text all fixed, new line
 name bad
 format the hard disk
 beep at 5 hertz

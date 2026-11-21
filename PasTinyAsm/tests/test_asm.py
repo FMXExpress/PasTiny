@@ -9,8 +9,9 @@ NASM makes from the program's own .ASM listing plus the routines in LIB.ASM.
 
 With --models (needs SCREEN.BIN, SOUND.BIN, TEXT.BIN and EXPERTS.CAT here):
 plain-language requests give the expected plans, bad steps are refused, and
-each expert is scored on 300 fresh steps in trained wordings and 300 in
-wordings it was never trained on.
+each expert is scored on 300 fresh steps in trained wordings, 300 in the
+first version's held-out wordings (trained on since) and 300 in wordings it
+was never trained on.  --show lists some of the wrong calls.
 """
 import random, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
@@ -91,18 +92,24 @@ with tempfile.TemporaryDirectory() as tmp:
             out = run(dest, ['name bad', req])
             assert 'nothing written' in out and not (dest / 'BAD.COM').exists(), (req, out)
         print('Plans: %d requests give the expected calls; %d bad requests write nothing.' % (len(PLANS), len(REFUSED)))
+        sets = [('trained wordings', lambda e: None),
+                ('first held-out set (now trained)', lambda e: gen_asm.V1HELD[e]),
+                ('new wordings', lambda e: gen_asm.HELD[e])]
         for expert in ('screen', 'sound', 'text'):
             r = random.Random(5)
-            for held in (False, True):
+            for label, pool in sets:
                 pairs = []
                 while len(pairs) < 300:      # a text with "and" in it would be split into two steps
-                    p = gen_asm.make(r, expert, held)
+                    p = gen_asm.make(r, expert, pool=pool(expert))
                     if ' and ' not in ' %s ' % p[0]:
                         pairs.append(p)
                 lines = run(dest, [q for q, _ in pairs]).splitlines()
                 rows = [re.sub(r'\s+\(no model\)$', '', l) for l in lines if re.match(r'\d+ ', l)]
                 assert len(rows) == len(pairs), (len(rows), len(pairs))
                 right = sum('1 %s -> %s' % (q, a) == l for (q, a), l in zip(pairs, rows))
-                wrong = sum(' -> ' in l and '1 %s -> %s' % (q, a) != l for (q, a), l in zip(pairs, rows))
-                print('%-6s %s wordings: %d right, %d refused, %d wrong but accepted, of %d'
-                      % (expert, 'new    ' if held else 'trained', right, len(pairs) - right - wrong, wrong, len(pairs)))
+                wrong = [(q, l.split(' -> ')[-1], a) for (q, a), l in zip(pairs, rows) if ' -> ' in l and '1 %s -> %s' % (q, a) != l]
+                print('%-6s %-33s %d right, %d refused, %d wrong but accepted, of %d'
+                      % (expert, label + ':', right, len(pairs) - right - len(wrong), len(wrong), len(pairs)))
+                if '--show' in sys.argv:
+                    for w in sorted(set(wrong))[:12]:
+                        print('         %s -> %s (want %s)' % w)

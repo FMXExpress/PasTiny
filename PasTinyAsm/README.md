@@ -1,6 +1,6 @@
 # PasTinyAsm
 
-Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode and fits on one floppy: [dist/PASASM.ZIP](dist/PASASM.ZIP) unpacks to 1,187,845 bytes.
+Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode and fits on one floppy: [dist/PASASM.ZIP](dist/PASASM.ZIP) unpacks to 1,188,069 bytes.
 
 ```
 C:\ASM> MAKECOM
@@ -38,27 +38,34 @@ Two kinds of step skip the model: a step that is already a call (`FLASH 3`), and
 
 **The writer is exact.** For requests written as calls, the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM` (5 programs covering every call).
 
-**The experts are exact on wordings they were trained on, and wrong about one time in eight on wordings they were not.** Each was scored in the 8-bit runtime on 300 fresh steps in trained wordings (new numbers, colours and texts) and 300 in wordings held out of training:
+**The experts are exact on wordings they were trained on. On wordings they were not, the result depends on the wording, and adding wordings fixes only the ones added.** Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
 
-| Expert | Trained wordings | New wordings: right | refused | wrong but accepted |
-|---|---:|---:|---:|---:|
-| Screen | 300 of 300 | 289 | 0 | 11 |
-| Sound | 300 of 300 | 243 | 1 | 56 |
-| Text | 300 of 300 | 258 | 1 | 41 |
-| All | 900 of 900 | 790 | 2 | 108 |
+| Expert | Trained wordings | First held-out set, after training on it | New held-out set: right | refused | wrong but accepted |
+|---|---:|---:|---:|---:|---:|
+| Screen | 300 of 300 | 300 of 300 | 291 | 0 | 9 |
+| Sound | 300 of 300 | 300 of 300 | 207 | 20 | 73 |
+| Text | 299 of 300 | 300 of 300 | 113 | 0 | 187 |
+| All | 899 of 900 | 900 of 900 | 611 | 20 | 269 |
 
-The 108 are the real weakness: a valid call for the wrong thing, which the checker cannot catch. Examples: "make the cursor invisible" gave `SHOW`, "make an alarm sound" gave `BEEP 440 300`, "hold on for half a second" gave `BEEP 440 500`, and "display the text win file" printed "the text win file". The misses come from a few wordings each expert gets wrong every time, not from scattered slips. The plan is printed before anything runs, so the wrong call is visible; the cure is more wordings in [`training/gen_asm.py`](training/gen_asm.py).
+How this came about. The first version was trained on fixed phrases and scored 790 of 900 on a held-out set, with 108 valid calls for the wrong thing ("make the cursor invisible" gave `SHOW`). For this version those wordings went into training, the phrase lists became combinable patterns (about 4,800 distinct screen wordings where there were about 60), and a fresh held-out set was written. Every earlier failure is now right. The fresh set shows the same weakness again:
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (40,208 bytes). In DOSBox-X with an emulated FPU it ran [`evidence/DEMO.IN`](evidence/DEMO.IN) ([`FPU.LOG`](evidence/FPU.LOG)) and the programs it wrote were then run:
+- **A wording is either always right or always wrong.** "take the cursor away" gives `SHOW` every time; "repeat the program 5 times" gives `SIREN 5` every time; "take a break for two seconds" gives a beep. Words the expert has never seen ("program", "break") are not understood from their meaning.
+- **The text expert's low score has one cause.** It cannot tell wrapping words it has not met from the text itself: "display the phrase hello" prints "the phrase hello", "show me hello" prints "me hello". Quotes avoid this: `display the phrase "hello"`.
+- **The numbers check helps where it applies.** The 20 refusals are wrong calls it caught.
+
+So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
+
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (40,432 bytes). In DOSBox-X with an emulated FPU it ran [`evidence/DEMO.IN`](evidence/DEMO.IN) ([`FPU.LOG`](evidence/FPU.LOG)) and the programs it wrote were then run:
 
 | Program | Check | Result |
 |---|---|---|
 | `HELLO.COM` | printed text, a number, a quoted text, repeated twice | as expected ([`HELLO.OUT`](evidence/HELLO.OUT)) |
 | `BLUE.COM` | colour of the top left cell afterwards | `1F`, white on blue |
-| `WAIT2.COM` (`WAIT 2000`) | BIOS clock ticks before and after | 36 ticks, 1.98 seconds |
+| `WAIT2.COM` (`WAIT 2000`) | BIOS clock ticks before and after | 35 ticks, 1.92 seconds |
 | `NOISE.COM` (`BEEP 880 500`, `SIREN 2`) | ticks | 41 ticks, 2.25 seconds for 2.1 seconds of sound |
 | `ALL.COM` (12 steps, every screen call) | ends, prints its last line, cell colour | "all done", `4E`, yellow on red |
 | `DEMO.COM` (flash and beep) | runs and returns to DOS | yes |
+| `FIXED.COM` | four wordings the first version got wrong | planned correctly, as in `FPU.LOG` |
 
 On an emulated 386 without an FPU, "make screen flash, play sound" gave the same 123-byte file ([`NOFPU.LOG`](evidence/NOFPU.LOG)) and it ran.
 
@@ -72,7 +79,8 @@ On an emulated 386 without an FPU, "make screen flash, play sound" gave the same
 - 16 routines is a toy library. There are no variables, tests or branches, so this writes sequences, not programs with logic.
 - The router is a word list in `MAKECOM.PAS`, not a model.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
-- One training run per expert; the scores above are from that run.
+- One training run per expert and version; the scores above are from those runs.
+- The new held-out set was written by the same author as the training wordings, so it is easier than what a stranger would type.
 
 ## Build, test, train
 
@@ -84,10 +92,10 @@ python3 tests/test_asm.py ./MAKECOM --models  plans, refusals and expert scores
 TPC /B MAKECOM.PAS                            the DOS program (BUILD.BAT)
 ```
 
-To retrain an expert (PyTorch, about half an hour on one CPU core), then rewrite the catalog:
+To retrain an expert (PyTorch, 35 to 55 minutes on one CPU core), then rewrite the catalog:
 
 ```
-python3 training/train_asm.py screen ../PasTinyMoE/TINY.BIN SCREEN.BIN
+python3 training/train_asm.py screen ../PasTinyMoE/TINY.BIN SCREEN.BIN 6000
 python3 tools/package.py
 ```
 
