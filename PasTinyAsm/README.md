@@ -58,10 +58,13 @@ The program is built a sentence at a time, and the `.COM` file is written again 
 | Up, Down, PgUp, PgDn | move the blue line through the program; it takes the indent of the block it is in |
 | Tab, Shift-Tab | jump to the end of the next or the previous block |
 | Home, End | go to the top or the bottom |
+| F2, or Enter on an empty line | take up the line below for changing: its code appears on the blue line, in its place; change it, or type a new sentence, and press Enter ([during](docs/editor-change.png), [after](docs/editor-changed.png)) |
 | Del, on an empty line | delete the line below, or the whole block if that line opens one ([example](docs/editor-deleted.png)) |
-| Esc | clear what you typed; while an expert is working, cancel it |
+| Esc | clear what you typed and leave a line unchanged; while an expert is working, cancel it |
 | F1 | help ([screen](docs/editor-help.png)) |
 | Alt-X or F10, or typing `quit` | leave |
+
+A changed line goes through the same checks as a new one, and if it is refused the old line stays. The first line of a block can only become another first line of a block (`TIMES 2` to `TIMES 5`, or to `count from 1 to 5`); its closing line follows by itself. Closing lines and `ELSE` cannot be changed.
 
 Every block has its closing line on the screen, so the position alone says where you are: before a block's `END` is inside it, after it is outside. The yellow lines at the bottom show what your last sentence became, or why it was refused.
 
@@ -90,7 +93,7 @@ Every block has its closing line on the screen, so the position alone says where
    >
 ```
 
-The commands are `UP`, `DOWN`, `TOP`, `BOTTOM`, `GO n`, `TAB`, `BACK`, `END` (leave the block), `DEL`, `DEL n`, `SHOW` and `NEW`.
+The commands are `UP`, `DOWN`, `TOP`, `BOTTOM`, `GO n`, `TAB`, `BACK`, `END` (leave the block), `DEL`, `DEL n`, `EDIT n text` (change line n), `SHOW` and `NEW`.
 
 Blocks are opened by code, not by a model, from a small set of wordings:
 
@@ -133,7 +136,7 @@ Beside the `.COM` file the program writes a complete `.ASM` listing of the main 
 
 ## What was measured
 
-**The compiler is exact.** For 12 programs typed in the language (every call, loops both ways, nested blocks, tests, arithmetic, input), the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM`. 13 invalid lines are refused. Five block-mode sessions, with nesting, navigation, deleting and a refused `ELSE`, give the expected outlines and also match NASM.
+**The compiler is exact.** For 12 programs typed in the language (every call, loops both ways, nested blocks, tests, arithmetic, input), the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM`. 13 invalid lines are refused. Five block-mode sessions, with nesting, navigation, deleting and a refused `ELSE`, and two sessions that change lines in place (including refused changes that must leave the line alone), give the expected outlines and also match NASM.
 
 **The tasks expert combines parts it knows in ways it has not seen.** This was the experiment. A request is built from parts: a head (count up, count down, N times, ask for a number), an optional action in each round, and an optional action at the end. Some combinations were held out of training, though every part was trained in other combinations. Scored in the 8-bit runtime, 300 requests per set:
 
@@ -165,7 +168,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (64,832 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (67,488 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -180,10 +183,11 @@ So more wordings make the experts right on more phrasings, but do not make them 
 | ask for a number and print its double, then an if/else block (typed 21, then 3) | 42 big, then 6 small |
 | forever: wait for a key; if the key is q: stop; say again (keys a, b, q) | again again |
 | a count inside a count, edited with TOP, GO and DEL | next next next |
+| a loop whose count and body were changed with EDIT | yo yo yo |
 
 - Transcripts: [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) (sentences), [`evidence/blocks/BLOCKS.LOG`](evidence/blocks/BLOCKS.LOG) (block sessions), [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) (seven programs typed in the language: arithmetic, nested tests, loops ending at 0 and at 65535, zero counts), [`evidence/FPU.LOG`](evidence/FPU.LOG) (single calls).
 - The earlier checks still pass: `COLOR 1` leaves `1F` in screen memory, `WAIT 2000` takes 36 clock ticks (1.98 seconds), a 12-step program using every screen call ends with the right colours.
-- **The editor** cannot be driven from a file, so the emulator typed into it, starting from a four-line program: Up, Up, `beep`, Enter put `BEEP 440 300` inside the loop (the pictures above, and the listing it wrote); Home, Del removed the whole loop and left one line; F1 showed the help page. That is all that was tried: Tab, PgUp, PgDn, scrolling of a long program and Esc during an expert's work were not.
+- **The editor** cannot be driven from a file, so the emulator typed into it, starting from a four-line program: Up, Up, `beep`, Enter put `BEEP 440 300` inside the loop (the pictures above, and the listing it wrote); Home, Del removed the whole loop and left one line; Home, F2, Backspace, `5`, Enter changed `TIMES 2` to `TIMES 5` in place; F1 showed the help page. That is all that was tried: Tab, PgUp, PgDn, scrolling of a long program and Esc during an expert's work were not.
 - On an emulated 386 without an FPU, a countdown request and a block gave a program that printed 3 2 1 liftoff hi hi ([`evidence/NOFPU.LOG`](evidence/NOFPU.LOG)).
 
 ## Limits
@@ -194,13 +198,14 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with four experts it unpacks to 1,595,632 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with four experts it unpacks to 1,598,482 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 17,808 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 15,424 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - There is no RUN command: with the model in memory there is no room to start another program. Quit, then run the `.COM` file.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
-- The editor shows the code, not your sentences, and a line cannot be changed in place: delete it and type it again. It assumes an 80 by 25 text screen.
+- The editor shows the code, not your sentences, so a line taken up for changing shows its code. There is no cursor movement inside the line: Backspace removes from the end. It assumes an 80 by 25 text screen.
+- One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
 - The router is a word list in `MAKECOM.PAS`, not a model.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
 - One training run per expert and version; the scores above are from those runs.

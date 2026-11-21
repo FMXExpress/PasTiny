@@ -82,6 +82,14 @@ BLOCKS = [
     (['TIMES 2:', 'FOR I=1 TO 3:', 'OUT I*I', 'end', 'end', 'del 3', 'del 1', 'print "empty now"', 'up', 'KEY'],
      ['  1 KEY', '   >', '  2 PRINT "empty now"']),
 ]
+EDITS = [   # changing lines in place: (session, outline expected)
+    (['TIMES 2:', 'CLS', 'BEEP 440 300', 'end', 'print "a"', 'edit 3 BEEP 880 100', 'edit 1 TIMES 5', 'edit 5 print "b"',
+      'edit 2 HIDE, SHOW'],
+     ['  1 TIMES 5', '  2   HIDE', '  3   SHOW', '   >  ', '  4   BEEP 880 100', '  5 END', '  6 PRINT "b"']),
+    (['count from 1 to 3:', 'print the count', 'end', 'edit 1 TIMES 4', 'edit 2 CLS', 'edit 1 count down from 9 to 7',
+      'edit 2 print the count', 'edit 3 CLS', 'edit 2 JUMP', 'edit 1 CLS', 'edit 9 CLS'],
+     ['  1 FOR X=9 DOWNTO 7', '  2   OUT X', '   >  ', '  3 NEXT']),
+]
 REFUSED = ['format the hard disk', 'FLASH 99', 'beep at 5 hertz', 'what is the capital of peru']
 
 assert buildlib.render()[0].split() == (root / 'LIB.INC').read_text().split(), 'LIB.INC is out of date: run tools/buildlib.py'
@@ -122,6 +130,12 @@ with tempfile.TemporaryDirectory() as tmp:
         assert got == want, (script, got, out)
         assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp), script
     print('Blocks: %d sessions give the expected outline, and their programs match NASM.' % len(BLOCKS))
+    for script, want in EDITS:
+        out = run(dest, script + ['show'])
+        got = [l for l in out[out.rindex('> show'):].splitlines()[1:] if l.strip() and not l.startswith('> ')]
+        assert got == want, (script, got, out)
+        assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp), script
+    print('Edits: %d sessions that change lines in place give the expected outline and match NASM.' % len(EDITS))
     if models:
         for req, want in PLANS:
             out = run(dest, [req])

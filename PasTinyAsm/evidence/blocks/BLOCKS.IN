@@ -34,5 +34,14 @@ clear the screen
 go 4
 del
 show
+new
+name b5
+repeat 2 times:
+say hi, new line
+end
+edit 1 repeat 3 times
+edit 2 say yo
+edit 4 CLS
+show
 mem
 quit

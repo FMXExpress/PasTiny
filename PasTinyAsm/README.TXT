@@ -44,6 +44,9 @@ inside it:
   Up, Down       move the blue line, into and out of blocks
   Tab, Shift-Tab jump to the next or the previous block
   Home, End      top and bottom
+  F2             change the line below: its code comes up on the
+                 blue line; alter it or type a new sentence,
+                 Enter.  (Enter on an empty line does the same.)
   Del            on an empty line: delete the line below, or the
                  whole block it opens
   Esc            clear what you typed

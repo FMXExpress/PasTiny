@@ -1,5 +1,5 @@
 PasTinyAsm 1.2  FPU yes
-heap=502008
+heap=499624
 > new
 new program
 > name p1

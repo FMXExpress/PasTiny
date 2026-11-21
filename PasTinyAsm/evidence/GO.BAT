@@ -35,5 +35,6 @@ B2.COM < I21.IN > B2A.OUT
 B2.COM < I3.IN > B2B.OUT
 B3.COM < KEYS.IN > B3.OUT
 B4.COM > B4.OUT
+B5.COM > B5.OUT
 echo finished > END.OUT
 exit

@@ -560,8 +560,58 @@ begin
  DeleteAt:=True
 end;
 
+(* The text to show when line E is taken up for changing. *)
+function LineText(E:Integer):String;
+begin
+ if Plan[E][1]=#255 then LineText:='print "'+Copy(Plan[E],2,255)+'"' else LineText:=Plan[E]
+end;
+
+(* Change line E to what T gives: a line of the language, or a sentence
+   for the experts.  The first line of a block may only become another
+   first line of a block; the lines that close blocks cannot be changed.
+   If the new text is refused, the old line stays. *)
+function ReplaceLine(E:Integer; T:String):Boolean;
+var Old,OldShut,Open,Shut:TLine; U,Why:String; I,D,M,Delta,SaveCur:Integer; Found:Boolean;
+begin
+ ReplaceLine:=False;
+ if (E<1) or (E>Steps) then begin WriteLn('there is no line there'); Exit end;
+ if Kind[E] in ['C','E'] then begin WriteLn('this line cannot be changed; change the first line of its block'); Exit end;
+ while (T<>'') and (T[Length(T)]=' ') do Delete(T,Length(T),1);
+ Old:=Plan[E]; SaveCur:=Cur; NPend:=0; NClose:=0;
+ if Kind[E]='O' then begin
+  if (T<>'') and (T[Length(T)]=':') then Delete(T,Length(T),1);
+  U:=T; for I:=1 to Length(U) do U[I]:=UpCase(U[I]);
+  while (U<>'') and (U[1]=' ') do Delete(U,1,1);
+  Cur:=E; Found:=False;
+  if CheckPart(U,Delta,Why) and (Delta=1) then begin
+   Open:=U; Shut:='END'; if Copy(U,1,4)='FOR ' then Shut:='NEXT'; Found:=True
+  end else Found:=Opener(Tidy(T),Open,Shut);
+  Cur:=SaveCur;
+  if not Found then begin WriteLn('that does not open a block'); Exit end;
+  D:=0; M:=0;
+  for I:=E+1 to Steps do if M=0 then begin
+   if Kind[I]='O' then Inc(D)
+   else if Kind[I]='C' then begin if D=0 then M:=I else Dec(D) end
+  end;
+  if M=0 then Exit;
+  OldShut:=Plan[M]; Plan[E]:=Open; Plan[M]:=Shut;
+  if not Build('') then begin
+   WriteLn('does not fit here: ',CompErr); Plan[E]:=Old; Plan[M]:=OldShut; Exit
+  end;
+  WriteLn(E,' ',T,' -> ',Open); ReplaceLine:=True
+ end else begin
+  Remove(E,1); Cur:=E;
+  if MakePlan(T) then ReplaceLine:=True
+  else begin
+   for I:=Steps downto E do begin Plan[I+1]:=Plan[I]; Kind[I+1]:=Kind[I] end;
+   Plan[E]:=Old; Kind[E]:=' '; Inc(Steps); Cur:=SaveCur;
+   WriteLn('nothing changed')
+  end
+ end
+end;
+
 procedure Handle(L:String);
-var Cmd,Rest:String; I:Integer; V:Longint; Changed:Boolean;
+var Cmd,Rest,W:String; I:Integer; V:Longint; Changed:Boolean;
 begin
  Rest:=L; Cmd:=NextWord(Rest); Changed:=False;
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
@@ -589,13 +639,13 @@ begin
   WriteLn('A colon opens a block; the next sentences go inside it:');
   WriteLn('  repeat 3 times:      count from 1 to 5:      forever:');
   WriteLn('  if it is bigger than 5:      if the key is q:      else');
-  WriteLn('The blue line is where new code goes.  Up and Down move it through');
-  WriteLn('the program, into and out of blocks; Tab and Shift-Tab jump from');
-  WriteLn('block to block; Home and End go to the top and the bottom.  Del on an');
-  WriteLn('empty line deletes the line below it, or the whole block it opens.');
+  WriteLn('The blue line is where new code goes.  Up and Down move it, into and');
+  WriteLn('out of blocks; Tab and Shift-Tab jump from block to block; Home and End');
+  WriteLn('go to the top and bottom.  Del on an empty line deletes the line below.');
   WriteLn('Typed commands: END leaves a block, NEW empties the program, NAME file');
   WriteLn('names it (now ',OutName,'), LIST shows the language, QUIT ends.');
-  WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n SHOW.');
+  WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
+  WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
   Exit
  end
  else if (Cmd='MEM') and (Rest='') then begin
@@ -621,6 +671,11 @@ begin
  else if ((Cmd='DEL') or (Cmd='DELETE')) and ((Rest='') or Number(Rest,V)) then begin
   if Rest='' then V:=Cur;
   Changed:=DeleteAt(V)
+ end
+ else if (Cmd='EDIT') and (Rest<>'') then begin
+  (* EDIT n text: change line n *)
+  W:=NextWord(Rest);
+  if Number(W,V) and (Rest<>'') then Changed:=ReplaceLine(V,Rest) else WriteLn('EDIT n text')
  end
  else if MakePlan(L) then Changed:=True
  else WriteLn('nothing added');
@@ -651,7 +706,9 @@ begin GetKey:=ReadKey end;
    typed.  Everything the planner prints goes to a message area. *)
 const MAXMSG=18; LISTTOP=3; LISTROWS=17;
 var Msg:array[1..MAXMSG] of String[78]; NMsg:Integer; MsgPart:String[78];
- Field:String[200]; TopItem:Integer; MsgBuf:array[0..127] of Char; SavedOut:TextRec;
+ Field:String[200]; TopItem:Integer;
+ EditLine:Integer;      (* the line being changed, or 0 *)
+ MsgBuf:array[0..127] of Char; SavedOut:TextRec;
 
 procedure MsgLine;
 var I:Integer;
@@ -710,7 +767,7 @@ begin
  D:=0; Y:=LISTTOP; CurX:=1; CurY:=LISTTOP; Item:=0;
  for I:=1 to Steps+1 do begin
   if (I<=Steps) and (Kind[I]='C') and (D>0) then Dec(D);
-  if I=Cur then begin
+  if (I=Cur) and (EditLine=0) then begin
    Inc(Item);
    if (Item>=TopItem) and (Y<LISTTOP+LISTROWS) then begin
     First:=D; if (I<=Steps) and (Kind[I]='C') then Inc(First);
@@ -726,8 +783,14 @@ begin
    if (Item>=TopItem) and (Y<LISTTOP+LISTROWS) then begin
     Str(I:3,N);
     if Kind[I]='E' then S:=N+' '+Spaces((D-1)*2) else S:=N+' '+Spaces(D*2);
-    if Plan[I][1]=#255 then S:=S+'PRINT "'+Copy(Plan[I],2,255)+'"' else S:=S+Plan[I];
-    if Kind[I]=' ' then Row(Y,S,7) else Row(Y,S,$0B);
+    if I=EditLine then begin
+     (* the line being changed: what is typed stands in its place *)
+     if Length(Field)>74-Length(S) then S:=S+Copy(Field,Length(Field)-(74-Length(S))+1,255) else S:=S+Field;
+     CurX:=Length(S)+1; CurY:=Y; Row(Y,S,$1F)
+    end else begin
+     if Plan[I][1]=#255 then S:=S+'PRINT "'+Copy(Plan[I],2,255)+'"' else S:=S+Plan[I];
+     if Kind[I]=' ' then Row(Y,S,7) else Row(Y,S,$0B)
+    end;
     Inc(Y)
    end;
    if Kind[I]='O' then Inc(D)
@@ -744,7 +807,7 @@ begin
   for I:=21 to 24 do Row(I,'',7);
   Row(24,' press a key',$0E)
  end;
- Row(25,' Up/Down move   Tab next block   Del delete   Enter add   F1 help   Alt-X quit',$70);
+ Row(25,' Up/Down move  Tab block  Enter add  F2 change  Del delete  F1 help  Alt-X quit',$70);
  Window(1,1,80,25); GotoXY(CurX,CurY); Flush
 end;
 
@@ -756,7 +819,7 @@ begin
   Handle:=$FFFF; Mode:=fmClosed; BufSize:=SizeOf(MsgBuf); BufPtr:=@MsgBuf; OpenFunc:=@MsgOpen; Name[0]:=#0
  end;
  Rewrite(Output);
- NMsg:=0; MsgPart:=''; Field:=''; TopItem:=1; Done:=False;
+ NMsg:=0; MsgPart:=''; Field:=''; TopItem:=1; Done:=False; EditLine:=0;
  WriteLn('Say what the program should do and press Enter.  F1 shows more.');
  while not Done do begin
   Draw('');
@@ -770,7 +833,22 @@ begin
    if Length(Field)<200 then Field:=Field+Chr(K)
   end
   else if K=8 then begin if Field<>'' then Delete(Field,Length(Field),1) end
-  else if K=27 then Field:=''
+  else if K=27 then begin Field:=''; EditLine:=0 end
+  else if (K=256+60) or ((K=13) and (Field='') and (EditLine=0)) then begin
+   (* F2, or Enter on an empty line: take up the line below for changing *)
+   NMsg:=0;
+   if Cur>Steps then WriteLn('there is no line below to change')
+   else if Kind[Cur] in ['C','E'] then WriteLn('this line cannot be changed; change the first line of its block')
+   else begin EditLine:=Cur; Field:=LineText(Cur) end
+  end
+  else if (K=13) and (EditLine>0) then begin
+   NMsg:=0; I:=EditLine; EditLine:=0; L:=Field; Field:='';
+   if L<>'' then begin
+    Draw('working...');
+    if ReplaceLine(I,L) then Save
+   end
+  end
+  else if (K>256) and (EditLine>0) and (K<>256+59) then begin EditLine:=0; Field:='' end
   else if K=256+72 then Move('UP',0) else if K=256+80 then Move('DOWN',0)
   else if K=9 then Move('TAB',0) else if K=256+15 then Move('BACK',0)
   else if K=256+71 then Move('TOP',0) else if K=256+79 then Move('BOTTOM',0)

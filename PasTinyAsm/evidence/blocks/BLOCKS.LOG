@@ -1,5 +1,5 @@
 PasTinyAsm 1.2  FPU yes
-heap=502008
+heap=499624
 > name b1
 name B1
 > repeat 2 times:
@@ -124,6 +124,33 @@ wrote B4.COM 183 bytes, B4.ASM
   5   PRINT next
   6   NEWLINE
   7 NEXT
+> new
+new program
+> name b5
+name B5
+> repeat 2 times:
+1 repeat 2 times: -> TIMES 2   (no model)
+wrote B5.COM 78 bytes, B5.ASM
+> say hi, new line
+2 say hi -> PRINT hi
+3 new line -> NEWLINE
+wrote B5.COM 106 bytes, B5.ASM
+> end
+at 5
+> edit 1 repeat 3 times
+1 repeat 3 times -> TIMES 3
+wrote B5.COM 106 bytes, B5.ASM
+> edit 2 say yo
+2 say yo -> PRINT yo
+wrote B5.COM 106 bytes, B5.ASM
+> edit 4 CLS
+this line cannot be changed; change the first line of its block
+> show
+  1 TIMES 3
+  2   PRINT yo
+   >  
+  3   NEWLINE
+  4 END
 > mem
-heap=17808 largest=17808 stack=15080
+heap=15424 largest=15424 stack=14824
 > quit
