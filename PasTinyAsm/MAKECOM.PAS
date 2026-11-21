@@ -335,7 +335,7 @@ end;
 function IsTask(S:String):Boolean;
 const NK=31; TaskWords:array[1..NK] of String[10]=
  ('count','countdown','numbers','ask','table','squares','even','odd','each','every','higher','lower',
-  'cycle','if','many','rounds','add','otherwise','multiples','cubes','powers','until','timer','stars',
+  'cycle','if','many','rounds','add','otherwise','multiples','cubes','powers','asking','timer','stars',
   'triangle','rising','falling','multiply','fast','slowly','backwards');
 var I:Integer; F:String;
 begin

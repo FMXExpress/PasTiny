@@ -167,7 +167,7 @@ P['sound'] = [
 HELD['sound'] = [
     ('let the speaker beep', 'BEEP 440 300'), ('do a beep', 'BEEP 440 300'),
     ('beep with {f} hertz', 'BEEP {f} 300'), ('a {f} hz tone for {d}', 'BEEP {f} {d}'),
-    ('give me a low tone', 'BEEP 200 300'), ('a very long beep', 'BEEP 440 1000'),
+    ('let me hear a low tone', 'BEEP 200 300'), ('a very long beep', 'BEEP 440 1000'),
     ('set off the alarm', 'SIREN 2'), ('let the siren go {n} times', 'SIREN {n}'),
     ('play me a tune', 'SCALE'), ('some music please', 'SCALE'),
     ('take a break for {w}', 'WAIT {w}'), ('stay quiet for {w}', 'WAIT {w}'), ('wait about {w}', 'WAIT {w}'),

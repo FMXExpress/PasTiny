@@ -92,6 +92,18 @@ EDITS = [   # changing lines in place: (session, outline expected)
 ]
 REFUSED = ['format the hard disk', 'FLASH 99', 'beep at 5 hertz', 'what is the capital of peru']
 
+# A held-out wording must not be one the training patterns can produce.  (The text
+# expert is left out: its texts are free, so "print out hello" can always be read
+# as a trained "print" followed by the text "out hello".)
+def _form(q):
+    colors = sorted({c for c, _ in gen_asm.COLORS8 + gen_asm.COLORS16}, key=len, reverse=True)
+    q = re.sub(r'\b(%s)\b' % '|'.join(colors), 'C', q)
+    return ' '.join('N' if (w.isdigit() or w in gen_asm.WORDS) else w for w in q.split())
+for _e in ('screen', 'sound'):
+    _r = random.Random(1)
+    _trained = {_form(gen_asm.make(_r, _e)[0]) for _ in range(60000)}
+    _both = {_form(gen_asm.make(_r, _e, pool=gen_asm.HELD[_e])[0]) for _ in range(3000)} & _trained
+    assert not _both, 'held-out wordings that are also trained: %s' % sorted(_both)
 assert buildlib.render()[0].split() == (root / 'LIB.INC').read_text().split(), 'LIB.INC is out of date: run tools/buildlib.py'
 with tempfile.TemporaryDirectory() as tmp:
     dest = Path(tmp) / 'run'; dest.mkdir()
