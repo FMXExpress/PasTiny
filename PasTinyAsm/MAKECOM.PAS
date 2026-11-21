@@ -470,11 +470,14 @@ function Sentence(P:String):Boolean; forward;
 
    "build an alarm clock" says little.  The recipes expert knows what
    such a thing consists of and says it in sentences the other experts
-   understand, one step for each question:
+   understand, one step for each question.  A question is the number of
+   the step, the request without its filler words, and the first 20
+   letters of the step before, so that the expert only has to say what
+   comes next:
 
-     1 build an alarm clock  ->  ask for a number and count down from it
-     2 build an alarm clock  ->  play a siren
-     3 build an alarm clock  ->  done
+     1 alarm clock | start                 ->  ask for a number and ...
+     2 alarm clock | ask for a number and  ->  play a siren
+     3 alarm clock | play a siren          ->  done
 
    The steps are gathered first, so that this expert is loaded once, and
    then planned like sentences typed by hand: everything that checks a
@@ -494,19 +497,28 @@ const MAXSTEP=12;
 var Step:array[1..MAXSTEP] of String[72];      (* the steps of the recipe being expanded *)
 
 function Expand(P:String):Boolean;
-var N,I:Integer; S,A,Num:String; Tokens,V:Longint; Ok:Boolean;
+var N,I,K:Integer; S,A,Num,Core,Prev:String; Tokens,V:Longint; Ok:Boolean;
+ procedure Drop(Lead:String);
+ begin if Copy(Core,1,Length(Lead))=Lead then Delete(Core,1,Length(Lead)) end;
 begin
  Expand:=False; S:=Tidy(P); N:=0;
- if Length(S)>68 then begin Refuse(S,'request too long'); Exit end;
+ (* the request without the words that only say "make me one" *)
+ Core:=S; Drop('build '); Drop('create '); Drop('write '); Drop('i want ');
+ if Copy(Core,1,3)='an ' then Delete(Core,1,3) else Drop('a ');
+ K:=Pos(' program',Core); if K>0 then Delete(Core,K,8);
+ Prev:='start';
  if not Switch(XRECIPES) then Exit;
  repeat
   Str(N+1,Num);
-  Cancelled:=False; Think(Num+' '+S,A,Tokens,PollEscape,nil);
+  if Length(Num)+Length(Core)+Length(Prev)+4>72 then begin Refuse(S,'request too long'); Exit end;
+  Cancelled:=False; Think(Num+' '+Core+' | '+Prev,A,Tokens,PollEscape,nil);
   if Cancelled then begin WriteLn('cancelled'); Exit end;
   if (A='') or (Length(A)>72) then begin Refuse(S,'no recipe for this'); Exit end;
   if A<>'done' then begin
    if N=MAXSTEP then begin Refuse(S,'recipe has too many steps'); Exit end;
-   Inc(N); Step[N]:=A
+   Inc(N); Step[N]:=A;
+   Prev:=Copy(Tidy(A),1,20);
+   while (Prev<>'') and (Prev[Length(Prev)]=' ') do Delete(Prev,Length(Prev),1)
   end
  until A='done';
  if N=0 then begin Refuse(S,'no recipe for this'); Exit end;

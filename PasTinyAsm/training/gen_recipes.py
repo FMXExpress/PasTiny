@@ -3,12 +3,20 @@
 
 A request such as "build an alarm clock" says little.  The expert knows what
 such a thing consists of and says it in sentences the other experts
-understand.  It is asked for one step at a time:
+understand.  It is asked for one step at a time, and each question carries
+the start of the step before, so that the expert only has to say what comes
+next:
 
-    1 build an alarm clock   ->  ask for a number and count down from it and wait a second each time
-    2 build an alarm clock   ->  play a siren
-    3 build an alarm clock   ->  flash the screen 3 times
-    4 build an alarm clock   ->  done
+    1 alarm clock | start                 ->  ask for a number and count down from it and wait a second each time
+    2 alarm clock | ask for a number and  ->  play a siren
+    3 alarm clock | play a siren          ->  flash the screen 3 times
+    4 alarm clock | flash the screen 3 ti ->  done
+
+A question may be 72 characters long, so the request is cut to its core
+("build a", "program" and the like are dropped) and only the first 20
+characters of the previous step are given.  The first version asked with the
+step number and the whole request and nothing else; see the README for how
+the two compare.
 
 A request is a recipe, perhaps with a number, and perhaps one change: done N
 times, with something at the end, or on a coloured screen.  A change moves or
@@ -23,7 +31,7 @@ Splits:
 
   python3 gen_recipes.py N [seen|combo|words] [--seed S]    prints JSON lines, one per step
 """
-import json, random, sys
+import json, random, re, sys
 
 # name -> (names it goes by, a name used only for testing, how its number is said or None,
 #          (lowest, highest number), the steps; {n} is the number)
@@ -135,11 +143,43 @@ def request(r, split='seen'):
             return q, steps
 
 
+def tidy(s):
+    """As MAKECOM tidies a request: small letters, digits and single spaces."""
+    return re.sub(r'[^a-z0-9]+', ' ', s.lower()).strip()
+
+
+def core(q):
+    """The request without the words that only say "make me one"."""
+    t = tidy(q)
+    for lead in ('build ', 'create ', 'write ', 'i want '):
+        if t.startswith(lead):
+            t = t[len(lead):]
+    for lead in ('an ', 'a '):
+        if t.startswith(lead):
+            t = t[len(lead):]
+    return t.replace(' program', '', 1)
+
+
+def question(k, q, steps):
+    """The question for step k (from 1) of request q, whose steps so far are known."""
+    prev = 'start' if k == 1 else tidy(steps[k - 2])[:20].strip()
+    return '%d %s | %s' % (k, core(q), prev)
+
+
+def fits(q, steps):
+    """Can every step of this request be asked for and answered inside the window?"""
+    return all(len(question(k, q, steps)) <= 72 and len(question(k, q, steps)) + len(steps[k - 1]) <= 124
+               for k in range(1, len(steps) + 1)) and len(question(len(steps) + 1, q, steps)) <= 72
+
+
 def make(r, split='seen'):
     """One (question, answer): a step of a request, or "done" after its last."""
-    q, steps = request(r, split)
+    while True:
+        q, steps = request(r, split)
+        if fits(q, steps):
+            break
     k = r.randint(1, len(steps) + 1)
-    return '%d %s' % (k, q), steps[k - 1] if k <= len(steps) else 'done'
+    return question(k, q, steps), steps[k - 1] if k <= len(steps) else 'done'
 
 
 if __name__ == '__main__':
