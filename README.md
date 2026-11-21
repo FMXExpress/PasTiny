@@ -7,6 +7,28 @@ A Pascal port of [TINY 2.1](https://github.com/WollyMonjac/Tiny-2.1), a small ch
 - Free Pascal native host and 32-bit DOS builds; TP7/BP7 build commands supplied.
 - Unchanged upstream model and reference implementation retained for comparisons.
 
+## Project guide
+
+| Project | Where it runs | What to try |
+| --- | --- | --- |
+| [PasTiny](#run-on-dos) | 386 DOS or native Linux | Ask the original Tiny model a question. The DOS edition has a neon text interface, a live neural monitor and PC-speaker chatter. Start with [TP7TINY.ZIP](dist/TP7TINY.ZIP) for a 386 without a coprocessor. |
+| [Delphi 1 edition](delphi1/README.TXT) | Windows 3.1 | Run the same model in an 80×25 Win16 chat window with the monitor and voice. |
+| [Modern Pascal editions](delphi13/README.md) | Delphi 13 or Free Pascal | Run `TinyConsole` for terminal chat, build `TinyChat` for Windows VCL, or open `TinyChatFMX` for the FireMonkey interface with PasClaw’s dark theme. |
+| [PasTinyMoE](PasTinyMoE/README.md) | 386 DOS | Ask a question in `AUTO` to route it among 100 specialists, with original Tiny as the fallback. Use `LIST` and `USE` to pick one yourself. [SPEC100.ZIP](PasTinyMoE/dist/SPEC100.ZIP) |
+| [PasTinyJev](PasTinyJev/README.md) | 386 DOS | Give the support-triage model a message and ask for a yes/no probability, a choice or a score. The edition fits on a [1.44 MB floppy image](PasTinyJev/dist/JEV1.IMG). |
+| [PasTinyAsm](PasTinyAsm/README.md) | 386 DOS | Describe a small DOS program one instruction at a time, edit the generated program and press F5 to run the resulting `.COM` file. [PASASM.ZIP](PasTinyAsm/dist/PASASM.ZIP) |
+| [Hand-written networks](PasTinyMoE/handwritten/README.md) | PasTinyMoE and PasTinyJev runtimes | Explore weights that implement algorithms directly, including word reversal, ROT13, number comparison and addition. |
+
+### Screenshots from DOSBox-X
+
+| PasTinyMoE routes two questions | PasTinyJev scores a billing message |
+| --- | --- |
+| [![SPEC100 answers Lima with original Tiny, then loads Debugger Vocabulary for a breakpoint question](docs/screenshots/moe.png)](docs/screenshots/moe.png) | [![PasTinyJev assigns a billing probability of 0.9826 to “I was charged twice this month”](docs/screenshots/jev.png)](docs/screenshots/jev.png) |
+
+| PasTinyAsm editor | Running the program with F5 |
+| --- | --- |
+| [![DOS editor showing a triangle, multiples of nine and a repeat block](PasTinyAsm/docs/editor-shapes.png)](PasTinyAsm/docs/editor-shapes.png) | [![Output of the program built in the PasTinyAsm editor](PasTinyAsm/docs/editor-run.png)](PasTinyAsm/docs/editor-run.png) |
+
 ## Run on DOS
 
 For a 386 without a coprocessor, use **[TP7TINY.ZIP](https://github.com/FMXExpress/PasTiny/raw/refs/heads/main/dist/TP7TINY.ZIP)**: the Turbo Pascal 7 real-mode build with built-in floating-point emulation. It has passed all 60 reference answers with the FPU enabled, plus the five-question benchmark with `fpu=false`. Physical Pocket386 hardware remains untested. No CWSDPMI or WMEMU387 file is needed for this build.
