@@ -77,7 +77,9 @@ begin
 end;
 
 function XmsStore(Name:String):Word;
-var F:File; Chunk:array[0..2047] of Byte; Got:Word; H:Word; Pos,Size:Longint; Ok:Boolean;
+var F:File; Got:Word;
+ Chunk:array[0..511] of Byte;      (* small: this is called from deep in the planner *)
+ H:Word; Pos,Size:Longint; Ok:Boolean;
 begin
  XmsStore:=0;
  if not Have or (NH=MAXH) then Exit;

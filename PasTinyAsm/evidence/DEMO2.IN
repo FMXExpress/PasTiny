@@ -1,0 +1,8 @@
+build a welcome screen
+build a rocket launch from 5
+repeat 2 times:
+a high beep
+flash the screen
+end
+print a triangle of stars with 4 lines
+say "The End"
