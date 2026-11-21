@@ -54,7 +54,7 @@ The models never write an instruction. A 380 KB network cannot be trusted to get
 | Check | code | The line must compile, the numbers typed must be in it, and any text it prints must be words of the request. Otherwise it is refused, and nothing is written |
 | Compile | code | All the lines become 8086 code, followed by the library routines that were used |
 
-Four experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.BIN`:
+Five experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.BIN`:
 
 | Expert | Writes |
 |---|---|
@@ -62,6 +62,7 @@ Four experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.
 | `SOUND.BIN` | `BEEP hertz ms`, `SIREN n`, `SCALE`, `WAIT ms`, `KEY`, `REPEAT n` |
 | `TEXT.BIN` | `PRINT text`, `NEWLINE`, `NUMBER n` |
 | `TASKS.BIN` | whole small programs with loops, keyboard input, arithmetic and tests |
+| `RECIPES.BIN` | the steps of a named thing, as sentences for the other four |
 
 Two kinds of step skip the model: a step that is already a line of the language, and a step with text in double quotes, which prints that text exactly (`print "Hello, World!"`).
 
@@ -128,6 +129,43 @@ Blocks are opened by code, not by a model, from a small set of wordings:
 | any opening line of the language, such as `FOR I=1 TO 5:` | itself |
 
 Inside a block, sentences go to the experts as usual, so one-sentence programs from the tasks expert can be nested too. A request is added whole or not at all, and a line that does not fit where it is put ("else" outside an "if") is refused.
+
+## Recipes: say little, get a program
+
+"build an alarm clock" names a thing and says nothing about how. A fifth expert, `RECIPES.BIN`, knows what such a thing consists of and says it in sentences the other experts understand. It is asked for one step at a time, because a whole expansion would not fit in its 128-character window:
+
+```
+> build an alarm clock
+build an alarm clock:
+  = ask for a number and count down from it and wait a second each time
+1 ... -> INPUT A:FOR I=A DOWNTO 1:OUT I:WAIT:NEXT
+  = play a siren
+2 play a siren -> SIREN 2
+  = flash the screen 3 times
+3 flash the screen 3 times -> FLASH 3
+```
+
+Each step is then planned exactly like a sentence typed by hand, so every check on typed sentences applies, and a number in the request that does not turn up in any step refuses the whole request. A recipe is asked for with "build ...", "create ..." or "write a ... program".
+
+It knows 30 recipes (alarm clock, kitchen timer, metronome, traffic light, doorbell, police car, SOS, rocket launch, guessing game, piano, fireworks, star tree, welcome screen and others; the list is in [`training/gen_recipes.py`](training/gen_recipes.py)), some with a number, and three changes: "N times", "with ... at the end", "on a blue screen".
+
+**It recalls recipes; it does not adapt them.** End to end, the request alone against its steps typed by hand, 100 requests per set:
+
+| Set | Same program | Refused | Different program |
+|---|---:|---:|---:|
+| Trained recipes and recipe-with-change pairs, new numbers | 96 | 4 | 0 |
+| Recipe-with-change pairs held out of training | 33 | 12 | 55 |
+| Names and request wordings never trained on | 21 | 20 | 59 |
+
+- A change moves the steps: "on a blue screen" puts a new step first, so every later step has a new number. For pairs it was trained on the expert gets that right; for a recipe it has only seen without that change, it mostly loses its place, and steps from other recipes appear.
+- This is the opposite of the tasks expert, which combines parts it knows at 281 of 300. The difference is that the tasks expert writes its whole answer at once, while this one must answer "what is step 4?" with nothing but the request to go on.
+- So the idea works as a recipe book and the second stage is sound (the steps of all 30 recipes, typed by hand, are accepted). As a way to compose, it does not work yet. Asking with the previous step in the question, so that the expert only has to say what comes next, is the obvious thing to try.
+
+![A program built from two recipes, a block and two sentences](docs/demo-listing.png)
+
+Built from "build a welcome screen", "build a rocket launch from 5", a `repeat 2 times:` block with two sentences, "print a triangle of stars with 4 lines" and `say "The End"`. Run with F5:
+
+![That program run](docs/demo-run.png)
 
 ## Running, the log and extended memory
 
@@ -231,7 +269,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - The package no longer fits one floppy: with four experts it unpacks to 1,598,842 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and about 9 KB of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and about 3 KB of heap remain with a model loaded; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.

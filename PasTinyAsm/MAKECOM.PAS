@@ -36,7 +36,7 @@ program MakeCom;
    file the same moves are commands (UP, DOWN, TAB, GO n ...) and the
    output is plain text.  MAKECOM file starts from the lines of a file. *)
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
-{$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
+{$IFDEF VER70}{$F+}{$M 20480,0,655360}{$ENDIF}      (* 20 KB of stack: a recipe step is planned four calls deep *)
 {$N+}{$E+}
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
@@ -483,13 +483,18 @@ function IsRecipe(S:String):Boolean;
 var F:String;
 begin
  F:=FirstWord(S);
+ (* "build a ...", "create a ...", "write a ... program", "i want a ... program";
+    not "repeat the program 3 times", which is about the program in hand *)
  IsRecipe:=(FindId(XRECIPES)<>0) and
-  ((F='build') or (F='create') or HasWord(S,'program') or HasWord(S,'game'))
+  ((F='build') or (F='create') or
+   (HasWord(S,'program') and ((F='write') or (Copy(S,1,7)='i want '))))
 end;
 
-function Expand(P:String):Boolean;
 const MAXSTEP=12;
-var Step:array[1..MAXSTEP] of String[72]; N,I:Integer; S,A,Num:String; Tokens:Longint; Ok:Boolean;
+var Step:array[1..MAXSTEP] of String[72];      (* the steps of the recipe being expanded *)
+
+function Expand(P:String):Boolean;
+var N,I:Integer; S,A,Num:String; Tokens,V:Longint; Ok:Boolean;
 begin
  Expand:=False; S:=Tidy(P); N:=0;
  if Length(S)>68 then begin Refuse(S,'request too long'); Exit end;
@@ -505,6 +510,16 @@ begin
   end
  until A='done';
  if N=0 then begin Refuse(S,'no recipe for this'); Exit end;
+ (* every number in the request must turn up in some step *)
+ A:=S;
+ while A<>'' do begin
+  Num:=NextWord(A);
+  if Number(Num,V) then begin
+   Ok:=False;
+   for I:=1 to N do if LineHas(Step[I],V) then Ok:=True;
+   if not Ok then begin Refuse(S,'the steps lost the number '+Num); Exit end
+  end
+ end;
  WriteLn(S,':'); LogLine('  recipe: '+S);
  Ok:=True;
  for I:=1 to N do if Ok then begin
