@@ -1,0 +1,156 @@
+PasTinyAsm 1.2  FPU yes
+heap=499352
+> name b1
+name B1
+> repeat 2 times:
+1 repeat 2 times: -> TIMES 2   (no model)
+wrote B1.COM 78 bytes, B1.ASM
+> say hello
+2 say hello -> PRINT hello
+wrote B1.COM 95 bytes, B1.ASM
+> count from 1 to 3:
+3 count from 1 to 3: -> FOR X=1 TO 3   (no model)
+wrote B1.COM 137 bytes, B1.ASM
+> print the count
+4 print the count -> OUT X   (no model)
+wrote B1.COM 183 bytes, B1.ASM
+> end
+at 6
+> beep
+6 beep -> BEEP 440 300
+wrote B1.COM 251 bytes, B1.ASM
+> end
+at 8
+> say "done"
+8 say "done" -> PRINT done   (no model)
+wrote B1.COM 262 bytes, B1.ASM
+> show
+  1 TIMES 2
+  2   PRINT hello
+  3   FOR X=1 TO 3
+  4     OUT X
+  5   NEXT
+  6   BEEP 440 300
+  7 END
+  8 PRINT "done"
+   >
+> new
+new program
+> name b2
+name B2
+> ask for a number and print its double
+1 ask for a number and print its double -> INPUT A:OUT A*2
+wrote B2.COM 165 bytes, B2.ASM
+> if it is bigger than 10: say big
+2 if it is bigger than 10: -> IF A>10   (no model)
+3 say big -> PRINT big
+wrote B2.COM 197 bytes, B2.ASM
+> else
+4 else -> ELSE   (no model)
+wrote B2.COM 200 bytes, B2.ASM
+> say small
+5 say small -> PRINT small
+wrote B2.COM 212 bytes, B2.ASM
+> show
+  1 INPUT A:OUT A*2
+  2 IF A>10
+  3   PRINT big
+  4 ELSE
+  5   PRINT small
+   >  
+  6 END
+> new
+new program
+> name b3
+name B3
+> forever: wait for a key
+1 forever: -> FOREVER   (no model)
+2 wait for a key -> KEY
+wrote B3.COM 76 bytes, B3.ASM
+> if the key is q: stop
+3 if the key is q: -> IF K='q'   (no model)
+4 stop -> STOP   (no model)
+wrote B3.COM 98 bytes, B3.ASM
+> end
+at 6
+> say again, new line
+6 say again -> PRINT again
+7 new line -> NEWLINE
+wrote B3.COM 129 bytes, B3.ASM
+> show
+  1 FOREVER
+  2   KEY
+  3   IF K='q'
+  4     STOP
+  5   END
+  6   PRINT again
+  7   NEWLINE
+   >  
+  8 END
+> new
+new program
+> name b4
+name B4
+> count from 1 to 3:
+1 count from 1 to 3: -> FOR X=1 TO 3   (no model)
+wrote B4.COM 102 bytes, B4.ASM
+> count down from 2:
+2 count down from 2: -> FOR Y=2 DOWNTO 1   (no model)
+wrote B4.COM 144 bytes, B4.ASM
+> print the count
+3 print the count -> OUT Y   (no model)
+wrote B4.COM 190 bytes, B4.ASM
+> end
+at 5
+> say next, new line
+5 say next -> PRINT next
+6 new line -> NEWLINE
+wrote B4.COM 209 bytes, B4.ASM
+> top
+at 1
+> clear the screen
+1 clear the screen -> CLS
+wrote B4.COM 218 bytes, B4.ASM
+> go 4
+at 4
+> del
+wrote B4.COM 183 bytes, B4.ASM
+> show
+  1 CLS
+  2 FOR X=1 TO 3
+  3   FOR Y=2 DOWNTO 1
+   >    
+  4   NEXT
+  5   PRINT next
+  6   NEWLINE
+  7 NEXT
+> new
+new program
+> name b5
+name B5
+> repeat 2 times:
+1 repeat 2 times: -> TIMES 2   (no model)
+wrote B5.COM 78 bytes, B5.ASM
+> say hi, new line
+2 say hi -> PRINT hi
+3 new line -> NEWLINE
+wrote B5.COM 106 bytes, B5.ASM
+> end
+at 5
+> edit 1 repeat 3 times
+1 repeat 3 times -> TIMES 3
+wrote B5.COM 106 bytes, B5.ASM
+> edit 2 say yo
+2 say yo -> PRINT yo
+wrote B5.COM 106 bytes, B5.ASM
+> edit 4 CLS
+this line cannot be changed; change the first line of its block
+> show
+  1 TIMES 3
+  2   PRINT yo
+   >  
+  3   NEWLINE
+  4 END
+> mem
+heap=15152 largest=15152 stack=14824
+> quit

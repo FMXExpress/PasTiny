@@ -1,15 +1,15 @@
 PasTinyAsm 1.0 - say what a program should do, get a .COM file
 ================================================================
-Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN.
-Keep them in one directory.  Needs a 386 and about 570 KB of free
+Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN,
+TASKS.BIN.
+Keep them in one directory.  Needs a 386 and about 590 KB of free
 conventional memory.  A coprocessor is optional.
 
   C:\ASM> MAKECOM
-  > make screen flash, play sound
-  1 make screen flash -> FLASH 3
-  2 play sound -> BEEP 440 300
-  wrote OUT.COM 123 bytes, OUT.ASM
-  > quit
+  type:  make screen flash, play sound      and press Enter
+  the screen shows:   1 FLASH 3
+                      2 BEEP 440 300
+  press Alt-X, then
   C:\ASM> OUT
 
 Separate the steps with commas, "and" or "then".  Things it knows:
@@ -26,12 +26,48 @@ Separate the steps with commas, "and" or "then".  Things it knows:
 
 Put text in double quotes to print it exactly as typed.
 
+A whole sentence can ask for a small program:
+  count down from 10 and beep each time then say liftoff
+  ask for a number and print its double
+  print the 7 times table
+  3 times, each time say hi and flash
+
+THE EDITOR.  Your program is always on the screen.  The blue line
+is where new code goes: type a sentence there and press Enter.  It
+is written to disk after every change.
+
+Words before a colon open a block, and what you type next goes
+inside it:
+  repeat 3 times:          count from 1 to 10:      forever:
+  if it is bigger than 5:  if the key is q:         else
+
+  Up, Down       move the blue line, into and out of blocks
+  Tab, Shift-Tab jump to the next or the previous block
+  Home, End      top and bottom
+  F2             change the line below: its code comes up on the
+                 blue line; alter it or type a new sentence,
+                 Enter.  (Enter on an empty line does the same.)
+  Del            on an empty line: delete the line below, or the
+                 whole block it opens
+  Left, Right, Home, End, Del, Backspace
+                 move and correct inside what you are typing
+  Esc            clear what you typed
+  F1             help         Alt-X or QUIT   leave
+Typed commands: END leaves a block, NEW starts again, NAME file.
+
+MAKECOM file starts with the lines of a file already entered.
+MAKECOM < file runs without the editor (UP DOWN TAB GO n DEL n SHOW).
+
+You can also type the language itself (LIST shows it):
+  FOR I=1 TO 5:OUT I*I:NEXT
+  INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END
+
 Commands: NAME file (program to write, OUT at first), LIST (the
 calls and their limits), HELP, MEM, QUIT.
 
-READ THE PLAN.  Each line shows the call chosen for a step.  A call
-that is unknown, out of range or has the wrong numbers is refused and
-nothing is written.  But a wording the experts have not seen can be
+READ THE PLAN.  Each line shows what was written for a step.  A line
+that does not compile or has the wrong numbers is refused and nothing
+is written.  But a wording the experts have not seen can be
 turned into the wrong call (for example a beep where you wanted a
 siren), so check the lines before you run the program.  You can also
 type calls yourself: FLASH 3, BEEP 440 300.

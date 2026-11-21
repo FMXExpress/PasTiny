@@ -17,7 +17,9 @@ unit EXPCAT;
 interface
 type Entry=packed record Id:Byte; Name:String[12]; Title:String[28];
  Keyword:String[20]; Check:Longint end;
-var Items:array[1..{$IFDEF SPEC100}129{$ELSE}128{$ENDIF}] of Entry; Count:Integer;
+(* PasTinyAsm: room for 8 experts, not 128, which frees about 8 KB. *)
+const MAXITEMS=8;
+var Items:array[1..MAXITEMS] of Entry; Count:Integer;
 {$IFDEF SPEC8}var Corrected:String; (* the question with typos fixed, when that is what routed it *){$ENDIF}
 function ReadCatalog:Boolean;
 function FindId(Id:Integer):Integer;
@@ -42,7 +44,7 @@ begin
  {$I-}BlockRead(F,H,4,Got);
  if (Got=4) and (H='PEC1') then begin
   BlockRead(F,N,1,Got);
-  if (Got=1) and (N>=1) and (N<=128) and (FileSize(F)=5+Longint(N)*SizeOf(E)) then
+  if (Got=1) and (N>=1) and (N<=MAXITEMS) and (FileSize(F)=5+Longint(N)*SizeOf(E)) then
    while Count<N do begin
     BlockRead(F,E,SizeOf(E),Got);
     if (Got<>SizeOf(E)) or (E.Id=0) or (E.Id>128) or (FindId(E.Id)<>0)

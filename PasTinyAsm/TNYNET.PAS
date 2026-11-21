@@ -3,14 +3,16 @@ unit TNYNET;
 {$N+}{$E+}
 {$IFDEF DEBUG}{$R+}{$Q+}{$ELSE}{$R-}{$Q-}{$ENDIF}
 interface
-const VOCAB=97; CTX=128; MAXD=128; MAXHID=512; MAXL=8; MAXQ=72;
+(* PasTinyAsm: the limits are cut to the one model shape it uses (D=96,
+   HID=256, L=4), which frees about 10 KB of the data segment. *)
+const VOCAB=97; CTX=128; MAXD=128; MAXHID=256; MAXL=4; MAXQ=72;
 type
  {$IFDEF FPC}TIdx=Longint;{$ELSE}TIdx=Integer;{$ENDIF}
  {$IFNDEF FPC}SmallInt=Integer;{$ENDIF}
  TS8Arr=array[0..64999] of ShortInt; PS8Arr=^TS8Arr;
  TSglArr=array[0..15999] of Single; PSglArr=^TSglArr;
- TVec=array[0..511] of Single;
- TQVec=array[0..511] of SmallInt; PQVec=^TQVec;
+ TVec=array[0..MAXHID-1] of Single;
+ TQVec=array[0..MAXHID-1] of SmallInt; PQVec=^TQVec;
  TTable=record Scale:PSglArr; W:PS8Arr; Rows,Cols:TIdx end;
  TStepProc=procedure(I,N:Integer); TLetterProc=procedure(C:Integer);
  TLoadProc=procedure(Done,Total:Integer); TFailProc=procedure;
@@ -19,6 +21,7 @@ var D,L,H,HD,HID:Integer; Creativity:Integer; LastConf:Single;
  OnLoad:TLoadProc; OnFail:TFailProc;
 function TryModel(Name:String; Expected:Longint):Boolean;
 var Ready,Cancelled:Boolean; LoadError:String[80];
+ ModelXms:Word;    (* PasTinyAsm: 0, or the XMS block TryModel reads the model from *)
 procedure AllocMemory;
 procedure ReleaseMemory;
 procedure Think(Q:String; var Answer:String; var Tokens:Longint;
@@ -27,6 +30,7 @@ function Clean(Line:String):String;
 function IsWord(Q,W:String):Boolean;
 procedure Fail(Msg:String);
 implementation
+uses XMSCACHE;
 var Emb,Pos:TTable;
  Wq,Wk,Wv,Wo,F1,F2:array[0..MAXL-1] of TTable;
  G1,G2:array[0..MAXL-1] of PSglArr; Gf:PSglArr;
@@ -52,6 +56,7 @@ end;
 const BufSize=4096;
 var Buffer:array[0..BufSize-1] of Byte;
  Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint;
+ XPos:Longint;      (* how far into the XMS block the reading has got *)
  Reserved:Boolean;
 procedure ReserveTable(var T:TTable; Rows,Cols:Integer);
 begin
@@ -84,7 +89,15 @@ begin
  Offset:=0;
  while (Offset<N) and (LoadError='') do begin
   if Used=Available then begin
-   {$I-}BlockRead(F,Buffer,BufSize,Available); Err:=IOResult;{$I+}
+   if ModelXms<>0 then begin
+    (* from extended memory: the next piece of the 381,808 bytes *)
+    Available:=BufSize; Err:=0;
+    if 381808-XPos<BufSize then Available:=381808-XPos;
+    if Available>0 then if not XmsRead(ModelXms,XPos,Buffer,Available) then Err:=1;
+    Inc(XPos,Available)
+   end else begin
+    {$I-}BlockRead(F,Buffer,BufSize,Available); Err:=IOResult;{$I+}
+   end;
    Used:=0;
    if (Err<>0) or (Available=0) then begin LoadError:='read failure'; Exit end;
    for J:=0 to Available-1 do
@@ -118,11 +131,14 @@ var Header:packed record Magic:array[1..4] of Char; Width,Layers,Heads,Hidden:Wo
 begin
  Ready:=False; TryModel:=False; LoadError:='';
  if not Reserved then Reserve;
- FileMode:=0; Assign(F,Name);
- {$I-}Reset(F,1); Err:=IOResult;{$I+}
- if Err<>0 then begin LoadError:='open failed'; Exit end;
- {$I-}Size:=FileSize(F); Err:=IOResult;{$I+}
- if (Err<>0) or (Size<>381808) then LoadError:='wrong file size';
+ XPos:=0;
+ if ModelXms=0 then begin
+  FileMode:=0; Assign(F,Name);
+  {$I-}Reset(F,1); Err:=IOResult;{$I+}
+  if Err<>0 then begin LoadError:='open failed'; Exit end;
+  {$I-}Size:=FileSize(F); Err:=IOResult;{$I+}
+  if (Err<>0) or (Size<>381808) then LoadError:='wrong file size'
+ end;
  Used:=0; Available:=0; Check:=-1;
  ReadBytes(Header,SizeOf(Header));
  if LoadError='' then
@@ -135,8 +151,10 @@ begin
   ReadTable(F1[J]); ReadTable(F2[J])
  end;
  Scalars(Gf^[0],D);
- {$I-}Close(F); Err:=IOResult;{$I+}
- if Err<>0 then LoadError:='close failure';
+ if ModelXms=0 then begin
+  {$I-}Close(F); Err:=IOResult;{$I+}
+  if Err<>0 then LoadError:='close failure'
+ end;
  if (LoadError='') and ((not Check)<>Expected) then LoadError:='CRC32 mismatch';
  Ready:=LoadError=''; TryModel:=Ready
 end;
@@ -417,5 +435,6 @@ begin
  IsWord:=True
 end;
 begin
+ ModelXms:=0;
  Creativity:=5; OnLoad:=nil; OnFail:=nil
 end.

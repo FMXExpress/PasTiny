@@ -1,0 +1,4 @@
+name n1
+count down from 3 and beep each time then say liftoff
+repeat 2 times: say hi, new line
+quit

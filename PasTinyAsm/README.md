@@ -1,44 +1,187 @@
 # PasTinyAsm
 
-Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode and fits on one floppy: [dist/PASASM.ZIP](dist/PASASM.ZIP) unpacks to 1,188,069 bytes.
+Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode.
+
+![The editor with a program built from plain sentences](docs/editor-shapes.png)
+
+You type a sentence, the program on the screen grows by a line, and the `.COM` file is rewritten. Above: "print a triangle of stars with 4 lines", "print the first 4 multiples of 9", and a `repeat 2 times:` block with the blue typing line inside it. F5 runs it without leaving:
+
+![The same program run with F5](docs/editor-run.png)
+
+## In pictures
+
+All of these are the Turbo Pascal 7 build running under DOS (DOSBox-X); see Limits for how they were captured.
+
+| | |
+|---|---|
+| ![Typing inside a loop](docs/editor.png) | ![After Enter](docs/editor-added.png) |
+| **Up twice** put the blue line inside the loop; "beep" is being typed there. | **Enter** added it: the yellow lines say what the sentence became. |
+| ![A sentence typed in the editor](docs/editor-typed.png) | ![Tests, key loops and timers](docs/editor-tests.png) |
+| "count to 3" typed inside a block became a loop of its own. | Five one-sentence programs: a test with "otherwise", ask-until, a key loop, a timer, a colour cycle. |
+| ![Changing a line](docs/editor-change.png) | ![Cursor inside the line](docs/editor-cursor.png) |
+| **F2** takes a line up for changing, in its place. | **Left, Right, Home, End, Del** work inside the line: `I=3` became `I=9`. |
+| ![A block deleted](docs/editor-deleted.png) | ![Help](docs/editor-help.png) |
+| **Del** on a block's first line removes the whole block. | **F1**. |
+
+From a file, without the editor, the same thing is plain text:
 
 ```
 C:\ASM> MAKECOM
 > make screen flash, play sound
 1 make screen flash -> FLASH 3
 2 play sound -> BEEP 440 300
-wrote OUT.COM 123 bytes, OUT.ASM
+wrote OUT.COM 189 bytes, OUT.ASM
+> count down from 5 and beep each time then say liftoff
+1 count down from 5 and beep each time then say liftoff -> FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+wrote OUT.COM 234 bytes, OUT.ASM
 > quit
 C:\ASM> OUT
+5
+4
+3
+2
+1
+liftoff
 ```
 
 The models never write an instruction. A 380 KB network cannot be trusted to get machine code right, where one wrong character is a wrong program. So the work is shared:
 
 | Step | Done by | What happens |
 |---|---|---|
-| Split | code | The request is cut into steps at commas, "and" and "then" |
-| Route | code | Each step goes to one of three experts, by its words |
-| Translate | model | The expert turns the step into one library call: `FLASH 3` |
-| Check | code | Unknown call, number out of range, or numbers that do not match the request: refused, and nothing is written |
-| Write | code | Load the arguments, call each routine, exit; then the routines that were used |
+| Split | code | The request is cut into sentences, and those into steps at commas, "and" and "then" |
+| Route | code | Each step goes to one of four experts, by its words. A sentence that asks for a loop, a question or a test goes whole to the tasks expert |
+| Translate | model | The expert turns the step into one line of a small language: `FLASH 3`, or `FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT` |
+| Check | code | The line must compile, the numbers typed must be in it, and any text it prints must be words of the request. Otherwise it is refused, and nothing is written |
+| Compile | code | All the lines become 8086 code, followed by the library routines that were used |
 
-Three experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.BIN`:
+Four experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.BIN`:
 
-| Expert | Calls |
+| Expert | Writes |
 |---|---|
 | `SCREEN.BIN` | `CLS`, `FLASH n`, `COLOR n`, `INK n`, `BORDER n`, `GOTO row col`, `HIDE`, `SHOW` |
 | `SOUND.BIN` | `BEEP hertz ms`, `SIREN n`, `SCALE`, `WAIT ms`, `KEY`, `REPEAT n` |
 | `TEXT.BIN` | `PRINT text`, `NEWLINE`, `NUMBER n` |
+| `TASKS.BIN` | whole small programs with loops, keyboard input, arithmetic and tests |
 
-The 16 routines are in [`LIB.ASM`](LIB.ASM), 401 bytes of 8086 code in all. `REPEAT n` is not a routine; it loops the whole program. A program holds only the routines it uses, so the example above is 123 bytes. Beside the `.COM` file the program writes a short `.ASM` listing of the main part.
+Two kinds of step skip the model: a step that is already a line of the language, and a step with text in double quotes, which prints that text exactly (`print "Hello, World!"`).
 
-Two kinds of step skip the model: a step that is already a call (`FLASH 3`), and a step with text in double quotes, which prints that text exactly (`print "Hello, World!"`).
+## Building a program in blocks
+
+The program is built a sentence at a time, and the `.COM` file is written again after every change. Words before a colon open a block, and what you type next goes inside it.
+
+**In the editor** (the program started at the keyboard):
+
+| Key | What it does |
+|---|---|
+| typing, then Enter | adds what you typed at the blue line |
+| Up, Down, PgUp, PgDn | move the blue line through the program; it takes the indent of the block it is in |
+| Tab, Shift-Tab | jump to the end of the next or the previous block |
+| Home, End, on an empty line | go to the top or the bottom |
+| F2, or Enter on an empty line | take up the line below for changing: its code appears on the blue line, in its place; change it, or type a new sentence, and press Enter ([during](docs/editor-change.png), [after](docs/editor-changed.png)) |
+| Left, Right, Home, End, Del, Backspace, Ctrl-Left, Ctrl-Right | move and correct inside what you are typing ([example](docs/editor-cursor.png)); a long line scrolls sideways |
+| Del, on an empty line | delete the line below, or the whole block if that line opens one ([example](docs/editor-deleted.png)) |
+| Esc | clear what you typed and leave a line unchanged; while an expert is working, cancel it |
+| F5 | run the program and come back; what it left on the screen stays until a key is pressed |
+| F1 | help ([screen](docs/editor-help.png)) |
+| Alt-X or F10, or typing `quit` | leave |
+
+A changed line goes through the same checks as a new one, and if it is refused the old line stays. The first line of a block can only become another first line of a block (`TIMES 2` to `TIMES 5`, or to `count from 1 to 5`); its closing line follows by itself. Closing lines and `ELSE` cannot be changed.
+
+Every block has its closing line on the screen, so the position alone says where you are: before a block's `END` is inside it, after it is outside. The yellow lines at the bottom show what your last sentence became, or why it was refused.
+
+`MAKECOM file` starts the editor with the lines of a file already entered.
+
+**From a file** (`MAKECOM < file`) the same moves are typed commands, and the output is plain text:
+
+```
+> repeat 2 times:
+> say hello
+> count from 1 to 3:
+> print the count
+> end
+> beep
+> end
+> say "done"
+> show
+  1 TIMES 2
+  2   PRINT hello
+  3   FOR X=1 TO 3
+  4     OUT X
+  5   NEXT
+  6   BEEP 440 300
+  7 END
+  8 PRINT "done"
+   >
+```
+
+The commands are `UP`, `DOWN`, `TOP`, `BOTTOM`, `GO n`, `TAB`, `BACK`, `END` (leave the block), `DEL`, `DEL n`, `EDIT n text` (change line n), `SHOW` and `NEW`.
+
+Blocks are opened by code, not by a model, from a small set of wordings:
+
+| You type | Opens |
+|---|---|
+| `repeat 3 times:` | `TIMES 3 ... END` |
+| `count from 1 to 10:`, `count down from 5:` | `FOR X=1 TO 10 ... NEXT`; nested counts use Y and Z; inside, `print the count` gives `OUT X` |
+| `forever:` | `FOREVER ... END`; `stop` inside it ends the program |
+| `if it is bigger than 5:` (also smaller, not, at least, at most) | `IF A>5 ... END`, about the number last asked for; `else` adds the other branch |
+| `if the key is q:` (a letter, a digit, space, enter, escape) | `IF K='q' ... END`, about the key last waited for |
+| any opening line of the language, such as `FOR I=1 TO 5:` | itself |
+
+Inside a block, sentences go to the experts as usual, so one-sentence programs from the tasks expert can be nested too. A request is added whole or not at all, and a line that does not fit where it is put ("else" outside an "if") is refused.
+
+## Running, the log and extended memory
+
+**Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
+
+**The log.** Every request and what became of it, refusals included, is added to `MAKECOM.LOG`. It is the place to look for wordings the experts get wrong; they are what the next training round needs.
+
+**Extended memory.** Changing experts means loading 381,808 bytes. With an XMS driver (HIMEM.SYS) each expert's file is read from the disk once, kept above the first megabyte, and copied down each time it is wanted. `MEM` shows how often experts came from memory and from disk; `XMS OFF` goes back to the disk. Each expert kept takes 373 KB, and all of it is given back when the program ends.
+
+## The language
+
+The language exists because Tiny's window is 128 characters for request and answer together. Raw assembly spends that in three or four instructions; this fits a whole small program in one answer. [`TBC.PAS`](TBC.PAS) is the compiler and has the full description.
+
+```
+FOR I=10 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END
+LET S=0:FOR I=1 TO 100:LET S=S+I:NEXT:OUT S
+TIMES 3:FOR I=0 TO 7:COLOR I:WAIT 300:NEXT:END
+```
+
+| Statement | Meaning |
+|---|---|
+| the 16 library calls | as in the table above; `BEEP`, `FLASH`, `SIREN` and `WAIT` alone mean `BEEP 440 300`, `FLASH 1`, `SIREN 1`, `WAIT 1000` |
+| `OUT n`, `ECHO text` | print a number or a text, and start a new line |
+| `LET v=n`, `INPUT v` | set a variable, or read a number from the keyboard |
+| `FOR v=n TO n ... NEXT`, `FOR v=n DOWNTO n ... NEXT` | count up or down by one |
+| `TIMES n ... END` | do the block n times |
+| `FOREVER ... END`, `STOP` | loop without end; end the program |
+| `IF n<n ... ELSE ... END` | tests are `=` `<>` `<` `>` `<=` `>=` |
+| `REPEAT n` | on a line of its own: run the whole program n times |
+
+`KEY` keeps the key that was pressed in K, and a character in single quotes is its code, so `IF K='q'` tests it. Variables are the letters A to Z, whole numbers from 0 to 65535. A number may be an expression with `+ - * /` and no spaces (`I*100+200`). Statements are separated by colons. A line typed whole must close the blocks it opens; a block that spans lines is opened in block mode. You can type the language yourself; nothing is asked of a model then.
+
+Beside the `.COM` file the program writes a complete `.ASM` listing of the main part, instruction by instruction. The 17 library routines are in [`LIB.ASM`](LIB.ASM), 456 bytes of 8086 code; a program holds only the ones it uses.
 
 ## What was measured
 
-**The writer is exact.** For requests written as calls, the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM` (5 programs covering every call).
+**The compiler is exact.** For 12 programs typed in the language (every call, loops both ways, nested blocks, tests, arithmetic, input), the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM`. 13 invalid lines are refused. Five block-mode sessions, with nesting, navigation, deleting and a refused `ELSE`, and two sessions that change lines in place (including refused changes that must leave the line alone), give the expected outlines and also match NASM.
 
-**The experts are exact on wordings they were trained on. On wordings they were not, the result depends on the wording, and adding wordings fixes only the ones added.** Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
+**The tasks expert combines parts it knows in ways it has not seen.** A request is built from parts: a head (count up, count down, N times, ask for a number, test a number), actions inside it, and an action at the end. Some combinations are held out of training, though every part is trained in other combinations. Scored in the 8-bit runtime, 300 requests per set:
+
+| Set | Right | Refused | Wrong but accepted |
+|---|---:|---:|---:|
+| Trained shapes and combinations, new numbers and texts | 298 | 2 | 0 |
+| Held-out combinations of trained parts | 281 | 12 | 7 |
+| The first version's held-out wordings, trained on since | 300 | 0 | 0 |
+| Wordings never trained on | 298 | 2 | 0 |
+
+- **Shapes.** About 60: counting with actions, `TIMES` loops, tests on a typed number with one or two actions, tables, multiples, squares, cubes, powers, sums, products, star patterns, colour cycles, tones, timers, and loops that run until a key or a number.
+- **Held-out combinations** are 10 of 40 count forms with two actions, 8 of 42 action pairs in a `TIMES` loop, two actions never seen after "that many times", 9 of 42 test-and-action pairs, every "ask and count" with both an each-round and an end action, and every "if ... otherwise" with two actions. The misses are nearly all in the last two classes, which ask for a longer program than any trained with those parts.
+- **Wordings.** The first version of this expert got 133 of 300 on wordings it had not seen, and each wording was right every time or wrong every time. Training on three to five wordings per part, in place of two or three, brought a fresh unseen set to 298. The two sets are different phrases, so this shows that variety helps, not that any wording will work.
+- The two refusals in the first row were this program's own text check turning down a "yes" the program prints; that check has since been relaxed.
+
+**The three single-call experts** are exact on trained wordings and unreliable on new ones. Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
 
 | Expert | Trained wordings | First held-out set, after training on it | New held-out set: right | refused | wrong but accepted |
 |---|---:|---:|---:|---:|---:|
@@ -55,28 +198,43 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (40,432 bytes). In DOSBox-X with an emulated FPU it ran [`evidence/DEMO.IN`](evidence/DEMO.IN) ([`FPU.LOG`](evidence/FPU.LOG)) and the programs it wrote were then run:
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (67,744 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
-| Program | Check | Result |
-|---|---|---|
-| `HELLO.COM` | printed text, a number, a quoted text, repeated twice | as expected ([`HELLO.OUT`](evidence/HELLO.OUT)) |
-| `BLUE.COM` | colour of the top left cell afterwards | `1F`, white on blue |
-| `WAIT2.COM` (`WAIT 2000`) | BIOS clock ticks before and after | 35 ticks, 1.92 seconds |
-| `NOISE.COM` (`BEEP 880 500`, `SIREN 2`) | ticks | 41 ticks, 2.25 seconds for 2.1 seconds of sound |
-| `ALL.COM` (12 steps, every screen call) | ends, prints its last line, cell colour | "all done", `4E`, yellow on red |
-| `DEMO.COM` (flash and beep) | runs and returns to DOS | yes |
-| `FIXED.COM` | four wordings the first version got wrong | planned correctly, as in `FPU.LOG` |
+| Request | The program printed |
+|---|---|
+| count down from 5 and beep each time then say liftoff | 5 4 3 2 1 liftoff |
+| ask for a number and print its double (typed 21) | 42 |
+| print the 7 times table | 7 14 21 ... 70 |
+| add up the numbers from 1 to 100 | 5050 |
+| count down from 4 and beep each time then play a siren (a held-out combination) | 4 3 2 1 |
+| ask for a number and say yes if it is 7 otherwise no (typed 7, then 3) | yes, then no |
+| count from 9 to 3 | refused: the expert wrote `TO`, and that loop would not run |
+| the block session shown above | hello 1 2 3 hello 1 2 3 done |
+| ask for a number and print its double, then an if/else block (typed 21, then 3) | 42 big, then 6 small |
+| forever: wait for a key; if the key is q: stop; say again (keys a, b, q) | again again |
+| a count inside a count, edited with TOP, GO and DEL | next next next |
+| a loop whose count and body were changed with EDIT | yo yo yo |
 
-On an emulated 386 without an FPU, "make screen flash, play sound" gave the same 123-byte file ([`NOFPU.LOG`](evidence/NOFPU.LOG)) and it ran.
+- Transcripts: [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) (sentences), [`evidence/blocks/BLOCKS.LOG`](evidence/blocks/BLOCKS.LOG) (block sessions), [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) (seven programs typed in the language: arithmetic, nested tests, loops ending at 0 and at 65535, zero counts), [`evidence/FPU.LOG`](evidence/FPU.LOG) (single calls).
+- The earlier checks still pass: `COLOR 1` leaves `1F` in screen memory, `WAIT 2000` takes 36 clock ticks (1.98 seconds), a 12-step program using every screen call ends with the right colours.
+- **The editor** cannot be driven from a file, so the emulator typed into it, starting from a four-line program: Up, Up, `beep`, Enter put `BEEP 440 300` inside the loop (the pictures above, and the listing it wrote); Home, Del removed the whole loop and left one line; Home, F2, Backspace, `5`, Enter changed `TIMES 2` to `TIMES 5` in place; on line 2, F2, Home, Right six times, Del, `9`, Enter changed `FOR I=3` to `FOR I=9` in the middle of the line; typing `bep`, Left, `e`, Home, `x`, Del, End, Backspace, `p` left `xeep`, as it should; F1 showed the help page. That is all that was tried: Tab, PgUp, PgDn, Ctrl-Left and Ctrl-Right, sideways scrolling of a long line, scrolling of a long program and Esc during an expert's work were not.
+- On an emulated 386 without an FPU, a countdown request and a block gave a program that printed 3 2 1 liftoff hi hi ([`evidence/NOFPU.LOG`](evidence/NOFPU.LOG)).
 
 ## Limits
 
+- The pictures in `docs/` are not photographs of a monitor. DOSBox-X's window stayed black on the virtual display used here, so a helper saved the text screen and the BIOS font from inside the emulator and `tools/screenshot.py` drew them. The editor saves its own screen when F9 is pressed, which is how its pictures were taken; after F5 that screen is a copy of what the program left in screen memory. The emulator's typing command could not type a colon, so the pictures start from a program loaded with `MAKECOM file`.
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
-- A step holds 72 characters and a program 40 steps.
+- A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- 16 routines is a toy library. There are no variables, tests or branches, so this writes sequences, not programs with logic.
+- The package no longer fits one floppy: with four experts it unpacks to 1,598,842 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
+- Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
+- The program needs about 590 KB of free conventional memory, and about 9 KB of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
+- The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
+- One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
 - The router is a word list in `MAKECOM.PAS`, not a model.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
 - One training run per expert and version; the scores above are from those runs.
@@ -87,7 +245,7 @@ On an emulated 386 without an FPU, "make screen flash, play sound" gave the same
 ```
 python3 tools/buildlib.py                     LIB.ASM -> LIB.INC (needs NASM)
 fpc -Mtp -B MAKECOM.PAS                       host build for testing
-python3 tests/test_asm.py ./MAKECOM           writer against NASM
+python3 tests/test_asm.py ./MAKECOM           compiler against NASM
 python3 tests/test_asm.py ./MAKECOM --models  plans, refusals and expert scores
 TPC /B MAKECOM.PAS                            the DOS program (BUILD.BAT)
 ```
@@ -96,9 +254,12 @@ To retrain an expert (PyTorch, 35 to 55 minutes on one CPU core), then rewrite t
 
 ```
 python3 training/train_asm.py screen ../PasTinyMoE/TINY.BIN SCREEN.BIN 6000
+THREADS=4 python3 training/train_asm.py tasks ../PasTinyMoE/TINY.BIN TASKS.BIN 8000
 python3 tools/package.py
 ```
 
 To add a routine: write it in `LIB.ASM` with its `;;` header line, run `tools/buildlib.py`, add wordings for it to `training/gen_asm.py` and words for it to the router in `MAKECOM.PAS`, and retrain that expert.
 
-`TNYNET.PAS`, `TNYSYS.PAS` and `EXPCAT.PAS` are copies of the PasTinyMoE engine units. `tests/attr.asm` and `tests/ticks.asm` are the two helper programs used for the DOS checks.
+The task shapes and their held-out combinations are in [`training/gen_tasks.py`](training/gen_tasks.py).
+
+`TNYNET.PAS`, `TNYSYS.PAS` and `EXPCAT.PAS` are copies of the PasTinyMoE engine units. `tests/attr.asm`, `tests/ticks.asm` and `tests/snap.asm` are the helper programs used for the DOS checks and the pictures.

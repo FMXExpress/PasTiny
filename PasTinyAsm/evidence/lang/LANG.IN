@@ -1,0 +1,22 @@
+new
+name p1
+FOR I=10 DOWNTO 8:OUT I:NEXT:ECHO liftoff
+new
+name p2
+for i=1 to 10:out i*7:next. let s=0:for i=1 to 100:let s=s+i:next:out s
+new
+name p3
+INPUT A:INPUT B:OUT A+B:OUT A*B:OUT A-B:OUT A/B
+new
+name p4
+INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END
+new
+name p5
+LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END
+new
+name p6
+FOR I=0 DOWNTO 0:OUT I:NEXT:FOR I=65534 TO 65535:OUT I:NEXT:TIMES 0:ECHO never:END:ECHO edge
+new
+name p7
+INPUT A:TIMES A:ECHO x:END. LET Z=0:FLASH Z:SIREN Z:BEEP Z 100. print "ok", NL
+quit
