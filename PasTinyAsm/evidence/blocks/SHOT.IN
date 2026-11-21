@@ -1,0 +1,6 @@
+repeat 2 times:
+count down from 3 and beep each time
+end
+say "done"
+show
+quit

@@ -1,9 +1,13 @@
 PasTinyAsm 1.1  FPU no
-heap=489480
+heap=507880
+> name n1
 name N1
+> count down from 3 and beep each time then say liftoff
 1 count down from 3 and beep each time then say liftoff -> FOR I=3 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
 wrote N1.COM 234 bytes, N1.ASM
+> repeat 2 times: say hi, new line
 2 repeat 2 times: -> TIMES 2   (no model)
 3 say hi -> PRINT hi
 4 new line -> NEWLINE
 wrote N1.COM 264 bytes, N1.ASM
+> quit

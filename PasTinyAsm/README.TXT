@@ -2,7 +2,7 @@ PasTinyAsm 1.0 - say what a program should do, get a .COM file
 ================================================================
 Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN,
 TASKS.BIN.
-Keep them in one directory.  Needs a 386 and about 610 KB of free
+Keep them in one directory.  Needs a 386 and about 590 KB of free
 conventional memory.  A coprocessor is optional.
 
   C:\ASM> MAKECOM

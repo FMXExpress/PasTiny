@@ -21,6 +21,10 @@ C:\ASM> OUT
 liftoff
 ```
 
+![A block session in the Turbo Pascal 7 build under DOSBox-X](docs/blocks.png)
+
+The DOS text screen after a block session (input fed from a file, which the program echoes as `> ...`). The picture is drawn from the screen memory and font saved inside the emulator by [`tests/snap.asm`](tests/snap.asm); see Limits.
+
 The models never write an instruction. A 380 KB network cannot be trusted to get machine code right, where one wrong character is a wrong program. So the work is shared:
 
 | Step | Done by | What happens |
@@ -151,7 +155,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (60,752 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (60,640 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -169,22 +173,22 @@ So more wordings make the experts right on more phrasings, but do not make them 
 
 - Transcripts: [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) (sentences), [`evidence/blocks/BLOCKS.LOG`](evidence/blocks/BLOCKS.LOG) (block sessions), [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) (seven programs typed in the language: arithmetic, nested tests, loops ending at 0 and at 65535, zero counts), [`evidence/FPU.LOG`](evidence/FPU.LOG) (single calls).
 - The earlier checks still pass: `COLOR 1` leaves `1F` in screen memory, `WAIT 2000` takes 36 clock ticks (1.98 seconds), a 12-step program using every screen call ends with the right colours.
-- **Keys.** The arrow keys cannot be fed from a file, so they were typed into the running program by the emulator: `cls`, `hide`, Up, `key` gave CLS, KEY, HIDE, and with Tab in place of Up gave CLS, HIDE, KEY. No transcript exists for this; the listings it wrote were read.
+- **Keys.** The arrow keys cannot be fed from a file, so they were typed into the running program by the emulator: `cls`, `hide`, Up, `key` gave CLS, KEY, HIDE ([screen](docs/keys.png)), and with Tab in place of Up gave CLS, HIDE, KEY.
 - On an emulated 386 without an FPU, a countdown request and a block gave a program that printed 3 2 1 liftoff hi hi ([`evidence/NOFPU.LOG`](evidence/NOFPU.LOG)).
 
 ## Limits
 
+- The pictures in `docs/` are not photographs of a monitor. DOSBox-X's window stayed black on the virtual display used here, so a helper saved the text screen and the BIOS font from inside the emulator and `tools/screenshot.py` drew them. The emulator's own typing command could not type a colon, so the block session in the first picture was fed from a file; the second picture was typed.
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with four experts it unpacks to 1,591,166 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with four experts it unpacks to 1,590,994 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- Memory is tight. The program needs about 610 KB of free conventional memory, more than `EXPERT.EXE`, and 5,280 bytes of heap remain with a model loaded. A DOS setup that loads drivers low may not have enough.
+- The program needs about 590 KB of free conventional memory, and 23,680 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - There is no RUN command: with the model in memory there is no room to start another program. Quit, then run the `.COM` file.
-- Keys typed while an expert is working can be lost, because the same keyboard check watches for Escape.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The outline shows the code, not your sentences, and is not a full-screen editor: it is printed again after each change.
 - The router is a word list in `MAKECOM.PAS`, not a model.
@@ -214,4 +218,4 @@ To add a routine: write it in `LIB.ASM` with its `;;` header line, run `tools/bu
 
 The task shapes and their held-out combinations are in [`training/gen_tasks.py`](training/gen_tasks.py).
 
-`TNYNET.PAS`, `TNYSYS.PAS` and `EXPCAT.PAS` are copies of the PasTinyMoE engine units. `tests/attr.asm` and `tests/ticks.asm` are the two helper programs used for the DOS checks.
+`TNYNET.PAS`, `TNYSYS.PAS` and `EXPCAT.PAS` are copies of the PasTinyMoE engine units. `tests/attr.asm`, `tests/ticks.asm` and `tests/snap.asm` are the helper programs used for the DOS checks and the pictures.

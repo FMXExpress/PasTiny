@@ -118,7 +118,7 @@ with tempfile.TemporaryDirectory() as tmp:
         if want is None:
             assert 'does not fit here' in out and '\n  9 END\n' in out and '\n 10 ' not in out, out
             continue
-        got = [l for l in out[out.rindex('wrote'):].splitlines()[1:] if l.strip() and not l.startswith('at ')]
+        got = [l for l in out[out.rindex('wrote'):].splitlines()[1:] if l.strip() and not l.startswith(('at ', '> '))]
         assert got == want, (script, got, out)
         assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp), script
     print('Blocks: %d sessions give the expected outline, and their programs match NASM.' % len(BLOCKS))

@@ -1,43 +1,72 @@
 PasTinyAsm 1.1  FPU yes
-heap=489480
+heap=507880
+> new
 new program
+> name c1
 name C1
+> count down from 5 and beep each time then say liftoff
 1 count down from 5 and beep each time then say liftoff -> FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
 wrote C1.COM 234 bytes, C1.ASM
+> new
 new program
+> name c2
 name C2
+> ask for a number and print its double
 1 ask for a number and print its double -> INPUT A:OUT A*2
 wrote C2.COM 165 bytes, C2.ASM
+> new
 new program
+> name c3
 name C3
+> print the 7 times table
 1 print the 7 times table -> FOR I=1 TO 10:OUT I*7:NEXT
 wrote C3.COM 157 bytes, C3.ASM
+> new
 new program
+> name c4
 name C4
+> add up the numbers from 1 to 100
 1 add up the numbers from 1 to 100 -> LET S=0:FOR I=1 TO 100:LET S=S+I:NEXT:OUT S
 wrote C4.COM 169 bytes, C4.ASM
+> new
 new program
+> name c5
 name C5
+> ask for a number and count to it then play a tune
 1 ask for a number and count to it then play a tune -> INPUT A:FOR I=1 TO A:OUT I:NEXT:SCALE
 wrote C5.COM 266 bytes, C5.ASM
+> new
 new program
+> name c6
 name C6
+> clear the screen, say hello, new line. count to 3. 2 times, each time say hi and flash
 1 clear the screen -> CLS
 2 say hello -> PRINT hello
 3 new line -> NEWLINE
 4 count to 3 -> FOR I=1 TO 3:OUT I:NEXT
 5 2 times each time say hi and flash -> TIMES 2:ECHO hi:FLASH:END
 wrote C6.COM 268 bytes, C6.ASM
+> new
 new program
+> name c7
 name C7
+> count down from 4 and beep each time then play a siren
 1 count down from 4 and beep each time then play a siren -> FOR I=4 DOWNTO 1:OUT I:BEEP:NEXT:SIREN
 wrote C7.COM 289 bytes, C7.ASM
+> new
 new program
+> name c8
 name C8
+> ask for a number and say yes if it is 7 otherwise no
 1 ask for a number and say yes if it is 7 otherwise no -> INPUT A:IF A=7:ECHO yes:ELSE:ECHO no:END
 wrote C8.COM 171 bytes, C8.ASM
+> new
 new program
+> name bad
 name BAD
+> count from 9 to 3
 1 count from 9 to 3: refused "FOR I=9 TO 3:OUT I:NEXT" (this loop would not run: check TO and DOWNTO)
 nothing added
-heap=5280 largest=5280 stack=15080
+> mem
+heap=23680 largest=23680 stack=15080
+> quit

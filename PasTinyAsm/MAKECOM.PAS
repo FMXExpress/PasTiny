@@ -34,7 +34,7 @@ program MakeCom;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
-uses TNYNET,TNYSYS,EXPCAT,TBC;
+uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC;
 const
  MAXSTEPS=40; MAXPEND=16;
  XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4;    (* catalog ids of the experts *)
@@ -51,10 +51,23 @@ var
  Closers:array[1..4] of TLine; NClose:Integer;
  OutName:String[8]; Line:String;
 
+(* Called while an expert works: Escape cancels.  Other keys are left
+   in the keyboard buffer, so what is typed ahead is not lost. *)
 procedure PollEscape(I,N:Integer);
+{$IFDEF VER70}
+var R:Registers;
+begin
+ if not Interactive then Exit;
+ R.AH:=1; Intr($16,R);                      (* look at the next key without taking it *)
+ if ((R.Flags and $40)=0) and (R.AL=27) then begin
+  R.AH:=0; Intr($16,R); Cancelled:=True
+ end
+end;
+{$ELSE}
 begin
  if Interactive then if KeyPressed then if ReadKey=27 then Cancelled:=True
 end;
+{$ENDIF}
 
 function Switch(Id:Integer):Boolean;
 var J:Integer;
@@ -63,7 +76,7 @@ begin
  if Id=Active then Exit;
  J:=FindId(Id); Active:=0;
  if J<>0 then if TryModel(Items[J].Name,Items[J].Check) then Active:=Id;
- if Active=0 then begin WriteLn('cannot load expert ',Id); Switch:=False end
+ if Active=0 then begin WriteLn('cannot load expert ',Id,': ',LoadError); Switch:=False end
 end;
 
 (* Small letters, digits and single spaces only. *)
@@ -609,15 +622,29 @@ begin
  if Interactive then Outline
 end;
 
+(* One key straight from the BIOS: its character, or 256 + the scan
+   code for a key without one.  (The key routine of TNYSYS repaints the
+   screen from its own buffer, which would wipe what is shown here.) *)
+function GetKey:Integer;
+{$IFDEF VER70}
+var R:Registers;
+begin
+ R.AH:=0; Intr($16,R);
+ if (R.AL=0) or (R.AL=$E0) then GetKey:=256+R.AH else GetKey:=R.AL
+end;
+{$ELSE}
+begin GetKey:=ReadKey end;
+{$ENDIF}
+
 (* A line from the keyboard.  On an empty line the arrow keys, Tab,
    Shift-Tab and Del give the moving commands. *)
 procedure ReadCommand(var L:String);
 var K:Integer;
 begin
  L:='';
- if not Interactive then begin ReadLn(L); Exit end;
+ if not Interactive then begin ReadLn(L); WriteLn('> ',L); Exit end;      (* show what was read *)
  while True do begin
-  K:=ReadKey;
+  K:=GetKey;
   if K=13 then begin WriteLn; Exit end
   else if K=8 then begin
    if L<>'' then begin Delete(L,Length(L),1); Write(#8' '#8) end
