@@ -1,5 +1,5 @@
-PasTinyAsm 1.1  FPU yes
-heap=507880
+PasTinyAsm 1.2  FPU yes
+heap=502008
 > name b1
 name B1
 > repeat 2 times:
@@ -125,5 +125,5 @@ wrote B4.COM 183 bytes, B4.ASM
   6   NEWLINE
   7 NEXT
 > mem
-heap=23680 largest=23680 stack=15080
+heap=17808 largest=17808 stack=15080
 > quit

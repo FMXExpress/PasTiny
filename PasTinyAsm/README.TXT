@@ -6,11 +6,10 @@ Keep them in one directory.  Needs a 386 and about 590 KB of free
 conventional memory.  A coprocessor is optional.
 
   C:\ASM> MAKECOM
-  > make screen flash, play sound
-  1 make screen flash -> FLASH 3
-  2 play sound -> BEEP 440 300
-  wrote OUT.COM 189 bytes, OUT.ASM
-  > quit
+  type:  make screen flash, play sound      and press Enter
+  the screen shows:   1 FLASH 3
+                      2 BEEP 440 300
+  press Alt-X, then
   C:\ASM> OUT
 
 Separate the steps with commas, "and" or "then".  Things it knows:
@@ -33,15 +32,26 @@ A whole sentence can ask for a small program:
   print the 7 times table
   3 times, each time say hi and flash
 
-BLOCKS.  The program grows a sentence at a time; it is written to
-disk after every change.  Words before a colon open a block, and
-what you type next goes inside it until END:
+THE EDITOR.  Your program is always on the screen.  The blue line
+is where new code goes: type a sentence there and press Enter.  It
+is written to disk after every change.
+
+Words before a colon open a block, and what you type next goes
+inside it:
   repeat 3 times:          count from 1 to 10:      forever:
   if it is bigger than 5:  if the key is q:         else
-SHOW lists the program.  The mark > is where the next line goes.
-Up, Down, Home, End move it; Tab and Shift-Tab jump from block to
-block; Del deletes a line or a whole block; NEW starts again.
-(Typed: UP DOWN TOP BOTTOM GO n TAB BACK DEL n.)
+
+  Up, Down       move the blue line, into and out of blocks
+  Tab, Shift-Tab jump to the next or the previous block
+  Home, End      top and bottom
+  Del            on an empty line: delete the line below, or the
+                 whole block it opens
+  Esc            clear what you typed
+  F1             help         Alt-X or QUIT   leave
+Typed commands: END leaves a block, NEW starts again, NAME file.
+
+MAKECOM file starts with the lines of a file already entered.
+MAKECOM < file runs without the editor (UP DOWN TAB GO n DEL n SHOW).
 
 You can also type the language itself (LIST shows it):
   FOR I=1 TO 5:OUT I*I:NEXT

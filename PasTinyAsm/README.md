@@ -21,9 +21,9 @@ C:\ASM> OUT
 liftoff
 ```
 
-![A block session in the Turbo Pascal 7 build under DOSBox-X](docs/blocks.png)
+![The editor: the typing line stands inside a loop](docs/editor.png)
 
-The DOS text screen after a block session (input fed from a file, which the program echoes as `> ...`). The picture is drawn from the screen memory and font saved inside the emulator by [`tests/snap.asm`](tests/snap.asm); see Limits.
+At the keyboard it is a screen editor. The program is always shown; the blue line is where new code goes, and Up and Down move it through the program, into and out of blocks. Here Up was pressed twice, which put it inside the loop, and "beep" was typed. Enter adds it there ([after](docs/editor-added.png)).
 
 The models never write an instruction. A 380 KB network cannot be trusted to get machine code right, where one wrong character is a wrong program. So the work is shared:
 
@@ -48,7 +48,26 @@ Two kinds of step skip the model: a step that is already a line of the language,
 
 ## Building a program in blocks
 
-The program is built up over a session, a sentence at a time, and the `.COM` file is written again after every change. Words before a colon open a block, and what you type next goes inside it:
+The program is built a sentence at a time, and the `.COM` file is written again after every change. Words before a colon open a block, and what you type next goes inside it.
+
+**In the editor** (the program started at the keyboard):
+
+| Key | What it does |
+|---|---|
+| typing, then Enter | adds what you typed at the blue line |
+| Up, Down, PgUp, PgDn | move the blue line through the program; it takes the indent of the block it is in |
+| Tab, Shift-Tab | jump to the end of the next or the previous block |
+| Home, End | go to the top or the bottom |
+| Del, on an empty line | delete the line below, or the whole block if that line opens one ([example](docs/editor-deleted.png)) |
+| Esc | clear what you typed; while an expert is working, cancel it |
+| F1 | help ([screen](docs/editor-help.png)) |
+| Alt-X or F10, or typing `quit` | leave |
+
+Every block has its closing line on the screen, so the position alone says where you are: before a block's `END` is inside it, after it is outside. The yellow lines at the bottom show what your last sentence became, or why it was refused.
+
+`MAKECOM file` starts the editor with the lines of a file already entered.
+
+**From a file** (`MAKECOM < file`) the same moves are typed commands, and the output is plain text:
 
 ```
 > repeat 2 times:
@@ -71,18 +90,9 @@ The program is built up over a session, a sentence at a time, and the `.COM` fil
    >
 ```
 
-The `>` in the listing is where the next line will go. Every block has its closing line, so the place alone says whether you are inside a block (before its `END`) or after it.
+The commands are `UP`, `DOWN`, `TOP`, `BOTTOM`, `GO n`, `TAB`, `BACK`, `END` (leave the block), `DEL`, `DEL n`, `SHOW` and `NEW`.
 
-| Key | Typed command | What it does |
-|---|---|---|
-| Up, Down | `UP`, `DOWN` | move the place one line |
-| Home, End | `TOP`, `BOTTOM`, `GO n` | move to the start, the end, or before line n |
-| Tab, Shift-Tab | `TAB`, `BACK` | jump to the end of the next or the previous block |
-| | `END` | leave the block you are in |
-| Del | `DEL`, `DEL n` | delete a line, or the whole block if it is the block's first line |
-| | `SHOW`, `NEW` | list the program, or empty it |
-
-The keys work on an empty input line. Blocks are opened by code, not by a model, from a small set of wordings:
+Blocks are opened by code, not by a model, from a small set of wordings:
 
 | You type | Opens |
 |---|---|
@@ -155,7 +165,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (60,640 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (64,832 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -173,24 +183,24 @@ So more wordings make the experts right on more phrasings, but do not make them 
 
 - Transcripts: [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) (sentences), [`evidence/blocks/BLOCKS.LOG`](evidence/blocks/BLOCKS.LOG) (block sessions), [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) (seven programs typed in the language: arithmetic, nested tests, loops ending at 0 and at 65535, zero counts), [`evidence/FPU.LOG`](evidence/FPU.LOG) (single calls).
 - The earlier checks still pass: `COLOR 1` leaves `1F` in screen memory, `WAIT 2000` takes 36 clock ticks (1.98 seconds), a 12-step program using every screen call ends with the right colours.
-- **Keys.** The arrow keys cannot be fed from a file, so they were typed into the running program by the emulator: `cls`, `hide`, Up, `key` gave CLS, KEY, HIDE ([screen](docs/keys.png)), and with Tab in place of Up gave CLS, HIDE, KEY.
+- **The editor** cannot be driven from a file, so the emulator typed into it, starting from a four-line program: Up, Up, `beep`, Enter put `BEEP 440 300` inside the loop (the pictures above, and the listing it wrote); Home, Del removed the whole loop and left one line; F1 showed the help page. That is all that was tried: Tab, PgUp, PgDn, scrolling of a long program and Esc during an expert's work were not.
 - On an emulated 386 without an FPU, a countdown request and a block gave a program that printed 3 2 1 liftoff hi hi ([`evidence/NOFPU.LOG`](evidence/NOFPU.LOG)).
 
 ## Limits
 
-- The pictures in `docs/` are not photographs of a monitor. DOSBox-X's window stayed black on the virtual display used here, so a helper saved the text screen and the BIOS font from inside the emulator and `tools/screenshot.py` drew them. The emulator's own typing command could not type a colon, so the block session in the first picture was fed from a file; the second picture was typed.
+- The pictures in `docs/` are not photographs of a monitor. DOSBox-X's window stayed black on the virtual display used here, so a helper saved the text screen and the BIOS font from inside the emulator and `tools/screenshot.py` drew them. The editor saves its own screen when F9 is pressed, which is how its pictures were taken. The emulator's typing command could not type a colon, so the pictures start from a program loaded with `MAKECOM file`.
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with four experts it unpacks to 1,591,054 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with four experts it unpacks to 1,595,632 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 23,680 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 17,808 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - There is no RUN command: with the model in memory there is no room to start another program. Quit, then run the `.COM` file.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
-- The outline shows the code, not your sentences, and is not a full-screen editor: it is printed again after each change.
+- The editor shows the code, not your sentences, and a line cannot be changed in place: delete it and type it again. It assumes an 80 by 25 text screen.
 - The router is a word list in `MAKECOM.PAS`, not a model.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
 - One training run per expert and version; the scores above are from those runs.

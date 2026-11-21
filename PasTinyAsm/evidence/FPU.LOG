@@ -1,5 +1,5 @@
-PasTinyAsm 1.1  FPU yes
-heap=507880
+PasTinyAsm 1.2  FPU yes
+heap=502008
 > new
 new program
 > name demo
@@ -83,5 +83,5 @@ nothing added
 1 beep at 5 hertz: refused "BEEP 5 300" (number out of range)
 nothing added
 > mem
-heap=23680 largest=23680 stack=15080
+heap=17808 largest=17808 stack=15080
 > quit

@@ -1,5 +1,5 @@
-PasTinyAsm 1.1  FPU yes
-heap=507880
+PasTinyAsm 1.2  FPU yes
+heap=502008
 > new
 new program
 > name c1
@@ -68,5 +68,5 @@ name BAD
 1 count from 9 to 3: refused "FOR I=9 TO 3:OUT I:NEXT" (this loop would not run: check TO and DOWNTO)
 nothing added
 > mem
-heap=23680 largest=23680 stack=15080
+heap=17808 largest=17808 stack=15080
 > quit

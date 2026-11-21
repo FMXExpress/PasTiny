@@ -26,11 +26,15 @@ program MakeCom;
    a step with text in double quotes prints that text exactly; neither
    asks a model.
 
-   The program is built up over a session.  Each request adds its lines
-   at the place marked ">", and the .COM file is written again after
-   every change.  Words before a colon open a block ("repeat 3 times:");
-   what is typed next goes inside it until END.  The arrow keys, Tab
-   and Shift-Tab move the place; HELP lists the commands. *)
+   The program is built up over a session, and the .COM file is written
+   again after every change.  Words before a colon open a block ("repeat
+   3 times:"); what is typed next goes inside it.
+
+   At the keyboard it is a screen editor: the program is always shown,
+   and the line being typed stands in the listing where the new code will
+   go.  Up and Down move it, into and out of blocks.  With input from a
+   file the same moves are commands (UP, DOWN, TAB, GO n ...) and the
+   output is plain text.  MAKECOM file starts from the lines of a file. *)
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
@@ -585,11 +589,13 @@ begin
   WriteLn('A colon opens a block; the next sentences go inside it:');
   WriteLn('  repeat 3 times:      count from 1 to 5:      forever:');
   WriteLn('  if it is bigger than 5:      if the key is q:      else');
-  WriteLn('END leaves the block.  Arrows or UP, DOWN, TOP, BOTTOM, GO n move the');
-  WriteLn('place where lines go in; Tab and Shift-Tab (TAB, BACK) jump from');
-  WriteLn('block to block.  DEL or DEL n deletes a line or a whole block.');
-  WriteLn('SHOW lists the program, NEW empties it, NAME file names it (now ',OutName,').');
-  WriteLn('LIST shows the language.  QUIT ends.');
+  WriteLn('The blue line is where new code goes.  Up and Down move it through');
+  WriteLn('the program, into and out of blocks; Tab and Shift-Tab jump from');
+  WriteLn('block to block; Home and End go to the top and the bottom.  Del on an');
+  WriteLn('empty line deletes the line below it, or the whole block it opens.');
+  WriteLn('Typed commands: END leaves a block, NEW empties the program, NAME file');
+  WriteLn('names it (now ',OutName,'), LIST shows the language, QUIT ends.');
+  WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n SHOW.');
   Exit
  end
  else if (Cmd='MEM') and (Rest='') then begin
@@ -618,8 +624,7 @@ begin
  end
  else if MakePlan(L) then Changed:=True
  else WriteLn('nothing added');
- if Changed then Save;
- if Interactive then Outline
+ if Changed then Save
 end;
 
 (* One key straight from the BIOS: its character, or 256 + the scan
@@ -636,48 +641,188 @@ end;
 begin GetKey:=ReadKey end;
 {$ENDIF}
 
-(* A line from the keyboard.  On an empty line the arrow keys, Tab,
-   Shift-Tab and Del give the moving commands. *)
-procedure ReadCommand(var L:String);
-var K:Integer;
+{$IFDEF VER70}
+(* ------------------------------------------------- the screen editor
+
+   At the keyboard the program is shown all the time, like a text editor.
+   One line of the listing is the line being typed; it stands where the
+   new code will go, indented like the block it is in.  Up and Down move
+   it through the program, into and out of blocks.  Enter adds what was
+   typed.  Everything the planner prints goes to a message area. *)
+const MAXMSG=18; LISTTOP=3; LISTROWS=17;
+var Msg:array[1..MAXMSG] of String[78]; NMsg:Integer; MsgPart:String[78];
+ Field:String[200]; TopItem:Integer; MsgBuf:array[0..127] of Char; SavedOut:TextRec;
+
+procedure MsgLine;
+var I:Integer;
 begin
- L:='';
- if not Interactive then begin ReadLn(L); WriteLn('> ',L); Exit end;      (* show what was read *)
- while True do begin
-  K:=GetKey;
-  if K=13 then begin WriteLn; Exit end
-  else if K=8 then begin
-   if L<>'' then begin Delete(L,Length(L),1); Write(#8' '#8) end
+ if NMsg=MAXMSG then begin for I:=1 to MAXMSG-1 do Msg[I]:=Msg[I+1]; Dec(NMsg) end;
+ Inc(NMsg); Msg[NMsg]:=MsgPart; MsgPart:=''
+end;
+
+(* Standard output while the editor runs: collect the text as lines. *)
+function MsgOut(var F:TextRec):Integer; far;
+var I:Word; C:Char;
+begin
+ I:=0;
+ while I<F.BufPos do begin
+  C:=F.BufPtr^[I]; Inc(I);
+  if C=#10 then MsgLine
+  else if C>=' ' then begin
+   if Length(MsgPart)=78 then MsgLine;
+   MsgPart:=MsgPart+C
   end
-  else if K=27 then begin
-   while L<>'' do begin Delete(L,Length(L),1); Write(#8' '#8) end
-  end
-  else if (K>=32) and (K<=126) then begin
-   if Length(L)<250 then begin L:=L+Chr(K); Write(Chr(K)) end
-  end
-  else if L='' then begin
-   if K=256+72 then L:='UP' else if K=256+80 then L:='DOWN'
-   else if K=9 then L:='TAB' else if K=256+15 then L:='BACK'
-   else if K=256+83 then L:='DEL' else if K=256+71 then L:='TOP'
-   else if K=256+79 then L:='BOTTOM';
-   if L<>'' then begin WriteLn(L); Exit end
+ end;
+ F.BufPos:=0; MsgOut:=0
+end;
+function MsgNone(var F:TextRec):Integer; far;
+begin MsgNone:=0 end;
+function MsgOpen(var F:TextRec):Integer; far;
+begin
+ F.Mode:=fmOutput; F.InOutFunc:=@MsgOut; F.FlushFunc:=@MsgOut; F.CloseFunc:=@MsgNone; MsgOpen:=0
+end;
+
+procedure Row(Y:Integer; S:String; Attr:Byte);
+var X:Integer;
+begin
+ for X:=1 to 80 do
+  if X<=Length(S) then Screen[(Y-1)*80+X-1]:=Ord(S[X])+Word(Attr)*256
+  else Screen[(Y-1)*80+X-1]:=32+Word(Attr)*256
+end;
+
+function Spaces(N:Integer):String;
+var S:String;
+begin S:=''; while (N>0) and (Length(S)<60) do begin S:=S+' '; Dec(N) end; Spaces:=S end;
+
+procedure Draw(Status:String);
+var I,D,Item,Y,CurX,CurY,First:Integer; S,N:String;
+begin
+ Str(Steps,N);
+ S:=' PasTinyAsm   '+OutName+'.COM   '+N+' lines';
+ if Steps=1 then Delete(S,Length(S),1);
+ if Steps>0 then begin Str(Size,N); S:=S+', '+N+' bytes' end;
+ Row(1,S,$70); Row(2,'',7);
+ (* The listing has Steps+1 items: the lines, and the line being typed
+    standing before line Cur.  Keep that one on the screen. *)
+ if Cur<TopItem then TopItem:=Cur;
+ if Cur>TopItem+LISTROWS-1 then TopItem:=Cur-LISTROWS+1;
+ if TopItem<1 then TopItem:=1;
+ D:=0; Y:=LISTTOP; CurX:=1; CurY:=LISTTOP; Item:=0;
+ for I:=1 to Steps+1 do begin
+  if (I<=Steps) and (Kind[I]='C') and (D>0) then Dec(D);
+  if I=Cur then begin
+   Inc(Item);
+   if (Item>=TopItem) and (Y<LISTTOP+LISTROWS) then begin
+    First:=D; if (I<=Steps) and (Kind[I]='C') then Inc(First);
+    S:='  > '+Spaces(First*2);
+    CurX:=Length(S)+1;
+    if Length(Field)>74-Length(S) then S:=S+Copy(Field,Length(Field)-(74-Length(S))+1,255) else S:=S+Field;
+    CurX:=Length(S)+1; CurY:=Y;
+    Row(Y,S,$1F); Inc(Y)
+   end
   end;
-  System.Flush(Output)
- end
+  if I<=Steps then begin
+   Inc(Item);
+   if (Item>=TopItem) and (Y<LISTTOP+LISTROWS) then begin
+    Str(I:3,N);
+    if Kind[I]='E' then S:=N+' '+Spaces((D-1)*2) else S:=N+' '+Spaces(D*2);
+    if Plan[I][1]=#255 then S:=S+'PRINT "'+Copy(Plan[I],2,255)+'"' else S:=S+Plan[I];
+    if Kind[I]=' ' then Row(Y,S,7) else Row(Y,S,$0B);
+    Inc(Y)
+   end;
+   if Kind[I]='O' then Inc(D)
+  end
+ end;
+ while Y<LISTTOP+LISTROWS do begin Row(Y,'',7); Inc(Y) end;
+ Row(20,'',7);
+ if Status<>'' then begin Row(21,' '+Status,$0E); Row(22,'',7); Row(23,'',7); Row(24,'',7) end
+ else for I:=1 to 4 do
+  if NMsg-4+I>=1 then Row(20+I,' '+Msg[NMsg-4+I],$0E) else Row(20+I,'',7);
+ if NMsg>4 then begin
+  (* too much to show below: a page over the listing, until a key *)
+  for I:=1 to MAXMSG do if I<=NMsg then Row(2+I,' '+Msg[I],$0E) else Row(2+I,'',7);
+  for I:=21 to 24 do Row(I,'',7);
+  Row(24,' press a key',$0E)
+ end;
+ Row(25,' Up/Down move   Tab next block   Del delete   Enter add   F1 help   Alt-X quit',$70);
+ Window(1,1,80,25); GotoXY(CurX,CurY); Flush
+end;
+
+procedure Editor;
+var K,I:Integer; L:String; Done:Boolean; F:File;
+begin
+ System.Move(Output,SavedOut,SizeOf(TextRec));
+ with TextRec(Output) do begin
+  Handle:=$FFFF; Mode:=fmClosed; BufSize:=SizeOf(MsgBuf); BufPtr:=@MsgBuf; OpenFunc:=@MsgOpen; Name[0]:=#0
+ end;
+ Rewrite(Output);
+ NMsg:=0; MsgPart:=''; Field:=''; TopItem:=1; Done:=False;
+ WriteLn('Say what the program should do and press Enter.  F1 shows more.');
+ while not Done do begin
+  Draw('');
+  K:=GetKey;
+  if K=256+67 then begin
+   (* F9: save a picture of the screen, as tests/snap.asm does *)
+   Assign(F,'SNAP.SCR'); Rewrite(F,1); BlockWrite(F,Screen,4000); Close(F)
+  end
+  else if NMsg>4 then NMsg:=0       (* a page was showing: any key puts it away *)
+  else if (K>=32) and (K<=126) then begin
+   if Length(Field)<200 then Field:=Field+Chr(K)
+  end
+  else if K=8 then begin if Field<>'' then Delete(Field,Length(Field),1) end
+  else if K=27 then Field:=''
+  else if K=256+72 then Move('UP',0) else if K=256+80 then Move('DOWN',0)
+  else if K=9 then Move('TAB',0) else if K=256+15 then Move('BACK',0)
+  else if K=256+71 then Move('TOP',0) else if K=256+79 then Move('BOTTOM',0)
+  else if K=256+73 then begin for I:=1 to 10 do Move('UP',0) end
+  else if K=256+81 then begin for I:=1 to 10 do Move('DOWN',0) end
+  else if (K=256+45) or (K=256+68) then Done:=True
+  else if K=256+59 then begin NMsg:=0; Handle('HELP') end
+  else if (K=256+83) and (Field='') then begin NMsg:=0; Handle('DEL') end
+  else if (K=13) and (Field<>'') then begin
+   L:=Field; Field:=''; NMsg:=0;
+   if Tidy(L)='quit' then Done:=True
+   else begin Draw('working...'); Handle(L) end
+  end
+ end;
+ Close(Output);
+ System.Move(SavedOut,Output,SizeOf(TextRec));
+ TextAttr:=7; Window(1,1,80,25); ClrScr; GotoXY(1,1); Flush
+end;
+{$ENDIF}
+
+(* Lines of a file, taken as if they had been typed. *)
+procedure Script(Name:String);
+var T:Text; L:String;
+begin
+ Assign(T,Name); {$I-}Reset(T);{$I+}
+ if IOResult<>0 then begin WriteLn('cannot read ',Name); Exit end;
+ while not Eof(T) do begin
+  ReadLn(T,L);
+  while (L<>'') and (L[1]=' ') do Delete(L,1,1);
+  if (L<>'') and (Tidy(L)<>'quit') then begin WriteLn('> ',L); Handle(L) end
+ end;
+ Close(T)
 end;
 
 begin
  Interactive:=ConsoleIO; Active:=0; OutName:='OUT'; Steps:=0; Cur:=1;
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
- Creativity:=0; WriteLn('PasTinyAsm 1.1  FPU ',FPUName);
+ Creativity:=0; WriteLn('PasTinyAsm 1.2  FPU ',FPUName);
  {$IFDEF VER70}WriteLn('heap=',MemAvail);{$ENDIF}
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
- if Interactive then WriteLn('Say what the program should do.  HELP, LIST, SHOW, NAME file, QUIT.');
- while True do begin
-  if Interactive then begin Write('> '); System.Flush(Output) end
-  else if Eof(Input) then Break;
-  ReadCommand(Line);
+ (* MAKECOM file: start from the lines of that file *)
+ if ParamCount>0 then Script(ParamStr(1));
+ {$IFDEF VER70}
+ if Interactive then begin
+  Editor;
+  if Steps>0 then WriteLn('The program is ',OutName,'.COM, its listing ',OutName,'.ASM.');
+  ReleaseMemory; Halt(0)
+ end;
+ {$ENDIF}
+ while not Eof(Input) do begin
+  ReadLn(Line); WriteLn('> ',Line);      (* show what was read *)
   while (Line<>'') and (Line[1]=' ') do Delete(Line,1,1);
   if (Tidy(Line)='quit') then Break;
   if Line<>'' then Handle(Line);
