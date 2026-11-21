@@ -169,7 +169,8 @@ with tempfile.TemporaryDirectory() as tmp:
                         print('         %s -> %s (want %s)' % w)
         # The tasks expert writes whole small programs.  "combinations" are parts it
         # was trained on, put together in ways that were held out of training.
-        for label, split in (('trained combinations', 'seen'), ('held-out combinations', 'combo'), ('new wordings', 'words')):
+        for label, split in (('trained shapes and combinations', 'seen'), ('held-out combinations', 'combo'),
+                             ('first held-out wordings (now trained)', 'words1'), ('new wordings', 'words')):
             r = random.Random(7)
             pairs = [gen_tasks.make(r, split) for _ in range(300)]
             lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
@@ -178,7 +179,7 @@ with tempfile.TemporaryDirectory() as tmp:
             got = [l.split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused
             right = sum(g == a for (q, a), g in zip(pairs, got))
             wrong = [(q, g, a) for (q, a), g in zip(pairs, got) if g is not None and g != a]
-            print('tasks  %-33s %d right, %d refused, %d wrong but accepted, of %d'
+            print('tasks  %-38s %d right, %d refused, %d wrong but accepted, of %d'
                   % (label + ':', right, len(pairs) - right - len(wrong), len(wrong), len(pairs)))
             if '--show' in sys.argv:
                 for w in sorted(set(wrong))[:12]:

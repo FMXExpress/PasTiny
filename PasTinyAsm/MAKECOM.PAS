@@ -188,7 +188,7 @@ end;
 
 (* Every text the line prints must be words of the step. *)
 function TextsAgree(Step,L:String):Boolean;
-var K:Integer; Part,Key:String;
+var K:Integer; Part,Key:String; Signs:Boolean;
 begin
  TextsAgree:=False; L:=L+':';
  while L<>'' do begin
@@ -197,7 +197,10 @@ begin
   for K:=1 to Length(Key) do Key[K]:=UpCase(Key[K]);
   if (Key='PRINT') or (Key='ECHO') then begin
    while (Part<>'') and (Part[1]=' ') do Delete(Part,1,1);
-   if Pos(' '+Part+' ',' '+Step+' ')=0 then Exit
+   (* a text of signs only, such as a star, need not be in the request *)
+   Signs:=True;
+   for K:=1 to Length(Part) do if Part[K] in ['a'..'z','A'..'Z','0'..'9'] then Signs:=False;
+   if not Signs then if Pos(' '+Part+' ',' '+Step+' ')=0 then Exit
   end
  end;
  TextsAgree:=True
@@ -269,14 +272,18 @@ end;
 (* Is this sentence a request for a small program with a loop, a
    question or a test in it?  Those go whole to the tasks expert. *)
 function IsTask(S:String):Boolean;
-const NK=18; TaskWords:array[1..NK] of String[10]=
+const NK=31; TaskWords:array[1..NK] of String[10]=
  ('count','countdown','numbers','ask','table','squares','even','odd','each','every','higher','lower',
-  'cycle','if','many','rounds','add','otherwise');
-var I:Integer;
+  'cycle','if','many','rounds','add','otherwise','multiples','cubes','powers','until','timer','stars',
+  'triangle','rising','falling','multiply','fast','slowly','backwards');
+var I:Integer; F:String;
 begin
  IsTask:=False;
  if FindId(XTASKS)=0 then Exit;
- for I:=1 to NK do if HasWord(S,TaskWords[I]) then IsTask:=True
+ for I:=1 to NK do if HasWord(S,TaskWords[I]) then IsTask:=True;
+ (* "print hello 5 times" *)
+ F:=FirstWord(S);
+ if ((F='print') or (F='say')) and (Copy(S,Length(S)-5,6)=' times') then IsTask:=True
 end;
 
 (* Split one sentence into steps at commas and at the words "and" and
