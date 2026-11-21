@@ -750,10 +750,10 @@ end;
 
 function NumStr(N: Longint): String;
 var
-  S: String;
+  S: String[12];
 begin
   Str(N, S);
-  NumStr := S;
+  NumStr := String(S);
 end;
 
 function TenthsStr(T: Longint): String;
@@ -820,7 +820,7 @@ begin
   for I := 1 to NBENCH do
   begin
     T0 := NowMs;
-    Letters := Think(BenchQ[I], Answer, Tenths, nil, nil);
+    Letters := Think(String(BenchQ[I]), Answer, Tenths, nil, nil);
     T1 := NowMs;
     if AbortThink then Break;
     Ms := T1 - T0;

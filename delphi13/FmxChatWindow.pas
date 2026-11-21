@@ -22,10 +22,10 @@ type
   private
     Monitor: TMemo;
     Generating: Boolean;
-    procedure RefreshMonitor;
-    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     Player: TMediaPlayer;
     WavePath: string;
+    procedure RefreshMonitor;
+    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     procedure PlayAnswer(const Answer: string);
   public
     destructor Destroy; override;
@@ -58,13 +58,28 @@ begin
 end;
 
 procedure TChatForm.FormCreate(Sender: TObject);
+const
+  ThemeName = 'PasclawDark.style';
 var
-  Path: string;
+  Path, ThemePath: string;
+  DarkStyle: TStyleBook;
 begin
   Player := TMediaPlayer.Create(Self);
   WavePath := TPath.Combine(TPath.GetTempPath, TGUID.NewGuid.ToString + '.wav');
   Question.MaxLength := MAXQ;
   Path := ModelPath;
+  ThemePath := TPath.Combine(ExtractFilePath(Path), ThemeName);
+  {$IF Defined(MSWINDOWS)}
+  { RAD Studio normally builds into Win32/Debug or Win64/Release. }
+  if not TFile.Exists(ThemePath) then
+    ThemePath := ExpandFileName(ExtractFilePath(Path) + '..\..\styles\' + ThemeName);
+  {$ENDIF}
+  if TFile.Exists(ThemePath) then
+  begin
+    DarkStyle := TStyleBook.Create(Self);
+    DarkStyle.LoadFromFile(ThemePath);
+    StyleBook := DarkStyle;
+  end;
   try
     OnFail := ModelError;
     Creativity := 0;
