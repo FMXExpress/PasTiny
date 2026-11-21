@@ -5,7 +5,7 @@ interface
 uses
   System.Classes, System.UITypes, FMX.Types, FMX.Controls, FMX.Forms,
   FMX.Layouts, FMX.Edit, FMX.StdCtrls, FMX.Memo, FMX.ScrollBox,
-  FMX.Controls.Presentation, FMX.Memo.Types, FMX.Media;
+  FMX.Controls.Presentation, FMX.Memo.Types{$IFNDEF MSWINDOWS}, FMX.Media{$ENDIF};
 
 type
   TChatForm = class(TForm)
@@ -22,8 +22,10 @@ type
   private
     Monitor: TMemo;
     Generating: Boolean;
+    {$IFNDEF MSWINDOWS}
     Player: TMediaPlayer;
     WavePath: string;
+    {$ENDIF}
     procedure RefreshMonitor;
     procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     procedure PlayAnswer(const Answer: string);
@@ -37,7 +39,8 @@ var
 implementation
 
 uses
-  System.SysUtils, System.IOUtils, NeuralMonitor, TnyNet, TinyVoice;
+  System.SysUtils, System.IOUtils, NeuralMonitor, TnyNet,
+  {$IFDEF MSWINDOWS}DesktopVoice{$ELSE}TinyVoice{$ENDIF};
 
 {$R *.fmx}
 
@@ -64,8 +67,10 @@ var
   Path, ThemePath: string;
   DarkStyle: TStyleBook;
 begin
+  {$IFNDEF MSWINDOWS}
   Player := TMediaPlayer.Create(Self);
   WavePath := TPath.Combine(TPath.GetTempPath, TGUID.NewGuid.ToString + '.wav');
+  {$ENDIF}
   Question.MaxLength := MAXQ;
   Path := ModelPath;
   ThemePath := TPath.Combine(ExtractFilePath(Path), ThemeName);
@@ -112,10 +117,19 @@ end;
 
 procedure TChatForm.VoiceChange(Sender: TObject);
 begin
-  if Assigned(Player) and not Voice.IsChecked then Player.Stop;
+  if Voice.IsChecked then Exit;
+  {$IFDEF MSWINDOWS}
+  StopVoice;
+  {$ELSE}
+  if Assigned(Player) then Player.Stop;
+  {$ENDIF}
 end;
 
 procedure TChatForm.PlayAnswer(const Answer: string);
+{$IFDEF MSWINDOWS}
+begin
+  PlayVoice(Answer);
+{$ELSE}
 var Wave: TMemoryStream;
 begin
   Player.Stop;
@@ -129,12 +143,17 @@ begin
   end;
   Player.FileName := WavePath;
   Player.Play;
+{$ENDIF}
 end;
 
 destructor TChatForm.Destroy;
 begin
+  {$IFDEF MSWINDOWS}
+  StopVoice;
+  {$ELSE}
   FreeAndNil(Player);
   if WavePath <> '' then DeleteFile(WavePath);
+  {$ENDIF}
   inherited;
 end;
 

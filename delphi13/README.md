@@ -43,7 +43,7 @@ The Linux x86-64 FPC build matched all 60 original C reference answers with both
 
 ## Robot voice
 
-VCL and FireMonkey play each completed answer as square-wave robot chatter. Clear **Sound** to stop playback and mute subsequent answers. Interactive console sessions play answers by default. Use `/NOSOUND` to mute them, or `/SOUND` to enable playback for redirected or file-based sessions. Benchmarks stay silent. On Linux install ALSA’s `aplay` or FFmpeg’s `ffplay`. Windows uses the system audio output and FireMonkey uses its platform media player.
+VCL and FireMonkey play each completed answer as square-wave robot chatter. Clear **Sound** to stop playback and mute subsequent answers. Interactive console sessions play answers by default. Use `/NOSOUND` to mute them, or `/SOUND` to enable playback for redirected or file-based sessions. Benchmarks stay silent. On Linux install ALSA’s `aplay` or FFmpeg’s `ffplay`. On Windows, the console, VCL and FireMonkey synthesize the tones in memory and play them through the system audio output. Other FireMonkey targets generate a temporary WAV for the platform media player.
 
 ## Neural monitor
 
