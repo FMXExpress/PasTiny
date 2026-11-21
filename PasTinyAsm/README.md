@@ -82,6 +82,7 @@ The program is built a sentence at a time, and the `.COM` file is written again 
 | Left, Right, Home, End, Del, Backspace, Ctrl-Left, Ctrl-Right | move and correct inside what you are typing ([example](docs/editor-cursor.png)); a long line scrolls sideways |
 | Del, on an empty line | delete the line below, or the whole block if that line opens one ([example](docs/editor-deleted.png)) |
 | Esc | clear what you typed and leave a line unchanged; while an expert is working, cancel it |
+| typing `load name` | take up the program kept in `name.SRC` |
 | F5 | run the program and come back; what it left on the screen stays until a key is pressed |
 | F1 | help ([screen](docs/editor-help.png)) |
 | Alt-X or F10, or typing `quit` | leave |
@@ -115,7 +116,7 @@ Every block has its closing line on the screen, so the position alone says where
    >
 ```
 
-The commands are `UP`, `DOWN`, `TOP`, `BOTTOM`, `GO n`, `TAB`, `BACK`, `END` (leave the block), `DEL`, `DEL n`, `EDIT n text` (change line n), `SHOW` and `NEW`.
+The commands are `UP`, `DOWN`, `TOP`, `BOTTOM`, `GO n`, `TAB`, `BACK`, `END` (leave the block), `DEL`, `DEL n`, `EDIT n text` (change line n), `LOAD name`, `SAVE`, `SHOW` and `NEW`.
 
 Blocks are opened by code, not by a model, from a small set of wordings:
 
@@ -170,6 +171,8 @@ Built from "build a welcome screen", "build a rocket launch from 5", a `repeat 2
 ## Running, the log and extended memory
 
 **Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
+
+**The program as text.** Beside `NAME.COM` and `NAME.ASM`, every change also writes `NAME.SRC`: the program's lines as the editor shows them, one to a line. `LOAD name` in the editor or a script, or `MAKECOM name.SRC` at the DOS prompt, takes such a file up again, so quitting no longer loses the editable form. It is plain text and can be written in any editor. Its lines are code and are not put to the experts; a file with a line that is not code, a block left open, or more than 40 lines is refused and the program in hand is kept.
 
 **The log.** Every request and what became of it, refusals included, is added to `MAKECOM.LOG`. It is the place to look for wordings the experts get wrong; they are what the next training round needs.
 

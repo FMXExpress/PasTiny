@@ -649,6 +649,79 @@ begin
  if Cur>Steps then begin D:=0; if Steps>0 then Marker end
 end;
 
+(* ------------------------------------------------------ the source
+
+   Beside NAME.COM and NAME.ASM the program is kept as text in NAME.SRC:
+   its lines as the editor shows them, one to a line.  LOAD reads such a
+   file back, so a program can be taken up again another day, or written
+   in any editor.  The lines are not put to the experts: they are code. *)
+procedure WriteSource;
+var T:Text; I:Integer;
+begin
+ Assign(T,OutName+'.SRC'); {$I-}Rewrite(T);{$I+}
+ if IOResult<>0 then Exit;
+ for I:=1 to Steps do
+  if Plan[I][1]=#255 then WriteLn(T,'PRINT "',Copy(Plan[I],2,255),'"') else WriteLn(T,Plan[I]);
+ Close(T)
+end;
+
+(* One line of a source file: what kind of line it is and how it is
+   kept, or False if it is not a line of the language. *)
+function SourceLine(L:String; var Kept:TLine; var K:Char):Boolean;
+var U,Why:String; I,Delta:Integer;
+begin
+ SourceLine:=False;
+ while (L<>'') and (L[1]=' ') do Delete(L,1,1);
+ while (L<>'') and (L[Length(L)]=' ') do Delete(L,Length(L),1);
+ if (L='') or (Length(L)>120) then Exit;
+ U:=CodeCase(L); K:=' ';
+ if (Copy(U,1,7)='PRINT "') and (L[Length(L)]='"') and (Length(L)>8) then
+  Kept:=#255+Copy(L,8,Length(L)-8)
+ else begin
+  if not CheckPart(L,Delta,Why) then Exit;
+  Kept:=L;
+  if (Pos('PRINT',U)=0) and (Pos('ECHO',U)=0) then Kept:=U;
+  if (U='END') or (U='NEXT') then K:='C' else if U='ELSE' then K:='E' else if Delta=1 then K:='O'
+ end;
+ SourceLine:=True
+end;
+
+function LoadSource(Name:String):Boolean;
+var T:Text; L:String; Kept:TLine; K:Char; Pass,N,I:Integer;
+begin
+ LoadSource:=False;
+ for I:=1 to Length(Name) do Name[I]:=UpCase(Name[I]);
+ if Pos('.',Name)=0 then Name:=Name+'.SRC';
+ (* read it twice: first only to see that every line will do *)
+ for Pass:=1 to 2 do begin
+  Assign(T,Name); {$I-}Reset(T);{$I+}
+  if IOResult<>0 then begin WriteLn('cannot read ',Name); Exit end;
+  N:=0;
+  while not Eof(T) do begin
+   ReadLn(T,L);
+   if Tidy(L)<>'' then begin
+    Inc(N);
+    if (N>MAXSTEPS) or not SourceLine(L,Kept,K) then begin
+     Close(T);
+     if N>MAXSTEPS then WriteLn(Name,' has more than ',MAXSTEPS,' lines')
+     else WriteLn(Name,' line ',N,' is not a line of the language: ',L);
+     Exit
+    end;
+    if Pass=2 then begin Plan[N]:=Kept; Kind[N]:=K end
+   end
+  end;
+  Close(T)
+ end;
+ Steps:=N; Cur:=N+1;
+ I:=Pos('.',Name); if I>9 then I:=9;
+ OutName:=Copy(Name,1,I-1);
+ if not Build('') then begin
+  WriteLn(Name,' does not make a program: ',CompErr); Steps:=0; Cur:=1; Exit
+ end;
+ WriteLn('loaded ',Name,', ',N,' lines');
+ LoadSource:=True
+end;
+
 procedure Save;
 var F:File;
 begin
@@ -656,10 +729,12 @@ begin
   (* nothing is left: the files of the program that was must go too *)
   Assign(F,OutName+'.COM'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
   Assign(F,OutName+'.ASM'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
-  WriteLn('empty program: ',OutName,'.COM and ',OutName,'.ASM removed'); Exit
+  Assign(F,OutName+'.SRC'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
+  WriteLn('empty program: ',OutName,'.COM, .ASM and .SRC removed'); Exit
  end;
  if not Build(OutName+'.ASM') then begin WriteLn('cannot compile: ',CompErr); Exit end;
  Assign(F,OutName+'.COM'); Rewrite(F,1); BlockWrite(F,Code^,Size); Close(F);
+ WriteSource;
  WriteLn('wrote ',OutName,'.COM ',Size,' bytes, ',OutName,'.ASM')
 end;
 
@@ -837,6 +912,7 @@ begin
   WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
   WriteLn('In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.');
   WriteLn('F5 (RUN in a script) runs the program and comes back.  MEM, XMS ON/OFF.');
+  WriteLn('The program is also kept as text in NAME.SRC; LOAD name takes one up.');
   WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
   Exit
  end
@@ -862,6 +938,12 @@ begin
   if XmsOn then WriteLn('experts are kept in extended memory') else WriteLn('experts are read from disk');
   Exit
  end
+ else if (Cmd='LOAD') and (Rest<>'') and (Pos(' ',Rest)=0) then begin
+  (* LOAD name: take up the program kept in name.SRC *)
+  LogLine('> '+L);
+  Changed:=LoadSource(Rest)
+ end
+ else if (Cmd='SAVE') and (Rest='') then begin Save; Exit end
  else if (Cmd='SHOW') and (Rest='') then begin Outline; Exit end
  else if (Cmd='NEW') and (Rest='') then begin Steps:=0; Cur:=1; WriteLn('new program') end
  else if ((Cmd='UP') or (Cmd='DOWN') or (Cmd='TOP') or (Cmd='BOTTOM') or (Cmd='TAB') or (Cmd='BACK') or
@@ -1159,8 +1241,15 @@ begin
  if XmsOn then WriteLn('extended memory: ',XmsFreeKB,' KB free, experts will be kept there');
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
- (* MAKECOM file: start from the lines of that file *)
- if ParamCount>0 then Script(ParamStr(1));
+ (* MAKECOM file: start from the lines of that file; MAKECOM name.SRC:
+    take up a program kept as text *)
+ if ParamCount>0 then begin
+  Line:=ParamStr(1);
+  for Steps:=1 to Length(Line) do Line[Steps]:=UpCase(Line[Steps]);
+  Steps:=0;
+  if Copy(Line,Length(Line)-3,4)='.SRC' then begin if LoadSource(Line) then Save end
+  else Script(ParamStr(1))
+ end;
  {$IFDEF VER70}
  if Interactive then begin
   Editor;

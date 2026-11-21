@@ -158,8 +158,27 @@ with tempfile.TemporaryDirectory() as tmp:
     # Deleting the last line leaves no program files behind.
     for script in (['CLS', 'del 1'], ['TIMES 2:', 'CLS', 'del 1'], ['CLS', 'HIDE', 'del 1', 'del 1']):
         out = run(dest, script)
-        assert 'removed' in out and not (dest / 'OUT.COM').exists() and not (dest / 'OUT.ASM').exists(), (script, out)
+        assert 'removed' in out and not any((dest / ('OUT.' + e)).exists() for e in ('COM', 'ASM', 'SRC')), (script, out)
     print('Review fixes: quoted characters keep their case; an emptied program removes its files.')
+    # The program is also kept as text, and that text loads back to the same program.
+    session = ['name keep', 'TIMES 2:', 'CLS', 'count from 1 to 3:', 'print the count', 'end', "IF K='q':", 'STOP', 'end', 'else',
+               'print "Bye, now: done"', 'bottom', 'FOR I=1 TO 2:OUT I*I:NEXT']
+    out = run(dest, session + ['show'])
+    listing = out[out.rindex('> show'):]
+    com, src = (dest / 'KEEP.COM').read_bytes(), (dest / 'KEEP.SRC').read_text()
+    assert 'PRINT "Bye, now: done"' in src and "IF K='q'" in src, src
+    (dest / 'KEEP.COM').unlink()
+    out = run(dest, ['CLS', 'load keep', 'show'])
+    assert 'loaded KEEP.SRC, 11 lines' in out and out[out.rindex('> show'):] == listing, out
+    assert (dest / 'KEEP.COM').read_bytes() == com
+    (dest / 'KEEP.COM').unlink()
+    out = subprocess.run([exe, 'KEEP.SRC'], input='show\nquit\n', text=True, capture_output=True, cwd=dest).stdout
+    assert out[out.rindex('> show'):] == listing and (dest / 'KEEP.COM').read_bytes() == com, out
+    for bad in ('CLS\nJUMP 5\n', 'TIMES 2\nCLS\n', 'FOR I=1 TO 3\nCLS\nEND\n'):      # not code; a block left open; closed wrongly
+        (dest / 'BAD.SRC').write_text(bad)
+        out = run(dest, ['CLS', 'load bad', 'show'])
+        assert 'loaded' not in out and not (dest / 'BAD.COM').exists(), out
+    print('Source: a program kept as text loads back to the same listing and the same .COM file; 3 bad files are refused.')
     if models:
         for req, want in PLANS:
             out = run(dest, [req])
