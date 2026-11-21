@@ -7,7 +7,7 @@
 ;
 ; A line ";; NAME kind lo1 hi1 lo2 hi2" starts a routine:
 ;   kind 0 = no argument, 1 = one number in AX, 2 = numbers in AX and BX,
-;   3 = text, address in DX (ends with "$")
+;   3 = text, address in DX (ends with "$"), 4 = no argument, result in AX
 ;   lo/hi = the smallest and largest value allowed for each number
 ;
 ; The screen routines write to the colour text screen at B800:0000 (80 x 25).
@@ -22,6 +22,7 @@
 ;; FLASH 1 1 50 0 0
 ; Flash the screen AX times, keeping what is on it.
         mov     cx,ax
+        jcxz    .out                    ; a count of 0 does nothing
 .again: push    cx
         call    .flip
         call    .wait
@@ -29,7 +30,7 @@
         call    .wait
         pop     cx
         loop    .again
-        ret
+.out:   ret
 .flip:  push    es                      ; swap light and dark in every cell
         mov     ax,0B800h
         mov     es,ax
@@ -115,6 +116,8 @@
 
 ;; BEEP 2 40 9999 10 9999
 ; Sound the speaker at AX hertz for BX milliseconds.
+        cmp     ax,19                   ; too low for the timer: do nothing
+        jb      .out
         mov     cx,ax
         mov     dx,12h                  ; 1193180 / hertz = timer count
         mov     ax,34DCh
@@ -138,11 +141,13 @@
         in      al,61h
         and     al,0FCh
         out     61h,al
-        ret
+.out:   ret
 
 ;; SIREN 1 1 20 0 0
 ; Sweep the speaker up and down AX times.
         mov     si,ax
+        test    si,si                   ; a count of 0 does nothing
+        jz      .out
         in      al,61h
         or      al,3
         out     61h,al
@@ -160,7 +165,7 @@
         in      al,61h
         and     al,0FCh
         out     61h,al
-        ret
+.out:   ret
 .tone:  mov     al,0B6h
         out     43h,al
         mov     al,bl
@@ -246,4 +251,29 @@
         mov     ah,2
         int     21h
         loop    .digit
+        ret
+
+;; INPUT 4 0 0 0 0
+; Read a whole number typed at the keyboard, up to Enter, into AX.
+        xor     bx,bx
+.next:  mov     ah,1                    ; read one character, with echo
+        int     21h
+        cmp     al,13
+        je      .done
+        cmp     al,26                   ; end of a redirected input file
+        je      .done
+        sub     al,'0'
+        cmp     al,9
+        ja      .next                   ; not a digit: ignore it
+        mov     cl,al
+        xor     ch,ch
+        mov     ax,10
+        mul     bx
+        add     ax,cx
+        mov     bx,ax
+        jmp     .next
+.done:  mov     ah,2
+        mov     dl,10
+        int     21h
+        mov     ax,bx
         ret

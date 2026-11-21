@@ -1,0 +1,47 @@
+name b1
+repeat 2 times:
+say hello
+count from 1 to 3:
+print the count
+end
+beep
+end
+say "done"
+show
+new
+name b2
+ask for a number and print its double
+if it is bigger than 10: say big
+else
+say small
+show
+new
+name b3
+forever: wait for a key
+if the key is q: stop
+end
+say again, new line
+show
+new
+name b4
+count from 1 to 3:
+count down from 2:
+print the count
+end
+say next, new line
+top
+clear the screen
+go 4
+del
+show
+new
+name b5
+repeat 2 times:
+say hi, new line
+end
+edit 1 repeat 3 times
+edit 2 say yo
+edit 4 CLS
+show
+mem
+quit
