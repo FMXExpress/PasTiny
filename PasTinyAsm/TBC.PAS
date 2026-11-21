@@ -46,7 +46,7 @@ unit TBC;
 interface
 type TCall=record Name:String[7]; Kind:Byte; Lo1,Hi1,Lo2,Hi2,Ofs,Len:Word end;
 {$I LIB.INC}
-const MAXCODE=4096; ORIGIN=$100; VARBASE=$103;
+const MAXCODE=3072; ORIGIN=$100; VARBASE=$103;
 type TCode=array[0..MAXCODE-1] of Byte;
 (* The program being built.  The big tables live on the heap: the data
    segment of the DOS program is nearly full. *)
@@ -70,7 +70,7 @@ function RepeatCount(S:String):Word;
 function FindCall(S:String):Integer;
 
 implementation
-const MAXLAB=300; MAXFIX=400; MAXTEXT=24; MAXDEPTH=12;
+const MAXLAB=220; MAXFIX=300; MAXTEXT=24; MAXDEPTH=12;
 type TBlock=record Kind:Char; L1,L2,V:Integer end;
  TFix=record Pos:Word; Kind:Byte; Id:Integer end;
  TFixes=array[1..MAXFIX] of TFix;

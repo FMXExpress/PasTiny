@@ -241,7 +241,16 @@ Beside the `.COM` file the program writes a complete `.ASM` listing of the main 
 - **Wordings.** The first version of this expert got 133 of 300 on wordings it had not seen, and each wording was right every time or wrong every time. Training on three to five wordings per part, in place of two or three, brought a fresh unseen set to 298. The two sets are different phrases, so this shows that variety helps, not that any wording will work.
 - The two refusals in the first row were this program's own text check turning down a "yes" the program prints; that check has since been relaxed.
 
-**The three single-call experts** are exact on trained wordings and unreliable on new ones. Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
+**Second choices.** When an expert's first answer fails a check, the planner goes back to the place in that answer where the expert was least sure, takes its second choice there and lets it write on, and does the same for the next two such places. The first answer that passes every check is taken and marked `(second choice)`. One check was added to make this bite: a single call must be about something the step names, so `SHOW` needs "show", "on", "visible" or the like in the step. On the 300 unseen wordings per expert:
+
+| Expert | Before: right / refused / wrong | With second choices | Second choices used | Of those, right |
+|---|---|---|---:|---:|
+| Screen | 291 / 0 / 9 | 297 / 0 / 3 | 6 | 6 |
+| Sound | 207 / 20 / 73 | 259 / 41 / 0 | 55 | 55 |
+
+"take the cursor away" now gives `HIDE`, "repeat the program 5 times" gives `REPEAT 5`, "take a break for two seconds" gives `WAIT 2000`. Trained wordings are unaffected (no second choice was needed in 1,200 of them). The word lists behind the new check are short and hand-written, which is why 21 more sound steps are refused: a refusal is the safe way to be wrong. The text and tasks experts are not helped, because their lines have no single key word to hold them to.
+
+**The three single-call experts** (the table below is from before second choices) are exact on trained wordings and unreliable on new ones. Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
 
 | Expert | Trained wordings | First held-out set, after training on it | New held-out set: right | refused | wrong but accepted |
 |---|---:|---:|---:|---:|---:|

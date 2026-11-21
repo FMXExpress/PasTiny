@@ -290,10 +290,52 @@ begin
  Accept:=True
 end;
 
+(* A single call must be about something the step names: HIDE needs
+   "hide", "off", "away" or the like in the step.  Without this a step in
+   a wording the expert has not met can become a valid call for the
+   opposite thing.  Lines of several statements are not looked at. *)
+function KeyWordsAgree(Step,L:String):Boolean;
+const NW=11;
+ Calls:array[1..NW] of String[7]=('HIDE','SHOW','SIREN','SCALE','KEY','REPEAT','CLS','WAIT','BEEP','FLASH','NEWLINE');
+ Words:array[1..NW] of String[76]=(
+  'hide off invisible away rid remove no disable disappear stop not without',
+  'show on visible back see appear enable display again',
+  'siren alarm',
+  'scale tune music melody song notes',
+  'key keypress keyboard',
+  'repeat times twice again loop rounds everything',
+  'clear cls wipe erase blank clean empty reset tidy everything',
+  'wait pause sleep delay hold stop rest nothing break moment second seconds ms',
+  'beep sound tone note noise speaker hz hertz',
+  'flash blink',
+  'line newline');
+var I:Integer; Key,W:String;
+begin
+ KeyWordsAgree:=True;
+ if Pos(':',L)>0 then Exit;
+ Key:=NextWord(L);
+ for I:=1 to NW do if Calls[I]=Key then begin
+  KeyWordsAgree:=False; W:=Words[I];
+  while W<>'' do if HasWord(Step,NextWord(W)) then begin KeyWordsAgree:=True; Exit end;
+  Exit
+ end
+end;
+
+(* Is L an answer to step S that may be taken?  If not, Why says why. *)
+function Passes(S,L:String; var Why:String):Boolean;
+begin
+ Passes:=False;
+ if not CheckLine(L,Why) then Exit;
+ Why:='text was not in the request'; if not TextsAgree(S,L) then Exit;
+ Why:='numbers do not match the request'; if not NumbersAgree(S,L) then Exit;
+ Why:='it is about something the request does not name'; if not KeyWordsAgree(S,L) then Exit;
+ Passes:=True
+end;
+
 (* One step of the request, as typed.  Force is the expert to ask, or 0
    to let the router choose. *)
 function AddStep(Raw:String; Force:Integer):Boolean;
-var S,A,Why,Up:String; Id,K,K2:Integer; Tokens:Longint;
+var S,A,Why,Why2,Up:String; Id,K,K2:Integer; Tokens:Longint; At:array[1..MAXDOUBT] of Integer;
 begin
  AddStep:=False; A:='';
  while (Raw<>'') and (Raw[1]=' ') do Delete(Raw,1,1);
@@ -321,12 +363,20 @@ begin
  if not Switch(Id) then Exit;
  Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
  if Cancelled then begin WriteLn('cancelled'); Exit end;
- if not CheckLine(A,Why) then begin
-  Refuse(S,'refused "'+A+'" ('+Why+')'); Exit end;
- if not TextsAgree(S,A) then begin
-  Refuse(S,'refused "'+A+'" (text was not in the request)'); Exit end;
- if not NumbersAgree(S,A) then begin
-  Refuse(S,'refused "'+A+'" (numbers do not match the request)'); Exit end;
+ if not Passes(S,A,Why) then begin
+  (* the first answer will not do: try the second choice at each of the
+     places where the expert was least sure, and take the first that will *)
+  for K:=1 to MAXDOUBT do begin At[K]:=Doubt[K].At end;
+  for K:=1 to MAXDOUBT do if At[K]>0 then begin
+   Up:=A; ThinkAgain(S,Up,At[K],PollEscape);
+   if Cancelled then begin WriteLn('cancelled'); Exit end;
+   if (Up<>'') and Passes(S,Up,Why2) then begin
+    LogLine('  first answer "'+A+'" ('+Why+')');
+    AddStep:=Accept(S,Up,' ','   (second choice)'); Exit
+   end
+  end;
+  Refuse(S,'refused "'+A+'" ('+Why+')'); Exit
+ end;
  AddStep:=Accept(S,A,' ','')
 end;
 

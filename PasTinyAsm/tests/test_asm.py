@@ -203,7 +203,7 @@ with tempfile.TemporaryDirectory() as tmp:
     if models:
         for req, want in PLANS:
             out = run(dest, [req])
-            got = [re.sub(r'\s+\(no model\)$', '', l).split(' -> ')[-1] for l in out.splitlines() if re.match(r'\d+ ', l)]
+            got = [re.sub(r'\s+\((no model|second choice)\)$', '', l).split(' -> ')[-1] for l in out.splitlines() if re.match(r'\d+ ', l)]
             assert got == want and 'wrote OUT.COM' in out, (req, got, out)
             assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp)
         for req in REFUSED:
@@ -222,7 +222,7 @@ with tempfile.TemporaryDirectory() as tmp:
                     if ' and ' not in ' %s ' % p[0]:
                         pairs.append(p)
                 lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
-                rows = [re.sub(r'\s+\(no model\)$', '', l) for l in lines if re.match(r'\d+ ', l)]
+                rows = [re.sub(r'\s+\((no model|second choice)\)$', '', l) for l in lines if re.match(r'\d+ ', l)]
                 assert len(rows) == len(pairs), (len(rows), len(pairs))
                 right = sum('1 %s -> %s' % (q, a) == l for (q, a), l in zip(pairs, rows))
                 wrong = [(q, l.split(' -> ')[-1], a) for (q, a), l in zip(pairs, rows) if ' -> ' in l and '1 %s -> %s' % (q, a) != l]
@@ -240,7 +240,7 @@ with tempfile.TemporaryDirectory() as tmp:
             lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
             rows = [l for l in lines if re.match(r'\d+ ', l)]
             assert len(rows) == len(pairs), (len(rows), len(pairs))
-            got = [l.split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused
+            got = [re.sub(r'\s+\(second choice\)$', '', l).split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused
             right = sum(g == a for (q, a), g in zip(pairs, got))
             wrong = [(q, g, a) for (q, a), g in zip(pairs, got) if g is not None and g != a]
             print('tasks  %-38s %d right, %d refused, %d wrong but accepted, of %d'
