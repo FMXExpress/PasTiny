@@ -1,4 +1,4 @@
-Writer: 5 programs match NASM byte for byte.
+Compiler: 12 programs match NASM byte for byte.
 Plans: 6 requests give the expected calls; 4 bad requests write nothing.
 screen trained wordings:                 300 right, 0 refused, 0 wrong but accepted, of 300
 screen first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
@@ -9,3 +9,6 @@ sound  new wordings:                     207 right, 20 refused, 73 wrong but acc
 text   trained wordings:                 299 right, 1 refused, 0 wrong but accepted, of 300
 text   first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
 text   new wordings:                     113 right, 0 refused, 187 wrong but accepted, of 300
+tasks  trained combinations:             300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  held-out combinations:            299 right, 0 refused, 1 wrong but accepted, of 300
+tasks  new wordings:                     133 right, 79 refused, 88 wrong but accepted, of 300

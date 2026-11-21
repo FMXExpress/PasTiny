@@ -174,12 +174,14 @@ begin
 end;
 
 (* Is U (in capitals) a line of the language as it stands?  A lone PRINT
-   or ECHO does not count: "print the number 42" is for an expert. *)
+   or ECHO does not count ("print the number 42" is for an expert), nor
+   does a lone beep, flash, siren or wait, which are ordinary requests. *)
 function IsCode(U:String):Boolean;
 var Why,K:String;
 begin
  K:=U; K:=NextWord(K);
  IsCode:=CheckLine(U,Why) and not (((K='PRINT') or (K='ECHO')) and (Pos(':',U)=0))
+  and (U<>'BEEP') and (U<>'FLASH') and (U<>'SIREN') and (U<>'WAIT')
 end;
 
 (* One step of the request, as typed, into the plan.  Force is the
@@ -204,7 +206,8 @@ begin
   if Copy(S,1,5)='also ' then Delete(S,1,5);
   if S='' then begin AddStep:=True; Exit end;
   if IsCode(Up) then begin
-   A:=Raw; S:=Raw     (* typed as a line of the language *)
+   A:=Raw; S:=Raw;    (* typed as a line of the language *)
+   if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=Up
   end else begin
    Direct:=False; Id:=Force; if Id=0 then Id:=Expert(S);
    if Id=0 then begin WriteLn(Steps+1,' ',S,': not understood'); Exit end;

@@ -55,7 +55,7 @@ DIRECT = [
     'INPUT A:TIMES A:FLASH:SIREN:WAIT:END:FOR I=1 TO A:BEEP I*100+200 100:NEXT',
     'LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END',
 ]
-BADLINES = ['FOR I=1 TO 5:OUT I', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
+BADLINES = ['FOR I=1 TO 5:OUT I', 'FOR I=9 TO 3:OUT I:NEXT', 'FOR I=3 DOWNTO 9:OUT I:NEXT', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
             'OUT 70000', 'JUMP 5', 'OUT A+', 'END']
 PLANS = [   # request, the calls it must become
     ('make screen flash, play sound', ['FLASH 3', 'BEEP 440 300']),
@@ -135,8 +135,9 @@ with tempfile.TemporaryDirectory() as tmp:
             lines = run(dest, [q for q, _ in pairs]).splitlines()
             rows = [l for l in lines if re.match(r'\d+ ', l)]
             assert len(rows) == len(pairs), (len(rows), len(pairs))
-            right = sum('1 %s -> %s' % (q, a) == l for (q, a), l in zip(pairs, rows))
-            wrong = [(q, l.split(' -> ')[-1], a) for (q, a), l in zip(pairs, rows) if ' -> ' in l and '1 %s -> %s' % (q, a) != l]
+            got = [l.split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused
+            right = sum(g == a for (q, a), g in zip(pairs, got))
+            wrong = [(q, g, a) for (q, a), g in zip(pairs, got) if g is not None and g != a]
             print('tasks  %-33s %d right, %d refused, %d wrong but accepted, of %d'
                   % (label + ':', right, len(pairs) - right - len(wrong), len(wrong), len(pairs)))
             if '--show' in sys.argv:

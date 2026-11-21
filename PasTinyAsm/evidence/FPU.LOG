@@ -2,7 +2,7 @@ PasTinyAsm 1.0  FPU yes
 name DEMO
 1 make screen flash -> FLASH 3
 2 play sound -> BEEP 440 300
-wrote DEMO.COM 123 bytes, DEMO.ASM
+wrote DEMO.COM 189 bytes, DEMO.ASM
 name HELLO
 1 clear the screen -> CLS
 2 say hello world -> PRINT hello world
@@ -11,17 +11,17 @@ name HELLO
 5 new line -> NEWLINE
 6 print "Bye!" -> PRINT Bye!   (no model)
 7 do it 2 times -> REPEAT 2
-wrote HELLO.COM 108 bytes, HELLO.ASM
+wrote HELLO.COM 163 bytes, HELLO.ASM
 name BLUE
 1 make the screen blue -> COLOR 1
-wrote BLUE.COM 41 bytes, BLUE.ASM
+wrote BLUE.COM 96 bytes, BLUE.ASM
 name WAIT2
 1 wait two seconds -> WAIT 2000
-wrote WAIT2.COM 25 bytes, WAIT2.ASM
+wrote WAIT2.COM 80 bytes, WAIT2.ASM
 name NOISE
 1 beep at 880 hertz for half a second -> BEEP 880 500
 2 play a siren -> SIREN 2
-wrote NOISE.COM 137 bytes, NOISE.ASM
+wrote NOISE.COM 205 bytes, NOISE.ASM
 name ALL
 1 clear the screen -> CLS
 2 flash the screen twice -> FLASH 2
@@ -35,17 +35,17 @@ name ALL
 10 wait for a key -> KEY
 11 say all done -> PRINT all done
 12 new line -> NEWLINE
-wrote ALL.COM 315 bytes, ALL.ASM
+wrote ALL.COM 376 bytes, ALL.ASM
 name FIXED
 1 make the cursor invisible -> HIDE
 2 make an alarm sound -> SIREN 2
 3 hold on for half a second -> WAIT 500
 4 display the text all fixed -> PRINT all fixed
 5 new line -> NEWLINE
-wrote FIXED.COM 144 bytes, FIXED.ASM
+wrote FIXED.COM 203 bytes, FIXED.ASM
 name BAD
 1 format the hard disk: not understood
 nothing written
 1 beep at 5 hertz: refused "BEEP 5 300" (number out of range)
 nothing written
-heap=33320 largest=33320 stack=15086
+heap=12448 largest=12448 stack=15086

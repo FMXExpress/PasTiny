@@ -1,0 +1,20 @@
+name c1
+count down from 5 and beep each time then say liftoff
+name c2
+ask for a number and print its double
+name c3
+print the 7 times table
+name c4
+add up the numbers from 1 to 100
+name c5
+ask for a number and count to it then play a tune
+name c6
+clear the screen, say hello, new line. count to 3. 2 times, each time say hi and flash
+name c7
+count down from 4 and beep each time then play a siren
+name c8
+ask for a number and say yes if it is 7 otherwise no
+name bad
+count from 9 to 3
+mem
+quit

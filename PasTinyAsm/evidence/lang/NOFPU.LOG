@@ -1,0 +1,4 @@
+PasTinyAsm 1.0  FPU no
+name N1
+1 count down from 3 and beep each time then say liftoff -> FOR I=3 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+wrote N1.COM 234 bytes, N1.ASM

@@ -18,7 +18,8 @@ unit TBC;
      LET v=n               give a variable a value
      INPUT v               read a number from the keyboard
      FOR v=n TO n ... NEXT       count up by one
-     FOR v=n DOWNTO n ... NEXT   count down by one
+     FOR v=n DOWNTO n ... NEXT   count down by one; with plain numbers
+                                 the direction must fit them
      TIMES n ... END             do the block n times
      IF n<n ... ELSE ... END     tests: = <> < > <= >=
      REPEAT n              on a line of its own: run the whole program n
@@ -260,7 +261,7 @@ end;
 (* One statement.  Up is the statement in capitals, Raw as it was typed
    (for texts). *)
 procedure Statement(Up,Raw:String);
-var Key,Op:String; I,V,L1,L2:Integer; Down:Boolean; Bl:TBlock;
+var Key,Op:String; I,V,L1,L2:Integer; Down:Boolean; Bl:TBlock; First,Last:Longint;
 begin
  St:=Up; P:=1; Blanks; Key:='';
  while IsLetter(Cur) do begin Key:=Key+Cur; Inc(P) end;
@@ -302,10 +303,14 @@ begin
  else if Key='FOR' then begin
   Blanks;
   if not ReadVar(V) or (Cur<>'=') then begin Error('FOR v=n TO n expected'); Exit end;
-  Inc(P); Expr; StoreVar(V); Blanks;
+  Inc(P); First:=PlainNumber; Expr; StoreVar(V); Blanks;
   Key:=''; while IsLetter(Cur) do begin Key:=Key+Cur; Inc(P) end;
   if (Key<>'TO') and (Key<>'DOWNTO') then begin Error('TO or DOWNTO expected'); Exit end;
-  Down:=Key='DOWNTO'; Blanks; Expr;
+  Down:=Key='DOWNTO'; Blanks; Last:=PlainNumber; Expr;
+  (* with plain numbers a loop the wrong way round is surely a mistake *)
+  if (First>=0) and (Last>=0) then
+   if (Down and (First<Last)) or ((not Down) and (First>Last)) then begin
+    Error('this loop would not run: check TO and DOWNTO'); Exit end;
   B($50); T('push    ax              ; the last value');
   L1:=NewLabel; L2:=NewLabel; Place(L1);
   LoadVar(V); B($5B); T('pop     bx'); B($53); T('push    bx'); B($39); B($D8); T('cmp     ax,bx');

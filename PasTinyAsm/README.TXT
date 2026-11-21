@@ -1,6 +1,7 @@
 PasTinyAsm 1.0 - say what a program should do, get a .COM file
 ================================================================
-Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN.
+Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN,
+TASKS.BIN.
 Keep them in one directory.  Needs a 386 and about 570 KB of free
 conventional memory.  A coprocessor is optional.
 
@@ -8,7 +9,7 @@ conventional memory.  A coprocessor is optional.
   > make screen flash, play sound
   1 make screen flash -> FLASH 3
   2 play sound -> BEEP 440 300
-  wrote OUT.COM 123 bytes, OUT.ASM
+  wrote OUT.COM 189 bytes, OUT.ASM
   > quit
   C:\ASM> OUT
 
@@ -26,12 +27,22 @@ Separate the steps with commas, "and" or "then".  Things it knows:
 
 Put text in double quotes to print it exactly as typed.
 
+A whole sentence can ask for a small program:
+  count down from 10 and beep each time then say liftoff
+  ask for a number and print its double
+  print the 7 times table
+  3 times, each time say hi and flash
+
+You can also type the language itself (LIST shows it):
+  FOR I=1 TO 5:OUT I*I:NEXT
+  INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END
+
 Commands: NAME file (program to write, OUT at first), LIST (the
 calls and their limits), HELP, MEM, QUIT.
 
-READ THE PLAN.  Each line shows the call chosen for a step.  A call
-that is unknown, out of range or has the wrong numbers is refused and
-nothing is written.  But a wording the experts have not seen can be
+READ THE PLAN.  Each line shows what was written for a step.  A line
+that does not compile or has the wrong numbers is refused and nothing
+is written.  But a wording the experts have not seen can be
 turned into the wrong call (for example a beep where you wanted a
 siren), so check the lines before you run the program.  You can also
 type calls yourself: FLASH 3, BEEP 440 300.
