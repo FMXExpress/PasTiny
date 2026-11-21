@@ -3,7 +3,7 @@
 
   python3 train_asm.py EXPERT START.BIN OUT.BIN [STEPS]
 
-EXPERT is screen, sound, text or tasks (THREADS=n in the environment uses n cores).  Needs PyTorch and the loader in
+EXPERT is screen, sound, text, tasks or recipes (THREADS=n in the environment uses n cores).  Needs PyTorch and the loader in
 ../../PasTinyJev/training.  Prints exact answers on 300 fresh steps in trained
 wordings and 300 in wordings never trained on, scored in floating point; the
 real score comes from running OUT.BIN in the 8-bit runtime (tests/test_asm.py).
@@ -15,7 +15,7 @@ import torch.nn.functional as F
 here = Path(__file__).resolve().parent
 sys.path.insert(0, str(here)); sys.path.insert(0, str(here.parents[1] / 'PasTinyJev/training'))
 import webtiny_train as w
-import gen_asm, gen_tasks
+import gen_asm, gen_recipes, gen_tasks
 
 expert, start, out = sys.argv[1:4]
 steps = int(sys.argv[4]) if len(sys.argv) > 4 else 5000
@@ -45,6 +45,10 @@ if expert == 'tasks':                 # whole small programs; "held" = held-out 
     draw = lambda rr: gen_tasks.make(rr, 'seen')
     seen = [gen_tasks.make(tests, 'seen') for _ in range(300)]
     held = [gen_tasks.make(tests, 'combo') for _ in range(300)]
+elif expert == 'recipes':             # one step of a recipe per question; "held" = held-out (recipe, change) pairs
+    draw = lambda rr: gen_recipes.make(rr, 'seen')
+    seen = [gen_recipes.make(tests, 'seen') for _ in range(300)]
+    held = [gen_recipes.make(tests, 'combo') for _ in range(300)]
 else:
     draw = lambda rr: gen_asm.make(rr, expert)
     seen = [gen_asm.make(tests, expert) for _ in range(300)]

@@ -41,7 +41,7 @@ program MakeCom;
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC;
 const
  MAXSTEPS=40; MAXPEND=16;
- XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4;    (* catalog ids of the experts *)
+ XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5;    (* catalog ids of the experts *)
 type TLine=String[120];
 var
  Active:Integer; Interactive:Boolean;
@@ -217,6 +217,25 @@ begin
   and (U<>'BEEP') and (U<>'FLASH') and (U<>'SIREN') and (U<>'WAIT')
 end;
 
+(* The log: every request and what became of it is added to MAKECOM.LOG,
+   so that wordings which went wrong can be collected and trained on. *)
+procedure LogLine(S:String);
+var T:Text;
+begin
+ Assign(T,'MAKECOM.LOG');
+ {$I-}Append(T); if IOResult<>0 then Rewrite(T);
+ if IOResult=0 then begin WriteLn(T,S); Close(T) end;
+ if IOResult<>0 then ;{$I+}
+end;
+
+(* Say that step S was not taken, and why. *)
+procedure Refuse(S,Why:String);
+var N:String;
+begin
+ Str(Cur+NPend,N);
+ WriteLn(N,' ',S,': ',Why); LogLine('  '+S+': '+Why)
+end;
+
 (* Put a line with the request's other lines, and say so. *)
 function Accept(Shown,L:String; K:Char; Note:String):Boolean;
 begin
@@ -225,7 +244,7 @@ begin
  if Length(L)>120 then begin WriteLn(Shown,': line too long'); Exit end;
  Inc(NPend); Pend[NPend]:=L; PKind[NPend]:=K;
  if L[1]=#255 then L:='PRINT '+Copy(L,2,255);
- WriteLn(Cur+NPend-1,' ',Shown,' -> ',L,Note);
+ WriteLn(Cur+NPend-1,' ',Shown,' -> ',L,Note); LogLine('  '+Shown+' -> '+L);
  Accept:=True
 end;
 
@@ -243,7 +262,7 @@ begin
   (* quoted text is printed exactly as typed *)
   A:=Copy(Raw,K+1,255); K2:=Pos('"',A); if K2>0 then A:=Copy(A,1,K2-1);
   S:=Tidy(Copy(Raw,1,K-1))+' "'+A+'"';
-  if (A='') or (Length(A)>60) then begin WriteLn(Cur+NPend,' ',S,': no text'); Exit end;
+  if (A='') or (Length(A)>60) then begin Refuse(S,'no text'); Exit end;
   AddStep:=Accept(S,#255+A,' ','   (no model)'); Exit
  end;
  S:=Tidy(Raw);
@@ -256,16 +275,16 @@ begin
   AddStep:=Accept(Raw,A,' ','   (no model)'); Exit
  end;
  Id:=Force; if Id=0 then Id:=Expert(S);
- if Id=0 then begin WriteLn(Cur+NPend,' ',S,': not understood'); Exit end;
+ if Id=0 then begin Refuse(S,'not understood'); Exit end;
  if not Switch(Id) then Exit;
  Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
  if Cancelled then begin WriteLn('cancelled'); Exit end;
  if not CheckLine(A,Why) then begin
-  WriteLn(Cur+NPend,' ',S,': refused "',A,'" (',Why,')'); Exit end;
+  Refuse(S,'refused "'+A+'" ('+Why+')'); Exit end;
  if not TextsAgree(S,A) then begin
-  WriteLn(Cur+NPend,' ',S,': refused "',A,'" (text was not in the request)'); Exit end;
+  Refuse(S,'refused "'+A+'" (text was not in the request)'); Exit end;
  if not NumbersAgree(S,A) then begin
-  WriteLn(Cur+NPend,' ',S,': refused "',A,'" (numbers do not match the request)'); Exit end;
+  Refuse(S,'refused "'+A+'" (numbers do not match the request)'); Exit end;
  AddStep:=Accept(S,A,' ','')
 end;
 
@@ -397,10 +416,65 @@ begin
   Ok:=Accept(S,'STOP',' ','   (no model)')
  else if ((F='print') or (F='say') or (F='show')) and (HasWord(S,'count') or HasWord(S,'counter')) then begin
   C:=Counter(D);
-  if C=#0 then begin WriteLn(Cur+NPend,' ',S,': there is no count here'); Ok:=False end
+  if C=#0 then begin Refuse(S,'there is no count here'); Ok:=False end
   else Ok:=Accept(S,'OUT '+C,' ','   (no model)')
  end
  else Special:=False
+end;
+
+function Sentence(P:String):Boolean; forward;
+
+(* --------------------------------------------------------- recipes
+
+   "build an alarm clock" says little.  The recipes expert knows what
+   such a thing consists of and says it in sentences the other experts
+   understand, one step for each question:
+
+     1 build an alarm clock  ->  ask for a number and count down from it
+     2 build an alarm clock  ->  play a siren
+     3 build an alarm clock  ->  done
+
+   The steps are gathered first, so that this expert is loaded once, and
+   then planned like sentences typed by hand: everything that checks a
+   typed sentence checks them too. *)
+function IsRecipe(S:String):Boolean;
+var F:String;
+begin
+ F:=FirstWord(S);
+ IsRecipe:=(FindId(XRECIPES)<>0) and
+  ((F='build') or (F='create') or HasWord(S,'program') or HasWord(S,'game'))
+end;
+
+function Expand(P:String):Boolean;
+const MAXSTEP=12;
+var Step:array[1..MAXSTEP] of String[72]; N,I:Integer; S,A,Num:String; Tokens:Longint; Ok:Boolean;
+begin
+ Expand:=False; S:=Tidy(P); N:=0;
+ if Length(S)>68 then begin Refuse(S,'request too long'); Exit end;
+ if not Switch(XRECIPES) then Exit;
+ repeat
+  Str(N+1,Num);
+  Cancelled:=False; Think(Num+' '+S,A,Tokens,PollEscape,nil);
+  if Cancelled then begin WriteLn('cancelled'); Exit end;
+  if (A='') or (Length(A)>72) then begin Refuse(S,'no recipe for this'); Exit end;
+  if A<>'done' then begin
+   if N=MAXSTEP then begin Refuse(S,'recipe has too many steps'); Exit end;
+   Inc(N); Step[N]:=A
+  end
+ until A='done';
+ if N=0 then begin Refuse(S,'no recipe for this'); Exit end;
+ WriteLn(S,':'); LogLine('  recipe: '+S);
+ Ok:=True;
+ for I:=1 to N do if Ok then begin
+  WriteLn('  = ',Step[I]); LogLine('  = '+Step[I]);
+  if Step[I]='end' then begin
+   (* close the block this recipe opened last *)
+   if NClose=0 then begin Refuse(S,'recipe closes a block it did not open'); Ok:=False end
+   else begin Ok:=Accept('end',Closers[NClose],'C','   (no model)'); Dec(NClose) end
+  end
+  else Ok:=Sentence(Step[I])
+ end;
+ Expand:=Ok
 end;
 
 function Sentence(P:String):Boolean;
@@ -431,6 +505,7 @@ begin
   end
   else if Pos('"',P)>0 then Sentence:=SplitSteps(P)
   else if Special(Tidy(P),Ok) then Sentence:=Ok
+  else if IsRecipe(Tidy(P)) then Sentence:=Expand(P)
   else if IsTask(Tidy(P)) then Sentence:=AddStep(P,XTASKS)
   else Sentence:=SplitSteps(P)
  end
@@ -617,6 +692,39 @@ begin
  end
 end;
 
+{$IFDEF VER70}
+(* ------------------------------------------------------------- run
+
+   With a model loaded there is no room to start another program.  So
+   the model is let go, the memory above this program is handed back to
+   DOS, the .COM file runs, and then the memory is taken back and the
+   model loaded again.  The program being built is not in that memory,
+   so nothing of it is lost. *)
+procedure Resize(Top:Pointer);
+var R:Registers;
+begin
+ R.AH:=$4A; R.ES:=PrefixSeg; R.BX:=Seg(Top^)+(Ofs(Top^)+15) shr 4-PrefixSeg; MsDos(R);
+ if (R.Flags and 1)<>0 then begin WriteLn('cannot get the memory back; MAKECOM must end'); Halt(2) end
+end;
+
+function RunProgram:Boolean;
+var Err:Integer;
+begin
+ RunProgram:=False;
+ if Steps=0 then begin WriteLn('empty program'); Exit end;
+ if not Build('') then begin WriteLn('cannot compile: ',CompErr); Exit end;
+ ReleaseMemory; Active:=0;
+ Resize(HeapPtr);
+ SwapVectors; Exec(FExpand(OutName+'.COM'),''); SwapVectors;
+ Err:=DosError;
+ Resize(HeapEnd);
+ if not Switch(XSCREEN) then Halt(2);
+ AllocMemory;
+ if Err<>0 then WriteLn('could not run ',OutName,'.COM (DOS error ',Err,')')
+ else begin WriteLn('ran ',OutName,'.COM'); RunProgram:=True end
+end;
+{$ENDIF}
+
 procedure Handle(L:String);
 var Cmd,Rest,W:String; I:Integer; V:Longint; Changed:Boolean;
 begin
@@ -643,6 +751,7 @@ begin
   WriteLn('Say what the program should do, a sentence at a time:');
   WriteLn('  make screen flash, play sound');
   WriteLn('  count down from 10 and beep each time then say liftoff');
+  WriteLn('  build an alarm clock');
   WriteLn('A colon opens a block; the next sentences go inside it:');
   WriteLn('  repeat 3 times:      count from 1 to 5:      forever:');
   WriteLn('  if it is bigger than 5:      if the key is q:      else');
@@ -653,6 +762,7 @@ begin
   WriteLn('names it (now ',OutName,'), LIST shows the language, QUIT ends.');
   WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
   WriteLn('In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.');
+  WriteLn('F5 (RUN in a script) runs the program and comes back.');
   WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
   Exit
  end
@@ -683,10 +793,21 @@ begin
  else if (Cmd='EDIT') and (Rest<>'') then begin
   (* EDIT n text: change line n *)
   W:=NextWord(Rest);
+  LogLine('> '+L);
   if Number(W,V) and (Rest<>'') then Changed:=ReplaceLine(V,Rest) else WriteLn('EDIT n text')
  end
- else if MakePlan(L) then Changed:=True
- else WriteLn('nothing added');
+ {$IFDEF VER70}
+ else if (Cmd='RUN') and (Rest='') then begin
+  LogLine('> run'); System.Flush(Output);
+  if RunProgram then ;
+  Exit
+ end
+ {$ENDIF}
+ else begin
+  LogLine('> '+L);
+  if MakePlan(L) then Changed:=True
+  else begin WriteLn('nothing added'); LogLine('  nothing added') end
+ end;
  if Changed then Save
 end;
 
@@ -826,12 +947,13 @@ begin
   for I:=21 to 24 do Row(I,'',7);
   Row(24,' press a key',$0E)
  end;
- Row(25,' Up/Down move  Tab block  Enter add  F2 change  Del delete  F1 help  Alt-X quit',$70);
+ Row(25,' Up/Down move  Enter add  F2 change  Del delete  F5 run  F1 help  Alt-X quit',$70);
  Window(1,1,80,25); GotoXY(CurX,CurY); Flush
 end;
 
 procedure Editor;
-var K,I:Integer; L:String; Done:Boolean; F:File;
+const RunDone:String[40]=#13#10'-- press a key to go back --$';
+var K,I:Integer; L:String; Done:Boolean; F:File; Rg:Registers;
 begin
  System.Move(Output,SavedOut,SizeOf(TextRec));
  with TextRec(Output) do begin
@@ -893,6 +1015,14 @@ begin
   else if K=256+81 then begin for I:=1 to 10 do Move('DOWN',0) end
   else if (K=256+45) or (K=256+68) then Done:=True
   else if K=256+59 then begin NMsg:=0; Handle('HELP') end
+  else if K=256+63 then begin
+   (* F5: let the program have the screen and the machine, then come back *)
+   NMsg:=0; TextAttr:=7; Window(1,1,80,25); ClrScr; GotoXY(1,1); Flush;
+   if RunProgram then begin
+    Rg.AH:=9; Rg.DS:=Seg(RunDone); Rg.DX:=Ofs(RunDone)+1; MsDos(Rg);
+    K:=GetKey
+   end
+  end
   else if (K=256+83) and (Field='') then begin NMsg:=0; Handle('DEL') end
   else if (K=13) and (Field<>'') then begin
    L:=Field; Field:=''; FPos:=0; NMsg:=0;
