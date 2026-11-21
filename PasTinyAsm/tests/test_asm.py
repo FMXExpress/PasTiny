@@ -18,10 +18,10 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root / 'tools')); sys.path.insert(0, str(root / 'training'))
-import buildlib, gen_asm
+import buildlib, gen_asm, gen_tasks
 
 exe = Path(sys.argv[1]).resolve()
-FILES = ['EXPERTS.CAT', 'SCREEN.BIN', 'SOUND.BIN', 'TEXT.BIN']
+FILES = ['EXPERTS.CAT', 'SCREEN.BIN', 'SOUND.BIN', 'TEXT.BIN', 'TASKS.BIN']
 
 
 def run(dest, lines):
@@ -47,7 +47,16 @@ DIRECT = [
     'GOTO 5 10, COLOR 1, INK 14, BORDER 4, HIDE, SHOW, SIREN 2, SCALE, WAIT 1000, KEY',
     'say "one", newline and say "two" then wait 60000; repeat 100.',
     'cls',
+    'FOR I=10 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff',
+    'for i=1 to 10:out i*7:next. let s=0:for i=1 to 100:let s=s+i:next:out s',
+    'INPUT A:INPUT B:OUT A+B:OUT A*B:OUT A-B:OUT A/B',
+    'INPUT A:IF A>10:ECHO big:ELSE:ECHO small:END:IF A<>7:BEEP 880 100:END',
+    'TIMES 3:FOR I=0 TO 7:COLOR I:WAIT 300:NEXT:END; repeat 2',
+    'INPUT A:TIMES A:FLASH:SIREN:WAIT:END:FOR I=1 TO A:BEEP I*100+200 100:NEXT',
+    'LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END',
 ]
+BADLINES = ['FOR I=1 TO 5:OUT I', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
+            'OUT 70000', 'JUMP 5', 'OUT A+', 'END']
 PLANS = [   # request, the calls it must become
     ('make screen flash, play sound', ['FLASH 3', 'BEEP 440 300']),
     ('Clear the screen, make the screen blue, say hello world, wait two seconds, beep',
@@ -70,7 +79,7 @@ with tempfile.TemporaryDirectory() as tmp:
     if not models:                       # any valid model will do: no step reaches it
         import struct, zlib
         tiny = (root.parent / 'PasTinyMoE/TINY.BIN').read_bytes()
-        cat = bytearray(b'PEC1\x03')
+        cat = bytearray(b'PEC1\x04')
         for i, name in enumerate(FILES[1:], 1):
             (dest / name).write_bytes(tiny)
             f = lambda v, w: bytes([len(v)]) + v.encode().ljust(w, b'\0')
@@ -81,7 +90,12 @@ with tempfile.TemporaryDirectory() as tmp:
         assert 'wrote OUT.COM' in out and '(no model)' in out, out
         com, ref = (dest / 'OUT.COM').read_bytes(), nasm_build((dest / 'OUT.ASM').read_text(), tmp)
         assert com == ref, (req, com.hex(), ref.hex())
-    print('Writer: %d programs match NASM byte for byte.' % len(DIRECT))
+    print('Compiler: %d programs match NASM byte for byte.' % len(DIRECT))
+    if not models:
+        for bad in BADLINES:             # not valid lines; with any model behind them they must not be written
+            out = run(dest, ['name bad', bad])
+            assert 'nothing written' in out and not (dest / 'BAD.COM').exists(), (bad, out)
+        print('Compiler: %d invalid lines write nothing.' % len(BADLINES))
     if models:
         for req, want in PLANS:
             out = run(dest, [req])
@@ -113,3 +127,18 @@ with tempfile.TemporaryDirectory() as tmp:
                 if '--show' in sys.argv:
                     for w in sorted(set(wrong))[:12]:
                         print('         %s -> %s (want %s)' % w)
+        # The tasks expert writes whole small programs.  "combinations" are parts it
+        # was trained on, put together in ways that were held out of training.
+        for label, split in (('trained combinations', 'seen'), ('held-out combinations', 'combo'), ('new wordings', 'words')):
+            r = random.Random(7)
+            pairs = [gen_tasks.make(r, split) for _ in range(300)]
+            lines = run(dest, [q for q, _ in pairs]).splitlines()
+            rows = [l for l in lines if re.match(r'\d+ ', l)]
+            assert len(rows) == len(pairs), (len(rows), len(pairs))
+            right = sum('1 %s -> %s' % (q, a) == l for (q, a), l in zip(pairs, rows))
+            wrong = [(q, l.split(' -> ')[-1], a) for (q, a), l in zip(pairs, rows) if ' -> ' in l and '1 %s -> %s' % (q, a) != l]
+            print('tasks  %-33s %d right, %d refused, %d wrong but accepted, of %d'
+                  % (label + ':', right, len(pairs) - right - len(wrong), len(wrong), len(pairs)))
+            if '--show' in sys.argv:
+                for w in sorted(set(wrong))[:12]:
+                    print('         %s\n            -> %s\n          want %s' % w)

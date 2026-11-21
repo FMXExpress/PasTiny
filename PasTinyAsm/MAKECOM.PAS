@@ -6,39 +6,37 @@ program MakeCom;
      2 play sound -> BEEP 440 300
      wrote OUT.COM 153 bytes, OUT.ASM
 
+     > count down from 10 and beep each time then say liftoff
+     1 count down from 10 and beep each time then say liftoff
+       -> FOR I=10 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+
    The work is shared like this:
 
-     code    splits the request into steps (at commas, "and", "then")
+     code    splits the request into sentences, and those into steps
      code    picks the expert for each step by its words
-     model   turns the step into one library call, such as FLASH 3
-     code    checks the call: known name, numbers in range and matching
-             the numbers typed; anything else is refused
-     code    writes the .COM file: load the arguments, call each routine,
-             exit, then the library routines that were used
+     model   turns the step into one line of the PasTinyAsm language
+     code    checks the line: it must compile, and the numbers typed
+             must be in it; anything else is refused
+     code    compiles all the lines into the .COM file (unit TBC)
 
-   So the model never writes an instruction.  The routines are in LIB.ASM
-   and reach this program as bytes in LIB.INC.
+   So the model never writes an instruction.  The language and its
+   compiler are in TBC.PAS, the routines in LIB.ASM.
 
-   A step that is already a call (FLASH 3) is used as it is, and a step
-   with text in double quotes prints that text exactly; neither asks a
-   model.  Commands: NAME file, LIST, HELP, MEM, QUIT. *)
+   A step that is already a line of the language is used as it is, and
+   a step with text in double quotes prints that text exactly; neither
+   asks a model.  Commands: NAME file, LIST, HELP, MEM, QUIT. *)
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
-uses TNYNET,TNYSYS,EXPCAT;
-type TCall=record Name:String[7]; Kind:Byte; Lo1,Hi1,Lo2,Hi2,Ofs,Len:Word end;
-{$I LIB.INC}
+uses TNYNET,TNYSYS,EXPCAT,TBC;
 const
  MAXSTEPS=40;
- REPEATCALL=0;      (* REPEAT n is not a routine: it loops the whole program *)
- ORIGIN=$100;
- XSCREEN=1; XSOUND=2; XTEXT=3;    (* catalog ids of the experts *)
-type TStep=record Call:Integer; A,B:Longint; Txt:String[60] end;
+ XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4;    (* catalog ids of the experts *)
+type TLine=String[120];
 var
  Active:Integer; Interactive:Boolean;
- Plan:array[1..MAXSTEPS] of TStep; Steps:Integer;
+ Plan:array[1..MAXSTEPS] of TLine; Steps:Integer;
  OutName:String[8]; Line:String;
- Code:array[0..4095] of Byte; Size:Word;
 
 procedure PollEscape(I,N:Integer);
 begin
@@ -109,15 +107,6 @@ begin
  Expert:=0
 end;
 
-function FindCall(S:String):Integer;
-var I:Integer;
-begin
- for I:=1 to Length(S) do S[I]:=UpCase(S[I]);
- FindCall:=-1;
- if S='REPEAT' then FindCall:=REPEATCALL;
- for I:=1 to LIBCOUNT do if Lib[I].Name=S then FindCall:=I
-end;
-
 (* Cut the next word off the front of S. *)
 function NextWord(var S:String):String;
 var K:Integer;
@@ -137,197 +126,172 @@ begin
  Val(S,V,Code); Number:=Code=0
 end;
 
-(* Read "NAME", "NAME n", "NAME n m" or "PRINT text" into St.  Why is the
-   reason when it is refused. *)
-function ParseCall(S:String; var St:TStep; var Why:String):Boolean;
-var Name,W:String; Kind:Integer; Lo1,Hi1,Lo2,Hi2:Longint;
+(* Does the number V stand in the line L, as it is or times 1000
+   (seconds written as milliseconds)? *)
+function LineHas(L:String; V:Longint):Boolean;
+var I:Integer; X:Longint; In_:Boolean;
 begin
- ParseCall:=False; St.A:=0; St.B:=0; St.Txt:='';
- Name:=NextWord(S); St.Call:=FindCall(Name);
- Why:='no such call';
- if St.Call<0 then Exit;
- if St.Call=REPEATCALL then begin Kind:=1; Lo1:=1; Hi1:=100; Lo2:=0; Hi2:=0 end
- else begin
-  Kind:=Lib[St.Call].Kind; Lo1:=Lib[St.Call].Lo1; Hi1:=Lib[St.Call].Hi1;
-  Lo2:=Lib[St.Call].Lo2; Hi2:=Lib[St.Call].Hi2
- end;
- if Kind=3 then begin
-  while (S<>'') and (S[1]=' ') do Delete(S,1,1);
-  Why:='no text';
-  if (S='') or (Length(S)>60) then Exit;
-  St.Txt:=S; ParseCall:=True; Exit
- end;
- Why:='wrong arguments';
- if Kind>=1 then begin
-  W:=NextWord(S); if not Number(W,St.A) then Exit;
-  Why:='number out of range';
-  if (St.A<Lo1) or (St.A>Hi1) then Exit;
-  Why:='wrong arguments'
- end;
- if Kind=2 then begin
-  W:=NextWord(S); if not Number(W,St.B) then Exit;
-  Why:='number out of range';
-  if (St.B<Lo2) or (St.B>Hi2) then Exit;
-  Why:='wrong arguments'
- end;
- if S<>'' then Exit;
- ParseCall:=True
+ LineHas:=True; X:=0; In_:=False; L:=L+' ';
+ for I:=1 to Length(L) do
+  if L[I] in ['0'..'9'] then begin
+   if X<100000000 then X:=X*10+Ord(L[I])-48;
+   In_:=True
+  end else begin
+   if In_ and ((X=V) or (X=V*1000)) then Exit;
+   X:=0; In_:=False
+  end;
+ LineHas:=False
 end;
 
-(* A model can copy a number wrongly and still stay in range.  So every
-   number typed as digits in the step must be an argument of the call,
-   as it stands or as seconds turned into milliseconds. *)
-function NumbersAgree(Step:String; var St:TStep):Boolean;
+(* A model can copy a number wrongly and still give a valid line.  So
+   every number typed as digits in the step must be in the line. *)
+function NumbersAgree(Step,L:String):Boolean;
 var W:String; V:Longint;
 begin
  NumbersAgree:=False;
  while Step<>'' do begin
   W:=NextWord(Step);
-  if Number(W,V) then
-   if (V<>St.A) and (V<>St.B) and (V*1000<>St.A) and (V*1000<>St.B) then Exit
+  if Number(W,V) then if not LineHas(L,V) then Exit
  end;
  NumbersAgree:=True
 end;
 
-(* One step of the request, as typed, into the plan. *)
-function AddStep(Raw:String):Boolean;
-var S,A,Why:String; St:TStep; Id,K,K2:Integer; Tokens:Longint; Direct:Boolean;
+(* Every text the line prints must be words of the step. *)
+function TextsAgree(Step,L:String):Boolean;
+var K:Integer; Part,Key:String;
+begin
+ TextsAgree:=False; L:=L+':';
+ while L<>'' do begin
+  K:=Pos(':',L); Part:=Copy(L,1,K-1); Delete(L,1,K);
+  Key:=NextWord(Part);
+  for K:=1 to Length(Key) do Key[K]:=UpCase(Key[K]);
+  if (Key='PRINT') or (Key='ECHO') then begin
+   while (Part<>'') and (Part[1]=' ') do Delete(Part,1,1);
+   if Pos(' '+Part+' ',' '+Step+' ')=0 then Exit
+  end
+ end;
+ TextsAgree:=True
+end;
+
+(* Is U (in capitals) a line of the language as it stands?  A lone PRINT
+   or ECHO does not count: "print the number 42" is for an expert. *)
+function IsCode(U:String):Boolean;
+var Why,K:String;
+begin
+ K:=U; K:=NextWord(K);
+ IsCode:=CheckLine(U,Why) and not (((K='PRINT') or (K='ECHO')) and (Pos(':',U)=0))
+end;
+
+(* One step of the request, as typed, into the plan.  Force is the
+   expert to ask, or 0 to let the router choose. *)
+function AddStep(Raw:String; Force:Integer):Boolean;
+var S,A,Why,Up:String; Id,K,K2:Integer; Tokens:Longint; Direct:Boolean;
 begin
  AddStep:=False; A:=''; Direct:=True;
+ while (Raw<>'') and (Raw[1]=' ') do Delete(Raw,1,1);
+ while (Raw<>'') and (Raw[Length(Raw)]=' ') do Delete(Raw,Length(Raw),1);
+ Up:=Raw; for K:=1 to Length(Up) do Up[K]:=UpCase(Up[K]);
  K:=Pos('"',Raw);
  if K>0 then begin
   (* quoted text is printed exactly as typed *)
   A:=Copy(Raw,K+1,255); K2:=Pos('"',A); if K2>0 then A:=Copy(A,1,K2-1);
-  for K2:=1 to Length(A) do if A[K2]='$' then A[K2]:='S';
-  S:=Tidy(Copy(Raw,1,K-1))+' "'+A+'"'; A:='PRINT '+A;
-  if not ParseCall(A,St,Why) then begin WriteLn(Steps+1,' ',S,': ',Why); Exit end
+  S:=Tidy(Copy(Raw,1,K-1))+' "'+A+'"';
+  if (A='') or (Length(A)>60) then begin WriteLn(Steps+1,' ',S,': no text'); Exit end;
+  A:=#255+A
  end else begin
   S:=Tidy(Raw);
   if Copy(S,1,5)='then ' then Delete(S,1,5);
   if Copy(S,1,5)='also ' then Delete(S,1,5);
   if S='' then begin AddStep:=True; Exit end;
-  if not ParseCall(S,St,Why) or (St.Call>0) and (Lib[St.Call].Kind=3) then begin
-   Direct:=False; Id:=Expert(S);
+  if IsCode(Up) then begin
+   A:=Raw; S:=Raw     (* typed as a line of the language *)
+  end else begin
+   Direct:=False; Id:=Force; if Id=0 then Id:=Expert(S);
    if Id=0 then begin WriteLn(Steps+1,' ',S,': not understood'); Exit end;
    if not Switch(Id) then Exit;
    Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
    if Cancelled then begin WriteLn('cancelled'); Exit end;
-   if not ParseCall(A,St,Why) then begin
+   if not CheckLine(A,Why) then begin
     WriteLn(Steps+1,' ',S,': refused "',A,'" (',Why,')'); Exit end;
-   if (St.Call>0) and (Lib[St.Call].Kind=3) then begin
-    if Pos(St.Txt,S)=0 then begin
-     WriteLn(Steps+1,' ',S,': refused "',A,'" (text was not in the request)'); Exit end
-   end else if not NumbersAgree(S,St) then begin
+   if not TextsAgree(S,A) then begin
+    WriteLn(Steps+1,' ',S,': refused "',A,'" (text was not in the request)'); Exit end;
+   if not NumbersAgree(S,A) then begin
     WriteLn(Steps+1,' ',S,': refused "',A,'" (numbers do not match the request)'); Exit end
-  end else begin
-   A:=S; K:=Pos(' ',A+' ');
-   for K2:=1 to K do if K2<=Length(A) then A[K2]:=UpCase(A[K2])
   end
  end;
  if Steps=MAXSTEPS then begin WriteLn('too many steps'); Exit end;
- Inc(Steps); Plan[Steps]:=St;
+ if Length(A)>120 then begin WriteLn(Steps+1,' ',S,': line too long'); Exit end;
+ Inc(Steps); Plan[Steps]:=A;
+ if A[1]=#255 then A:='PRINT '+Copy(A,2,255);
  Write(Steps,' ',S,' -> ',A); if Direct then Write('   (no model)');
  WriteLn;
  AddStep:=True
 end;
 
-(* Split the request into steps: at , ; . and at the words "and" and
+(* Is this sentence a request for a small program with a loop, a
+   question or a test in it?  Those go whole to the tasks expert. *)
+function IsTask(S:String):Boolean;
+const NK=18; TaskWords:array[1..NK] of String[10]=
+ ('count','countdown','numbers','ask','table','squares','even','odd','each','every','higher','lower',
+  'cycle','if','many','rounds','add','otherwise');
+var I:Integer;
+begin
+ IsTask:=False;
+ if FindId(XTASKS)=0 then Exit;
+ for I:=1 to NK do if HasWord(S,TaskWords[I]) then IsTask:=True
+end;
+
+(* Split one sentence into steps at commas and at the words "and" and
    "then", but never inside double quotes. *)
-function MakePlan(R:String):Boolean;
+function SplitSteps(R:String):Boolean;
 var I:Integer; Part:String; Quote,Ok:Boolean;
  function WordAt(W:String):Boolean;
  begin WordAt:=(not Quote) and (Copy(R,I,Length(W))=W) end;
 begin
- Steps:=0; Part:=''; Quote:=False; Ok:=True; I:=1; R:=R+',';
+ Part:=''; Quote:=False; Ok:=True; I:=1; R:=R+',';
  while (I<=Length(R)) and Ok do begin
   if R[I]='"' then Quote:=not Quote;
-  if (not Quote) and (R[I] in [',',';','.']) then begin Ok:=AddStep(Part); Part:=''; Inc(I) end
-  else if WordAt(' and then ') then begin Ok:=AddStep(Part); Part:=''; Inc(I,10) end
-  else if WordAt(' and ') or WordAt(' AND ') then begin Ok:=AddStep(Part); Part:=''; Inc(I,5) end
-  else if WordAt(' then ') or WordAt(' THEN ') then begin Ok:=AddStep(Part); Part:=''; Inc(I,6) end
+  if (not Quote) and (R[I]=',') then begin Ok:=AddStep(Part,0); Part:=''; Inc(I) end
+  else if WordAt(' and then ') then begin Ok:=AddStep(Part,0); Part:=''; Inc(I,10) end
+  else if WordAt(' and ') or WordAt(' AND ') then begin Ok:=AddStep(Part,0); Part:=''; Inc(I,5) end
+  else if WordAt(' then ') or WordAt(' THEN ') then begin Ok:=AddStep(Part,0); Part:=''; Inc(I,6) end
   else begin Part:=Part+R[I]; Inc(I) end
+ end;
+ SplitSteps:=Ok
+end;
+
+(* Split the request into sentences at . and ; and plan each one. *)
+function MakePlan(R:String):Boolean;
+var I:Integer; Part:String; Quote,Ok:Boolean;
+ function Sentence(P:String):Boolean;
+ var U:String; K:Integer;
+ begin
+  U:=P; for K:=1 to Length(U) do U[K]:=UpCase(U[K]);
+  if Tidy(P)='' then Sentence:=True
+  else if Pos('"',P)>0 then Sentence:=SplitSteps(P)
+  else if IsCode(U) then Sentence:=AddStep(P,0)
+  else if IsTask(Tidy(P)) then Sentence:=AddStep(P,XTASKS)
+  else Sentence:=SplitSteps(P)
+ end;
+begin
+ Steps:=0; Part:=''; Quote:=False; Ok:=True; R:=R+'.';
+ for I:=1 to Length(R) do if Ok then begin
+  if R[I]='"' then Quote:=not Quote;
+  if (not Quote) and (R[I] in ['.',';']) then begin Ok:=Sentence(Part); Part:='' end
+  else Part:=Part+R[I]
  end;
  MakePlan:=Ok and (Steps>0)
 end;
 
-procedure Put(B:Byte);
-begin Code[Size]:=B; Inc(Size) end;
-procedure PutWord(W:Word);
-begin Put(Lo(W)); Put(Hi(W)) end;
-
-(* Write the program for the plan into Code.  It is laid out as: the main
-   part, the routines used (in library order), then the texts.  The first
-   pass only measures, so that the second knows every address. *)
-procedure Assemble;
-var Pass,I,J,Loops:Integer; Used:array[1..LIBCOUNT] of Boolean; Addr:array[1..LIBCOUNT] of Word;
- TextAddr:array[1..MAXSTEPS] of Word; Top,P:Word;
-begin
- Loops:=0;
- for I:=1 to LIBCOUNT do begin Used[I]:=False; Addr[I]:=0 end;
- for I:=1 to Steps do begin
-  TextAddr[I]:=0;
-  if Plan[I].Call=REPEATCALL then Loops:=Plan[I].A else Used[Plan[I].Call]:=True
- end;
- for Pass:=1 to 2 do begin
-  Size:=0;
-  if Loops>0 then begin Put($B9); PutWord(Loops); Top:=Size; Put($51) end;      (* mov cx,n / push cx *)
-  for I:=1 to Steps do with Plan[I] do if Call<>REPEATCALL then begin
-   case Lib[Call].Kind of
-    1:begin Put($B8); PutWord(A) end;                                          (* mov ax,a *)
-    2:begin Put($B8); PutWord(A); Put($BB); PutWord(B) end;                    (* mov bx,b *)
-    3:begin Put($BA); PutWord(ORIGIN+TextAddr[I]) end                          (* mov dx,text *)
-   end;
-   Put($E8); PutWord(Addr[Call]-(Size+2))                                      (* call routine *)
-  end;
-  if Loops>0 then begin
-   Put($59); Put($49); Put($74); Put($03);                                     (* pop cx / dec cx / jz +3 *)
-   Put($E9); PutWord(Top-(Size+2))                                             (* jmp top *)
-  end;
-  Put($B8); PutWord($4C00); Put($CD); Put($21);                                (* exit to DOS *)
-  for I:=1 to LIBCOUNT do if Used[I] then begin
-   Addr[I]:=Size;
-   for J:=0 to Lib[I].Len-1 do Put(LibCode[Lib[I].Ofs+J])
-  end;
-  for I:=1 to Steps do if (Plan[I].Call<>REPEATCALL) and (Lib[Plan[I].Call].Kind=3) then begin
-   TextAddr[I]:=Size;
-   for J:=1 to Length(Plan[I].Txt) do Put(Ord(Plan[I].Txt[J]));
-   Put(Ord('$'))
-  end
- end
-end;
-
 procedure Save;
-var F:File; T:Text; I,J,Loops:Integer; Used:Boolean;
+var F:File; I:Integer; Loops:Word;
 begin
- Assemble;
- Assign(F,OutName+'.COM'); Rewrite(F,1); BlockWrite(F,Code,Size); Close(F);
  Loops:=0;
- for I:=1 to Steps do if Plan[I].Call=REPEATCALL then Loops:=Plan[I].A;
- Assign(T,OutName+'.ASM'); Rewrite(T);
- WriteLn(T,'; ',OutName,'.COM, written by PasTinyAsm.  The routines are in LIB.ASM.');
- WriteLn(T,'        org     100h');
- if Loops>0 then begin WriteLn(T,'        mov     cx,',Loops); WriteLn(T,'again:  push    cx') end;
- for I:=1 to Steps do with Plan[I] do if Call<>REPEATCALL then begin
-  case Lib[Call].Kind of
-   1:WriteLn(T,'        mov     ax,',A);
-   2:begin WriteLn(T,'        mov     ax,',A); WriteLn(T,'        mov     bx,',B) end;
-   3:WriteLn(T,'        mov     dx,text',I)
-  end;
-  WriteLn(T,'        call    L_',Lib[Call].Name)
- end;
- if Loops>0 then begin
-  WriteLn(T,'        pop     cx'); WriteLn(T,'        dec     cx');
-  WriteLn(T,'        jz      short done'); WriteLn(T,'        jmp     near again'); WriteLn(T,'done:')
- end;
- WriteLn(T,'        mov     ax,4C00h'); WriteLn(T,'        int     21h');
- for I:=1 to LIBCOUNT do begin
-  Used:=False;
-  for J:=1 to Steps do if Plan[J].Call=I then Used:=True;
-  if Used then WriteLn(T,'; routine ',Lib[I].Name,' from LIB.ASM goes here')
- end;
- for I:=1 to Steps do if (Plan[I].Call<>REPEATCALL) and (Lib[Plan[I].Call].Kind=3) then
-  WriteLn(T,'text',I,':  db      "',Plan[I].Txt,'$"');
- Close(T);
+ for I:=1 to Steps do if RepeatCount(Plan[I])>0 then Loops:=RepeatCount(Plan[I]);
+ BeginProgram(Loops,OutName+'.ASM');
+ for I:=1 to Steps do if CompileLine(Plan[I]) then ;
+ if not EndProgram then begin WriteLn('cannot compile: ',CompErr); Exit end;
+ Assign(F,OutName+'.COM'); Rewrite(F,1); BlockWrite(F,Code^,Size); Close(F);
  WriteLn('wrote ',OutName,'.COM ',Size,' bytes, ',OutName,'.ASM')
 end;
 
@@ -337,7 +301,7 @@ begin
  Rest:=L; Cmd:=NextWord(Rest);
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
  if (Cmd='LIST') and (Rest='') then begin
-  for I:=1 to LIBCOUNT do begin
+  for I:=1 to LIBCOUNT do if Lib[I].Kind<4 then begin
    Write(Lib[I].Name);
    case Lib[I].Kind of
     1:Write(' n   (',Lib[I].Lo1,' to ',Lib[I].Hi1,')');
@@ -346,12 +310,16 @@ begin
    end;
    WriteLn
   end;
-  WriteLn('REPEAT n   (1 to 100)')
+  WriteLn('OUT n   ECHO text   LET v=n   INPUT v');
+  WriteLn('FOR v=n TO n ... NEXT   FOR v=n DOWNTO n ... NEXT');
+  WriteLn('TIMES n ... END   IF n<n ... ELSE ... END   REPEAT n')
  end
  else if (Cmd='HELP') and (Rest='') then begin
   WriteLn('Say what the program should do, for example:');
   WriteLn('  make screen flash, play sound');
   WriteLn('  clear the screen, say "Hello!", wait two seconds, beep');
+  WriteLn('  count down from 10 and beep each time then say liftoff');
+  WriteLn('  FOR I=1 TO 5:OUT I*I:NEXT');
   WriteLn('NAME file   name of the program to write (now ',OutName,')');
   WriteLn('LIST        the library calls.  QUIT ends.')
  end

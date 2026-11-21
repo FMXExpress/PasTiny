@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write EXPERTS.CAT for the three expert files in this directory.
+"""Write EXPERTS.CAT for the four expert files in this directory.
 
   python3 tools/package.py
 """
@@ -8,7 +8,7 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 ENTRIES = [(1, 'SCREEN.BIN', 'Screen calls', 'screen'), (2, 'SOUND.BIN', 'Sound and time calls', 'sound'),
-           (3, 'TEXT.BIN', 'Text calls', 'text')]
+           (3, 'TEXT.BIN', 'Text calls', 'text'), (4, 'TASKS.BIN', 'Small programs', 'tasks')]
 
 
 def field(value, width):
