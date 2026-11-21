@@ -136,6 +136,18 @@ with tempfile.TemporaryDirectory() as tmp:
         assert got == want, (script, got, out)
         assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp), script
     print('Edits: %d sessions that change lines in place give the expected outline and match NASM.' % len(EDITS))
+    # A character in quotes keeps its case in code typed as it stands, in a block
+    # opener and in a changed line: 'q' is 113, not 81.
+    for script in (["KEY:IF K='q':STOP:END"], ["forever: KEY", "IF K='q': STOP"], ["IF K='x':", "CLS", "edit 1 IF K='q'"]):
+        out = run(dest, script + ['show'])
+        listing = (dest / 'OUT.ASM').read_text()
+        assert "K='q'" in out and 'mov     ax,113' in listing and 'mov     ax,81' not in listing, (script, out)
+        assert (dest / 'OUT.COM').read_bytes() == nasm_build(listing, tmp), script
+    # Deleting the last line leaves no program files behind.
+    for script in (['CLS', 'del 1'], ['TIMES 2:', 'CLS', 'del 1'], ['CLS', 'HIDE', 'del 1', 'del 1']):
+        out = run(dest, script)
+        assert 'removed' in out and not (dest / 'OUT.COM').exists() and not (dest / 'OUT.ASM').exists(), (script, out)
+    print('Review fixes: quoted characters keep their case; an emptied program removes its files.')
     if models:
         for req, want in PLANS:
             out = run(dest, [req])

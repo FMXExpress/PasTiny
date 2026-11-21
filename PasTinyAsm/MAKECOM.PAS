@@ -235,6 +235,19 @@ begin
  TextsAgree:=True
 end;
 
+(* Code in capitals, except what stands in single quotes: 'q' is the
+   letter q and must stay so. *)
+function CodeCase(S:String):String;
+var I:Integer; Quoted:Boolean;
+begin
+ Quoted:=False;
+ for I:=1 to Length(S) do begin
+  if S[I]=#39 then Quoted:=not Quoted
+  else if not Quoted then S[I]:=UpCase(S[I])
+ end;
+ CodeCase:=S
+end;
+
 (* Is U (in capitals) a line of the language as it stands?  A lone PRINT
    or ECHO does not count ("print the number 42" is for an expert), nor
    does a lone beep, flash, siren or wait, which are ordinary requests. *)
@@ -300,7 +313,7 @@ begin
  if S='' then begin AddStep:=True; Exit end;
  if IsCode(Up) then begin
   (* typed as a line of the language *)
-  A:=Raw; if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=Up;
+  A:=Raw; if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=CodeCase(Raw);
   AddStep:=Accept(Raw,A,' ','   (no model)'); Exit
  end;
  Id:=Force; if Id=0 then Id:=Expert(S);
@@ -517,7 +530,7 @@ begin
   if (Pos('"',P)>0) and (Pos('"',P)<K) then K:=0;     (* a colon inside quoted text *)
   if K>0 then begin
    (* the words before a colon may open a block *)
-   Head:=Copy(U,1,K-1);
+   Head:=CodeCase(Copy(P,1,K-1));
    while (Head<>'') and (Head[1]=' ') do Delete(Head,1,1);
    if CheckPart(Head,Delta,Why) and (Delta=1) then begin
     Open:=Head; Shut:='END'; if Copy(Head,1,4)='FOR ' then Shut:='NEXT'; Found:=True
@@ -612,7 +625,12 @@ end;
 procedure Save;
 var F:File;
 begin
- if Steps=0 then begin WriteLn('empty program'); Exit end;
+ if Steps=0 then begin
+  (* nothing is left: the files of the program that was must go too *)
+  Assign(F,OutName+'.COM'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
+  Assign(F,OutName+'.ASM'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
+  WriteLn('empty program: ',OutName,'.COM and ',OutName,'.ASM removed'); Exit
+ end;
  if not Build(OutName+'.ASM') then begin WriteLn('cannot compile: ',CompErr); Exit end;
  Assign(F,OutName+'.COM'); Rewrite(F,1); BlockWrite(F,Code^,Size); Close(F);
  WriteLn('wrote ',OutName,'.COM ',Size,' bytes, ',OutName,'.ASM')
@@ -691,7 +709,7 @@ begin
  Old:=Plan[E]; SaveCur:=Cur; NPend:=0; NClose:=0;
  if Kind[E]='O' then begin
   if (T<>'') and (T[Length(T)]=':') then Delete(T,Length(T),1);
-  U:=T; for I:=1 to Length(U) do U[I]:=UpCase(U[I]);
+  U:=CodeCase(T);
   while (U<>'') and (U[1]=' ') do Delete(U,1,1);
   Cur:=E; Found:=False;
   if CheckPart(U,Delta,Why) and (Delta=1) then begin
