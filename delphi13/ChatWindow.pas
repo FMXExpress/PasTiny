@@ -11,11 +11,11 @@ type
     Monitor: TMemo;
     Generating: Boolean;
     AnswerStart: Integer;
-    procedure RefreshMonitor;
-    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     History: TMemo;
     Question: TEdit;
     Voice: TCheckBox;
+    procedure RefreshMonitor;
+    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     procedure VoiceClick(Sender: TObject);
     procedure Ask(Sender: TObject);
   public

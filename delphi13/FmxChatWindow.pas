@@ -22,10 +22,10 @@ type
   private
     Monitor: TMemo;
     Generating: Boolean;
-    procedure RefreshMonitor;
-    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     Player: TMediaPlayer;
     WavePath: string;
+    procedure RefreshMonitor;
+    procedure CheckClose(Sender: TObject; var CanClose: Boolean);
     procedure PlayAnswer(const Answer: string);
   public
     destructor Destroy; override;
