@@ -38,7 +38,7 @@ program MakeCom;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
 {$N+}{$E+}
-uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC;
+uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
  MAXSTEPS=40; MAXPEND=16;
  XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5;    (* catalog ids of the experts *)
@@ -54,6 +54,10 @@ var
  Pend:array[1..MAXPEND] of TLine; PKind:array[1..MAXPEND] of Char; NPend:Integer;
  Closers:array[1..4] of TLine; NClose:Integer;
  OutName:String[8]; Line:String;
+ (* Experts kept in extended memory: for each catalog entry its XMS block
+    (0 = none) and whether keeping it has been tried; and what loading cost. *)
+ XmsOn:Boolean; Kept:array[1..MAXITEMS] of Word; Tried:array[1..MAXITEMS] of Boolean;
+ FromMem,FromDisk:Integer; MemMs,DiskMs,KeepMs:Longint;
 
 (* Called while an expert works: Escape cancels.  Other keys are left
    in the keyboard buffer, so what is typed ahead is not lost. *)
@@ -73,14 +77,37 @@ begin
 end;
 {$ENDIF}
 
+(* Load expert Id, unless it is the one loaded.  The first time an
+   expert is wanted its file is read into extended memory, if there is
+   any, and from then on it is copied from there, not read from disk. *)
 function Switch(Id:Integer):Boolean;
-var J:Integer;
+var J:Integer; T:Longint; Ok:Boolean;
 begin
  Switch:=True;
  if Id=Active then Exit;
- J:=FindId(Id); Active:=0;
- if J<>0 then if TryModel(Items[J].Name,Items[J].Check) then Active:=Id;
- if Active=0 then begin WriteLn('cannot load expert ',Id,': ',LoadError); Switch:=False end
+ J:=FindId(Id); Active:=0; Ok:=False;
+ if J<>0 then begin
+  ModelXms:=0;
+  if XmsOn then begin
+   if not Tried[J] then begin
+    Tried[J]:=True; T:=NowMs; Kept[J]:=XmsStore(Items[J].Name); Inc(KeepMs,NowMs-T)
+   end;
+   ModelXms:=Kept[J]
+  end;
+  T:=NowMs;
+  if ModelXms<>0 then begin
+   Ok:=TryModel(Items[J].Name,Items[J].Check);
+   if Ok then begin Inc(FromMem); Inc(MemMs,NowMs-T) end
+   else begin Kept[J]:=0; ModelXms:=0; T:=NowMs end      (* that copy is bad: use the file *)
+  end;
+  if not Ok then begin
+   Ok:=TryModel(Items[J].Name,Items[J].Check);
+   if Ok then begin Inc(FromDisk); Inc(DiskMs,NowMs-T) end
+  end;
+  ModelXms:=0
+ end;
+ if Ok then Active:=Id
+ else begin WriteLn('cannot load expert ',Id,': ',LoadError); Switch:=False end
 end;
 
 (* Small letters, digits and single spaces only. *)
@@ -762,12 +789,18 @@ begin
   WriteLn('names it (now ',OutName,'), LIST shows the language, QUIT ends.');
   WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
   WriteLn('In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.');
-  WriteLn('F5 (RUN in a script) runs the program and comes back.');
+  WriteLn('F5 (RUN in a script) runs the program and comes back.  MEM, XMS ON/OFF.');
   WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
   Exit
  end
  else if (Cmd='MEM') and (Rest='') then begin
   {$IFDEF VER70}WriteLn('heap=',MemAvail,' largest=',MaxAvail,' stack=',Sptr);{$ENDIF}
+  I:=0; for V:=1 to Count do if Kept[V]<>0 then Inc(I);
+  WriteLn('experts loaded: ',FromMem,' times from extended memory (',MemMs,' ms), ',FromDisk,
+   ' times from disk (',DiskMs,' ms)');
+  if XmsOn then WriteLn('kept in extended memory: ',I,' (',KeepMs,' ms to read them in), ',XmsFreeKB,' KB free there')
+  else if XmsPresent then WriteLn('extended memory is switched off (XMS ON)')
+  else WriteLn('no XMS driver: experts are read from disk');
   Exit
  end
  else if Cmd='NAME' then begin
@@ -775,6 +808,11 @@ begin
   for I:=1 to Length(Rest) do Rest[I]:=UpCase(Rest[I]);
   if (Rest='') or (Length(Rest)>8) or (Pos(' ',Rest)>0) then WriteLn('a name has 1 to 8 letters or digits')
   else begin OutName:=Rest; WriteLn('name ',OutName) end;
+  Exit
+ end
+ else if (Cmd='XMS') and ((Tidy(Rest)='on') or (Tidy(Rest)='off')) then begin
+  XmsOn:=XmsPresent and (Tidy(Rest)='on');
+  if XmsOn then WriteLn('experts are kept in extended memory') else WriteLn('experts are read from disk');
   Exit
  end
  else if (Cmd='SHOW') and (Rest='') then begin Outline; Exit end
@@ -1052,9 +1090,13 @@ end;
 
 begin
  Interactive:=ConsoleIO; Active:=0; OutName:='OUT'; Steps:=0; Cur:=1;
+ XmsOn:=XmsPresent; FromMem:=0; FromDisk:=0; MemMs:=0; DiskMs:=0; KeepMs:=0;
+ for Steps:=1 to MAXITEMS do begin Kept[Steps]:=0; Tried[Steps]:=False end;
+ Steps:=0;
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
  Creativity:=0; WriteLn('PasTinyAsm 1.2  FPU ',FPUName);
  {$IFDEF VER70}WriteLn('heap=',MemAvail);{$ENDIF}
+ if XmsOn then WriteLn('extended memory: ',XmsFreeKB,' KB free, experts will be kept there');
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
  (* MAKECOM file: start from the lines of that file *)
