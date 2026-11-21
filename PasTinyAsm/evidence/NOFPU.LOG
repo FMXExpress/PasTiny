@@ -1,5 +1,5 @@
 PasTinyAsm 1.2  FPU no
-heap=499624
+heap=499352
 > name n1
 name N1
 > count down from 3 and beep each time then say liftoff

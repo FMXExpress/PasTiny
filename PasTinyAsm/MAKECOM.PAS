@@ -645,6 +645,7 @@ begin
   WriteLn('Typed commands: END leaves a block, NEW empties the program, NAME file');
   WriteLn('names it (now ',OutName,'), LIST shows the language, QUIT ends.');
   WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
+  WriteLn('In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.');
   WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
   Exit
  end
@@ -707,6 +708,7 @@ begin GetKey:=ReadKey end;
 const MAXMSG=18; LISTTOP=3; LISTROWS=17;
 var Msg:array[1..MAXMSG] of String[78]; NMsg:Integer; MsgPart:String[78];
  Field:String[200]; TopItem:Integer;
+ FPos:Integer;          (* how many letters of Field stand before the cursor *)
  EditLine:Integer;      (* the line being changed, or 0 *)
  MsgBuf:array[0..127] of Char; SavedOut:TextRec;
 
@@ -751,6 +753,18 @@ function Spaces(N:Integer):String;
 var S:String;
 begin S:=''; while (N>0) and (Length(S)<60) do begin S:=S+' '; Dec(N) end; Spaces:=S end;
 
+(* Put the typed line after S, as much of it as fits with the cursor in
+   view, and say in which column the cursor is. *)
+procedure ShowField(var S:String; var CurX:Integer);
+var Room,From:Integer;
+begin
+ Room:=76-Length(S);
+ if FPos>Length(Field) then FPos:=Length(Field);
+ From:=0; if FPos>=Room then From:=FPos-Room+1;
+ CurX:=Length(S)+FPos-From+1;
+ S:=S+Copy(Field,From+1,Room)
+end;
+
 procedure Draw(Status:String);
 var I,D,Item,Y,CurX,CurY,First:Integer; S,N:String;
 begin
@@ -773,8 +787,7 @@ begin
     First:=D; if (I<=Steps) and (Kind[I]='C') then Inc(First);
     S:='  > '+Spaces(First*2);
     CurX:=Length(S)+1;
-    if Length(Field)>74-Length(S) then S:=S+Copy(Field,Length(Field)-(74-Length(S))+1,255) else S:=S+Field;
-    CurX:=Length(S)+1; CurY:=Y;
+    ShowField(S,CurX); CurY:=Y;
     Row(Y,S,$1F); Inc(Y)
    end
   end;
@@ -785,8 +798,7 @@ begin
     if Kind[I]='E' then S:=N+' '+Spaces((D-1)*2) else S:=N+' '+Spaces(D*2);
     if I=EditLine then begin
      (* the line being changed: what is typed stands in its place *)
-     if Length(Field)>74-Length(S) then S:=S+Copy(Field,Length(Field)-(74-Length(S))+1,255) else S:=S+Field;
-     CurX:=Length(S)+1; CurY:=Y; Row(Y,S,$1F)
+     ShowField(S,CurX); CurY:=Y; Row(Y,S,$1F)
     end else begin
      if Plan[I][1]=#255 then S:=S+'PRINT "'+Copy(Plan[I],2,255)+'"' else S:=S+Plan[I];
      if Kind[I]=' ' then Row(Y,S,7) else Row(Y,S,$0B)
@@ -819,7 +831,7 @@ begin
   Handle:=$FFFF; Mode:=fmClosed; BufSize:=SizeOf(MsgBuf); BufPtr:=@MsgBuf; OpenFunc:=@MsgOpen; Name[0]:=#0
  end;
  Rewrite(Output);
- NMsg:=0; MsgPart:=''; Field:=''; TopItem:=1; Done:=False; EditLine:=0;
+ NMsg:=0; MsgPart:=''; Field:=''; FPos:=0; TopItem:=1; Done:=False; EditLine:=0;
  WriteLn('Say what the program should do and press Enter.  F1 shows more.');
  while not Done do begin
   Draw('');
@@ -830,25 +842,43 @@ begin
   end
   else if NMsg>4 then NMsg:=0       (* a page was showing: any key puts it away *)
   else if (K>=32) and (K<=126) then begin
-   if Length(Field)<200 then Field:=Field+Chr(K)
+   if Length(Field)<200 then begin Insert(Chr(K),Field,FPos+1); Inc(FPos) end
   end
-  else if K=8 then begin if Field<>'' then Delete(Field,Length(Field),1) end
-  else if K=27 then begin Field:=''; EditLine:=0 end
+  else if K=8 then begin
+   if FPos>0 then begin Delete(Field,FPos,1); Dec(FPos) end
+  end
+  else if K=27 then begin Field:=''; FPos:=0; EditLine:=0 end
+  (* keys that work inside the typed line, while there is one *)
+  else if (K=256+75) and (Field<>'') then begin if FPos>0 then Dec(FPos) end
+  else if (K=256+77) and (Field<>'') then begin if FPos<Length(Field) then Inc(FPos) end
+  else if (K=256+115) and (Field<>'') then begin      (* Ctrl-Left: back one word *)
+   while (FPos>0) and (Field[FPos]=' ') do Dec(FPos);
+   while (FPos>0) and (Field[FPos]<>' ') do Dec(FPos)
+  end
+  else if (K=256+116) and (Field<>'') then begin      (* Ctrl-Right: on one word *)
+   while (FPos<Length(Field)) and (Field[FPos+1]<>' ') do Inc(FPos);
+   while (FPos<Length(Field)) and (Field[FPos+1]=' ') do Inc(FPos)
+  end
+  else if (K=256+71) and (Field<>'') then FPos:=0
+  else if (K=256+79) and (Field<>'') then FPos:=Length(Field)
+  else if (K=256+83) and (Field<>'') then begin
+   if FPos<Length(Field) then Delete(Field,FPos+1,1)
+  end
   else if (K=256+60) or ((K=13) and (Field='') and (EditLine=0)) then begin
    (* F2, or Enter on an empty line: take up the line below for changing *)
    NMsg:=0;
    if Cur>Steps then WriteLn('there is no line below to change')
    else if Kind[Cur] in ['C','E'] then WriteLn('this line cannot be changed; change the first line of its block')
-   else begin EditLine:=Cur; Field:=LineText(Cur) end
+   else begin EditLine:=Cur; Field:=LineText(Cur); FPos:=Length(Field) end
   end
   else if (K=13) and (EditLine>0) then begin
-   NMsg:=0; I:=EditLine; EditLine:=0; L:=Field; Field:='';
+   NMsg:=0; I:=EditLine; EditLine:=0; L:=Field; Field:=''; FPos:=0;
    if L<>'' then begin
     Draw('working...');
     if ReplaceLine(I,L) then Save
    end
   end
-  else if (K>256) and (EditLine>0) and (K<>256+59) then begin EditLine:=0; Field:='' end
+  else if (K>256) and (EditLine>0) and (K<>256+59) then begin EditLine:=0; Field:=''; FPos:=0 end
   else if K=256+72 then Move('UP',0) else if K=256+80 then Move('DOWN',0)
   else if K=9 then Move('TAB',0) else if K=256+15 then Move('BACK',0)
   else if K=256+71 then Move('TOP',0) else if K=256+79 then Move('BOTTOM',0)
@@ -858,7 +888,7 @@ begin
   else if K=256+59 then begin NMsg:=0; Handle('HELP') end
   else if (K=256+83) and (Field='') then begin NMsg:=0; Handle('DEL') end
   else if (K=13) and (Field<>'') then begin
-   L:=Field; Field:=''; NMsg:=0;
+   L:=Field; Field:=''; FPos:=0; NMsg:=0;
    if Tidy(L)='quit' then Done:=True
    else begin Draw('working...'); Handle(L) end
   end

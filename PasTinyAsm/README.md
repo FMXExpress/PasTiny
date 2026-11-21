@@ -57,8 +57,9 @@ The program is built a sentence at a time, and the `.COM` file is written again 
 | typing, then Enter | adds what you typed at the blue line |
 | Up, Down, PgUp, PgDn | move the blue line through the program; it takes the indent of the block it is in |
 | Tab, Shift-Tab | jump to the end of the next or the previous block |
-| Home, End | go to the top or the bottom |
+| Home, End, on an empty line | go to the top or the bottom |
 | F2, or Enter on an empty line | take up the line below for changing: its code appears on the blue line, in its place; change it, or type a new sentence, and press Enter ([during](docs/editor-change.png), [after](docs/editor-changed.png)) |
+| Left, Right, Home, End, Del, Backspace, Ctrl-Left, Ctrl-Right | move and correct inside what you are typing ([example](docs/editor-cursor.png)); a long line scrolls sideways |
 | Del, on an empty line | delete the line below, or the whole block if that line opens one ([example](docs/editor-deleted.png)) |
 | Esc | clear what you typed and leave a line unchanged; while an expert is working, cancel it |
 | F1 | help ([screen](docs/editor-help.png)) |
@@ -168,7 +169,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (67,488 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (67,744 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -187,7 +188,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 
 - Transcripts: [`evidence/lang/TASKS.LOG`](evidence/lang/TASKS.LOG) (sentences), [`evidence/blocks/BLOCKS.LOG`](evidence/blocks/BLOCKS.LOG) (block sessions), [`evidence/lang/LANG.LOG`](evidence/lang/LANG.LOG) (seven programs typed in the language: arithmetic, nested tests, loops ending at 0 and at 65535, zero counts), [`evidence/FPU.LOG`](evidence/FPU.LOG) (single calls).
 - The earlier checks still pass: `COLOR 1` leaves `1F` in screen memory, `WAIT 2000` takes 36 clock ticks (1.98 seconds), a 12-step program using every screen call ends with the right colours.
-- **The editor** cannot be driven from a file, so the emulator typed into it, starting from a four-line program: Up, Up, `beep`, Enter put `BEEP 440 300` inside the loop (the pictures above, and the listing it wrote); Home, Del removed the whole loop and left one line; Home, F2, Backspace, `5`, Enter changed `TIMES 2` to `TIMES 5` in place; F1 showed the help page. That is all that was tried: Tab, PgUp, PgDn, scrolling of a long program and Esc during an expert's work were not.
+- **The editor** cannot be driven from a file, so the emulator typed into it, starting from a four-line program: Up, Up, `beep`, Enter put `BEEP 440 300` inside the loop (the pictures above, and the listing it wrote); Home, Del removed the whole loop and left one line; Home, F2, Backspace, `5`, Enter changed `TIMES 2` to `TIMES 5` in place; on line 2, F2, Home, Right six times, Del, `9`, Enter changed `FOR I=3` to `FOR I=9` in the middle of the line; typing `bep`, Left, `e`, Home, `x`, Del, End, Backspace, `p` left `xeep`, as it should; F1 showed the help page. That is all that was tried: Tab, PgUp, PgDn, Ctrl-Left and Ctrl-Right, sideways scrolling of a long line, scrolling of a long program and Esc during an expert's work were not.
 - On an emulated 386 without an FPU, a countdown request and a block gave a program that printed 3 2 1 liftoff hi hi ([`evidence/NOFPU.LOG`](evidence/NOFPU.LOG)).
 
 ## Limits
@@ -198,13 +199,13 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with four experts it unpacks to 1,598,482 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with four experts it unpacks to 1,598,842 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 15,424 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 15,152 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - There is no RUN command: with the model in memory there is no room to start another program. Quit, then run the `.COM` file.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
-- The editor shows the code, not your sentences, so a line taken up for changing shows its code. There is no cursor movement inside the line: Backspace removes from the end. It assumes an 80 by 25 text screen.
+- The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
 - The router is a word list in `MAKECOM.PAS`, not a model.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.

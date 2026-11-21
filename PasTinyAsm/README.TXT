@@ -49,6 +49,8 @@ inside it:
                  Enter.  (Enter on an empty line does the same.)
   Del            on an empty line: delete the line below, or the
                  whole block it opens
+  Left, Right, Home, End, Del, Backspace
+                 move and correct inside what you are typing
   Esc            clear what you typed
   F1             help         Alt-X or QUIT   leave
 Typed commands: END leaves a block, NEW starts again, NAME file.
