@@ -179,6 +179,27 @@ with tempfile.TemporaryDirectory() as tmp:
         out = run(dest, ['CLS', 'load bad', 'show'])
         assert 'loaded' not in out and not (dest / 'BAD.COM').exists(), out
     print('Source: a program kept as text loads back to the same listing and the same .COM file; 3 bad files are refused.')
+    # EXPORT writes the same program as Turbo Pascal and as QBasic.  Here only the
+    # text is checked; evidence/export has the Pascal compiled and run beside the .COM.
+    export = exe.parent / 'EXPORT'
+    if export.exists():
+        for src in sorted((root / 'tests/export').glob('E?.SRC')):
+            shutil.copyfile(src, dest / src.name)
+            for kind in ('PAS', 'BAS'):
+                r = subprocess.run([export, src.stem, kind], capture_output=True, text=True, cwd=dest)
+                assert r.returncode == 0 and (dest / (src.stem + '.' + kind)).exists(), (src.name, kind, r.stdout)
+        pas, bas = (dest / 'E1.PAS').read_text(), (dest / 'E1.BAS').read_text()
+        for want in ('for R0 := 1 to 2 do begin', 'WriteLn(Word(I * I));', 'Y := X * X div 7 - 1;', 'for X := 3 downto 1 do begin',
+                     'if Word(A - B) > 60000 then begin', "WriteLn('it''s zero');", 'end else begin', "Write('Bye, now: done');"):
+            assert want in pas, want
+        for want in ('FOR R0 = 1 TO 2', 'Y = X * X \\ 7 - 1', 'FOR X = 3 TO 1 STEP -1', 'IF X = 0 THEN', 'END IF', 'NEXT T1',
+                     'PRINT "Bye, now: done";'):
+            assert want in bas, want
+        assert "if K = Ord('q') then begin" in (dest / 'E3.PAS').read_text() and 'until False;' in (dest / 'E3.PAS').read_text()
+        (dest / 'BAD.SRC').write_text('TIMES 2\nCLS\n')
+        r = subprocess.run([export, 'BAD', 'PAS'], capture_output=True, text=True, cwd=dest)
+        assert r.returncode != 0 and not (dest / 'BAD.PAS').exists(), r.stdout
+        print('Export: 5 programs written as Turbo Pascal and as QBasic; a program with an open block is refused.')
     if models:
         for req, want in PLANS:
             out = run(dest, [req])

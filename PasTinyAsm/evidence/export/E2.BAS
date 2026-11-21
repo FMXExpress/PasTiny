@@ -1,0 +1,27 @@
+' E2.BAS, written by PasTinyAsm EXPORT from E2.SRC.
+' Run with QBasic: QBASIC /RUN E2
+DEFLNG A-Z
+' INPUT A:INPUT B:OUT A+B:OUT A*B:OUT A-B:OUT A/B
+INPUT "", A
+INPUT "", B
+PRINT LTRIM$(STR$(A + B))
+PRINT LTRIM$(STR$(A * B))
+PRINT LTRIM$(STR$(A - B))
+PRINT LTRIM$(STR$(A \ B))
+IF A * 2 > B + 1 THEN
+  PRINT "first is big"
+ELSE
+  PRINT "first is small"
+END IF
+' TIMES B:PRINT x:END:NL
+FOR T1 = 1 TO B
+  PRINT "x";
+NEXT T1
+PRINT
+' FOR I=A DOWNTO B:NUMBER I:PRINT -:NEXT:NL
+FOR I = A TO B STEP -1
+  PRINT LTRIM$(STR$(I));
+  PRINT "-";
+NEXT I
+PRINT
+END

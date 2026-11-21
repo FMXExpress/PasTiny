@@ -1,0 +1,18 @@
+config -set cycles=12000
+E1.EXE > P1.TXT
+E2.EXE < EI2.IN > P2.TXT
+E3.EXE < EI3.IN > P3.TXT
+cls
+E4.COM
+ATTR.COM > C4.TXT
+cls
+E4.EXE
+ATTR.COM > P4.TXT
+TICKS.COM > C5.TXT
+E5.COM >> C5.TXT
+TICKS.COM >> C5.TXT
+TICKS.COM > P5.TXT
+E5.EXE >> P5.TXT
+TICKS.COM >> P5.TXT
+echo finished > ENDE.OUT
+exit

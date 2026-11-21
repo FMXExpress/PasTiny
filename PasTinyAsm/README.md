@@ -176,6 +176,23 @@ Built from "build a welcome screen", "build a rocket launch from 5", a `repeat 2
 
 **The program as text.** Beside `NAME.COM` and `NAME.ASM`, every change also writes `NAME.SRC`: the program's lines as the editor shows them, one to a line. `LOAD name` in the editor or a script, or `MAKECOM name.SRC` at the DOS prompt, takes such a file up again, so quitting no longer loses the editable form. It is plain text and can be written in any editor. Its lines are code and are not put to the experts; a file with a line that is not code, a block left open, or more than 40 lines is refused and the program in hand is kept.
 
+**As Turbo Pascal or QBasic.** `EXPORT name PAS` and `EXPORT name BAS` turn `name.SRC` into a Turbo Pascal or a QBasic program by fixed rules; no model takes part. It is a separate small program (`bin/EXPORT.EXE`, 20 KB), so it costs MAKECOM no memory.
+
+```
+FOR I=10 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+
+for I := 10 downto 1 do begin               FOR I = 10 TO 1 STEP -1
+  WriteLn(I);                                 PRINT LTRIM$(STR$(I))
+  Beep(440, 300);                             CALL Tone(440, 300)
+end;                                        NEXT I
+WriteLn('liftoff');                         PRINT "liftoff"
+```
+
+- **The Pascal was compiled and run.** Five programs covering arithmetic, loops both ways, nested blocks, tests with `ELSE`, keyboard numbers, key loops with `STOP`, the screen calls and the sound calls were exported, compiled with Turbo Pascal 7 and run beside our own `.COM` files under DOS. What they printed was the same; the colour left on the screen was the same (`1E`); the sound program took 61 clock ticks from the `.COM` and 62 from the Pascal. The sources, the exports and the comparison are in [`evidence/export/`](evidence/export/).
+- **It is made to match.** The Pascal uses `Crt` for sound, delays and the cursor but writes through DOS, so text keeps the colours already on the screen as it does in the `.COM`; its numbers are `Word`s with checks off, cut to a `Word` where they are printed or compared, so 3 minus 5 is 65534 in both. A Pascal program is about 5 KB where the `.COM` is a few hundred bytes.
+- **Turbo Pascal's `Crt` stops with runtime error 200 on a very fast machine.** That is Borland's fault, not this program's, and it happened here until the emulator was slowed to a 386's speed. On a 386 it does not arise.
+- **The QBasic has not been run.** No QBasic was to hand. It is checked for form only: numbers are long integers and do not wrap at 65535, waits use the `TIMER` clock, and `SOUND` counts in clock ticks, so timings will be close and not equal.
+
 **The log.** Every request and what became of it, refusals included, is added to `MAKECOM.LOG`. It is the place to look for wordings the experts get wrong; they are what the next training round needs.
 
 **Extended memory.** Changing experts means loading 381,808 bytes. With an XMS driver (HIMEM.SYS) each expert's file is read from the disk once, kept above the first megabyte, and copied down each time it is wanted. `MEM` shows how often experts came from memory and from disk; `XMS OFF` goes back to the disk. Each expert kept takes 373 KB, and all of it is given back when the program ends.
@@ -291,6 +308,7 @@ fpc -Mtp -B MAKECOM.PAS                       host build for testing
 python3 tests/test_asm.py ./MAKECOM           compiler against NASM
 python3 tests/test_asm.py ./MAKECOM --models  plans, refusals and expert scores
 TPC /B MAKECOM.PAS                            the DOS program (BUILD.BAT)
+TPC /B EXPORT.PAS                             the exporter
 ```
 
 To retrain an expert (PyTorch, 35 to 55 minutes on one CPU core), then rewrite the catalog:
