@@ -227,6 +227,8 @@ begin
    (* a text of signs only, such as a star, need not be in the request *)
    Signs:=True;
    for K:=1 to Length(Part) do if Part[K] in ['a'..'z','A'..'Z','0'..'9'] then Signs:=False;
+   (* nor need the answers yes and no that a program gives *)
+   if (Part='yes') or (Part='no') then Signs:=True;
    if not Signs then if Pos(' '+Part+' ',' '+Step+' ')=0 then Exit
   end
  end;
@@ -836,6 +838,12 @@ begin
  end
  {$IFDEF VER70}
  else if (Cmd='RUN') and (Rest='') then begin
+  (* With input from a file the program could not read the keyboard: its
+     input would be the rest of that file, part of it already taken. *)
+  for I:=1 to Steps do
+   if (Pos('INPUT',Plan[I])>0) or (Pos('KEY',Plan[I])>0) then begin
+    WriteLn('this program waits for the keyboard: run it from the editor, or by itself'); Exit
+   end;
   LogLine('> run'); System.Flush(Output);
   if RunProgram then ;
   Exit
