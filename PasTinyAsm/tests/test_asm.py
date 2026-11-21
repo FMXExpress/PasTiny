@@ -235,7 +235,10 @@ with tempfile.TemporaryDirectory() as tmp:
                              ('new names and wordings', 'words')):
             r = random.Random(13); right = refused = 0; wrong = []
             for _ in range(100):
-                q, steps = gen_recipes.request(r, split)
+                while True:                  # only requests whose steps fit the expert's window
+                    q, steps = gen_recipes.request(r, split)
+                    if gen_recipes.fits(q, steps):
+                        break
                 want, got = plan_of(steps), plan_of([q])
                 if got is None:
                     refused += 1
