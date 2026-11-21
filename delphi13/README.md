@@ -10,6 +10,8 @@ Open `TinyChat.dpr` or `TinyConsole.dpr` in the IDE, choose Windows 32-bit or Wi
 
 Open `TinyChatFMX.dpr` in RAD Studio and choose your installed FireMonkey target. The project shares its inference engine with TinyChat and uses deterministic integer inference. Add the repository’s `TINY.BIN` to the selected platform’s deployment, preserving the uppercase filename.
 
+The FMX form uses PasClaw Studio’s dark style for the conversation, neural monitor, question field, Ask button and Sound checkbox. Deploy `styles/PasclawDark.style` alongside `TINY.BIN` using the same target directory and preserve its filename. Standard Windows IDE builds also look in the project’s `styles` folder two levels above the executable. If the file is absent, FMX uses the platform style. [Upstream style](https://github.com/FMXExpress/PasClaw/blob/43219aa7063a68efe9e09c0293ade6bfc4dc0496/studio/PasclawDark.style) · [MIT license](styles/LICENSE)
+
 | Target | Model location |
 | --- | --- |
 | Windows | Copy beside the compiled `TinyChatFMX.exe`. |
