@@ -2,6 +2,29 @@
 
 Say what a small DOS program should do, and get a `.COM` file that does it. It runs on a 386 in real mode.
 
+![The editor with a program built from plain sentences](docs/editor-shapes.png)
+
+You type a sentence, the program on the screen grows by a line, and the `.COM` file is rewritten. Above: "print a triangle of stars with 4 lines", "print the first 4 multiples of 9", and a `repeat 2 times:` block with the blue typing line inside it. F5 runs it without leaving:
+
+![The same program run with F5](docs/editor-run.png)
+
+## In pictures
+
+All of these are the Turbo Pascal 7 build running under DOS (DOSBox-X); see Limits for how they were captured.
+
+| | |
+|---|---|
+| ![Typing inside a loop](docs/editor.png) | ![After Enter](docs/editor-added.png) |
+| **Up twice** put the blue line inside the loop; "beep" is being typed there. | **Enter** added it: the yellow lines say what the sentence became. |
+| ![A sentence typed in the editor](docs/editor-typed.png) | ![Tests, key loops and timers](docs/editor-tests.png) |
+| "count to 3" typed inside a block became a loop of its own. | Five one-sentence programs: a test with "otherwise", ask-until, a key loop, a timer, a colour cycle. |
+| ![Changing a line](docs/editor-change.png) | ![Cursor inside the line](docs/editor-cursor.png) |
+| **F2** takes a line up for changing, in its place. | **Left, Right, Home, End, Del** work inside the line: `I=3` became `I=9`. |
+| ![A block deleted](docs/editor-deleted.png) | ![Help](docs/editor-help.png) |
+| **Del** on a block's first line removes the whole block. | **F1**. |
+
+From a file, without the editor, the same thing is plain text:
+
 ```
 C:\ASM> MAKECOM
 > make screen flash, play sound
@@ -20,10 +43,6 @@ C:\ASM> OUT
 1
 liftoff
 ```
-
-![The editor: the typing line stands inside a loop](docs/editor.png)
-
-At the keyboard it is a screen editor. The program is always shown; the blue line is where new code goes, and Up and Down move it through the program, into and out of blocks. Here Up was pressed twice, which put it inside the loop, and "beep" was typed. Enter adds it there ([after](docs/editor-added.png)).
 
 The models never write an instruction. A 380 KB network cannot be trusted to get machine code right, where one wrong character is a wrong program. So the work is shared:
 
@@ -62,6 +81,7 @@ The program is built a sentence at a time, and the `.COM` file is written again 
 | Left, Right, Home, End, Del, Backspace, Ctrl-Left, Ctrl-Right | move and correct inside what you are typing ([example](docs/editor-cursor.png)); a long line scrolls sideways |
 | Del, on an empty line | delete the line below, or the whole block if that line opens one ([example](docs/editor-deleted.png)) |
 | Esc | clear what you typed and leave a line unchanged; while an expert is working, cancel it |
+| F5 | run the program and come back; what it left on the screen stays until a key is pressed |
 | F1 | help ([screen](docs/editor-help.png)) |
 | Alt-X or F10, or typing `quit` | leave |
 
@@ -109,6 +129,14 @@ Blocks are opened by code, not by a model, from a small set of wordings:
 
 Inside a block, sentences go to the experts as usual, so one-sentence programs from the tasks expert can be nested too. A request is added whole or not at all, and a line that does not fit where it is put ("else" outside an "if") is refused.
 
+## Running, the log and extended memory
+
+**Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
+
+**The log.** Every request and what became of it, refusals included, is added to `MAKECOM.LOG`. It is the place to look for wordings the experts get wrong; they are what the next training round needs.
+
+**Extended memory.** Changing experts means loading 381,808 bytes. With an XMS driver (HIMEM.SYS) each expert's file is read from the disk once, kept above the first megabyte, and copied down each time it is wanted. `MEM` shows how often experts came from memory and from disk; `XMS OFF` goes back to the disk. Each expert kept takes 373 KB, and all of it is given back when the program ends.
+
 ## The language
 
 The language exists because Tiny's window is 128 characters for request and answer together. Raw assembly spends that in three or four instructions; this fits a whole small program in one answer. [`TBC.PAS`](TBC.PAS) is the compiler and has the full description.
@@ -139,18 +167,19 @@ Beside the `.COM` file the program writes a complete `.ASM` listing of the main 
 
 **The compiler is exact.** For 12 programs typed in the language (every call, loops both ways, nested blocks, tests, arithmetic, input), the `.COM` file is byte for byte what NASM makes from the program's own listing plus the routines in `LIB.ASM`. 13 invalid lines are refused. Five block-mode sessions, with nesting, navigation, deleting and a refused `ELSE`, and two sessions that change lines in place (including refused changes that must leave the line alone), give the expected outlines and also match NASM.
 
-**The tasks expert combines parts it knows in ways it has not seen.** This was the experiment. A request is built from parts: a head (count up, count down, N times, ask for a number), an optional action in each round, and an optional action at the end. Some combinations were held out of training, though every part was trained in other combinations. Scored in the 8-bit runtime, 300 requests per set:
+**The tasks expert combines parts it knows in ways it has not seen.** A request is built from parts: a head (count up, count down, N times, ask for a number, test a number), actions inside it, and an action at the end. Some combinations are held out of training, though every part is trained in other combinations. Scored in the 8-bit runtime, 300 requests per set:
 
 | Set | Right | Refused | Wrong but accepted |
 |---|---:|---:|---:|
-| Trained combinations, new numbers and texts | 300 | 0 | 0 |
-| Held-out combinations of trained parts | 299 | 0 | 1 |
-| New wordings of the heads | 133 | 79 | 88 |
+| Trained shapes and combinations, new numbers and texts | 298 | 2 | 0 |
+| Held-out combinations of trained parts | 281 | 12 | 7 |
+| The first version's held-out wordings, trained on since | 300 | 0 | 0 |
+| Wordings never trained on | 298 | 2 | 0 |
 
-- **Held-out combinations:** 10 of the 40 count-with-two-actions forms, 8 of the 42 two-action pairs in a `TIMES` loop, two actions never seen after "that many times", and every "ask for a number and count" with both an each-round and an end action. The one miss wrote `SIREN` where `SCALE` was wanted.
-- **New wordings are the same weakness as before, and all-or-nothing.** "show every number from 3 to 9" and "ask the user for a number" were right every time (106 of 106). "in each of 5 rounds ..." was wrong every time (0 of 101). "count from 9 back to 3" mostly came out counting up; the compiler refuses a loop whose plain numbers run the wrong way, which turned 66 of those into refusals.
-
-So within the shapes it was trained on, the expert does compose. It does not understand words it has not met.
+- **Shapes.** About 60: counting with actions, `TIMES` loops, tests on a typed number with one or two actions, tables, multiples, squares, cubes, powers, sums, products, star patterns, colour cycles, tones, timers, and loops that run until a key or a number.
+- **Held-out combinations** are 10 of 40 count forms with two actions, 8 of 42 action pairs in a `TIMES` loop, two actions never seen after "that many times", 9 of 42 test-and-action pairs, every "ask and count" with both an each-round and an end action, and every "if ... otherwise" with two actions. The misses are nearly all in the last two classes, which ask for a longer program than any trained with those parts.
+- **Wordings.** The first version of this expert got 133 of 300 on wordings it had not seen, and each wording was right every time or wrong every time. Training on three to five wordings per part, in place of two or three, brought a fresh unseen set to 298. The two sets are different phrases, so this shows that variety helps, not that any wording will work.
+- The two refusals in the first row were this program's own text check turning down a "yes" the program prints; that check has since been relaxed.
 
 **The three single-call experts** are exact on trained wordings and unreliable on new ones. Each expert was scored in the 8-bit runtime on 300 fresh steps per set (new numbers, colours and texts every time):
 
@@ -193,7 +222,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 
 ## Limits
 
-- The pictures in `docs/` are not photographs of a monitor. DOSBox-X's window stayed black on the virtual display used here, so a helper saved the text screen and the BIOS font from inside the emulator and `tools/screenshot.py` drew them. The editor saves its own screen when F9 is pressed, which is how its pictures were taken. The emulator's typing command could not type a colon, so the pictures start from a program loaded with `MAKECOM file`.
+- The pictures in `docs/` are not photographs of a monitor. DOSBox-X's window stayed black on the virtual display used here, so a helper saved the text screen and the BIOS font from inside the emulator and `tools/screenshot.py` drew them. The editor saves its own screen when F9 is pressed, which is how its pictures were taken; after F5 that screen is a copy of what the program left in screen memory. The emulator's typing command could not type a colon, so the pictures start from a program loaded with `MAKECOM file`.
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
@@ -202,8 +231,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - The package no longer fits one floppy: with four experts it unpacks to 1,598,842 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 15,152 bytes of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
-- There is no RUN command: with the model in memory there is no room to start another program. Quit, then run the `.COM` file.
+- The program needs about 590 KB of free conventional memory, and about 9 KB of heap remain with a model loaded. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
