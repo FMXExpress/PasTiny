@@ -1,0 +1,29 @@
+PasTinyAsm 1.2  FPU yes
+heap=486520
+extended memory: 14912 KB free, experts will be kept there
+> name keep
+name KEEP
+> repeat 2 times:
+1 repeat 2 times: -> TIMES 2   (no model)
+wrote KEEP.COM 78 bytes, KEEP.ASM
+> say hello
+2 say hello -> PRINT hello
+wrote KEEP.COM 95 bytes, KEEP.ASM
+> count from 1 to 3:
+3 count from 1 to 3: -> FOR X=1 TO 3   (no model)
+wrote KEEP.COM 137 bytes, KEEP.ASM
+> print the count
+4 print the count -> OUT X   (no model)
+wrote KEEP.COM 183 bytes, KEEP.ASM
+> end
+at 6
+> end
+at 7
+> print "Bye, now: done"
+7 print "Bye, now: done" -> PRINT Bye, now: done   (no model)
+wrote KEEP.COM 204 bytes, KEEP.ASM
+> mem
+heap=2320 largest=2320 stack=18152
+experts loaded: 2 times from extended memory (55 ms), 0 times from disk (0 ms)
+kept in extended memory: 2 (75 ms to read them in), 14160 KB free there
+> quit

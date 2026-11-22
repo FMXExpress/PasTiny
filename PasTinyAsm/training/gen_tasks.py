@@ -25,7 +25,7 @@ import json, random, sys
 
 WORDS = ('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen '
          'sixteen seventeen eighteen nineteen twenty').split()
-SAY = 'done ok hello bye liftoff go stop ready boom hi finished end yes start over'.split()
+SAY = 'done ok hello bye liftoff go stop ready boom hi finished end yes no big small high low start over'.split()
 LIMIT = 126           # request + answer; the model's window is 128 with two end marks
 
 # name -> (ways to say it, code)
@@ -42,7 +42,7 @@ EACH = ['beep', 'flash', 'wait', 'half']                    # allowed inside a c
 END = ['beep', 'flash', 'siren', 'tune', 'say']             # allowed after it
 ALL = list(ACTS)
 TESTS = [('bigger than', '>'), ('more than', '>'), ('smaller than', '<'), ('less than', '<'),
-         ('equal to', '='), ('not', '<>'), ('at least', '>='), ('at most', '<=')]
+         ('equal to', '='), ('', '='), ('not', '<>'), ('at least', '>='), ('at most', '<=')]
 
 _r = random.Random(20261121)                                # fixes which combinations are held out
 COUNT_HELD = set(_r.sample([(d, e, f) for d in 'ud' for e in EACH for f in END], 10))
@@ -182,17 +182,22 @@ def ask(r, held, split):
         while True:
             said, op = r.choice(TESTS); a = r.choice(ALL); b = r.choice([None, None] + ALL)
             both = b is not None and b != 'say' and a != 'say'
-            if b == a:
+            if b == a and a != 'say':        # two different texts are a natural pair: say yes ... otherwise say no
                 continue
             if held != (both or (b is None and (op, a) in IF_HELD)):
                 continue
             break
         k = r.randint(0, 100)
         sa, ca = act(r, a)
-        q = lead + '%s if it is %s %d' % (sa, said, k)
+        q = lead + ' '.join(('%s if it is %s %d' % (sa, said, k)).split())
         code = 'INPUT A:IF A%s%d:%s' % (op, k, ca)
         if b:
-            sb, cb = act(r, b)
+            while True:
+                sb, cb = act(r, b)
+                if cb != ca:
+                    break
+            if a == 'say' and b == 'say' and r.random() < 0.4:
+                sb = cb.split()[1]             # "say yes if ... otherwise no"
             q += ' otherwise ' + sb; code += ':ELSE:' + cb
         return q, code + ':END'
     while True:

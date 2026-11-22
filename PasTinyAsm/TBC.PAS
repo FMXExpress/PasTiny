@@ -46,7 +46,7 @@ unit TBC;
 interface
 type TCall=record Name:String[7]; Kind:Byte; Lo1,Hi1,Lo2,Hi2,Ofs,Len:Word end;
 {$I LIB.INC}
-const MAXCODE=4096; ORIGIN=$100; VARBASE=$103;
+const MAXCODE=3072; ORIGIN=$100; VARBASE=$103;
 type TCode=array[0..MAXCODE-1] of Byte;
 (* The program being built.  The big tables live on the heap: the data
    segment of the DOS program is nearly full. *)
@@ -70,7 +70,7 @@ function RepeatCount(S:String):Word;
 function FindCall(S:String):Integer;
 
 implementation
-const MAXLAB=300; MAXFIX=400; MAXTEXT=24; MAXDEPTH=12;
+const MAXLAB=220; MAXFIX=300; MAXTEXT=24; MAXDEPTH=12;
 type TBlock=record Kind:Char; L1,L2,V:Integer end;
  TFix=record Pos:Word; Kind:Byte; Id:Integer end;
  TFixes=array[1..MAXFIX] of TFix;
@@ -373,7 +373,7 @@ begin
  else if Key='ELSE' then begin
   if (Depth=0) or (Blocks[Depth].Kind<>'I') then begin Error('ELSE without IF'); Exit end;
   L2:=NewLabel; JmpNear(L2); Place(Blocks[Depth].L1);
-  Blocks[Depth].Kind:='E'; Blocks[Depth].L1:=L2
+  Blocks[Depth].Kind:='E'; Blocks[Depth].L1:=L2; Blocks[Depth].V:=Size
  end
  else if Key='END' then begin
   if (Depth=0) or not (Blocks[Depth].Kind in ['T','I','E','V']) then begin Error('END without TIMES, IF or FOREVER'); Exit end;
@@ -382,7 +382,12 @@ begin
    B($59); T('pop     cx'); B($49); T('dec     cx'); JmpNear(Bl.L1); Place(Bl.L2)
   end
   else if Bl.Kind='V' then JmpNear(Bl.L1)
-  else Place(Bl.L1)
+  else begin
+   (* in one line an ELSE with nothing after it is a mistake; in a block
+      being built it is only not filled in yet *)
+   if (Bl.Kind='E') and (Size=Word(Bl.V)) and not AllowOpen then begin Error('ELSE with nothing after it'); Exit end;
+   Place(Bl.L1)
+  end
  end
  else begin Error('unknown word '+Key); Exit end;
  Blanks;

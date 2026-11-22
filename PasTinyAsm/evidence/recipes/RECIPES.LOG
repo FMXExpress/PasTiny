@@ -1,0 +1,88 @@
+PasTinyAsm 1.2  FPU yes
+heap=486520
+extended memory: 14912 KB free, experts will be kept there
+> name rc1
+name RC1
+> build an alarm clock
+build an alarm clock:
+  = ask for a number and count down from it and wait a second each time
+1 ask for a number and count down from it and wait a second each time -> INPUT A:FOR I=A DOWNTO 1:OUT I:WAIT:NEXT
+  = play a siren
+2 play a siren -> SIREN 2
+  = flash the screen 3 times
+3 flash the screen 3 times -> FLASH 3
+wrote RC1.COM 356 bytes, RC1.ASM
+> new
+new program
+> name rc2
+name RC2
+> build a counter to 4 on a blue screen
+build a counter to 4 on a blue screen:
+  = make the screen blue
+1 make the screen blue -> COLOR 1
+  = count to 4
+2 count to 4 -> FOR I=1 TO 4:OUT I:NEXT
+  = say done
+3 say done -> PRINT done
+wrote RC2.COM 200 bytes, RC2.ASM
+> new
+new program
+> name rc3
+name RC3
+> build a welcome screen
+build a welcome screen:
+  = make the screen blue
+1 make the screen blue -> COLOR 1
+  = make the text yellow
+2 make the text yellow -> INK 14
+  = go to row 12 column 30
+3 go to row 12 column 30 -> GOTO 12 30
+  = say welcome
+4 say welcome -> PRINT welcome
+  = wait for a key
+5 wait for a key -> KEY
+wrote RC3.COM 191 bytes, RC3.ASM
+> build a rocket launch from 5
+build a rocket launch from 5:
+  = count down from 5 and beep each time then say liftoff
+6 count down from 5 and beep each time then say liftoff -> FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+  = flash the screen 3 times
+7 flash the screen 3 times -> FLASH 3
+wrote RC3.COM 421 bytes, RC3.ASM
+> repeat 2 times:
+8 repeat 2 times: -> TIMES 2   (no model)
+wrote RC3.COM 439 bytes, RC3.ASM
+> a high beep
+9 a high beep -> BEEP 1000 300
+wrote RC3.COM 452 bytes, RC3.ASM
+> flash the screen
+10 flash the screen -> FLASH 3
+wrote RC3.COM 458 bytes, RC3.ASM
+> end
+at 12
+> print a triangle of stars with 4 lines
+12 print a triangle of stars with 4 lines -> FOR I=1 TO 4:TIMES I:PRINT *:END:NL:NEXT
+wrote RC3.COM 529 bytes, RC3.ASM
+> say "The End"
+13 say "The End" -> PRINT The End   (no model)
+wrote RC3.COM 543 bytes, RC3.ASM
+> show
+  1 COLOR 1
+  2 INK 14
+  3 GOTO 12 30
+  4 PRINT welcome
+  5 KEY
+  6 FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT:ECHO liftoff
+  7 FLASH 3
+  8 TIMES 2
+  9   BEEP 1000 300
+ 10   FLASH 3
+ 11 END
+ 12 FOR I=1 TO 4:TIMES I:PRINT *:END:NL:NEXT
+ 13 PRINT "The End"
+   >
+> mem
+heap=2320 largest=2320 stack=18152
+experts loaded: 19 times from extended memory (1780 ms), 0 times from disk (0 ms)
+kept in extended memory: 5 (189 ms to read them in), 13032 KB free there
+> quit

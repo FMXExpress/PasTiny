@@ -28,6 +28,14 @@ procedure Think(Q:String; var Answer:String; var Tokens:Longint;
                 OnStep:TStepProc; OnLetter:TLetterProc);
 function Clean(Line:String):String;
 function IsWord(Q,W:String):Boolean;
+(* PasTinyAsm: second choices.  While Think writes an answer it notes the
+   places where its first choice led its second by least: Doubt[1] is the
+   least sure, At counts the letters of the answer from 1 (one past the end
+   is the choice to stop).  ThinkAgain takes the second choice at one such
+   place and writes on from there; only that tail is computed again. *)
+const MAXDOUBT=3;
+var Doubt:array[1..MAXDOUBT] of record At:Integer; Gap:Single end;
+procedure ThinkAgain(Q:String; var Answer:String; At:Integer; OnStep:TStepProc);
 procedure Fail(Msg:String);
 implementation
 uses XMSCACHE;
@@ -53,7 +61,7 @@ begin
  {$IFNDEF FPC}if MaxAvail<N then Fail('not enough memory. TINY needs about 540 KB free (type MEM).');{$ENDIF}
  GetMem(P,N); Memory:=P
 end;
-const BufSize=4096;
+const BufSize=1024;      (* PasTinyAsm: 1 KB, not 4 KB; the program needs the room *)
 var Buffer:array[0..BufSize-1] of Byte;
  Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint;
  XPos:Longint;      (* how far into the XMS block the reading has got *)
@@ -391,10 +399,52 @@ begin
  end;
  Pick:=Chosen(Selected)
 end;
+(* The best choice, and the best of the rest. *)
+procedure TopTwo(var Best,Second:Integer);
+var I:Integer;
+begin
+ Best:=0; for I:=1 to VOCAB-1 do if Score[I]>Score[Best] then Best:=I;
+ if Best=0 then Second:=1 else Second:=0;
+ for I:=0 to VOCAB-1 do if (I<>Best) and (Score[I]>Score[Second]) then Second:=I
+end;
+
+procedure NoteDoubt(At:Integer);
+var Best,Second,I,J:Integer; Gap:Single;
+begin
+ TopTwo(Best,Second); Gap:=Score[Best]-Score[Second];
+ for I:=1 to MAXDOUBT do if (Doubt[I].At=0) or (Gap<Doubt[I].Gap) then begin
+  for J:=MAXDOUBT downto I+1 do Doubt[J]:=Doubt[J-1];
+  Doubt[I].At:=At; Doubt[I].Gap:=Gap; Exit
+ end
+end;
+
+procedure ThinkAgain(Q:String; var Answer:String; At:Integer; OnStep:TStepProc);
+var P,N,Tok,Best:Integer;
+begin
+ Cancelled:=False; if not Ready then begin Answer:=''; Exit end;
+ Q:=Clean(Q); N:=Length(Q);
+ if (At<1) or (At>Length(Answer)+1) then begin Answer:=''; Exit end;
+ Answer:=Copy(Answer,1,At-1);
+ (* the letter before the place gives the choices at the place once more *)
+ if At=1 then Tok:=1 else Tok:=Ord(Answer[At-1])-30;
+ P:=N+At-1; Step(Tok,P); Inc(P);
+ TopTwo(Best,Tok);
+ while P<CTX do begin
+  if Tok<=1 then P:=CTX else begin
+   Answer:=Answer+Chr(Tok+30);
+   if Assigned(OnStep) then OnStep(P,CTX);
+   if Cancelled then Exit;
+   Step(Tok,P); Inc(P);
+   Tok:=Pick
+  end
+ end
+end;
+
 procedure Think(Q:String; var Answer:String; var Tokens:Longint;
                 OnStep:TStepProc; OnLetter:TLetterProc);
 var P,N,Tok:Integer;
 begin
+ for P:=1 to MAXDOUBT do Doubt[P].At:=0;
  Cancelled:=False; if not Ready then begin Answer:=''; Tokens:=0; Exit end;
  Q:=Clean(Q); P:=0; N:=Length(Q); Answer:=''; Tokens:=0;
  while P<N do begin
@@ -404,6 +454,7 @@ begin
  end;
  Step(1,P); Inc(P); Inc(Tokens);
  while P<CTX do begin
+  NoteDoubt(Length(Answer)+1);
   Tok:=Pick; if Tok<=1 then P:=CTX else begin
    Answer:=Answer+Chr(Tok+30);
    if Assigned(OnLetter) then OnLetter(Tok+30);

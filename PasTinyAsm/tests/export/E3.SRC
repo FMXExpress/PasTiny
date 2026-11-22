@@ -1,0 +1,8 @@
+FOREVER
+KEY
+IF K='q'
+ECHO bye
+STOP
+END
+OUT K:ECHO again
+END

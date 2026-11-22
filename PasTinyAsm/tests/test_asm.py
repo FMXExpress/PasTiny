@@ -55,7 +55,7 @@ DIRECT = [
     'INPUT A:TIMES A:FLASH:SIREN:WAIT:END:FOR I=1 TO A:BEEP I*100+200 100:NEXT',
     'LET X=2+3*4:OUT X:LET Y=X*X/7-1:OUT Y:IF X>=14:IF Y<=27:NUMBER X+Y:NL:END:END',
 ]
-BADLINES = ['FOR I=9 TO 3:OUT I:NEXT', 'FOR I=3 DOWNTO 9:OUT I:NEXT', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
+BADLINES = ['FOR I=9 TO 3:OUT I:NEXT', 'INPUT A:IF A<=7:ECHO yes:ELSE:END', 'FOR I=3 DOWNTO 9:OUT I:NEXT', 'NEXT', 'OUT', 'LET 5=A', 'FLASH 99', 'BEEP 440', 'IF A:BEEP:END', 'TIMES 3:BEEP:NEXT',
             'OUT 70000', 'JUMP 5', 'OUT A+', 'END']
 PLANS = [   # request, the calls it must become
     ('make screen flash, play sound', ['FLASH 3', 'BEEP 440 300']),
@@ -79,6 +79,8 @@ BLOCKS = [
     (['INPUT A', 'if it is bigger than 10: print "big"', 'else', 'print "small"', 'end', 'if it is not 7: SIREN 1',
       'tab', 'back', 'back', 'del 2'],
      ['  1 INPUT A', '   >', '  2 IF A<>7', '  3   SIREN 1', '  4 END']),
+    (['INPUT A', 'if it is bigger than 10: print "big"', 'else', 'print "small"', 'end', 'CLS'],
+     ['  1 INPUT A', '  2 IF A>10', '  3   PRINT "big"', '  4 ELSE', '  5   PRINT "small"', '  6 END', '  7 CLS', '   >']),
     (['TIMES 2:', 'FOR I=1 TO 3:', 'OUT I*I', 'end', 'end', 'del 3', 'del 1', 'print "empty now"', 'up', 'KEY'],
      ['  1 KEY', '   >', '  2 PRINT "empty now"']),
 ]
@@ -158,12 +160,52 @@ with tempfile.TemporaryDirectory() as tmp:
     # Deleting the last line leaves no program files behind.
     for script in (['CLS', 'del 1'], ['TIMES 2:', 'CLS', 'del 1'], ['CLS', 'HIDE', 'del 1', 'del 1']):
         out = run(dest, script)
-        assert 'removed' in out and not (dest / 'OUT.COM').exists() and not (dest / 'OUT.ASM').exists(), (script, out)
+        assert 'removed' in out and not any((dest / ('OUT.' + e)).exists() for e in ('COM', 'ASM', 'SRC')), (script, out)
     print('Review fixes: quoted characters keep their case; an emptied program removes its files.')
+    # The program is also kept as text, and that text loads back to the same program.
+    session = ['name keep', 'TIMES 2:', 'CLS', 'count from 1 to 3:', 'print the count', 'end', "IF K='q':", 'STOP', 'end', 'else',
+               'print "Bye, now: done"', 'bottom', 'FOR I=1 TO 2:OUT I*I:NEXT']
+    out = run(dest, session + ['show'])
+    listing = out[out.rindex('> show'):]
+    com, src = (dest / 'KEEP.COM').read_bytes(), (dest / 'KEEP.SRC').read_text()
+    assert 'PRINT "Bye, now: done"' in src and "IF K='q'" in src, src
+    (dest / 'KEEP.COM').unlink()
+    out = run(dest, ['CLS', 'load keep', 'show'])
+    assert 'loaded KEEP.SRC, 11 lines' in out and out[out.rindex('> show'):] == listing, out
+    assert (dest / 'KEEP.COM').read_bytes() == com
+    (dest / 'KEEP.COM').unlink()
+    out = subprocess.run([exe, 'KEEP.SRC'], input='show\nquit\n', text=True, capture_output=True, cwd=dest).stdout
+    assert out[out.rindex('> show'):] == listing and (dest / 'KEEP.COM').read_bytes() == com, out
+    for bad in ('CLS\nJUMP 5\n', 'TIMES 2\nCLS\n', 'FOR I=1 TO 3\nCLS\nEND\n'):      # not code; a block left open; closed wrongly
+        (dest / 'BAD.SRC').write_text(bad)
+        out = run(dest, ['CLS', 'load bad', 'show'])
+        assert 'loaded' not in out and not (dest / 'BAD.COM').exists(), out
+    print('Source: a program kept as text loads back to the same listing and the same .COM file; 3 bad files are refused.')
+    # EXPORT writes the same program as Turbo Pascal and as QBasic.  Here only the
+    # text is checked; evidence/export has the Pascal compiled and run beside the .COM.
+    export = exe.parent / 'EXPORT'
+    if export.exists():
+        for src in sorted((root / 'tests/export').glob('E?.SRC')):
+            shutil.copyfile(src, dest / src.name)
+            for kind in ('PAS', 'BAS'):
+                r = subprocess.run([export, src.stem, kind], capture_output=True, text=True, cwd=dest)
+                assert r.returncode == 0 and (dest / (src.stem + '.' + kind)).exists(), (src.name, kind, r.stdout)
+        pas, bas = (dest / 'E1.PAS').read_text(), (dest / 'E1.BAS').read_text()
+        for want in ('for R0 := 1 to 2 do begin', 'WriteLn(Word(I * I));', 'Y := X * X div 7 - 1;', 'for X := 3 downto 1 do begin',
+                     'if Word(A - B) > 60000 then begin', "WriteLn('it''s zero');", 'end else begin', "Write('Bye, now: done');"):
+            assert want in pas, want
+        for want in ('FOR R0 = 1 TO 2', 'Y = X * X \\ 7 - 1', 'FOR X = 3 TO 1 STEP -1', 'IF X = 0 THEN', 'END IF', 'NEXT T1',
+                     'PRINT "Bye, now: done";'):
+            assert want in bas, want
+        assert "if K = Ord('q') then begin" in (dest / 'E3.PAS').read_text() and 'until False;' in (dest / 'E3.PAS').read_text()
+        (dest / 'BAD.SRC').write_text('TIMES 2\nCLS\n')
+        r = subprocess.run([export, 'BAD', 'PAS'], capture_output=True, text=True, cwd=dest)
+        assert r.returncode != 0 and not (dest / 'BAD.PAS').exists(), r.stdout
+        print('Export: 5 programs written as Turbo Pascal and as QBasic; a program with an open block is refused.')
     if models:
         for req, want in PLANS:
             out = run(dest, [req])
-            got = [re.sub(r'\s+\(no model\)$', '', l).split(' -> ')[-1] for l in out.splitlines() if re.match(r'\d+ ', l)]
+            got = [re.sub(r'\s+\((no model|second choice)\)$', '', l).split(' -> ')[-1] for l in out.splitlines() if re.match(r'\d+ ', l)]
             assert got == want and 'wrote OUT.COM' in out, (req, got, out)
             assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp)
         for req in REFUSED:
@@ -182,7 +224,7 @@ with tempfile.TemporaryDirectory() as tmp:
                     if ' and ' not in ' %s ' % p[0]:
                         pairs.append(p)
                 lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
-                rows = [re.sub(r'\s+\(no model\)$', '', l) for l in lines if re.match(r'\d+ ', l)]
+                rows = [re.sub(r'\s+\((no model|second choice)\)$', '', l) for l in lines if re.match(r'\d+ ', l)]
                 assert len(rows) == len(pairs), (len(rows), len(pairs))
                 right = sum('1 %s -> %s' % (q, a) == l for (q, a), l in zip(pairs, rows))
                 wrong = [(q, l.split(' -> ')[-1], a) for (q, a), l in zip(pairs, rows) if ' -> ' in l and '1 %s -> %s' % (q, a) != l]
@@ -200,7 +242,7 @@ with tempfile.TemporaryDirectory() as tmp:
             lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
             rows = [l for l in lines if re.match(r'\d+ ', l)]
             assert len(rows) == len(pairs), (len(rows), len(pairs))
-            got = [l.split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused
+            got = [re.sub(r'\s+\(second choice\)$', '', l).split(' -> ')[-1] if ' -> ' in l else None for l in rows]      # None = refused
             right = sum(g == a for (q, a), g in zip(pairs, got))
             wrong = [(q, g, a) for (q, a), g in zip(pairs, got) if g is not None and g != a]
             print('tasks  %-38s %d right, %d refused, %d wrong but accepted, of %d'
@@ -235,7 +277,10 @@ with tempfile.TemporaryDirectory() as tmp:
                              ('new names and wordings', 'words')):
             r = random.Random(13); right = refused = 0; wrong = []
             for _ in range(100):
-                q, steps = gen_recipes.request(r, split)
+                while True:                  # only requests whose steps fit the expert's window
+                    q, steps = gen_recipes.request(r, split)
+                    if gen_recipes.fits(q, steps):
+                        break
                 want, got = plan_of(steps), plan_of([q])
                 if got is None:
                     refused += 1

@@ -1,0 +1,50 @@
+' E4.BAS, written by PasTinyAsm EXPORT from E4.SRC.
+' Run with QBasic: QBASIC /RUN E4
+DEFLNG A-Z
+CLS
+CALL Paint(1)
+CALL Ink(14)
+COLOR , , 2
+LOCATE 3, 5
+PRINT "hi there";
+LOCATE , , 0
+LOCATE , , 1
+CALL Flash(1)
+END
+
+DEFLNG A-Z
+SUB Pause (Ms)
+  T! = TIMER
+  DO
+  LOOP UNTIL TIMER - T! >= Ms / 1000 OR TIMER < T!
+END SUB
+
+DEFLNG A-Z
+SUB Flash (N)
+  DEF SEG = &HB800
+  FOR I = 1 TO N * 2
+    FOR J = 1 TO 3999 STEP 2
+      POKE J, PEEK(J) XOR &H7F
+    NEXT J
+    CALL Pause(120)
+  NEXT I
+  DEF SEG
+END SUB
+
+DEFLNG A-Z
+SUB Paint (N)
+  DEF SEG = &HB800
+  FOR J = 1 TO 3999 STEP 2
+    POKE J, N * 16 + 15
+  NEXT J
+  DEF SEG
+END SUB
+
+DEFLNG A-Z
+SUB Ink (N)
+  DEF SEG = &HB800
+  FOR J = 1 TO 3999 STEP 2
+    POKE J, (PEEK(J) AND &HF0) OR N
+  NEXT J
+  DEF SEG
+END SUB

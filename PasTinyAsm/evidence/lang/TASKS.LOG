@@ -1,5 +1,6 @@
 PasTinyAsm 1.2  FPU yes
-heap=499352
+heap=486520
+extended memory: 14912 KB free, experts will be kept there
 > new
 new program
 > name c1
@@ -68,5 +69,7 @@ name BAD
 1 count from 9 to 3: refused "FOR I=9 TO 3:OUT I:NEXT" (this loop would not run: check TO and DOWNTO)
 nothing added
 > mem
-heap=15152 largest=15152 stack=14824
+heap=2320 largest=2320 stack=18152
+experts loaded: 5 times from extended memory (270 ms), 0 times from disk (0 ms)
+kept in extended memory: 3 (224 ms to read them in), 13784 KB free there
 > quit

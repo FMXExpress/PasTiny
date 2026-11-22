@@ -1,0 +1,10 @@
+E1  ours:   1 4 9 16 25 5050 14 27 65534 wrapped 3and2and1and 3and2and1and not zero Bye, now: done1 4 9 16 25 5050 14 27 65534 wrapped 3and2and1and 3and2and1and not zero Bye, now: done
+E1  Pascal: 1 4 9 16 25 5050 14 27 65534 wrapped 3and2and1and 3and2and1and not zero Bye, now: done1 4 9 16 25 5050 14 27 65534 wrapped 3and2and1and 3and2and1and not zero Bye, now: done
+E2  ours:     17 60 7 2 first is big xxxxx 12-11-10-9-8-7-6-5- 
+E2  Pascal: 17 60 7 2 first is big xxxxx 12-11-10-9-8-7-6-5- 
+E3  ours:   97 again 98 again bye 
+E3  Pascal: 97 again 98 again bye 
+E4  ours:   1E 
+E4  Pascal: 1E 
+E5  ours:   44064 sounds done 44125 
+E5  Pascal: 44125 sounds done 44187 

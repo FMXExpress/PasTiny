@@ -1,0 +1,36 @@
+' E5.BAS, written by PasTinyAsm EXPORT from E5.SRC.
+' Run with QBasic: QBASIC /RUN E5
+DEFLNG A-Z
+' BEEP 880 100:WAIT 500
+CALL Tone(880, 100)
+CALL Pause(500)
+CALL Tone(440, 300)
+CALL Siren(1)
+CALL Scale
+PRINT "sounds done"
+END
+
+DEFLNG A-Z
+SUB Pause (Ms)
+  T! = TIMER
+  DO
+  LOOP UNTIL TIMER - T! >= Ms / 1000 OR TIMER < T!
+END SUB
+
+DEFLNG A-Z
+SUB Tone (Hz, Ms)
+  IF Hz >= 37 THEN SOUND Hz, Ms * 18.2 / 1000
+END SUB
+
+DEFLNG A-Z
+SUB Siren (N)
+  FOR I = 1 TO N
+    FOR F = 400 TO 1200 STEP 16: SOUND F, .15: NEXT F
+    FOR F = 1200 TO 400 STEP -16: SOUND F, .15: NEXT F
+  NEXT I
+END SUB
+
+DEFLNG A-Z
+SUB Scale
+  PLAY "T150 O3 L8 C D E F G A B > C"
+END SUB

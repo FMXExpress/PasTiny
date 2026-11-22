@@ -1,0 +1,32 @@
+PasTinyAsm 1.2  FPU yes
+heap=486520
+extended memory: 14912 KB free, experts will be kept there
+> load keep
+loaded KEEP.SRC, 7 lines
+wrote KEEP.COM 204 bytes, KEEP.ASM
+> name k2
+name K2
+> edit 1 repeat 3 times
+1 repeat 3 times -> TIMES 3
+wrote K2.COM 204 bytes, K2.ASM
+> show
+  1 TIMES 3
+  2   PRINT hello
+  3   FOR X=1 TO 3
+  4     OUT X
+  5   NEXT
+  6 END
+  7 PRINT "Bye, now: done"
+   >
+> run
+hello1
+2
+3
+hello1
+2
+3
+hello1
+2
+3
+Bye, now: doneran K2.COM
+> quit

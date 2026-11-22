@@ -36,7 +36,7 @@ program MakeCom;
    file the same moves are commands (UP, DOWN, TAB, GO n ...) and the
    output is plain text.  MAKECOM file starts from the lines of a file. *)
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
-{$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
+{$IFDEF VER70}{$F+}{$M 20480,0,655360}{$ENDIF}      (* 20 KB of stack: a recipe step is planned four calls deep *)
 {$N+}{$E+}
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
@@ -290,10 +290,52 @@ begin
  Accept:=True
 end;
 
+(* A single call must be about something the step names: HIDE needs
+   "hide", "off", "away" or the like in the step.  Without this a step in
+   a wording the expert has not met can become a valid call for the
+   opposite thing.  Lines of several statements are not looked at. *)
+function KeyWordsAgree(Step,L:String):Boolean;
+const NW=11;
+ Calls:array[1..NW] of String[7]=('HIDE','SHOW','SIREN','SCALE','KEY','REPEAT','CLS','WAIT','BEEP','FLASH','NEWLINE');
+ Words:array[1..NW] of String[76]=(
+  'hide off invisible away rid remove no disable disappear stop not without',
+  'show on visible back see appear enable display again',
+  'siren alarm',
+  'scale tune music melody song notes',
+  'key keypress keyboard',
+  'repeat times twice again loop rounds everything',
+  'clear cls wipe erase blank clean empty reset tidy everything',
+  'wait pause sleep delay hold stop rest nothing break moment second seconds ms',
+  'beep sound tone note noise speaker hz hertz',
+  'flash blink',
+  'line newline');
+var I:Integer; Key,W:String;
+begin
+ KeyWordsAgree:=True;
+ if Pos(':',L)>0 then Exit;
+ Key:=NextWord(L);
+ for I:=1 to NW do if Calls[I]=Key then begin
+  KeyWordsAgree:=False; W:=Words[I];
+  while W<>'' do if HasWord(Step,NextWord(W)) then begin KeyWordsAgree:=True; Exit end;
+  Exit
+ end
+end;
+
+(* Is L an answer to step S that may be taken?  If not, Why says why. *)
+function Passes(S,L:String; var Why:String):Boolean;
+begin
+ Passes:=False;
+ if not CheckLine(L,Why) then Exit;
+ Why:='text was not in the request'; if not TextsAgree(S,L) then Exit;
+ Why:='numbers do not match the request'; if not NumbersAgree(S,L) then Exit;
+ Why:='it is about something the request does not name'; if not KeyWordsAgree(S,L) then Exit;
+ Passes:=True
+end;
+
 (* One step of the request, as typed.  Force is the expert to ask, or 0
    to let the router choose. *)
 function AddStep(Raw:String; Force:Integer):Boolean;
-var S,A,Why,Up:String; Id,K,K2:Integer; Tokens:Longint;
+var S,A,Why,Why2,Up:String; Id,K,K2:Integer; Tokens:Longint; At:array[1..MAXDOUBT] of Integer;
 begin
  AddStep:=False; A:='';
  while (Raw<>'') and (Raw[1]=' ') do Delete(Raw,1,1);
@@ -321,12 +363,20 @@ begin
  if not Switch(Id) then Exit;
  Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
  if Cancelled then begin WriteLn('cancelled'); Exit end;
- if not CheckLine(A,Why) then begin
-  Refuse(S,'refused "'+A+'" ('+Why+')'); Exit end;
- if not TextsAgree(S,A) then begin
-  Refuse(S,'refused "'+A+'" (text was not in the request)'); Exit end;
- if not NumbersAgree(S,A) then begin
-  Refuse(S,'refused "'+A+'" (numbers do not match the request)'); Exit end;
+ if not Passes(S,A,Why) then begin
+  (* the first answer will not do: try the second choice at each of the
+     places where the expert was least sure, and take the first that will *)
+  for K:=1 to MAXDOUBT do begin At[K]:=Doubt[K].At end;
+  for K:=1 to MAXDOUBT do if At[K]>0 then begin
+   Up:=A; ThinkAgain(S,Up,At[K],PollEscape);
+   if Cancelled then begin WriteLn('cancelled'); Exit end;
+   if (Up<>'') and Passes(S,Up,Why2) then begin
+    LogLine('  first answer "'+A+'" ('+Why+')');
+    AddStep:=Accept(S,Up,' ','   (second choice)'); Exit
+   end
+  end;
+  Refuse(S,'refused "'+A+'" ('+Why+')'); Exit
+ end;
  AddStep:=Accept(S,A,' ','')
 end;
 
@@ -470,11 +520,14 @@ function Sentence(P:String):Boolean; forward;
 
    "build an alarm clock" says little.  The recipes expert knows what
    such a thing consists of and says it in sentences the other experts
-   understand, one step for each question:
+   understand, one step for each question.  A question is the number of
+   the step, the request without its filler words, and the first 20
+   letters of the step before, so that the expert only has to say what
+   comes next:
 
-     1 build an alarm clock  ->  ask for a number and count down from it
-     2 build an alarm clock  ->  play a siren
-     3 build an alarm clock  ->  done
+     1 alarm clock | start                 ->  ask for a number and ...
+     2 alarm clock | ask for a number and  ->  play a siren
+     3 alarm clock | play a siren          ->  done
 
    The steps are gathered first, so that this expert is loaded once, and
    then planned like sentences typed by hand: everything that checks a
@@ -483,28 +536,52 @@ function IsRecipe(S:String):Boolean;
 var F:String;
 begin
  F:=FirstWord(S);
+ (* "build a ...", "create a ...", "write a ... program", "i want a ... program";
+    not "repeat the program 3 times", which is about the program in hand *)
  IsRecipe:=(FindId(XRECIPES)<>0) and
-  ((F='build') or (F='create') or HasWord(S,'program') or HasWord(S,'game'))
+  ((F='build') or (F='create') or
+   (HasWord(S,'program') and ((F='write') or (Copy(S,1,7)='i want '))))
 end;
 
-function Expand(P:String):Boolean;
 const MAXSTEP=12;
-var Step:array[1..MAXSTEP] of String[72]; N,I:Integer; S,A,Num:String; Tokens:Longint; Ok:Boolean;
+var Step:array[1..MAXSTEP] of String[72];      (* the steps of the recipe being expanded *)
+
+function Expand(P:String):Boolean;
+var N,I,K:Integer; S,A,Num,Core,Prev:String; Tokens,V:Longint; Ok:Boolean;
+ procedure Drop(Lead:String);
+ begin if Copy(Core,1,Length(Lead))=Lead then Delete(Core,1,Length(Lead)) end;
 begin
  Expand:=False; S:=Tidy(P); N:=0;
- if Length(S)>68 then begin Refuse(S,'request too long'); Exit end;
+ (* the request without the words that only say "make me one" *)
+ Core:=S; Drop('build '); Drop('create '); Drop('write '); Drop('i want ');
+ if Copy(Core,1,3)='an ' then Delete(Core,1,3) else Drop('a ');
+ K:=Pos(' program',Core); if K>0 then Delete(Core,K,8);
+ Prev:='start';
  if not Switch(XRECIPES) then Exit;
  repeat
   Str(N+1,Num);
-  Cancelled:=False; Think(Num+' '+S,A,Tokens,PollEscape,nil);
+  if Length(Num)+Length(Core)+Length(Prev)+4>72 then begin Refuse(S,'request too long'); Exit end;
+  Cancelled:=False; Think(Num+' '+Core+' | '+Prev,A,Tokens,PollEscape,nil);
   if Cancelled then begin WriteLn('cancelled'); Exit end;
   if (A='') or (Length(A)>72) then begin Refuse(S,'no recipe for this'); Exit end;
   if A<>'done' then begin
    if N=MAXSTEP then begin Refuse(S,'recipe has too many steps'); Exit end;
-   Inc(N); Step[N]:=A
+   Inc(N); Step[N]:=A;
+   Prev:=Copy(Tidy(A),1,20);
+   while (Prev<>'') and (Prev[Length(Prev)]=' ') do Delete(Prev,Length(Prev),1)
   end
  until A='done';
  if N=0 then begin Refuse(S,'no recipe for this'); Exit end;
+ (* every number in the request must turn up in some step *)
+ A:=S;
+ while A<>'' do begin
+  Num:=NextWord(A);
+  if Number(Num,V) then begin
+   Ok:=False;
+   for I:=1 to N do if LineHas(Step[I],V) then Ok:=True;
+   if not Ok then begin Refuse(S,'the steps lost the number '+Num); Exit end
+  end
+ end;
  WriteLn(S,':'); LogLine('  recipe: '+S);
  Ok:=True;
  for I:=1 to N do if Ok then begin
@@ -622,6 +699,79 @@ begin
  if Cur>Steps then begin D:=0; if Steps>0 then Marker end
 end;
 
+(* ------------------------------------------------------ the source
+
+   Beside NAME.COM and NAME.ASM the program is kept as text in NAME.SRC:
+   its lines as the editor shows them, one to a line.  LOAD reads such a
+   file back, so a program can be taken up again another day, or written
+   in any editor.  The lines are not put to the experts: they are code. *)
+procedure WriteSource;
+var T:Text; I:Integer;
+begin
+ Assign(T,OutName+'.SRC'); {$I-}Rewrite(T);{$I+}
+ if IOResult<>0 then Exit;
+ for I:=1 to Steps do
+  if Plan[I][1]=#255 then WriteLn(T,'PRINT "',Copy(Plan[I],2,255),'"') else WriteLn(T,Plan[I]);
+ Close(T)
+end;
+
+(* One line of a source file: what kind of line it is and how it is
+   kept, or False if it is not a line of the language. *)
+function SourceLine(L:String; var Kept:TLine; var K:Char):Boolean;
+var U,Why:String; I,Delta:Integer;
+begin
+ SourceLine:=False;
+ while (L<>'') and (L[1]=' ') do Delete(L,1,1);
+ while (L<>'') and (L[Length(L)]=' ') do Delete(L,Length(L),1);
+ if (L='') or (Length(L)>120) then Exit;
+ U:=CodeCase(L); K:=' ';
+ if (Copy(U,1,7)='PRINT "') and (L[Length(L)]='"') and (Length(L)>8) then
+  Kept:=#255+Copy(L,8,Length(L)-8)
+ else begin
+  if not CheckPart(L,Delta,Why) then Exit;
+  Kept:=L;
+  if (Pos('PRINT',U)=0) and (Pos('ECHO',U)=0) then Kept:=U;
+  if (U='END') or (U='NEXT') then K:='C' else if U='ELSE' then K:='E' else if Delta=1 then K:='O'
+ end;
+ SourceLine:=True
+end;
+
+function LoadSource(Name:String):Boolean;
+var T:Text; L:String; Kept:TLine; K:Char; Pass,N,I:Integer;
+begin
+ LoadSource:=False;
+ for I:=1 to Length(Name) do Name[I]:=UpCase(Name[I]);
+ if Pos('.',Name)=0 then Name:=Name+'.SRC';
+ (* read it twice: first only to see that every line will do *)
+ for Pass:=1 to 2 do begin
+  Assign(T,Name); {$I-}Reset(T);{$I+}
+  if IOResult<>0 then begin WriteLn('cannot read ',Name); Exit end;
+  N:=0;
+  while not Eof(T) do begin
+   ReadLn(T,L);
+   if Tidy(L)<>'' then begin
+    Inc(N);
+    if (N>MAXSTEPS) or not SourceLine(L,Kept,K) then begin
+     Close(T);
+     if N>MAXSTEPS then WriteLn(Name,' has more than ',MAXSTEPS,' lines')
+     else WriteLn(Name,' line ',N,' is not a line of the language: ',L);
+     Exit
+    end;
+    if Pass=2 then begin Plan[N]:=Kept; Kind[N]:=K end
+   end
+  end;
+  Close(T)
+ end;
+ Steps:=N; Cur:=N+1;
+ I:=Pos('.',Name); if I>9 then I:=9;
+ OutName:=Copy(Name,1,I-1);
+ if not Build('') then begin
+  WriteLn(Name,' does not make a program: ',CompErr); Steps:=0; Cur:=1; Exit
+ end;
+ WriteLn('loaded ',Name,', ',N,' lines');
+ LoadSource:=True
+end;
+
 procedure Save;
 var F:File;
 begin
@@ -629,10 +779,12 @@ begin
   (* nothing is left: the files of the program that was must go too *)
   Assign(F,OutName+'.COM'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
   Assign(F,OutName+'.ASM'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
-  WriteLn('empty program: ',OutName,'.COM and ',OutName,'.ASM removed'); Exit
+  Assign(F,OutName+'.SRC'); {$I-}Erase(F);{$I+} if IOResult<>0 then ;
+  WriteLn('empty program: ',OutName,'.COM, .ASM and .SRC removed'); Exit
  end;
  if not Build(OutName+'.ASM') then begin WriteLn('cannot compile: ',CompErr); Exit end;
  Assign(F,OutName+'.COM'); Rewrite(F,1); BlockWrite(F,Code^,Size); Close(F);
+ WriteSource;
  WriteLn('wrote ',OutName,'.COM ',Size,' bytes, ',OutName,'.ASM')
 end;
 
@@ -810,6 +962,7 @@ begin
   WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
   WriteLn('In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.');
   WriteLn('F5 (RUN in a script) runs the program and comes back.  MEM, XMS ON/OFF.');
+  WriteLn('The program is also kept as text in NAME.SRC; LOAD name takes one up.');
   WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
   Exit
  end
@@ -835,6 +988,12 @@ begin
   if XmsOn then WriteLn('experts are kept in extended memory') else WriteLn('experts are read from disk');
   Exit
  end
+ else if (Cmd='LOAD') and (Rest<>'') and (Pos(' ',Rest)=0) then begin
+  (* LOAD name: take up the program kept in name.SRC *)
+  LogLine('> '+L);
+  Changed:=LoadSource(Rest)
+ end
+ else if (Cmd='SAVE') and (Rest='') then begin Save; Exit end
  else if (Cmd='SHOW') and (Rest='') then begin Outline; Exit end
  else if (Cmd='NEW') and (Rest='') then begin Steps:=0; Cur:=1; WriteLn('new program') end
  else if ((Cmd='UP') or (Cmd='DOWN') or (Cmd='TOP') or (Cmd='BOTTOM') or (Cmd='TAB') or (Cmd='BACK') or
@@ -1132,8 +1291,15 @@ begin
  if XmsOn then WriteLn('extended memory: ',XmsFreeKB,' KB free, experts will be kept there');
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
- (* MAKECOM file: start from the lines of that file *)
- if ParamCount>0 then Script(ParamStr(1));
+ (* MAKECOM file: start from the lines of that file; MAKECOM name.SRC:
+    take up a program kept as text *)
+ if ParamCount>0 then begin
+  Line:=ParamStr(1);
+  for Steps:=1 to Length(Line) do Line[Steps]:=UpCase(Line[Steps]);
+  Steps:=0;
+  if Copy(Line,Length(Line)-3,4)='.SRC' then begin if LoadSource(Line) then Save end
+  else Script(ParamStr(1))
+ end;
  {$IFDEF VER70}
  if Interactive then begin
   Editor;
