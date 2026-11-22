@@ -1,0 +1,114 @@
+PasTinyAsm 1.2  FPU yes
+heap=485400
+extended memory: 14912 KB free, experts will be kept there
+> name cave
+name CAVE
+> clear the screen
+1 clear the screen -> CLS
+wrote CAVE.COM 69 bytes, CAVE.ASM
+> make an adventure
+2 forever: -> FOREVER   (no model)
+What does the player see first?
+wrote CAVE.COM 72 bytes, CAVE.ASM
+> you are in a dark cave, press n for north or e for east
+3 say you are in a dark cave -> PRINT you are in a dark cave
+4 new line -> NEWLINE
+5 say press n for north or e for east -> PRINT press n for north or e for east   (second choice)
+6 new line -> NEWLINE
+Which keys can they press now?  (Enter if none)
+wrote CAVE.COM 161 bytes, CAVE.ASM
+> n and e
+7 KEY -> KEY   (no model)
+What happens when they press n?
+wrote CAVE.COM 174 bytes, CAVE.ASM
+> you fall into a pit, game over, stop
+8 if the key is n: -> IF K='n'   (no model)
+9 say you fall into a pit -> PRINT you fall into a pit
+10 new line -> NEWLINE
+11 say game over -> PRINT game over
+12 new line -> NEWLINE
+13 stop -> STOP   (no model)
+What happens when they press e?
+wrote CAVE.COM 244 bytes, CAVE.ASM
+> you find a locked door, press o to open it or b to go back
+15 if the key is e: -> IF K='e'   (no model)
+16 say you find a locked door -> PRINT you find a locked door
+17 new line -> NEWLINE
+18 say press o to open it or b to go back: refused "PRINT press o to open it or back" (text was not in the request)
+I could not use "press o to open it or...".  Another way?  (Enter: as typed)
+wrote CAVE.COM 293 bytes, CAVE.ASM
+> press o for open or b for back
+18 say press o for open or b for back -> PRINT press o for open or b for back   (second choice)
+19 new line -> NEWLINE
+Which keys can they press now?  (Enter if none)
+wrote CAVE.COM 333 bytes, CAVE.ASM
+> o
+20 KEY -> KEY   (no model)
+What happens when they press o?
+wrote CAVE.COM 341 bytes, CAVE.ASM
+> the door opens and you are free, play a high beep
+21 if the key is o: -> IF K='o'   (no model)
+22 say the door opens: refused "PRINT the door opens" (the text is not what was said)
+I could not use "the door opens and yo...".  Another way?  (Enter: as typed)
+wrote CAVE.COM 358 bytes, CAVE.ASM
+> 
+22 print "the door opens and you are free" -> PRINT the door opens and you are free   (no model)
+23 NEWLINE -> NEWLINE   (no model)
+24 play a high beep -> BEEP 1000 300
+Which keys can they press now?  (Enter if none)
+wrote CAVE.COM 467 bytes, CAVE.ASM
+> 
+Does the game stop there?  (yes or no)
+wrote CAVE.COM 467 bytes, CAVE.ASM
+> maybe
+Does the game stop there?  (yes or no)
+wrote CAVE.COM 467 bytes, CAVE.ASM
+> yes
+25 stop -> STOP   (no model)
+And for any other key?  (Enter for nothing)
+wrote CAVE.COM 472 bytes, CAVE.ASM
+> you walk back
+27 say you walk back -> PRINT you walk back
+28 new line -> NEWLINE
+And for any other key?  (Enter for nothing)
+wrote CAVE.COM 495 bytes, CAVE.ASM
+> 
+That is the whole program: CAVE.COM.
+wrote CAVE.COM 495 bytes, CAVE.ASM
+> show
+  1 CLS
+  2 FOREVER
+  3   PRINT you are in a dark cave
+  4   NEWLINE
+  5   PRINT press n for north or e for east
+  6   NEWLINE
+  7   KEY
+  8   IF K='n'
+  9     PRINT you fall into a pit
+ 10     NEWLINE
+ 11     PRINT game over
+ 12     NEWLINE
+ 13     STOP
+ 14   END
+ 15   IF K='e'
+ 16     PRINT you find a locked door
+ 17     NEWLINE
+ 18     PRINT press o for open or b for back
+ 19     NEWLINE
+ 20     KEY
+ 21     IF K='o'
+ 22       PRINT "the door opens and you are free"
+ 23       NEWLINE
+ 24       BEEP 1000 300
+ 25       STOP
+ 26     END
+ 27     PRINT you walk back
+ 28     NEWLINE
+ 29   END
+ 30 END
+   >
+> mem
+heap=1200 largest=1200 stack=18152
+experts loaded: 4 times from extended memory (235 ms), 0 times from disk (0 ms)
+kept in extended memory: 3 (116 ms to read them in), 13784 KB free there
+> quit

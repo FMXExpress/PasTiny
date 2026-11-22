@@ -170,6 +170,42 @@ Built from "build a welcome screen", "build a rocket launch from 5", a `repeat 2
 
 ![That program run](docs/demo-run.png)
 
+## The interviewer: answer questions, get a program
+
+"Make an adventure" says nothing about what happens in it. So, as ELIZA did, the program answers with a question, and each reply decides the next one. Nothing but replies is typed: no block is opened or closed by hand.
+
+![The interviewer asking about the next key](docs/editor-interview.png)
+
+```
+> make an adventure
+What does the player see first?
+> you are in a dark cave, press n for north or e for east
+Which keys can they press now?  (Enter if none)
+> n and e
+What happens when they press n?
+> you fall into a pit, game over, stop
+What happens when they press e?
+> you find a locked door, press o to open it or b to go back
+I could not use "press o to open it or...".  Another way?  (Enter: as typed)
+> press o for open or b for back
+Which keys can they press now?  (Enter if none)
+> o
+What happens when they press o?
+> the door opens and you are free, play a high beep
+```
+
+and so on until every key has been dealt with; then "And for any other key?" and the program is whole.
+
+**How it works.** A reply is cut at its commas. A part that starts with a word like `beep`, `play` or `stop` goes to the experts as it is; any other part is text, and goes to them as `say ..., new line`. The questions carry the structure: the keys named become `IF K='n'` blocks, one inside another up to three deep, inside one `FOREVER`, so a key that leads nowhere starts the place again. `KEY`, the blocks and `STOP` are written by rule; the experts write the texts and the sound and screen lines.
+
+**A refused line comes back as a question.** When the checks refuse what an expert wrote, the interviewer shows the words it could not use and asks for another way of saying them. Enter alone prints them exactly as typed, without an expert. Because the interviewer knows a reply is text, it also checks more than a typed `say` can: the line must print all the words of the reply and no others. That caught "that is not on the menu" coming back as `PRINT that is not`, and the second choice was right.
+
+**The questions are a file.** [`ASK.SCR`](ASK.SCR) holds them, as ELIZA's script held its patterns: a `kind` line names a kind of program by the words that ask for it (`adventure game story maze quest`, `menu chooser`) and the lines after it give that kind's questions. Change the wording, or add a kind, without touching the program. `ASK` or `ASK menu` starts an interview too; `cancel` ends one.
+
+**What was tried.** Three programs were built from replies alone and played under DOS ([`evidence/interview/`](evidence/interview/)): the cave (30 lines), a sound menu (20 lines) and a second game with a house, a ghost and a chest (37 lines). All three play as described. Of the 25 texts in the replies, the text expert wrote 20 as first worded (6 of them on a second choice), 1 after rewording, and 4 were printed as typed after Enter. The four it could not write were all long: two "press c for ... or w for ..." lines and two sentences joined by "and".
+
+**What it does not do.** It asks the same questions whatever is said; it does not understand the story. A program is a tree of key presses, with no memory between places, so there is no inventory. The design is still the person's: the interviewer only makes sure nothing about the structure has to be typed.
+
 ## Running, the log and extended memory
 
 **Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
@@ -268,7 +304,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (81,648 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (85,600 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -296,12 +332,12 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
-- A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
+- A step holds 72 characters, a line 80, a text 60, and a program 40 lines, 3,072 bytes and 24 texts. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with five experts and the exporter it unpacks to 2,015,502 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with five experts and the exporter it unpacks to 2,022,183 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 2,320 bytes of heap remain with a model loaded; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 1,136 bytes of heap remain with a model loaded. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.

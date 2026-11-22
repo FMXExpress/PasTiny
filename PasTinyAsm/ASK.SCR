@@ -1,0 +1,15 @@
+; ASK.SCR - the questions PasTinyAsm asks.  You may change them.
+; do: words that start a sentence taken as it is; other replies are text.
+do beep play flash clear wait stop sound hide print
+kind adventure game story maze quest
+see What does the player see first?
+keys Which keys can they press now?  (Enter if none)
+press What happens when they press %?
+stop Does the game stop there?  (yes or no)
+other And for any other key?  (Enter for nothing)
+kind menu chooser
+see What does the menu show?
+keys Which keys choose something?  (Enter if none)
+press What does % do?
+stop Does the program end after that?  (yes or no)
+other And for any other key?  (Enter for nothing)

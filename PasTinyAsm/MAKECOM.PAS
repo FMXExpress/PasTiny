@@ -42,9 +42,12 @@ uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
  MAXSTEPS=40; MAXPEND=16;
  XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5;    (* catalog ids of the experts *)
-type TLine=String[120];
+type TLine=String[80];      (* a line of the language; texts are 60 at most *)
 var
  Active:Integer; Interactive:Boolean;
+ (* Set by the interviewer, which knows a reply is text to print: the
+    words a "say" step must print, all of them and no others. *)
+ Exact:String[80];
  (* The program: its lines, and for each line whether it opens a block
     (O), closes one (C), is an ELSE (E) or is ordinary (space).  New
     lines go in before line Cur. *)
@@ -283,7 +286,7 @@ function Accept(Shown,L:String; K:Char; Note:String):Boolean;
 begin
  Accept:=False;
  if (NPend=MAXPEND) or (Steps+NPend+NClose>=MAXSTEPS) then begin WriteLn('too many lines'); Exit end;
- if Length(L)>120 then begin WriteLn(Shown,': line too long'); Exit end;
+ if Length(L)>80 then begin WriteLn(Shown,': line too long'); Exit end;
  Inc(NPend); Pend[NPend]:=L; PKind[NPend]:=K;
  if L[1]=#255 then L:='PRINT '+Copy(L,2,255);
  WriteLn(Cur+NPend-1,' ',Shown,' -> ',L,Note); LogLine('  '+Shown+' -> '+L);
@@ -329,6 +332,9 @@ begin
  Why:='text was not in the request'; if not TextsAgree(S,L) then Exit;
  Why:='numbers do not match the request'; if not NumbersAgree(S,L) then Exit;
  Why:='it is about something the request does not name'; if not KeyWordsAgree(S,L) then Exit;
+ Why:='the text is not what was said';
+ if (Exact<>'') and (Copy(Tidy(S),1,4)='say ') and
+    ((Copy(L,1,6)<>'PRINT ') or (Tidy(Copy(L,7,255))<>Exact)) then Exit;
  Passes:=True
 end;
 
@@ -723,7 +729,7 @@ begin
  SourceLine:=False;
  while (L<>'') and (L[1]=' ') do Delete(L,1,1);
  while (L<>'') and (L[Length(L)]=' ') do Delete(L,Length(L),1);
- if (L='') or (Length(L)>120) then Exit;
+ if (L='') or (Length(L)>80) then Exit;
  U:=CodeCase(L); K:=' ';
  if (Copy(U,1,7)='PRINT "') and (L[Length(L)]='"') and (Length(L)>8) then
   Kept:=#255+Copy(L,8,Length(L)-8)
@@ -924,9 +930,250 @@ begin
 end;
 {$ENDIF}
 
+(* ------------------------------------------------------ interviewer
+
+   "make an adventure" says nothing about what happens in it.  As ELIZA
+   did, the program answers with a question, and each reply decides the
+   next one: what is seen first, which keys may be pressed, what each
+   key leads to, whether it ends there.  A reply becomes sentences for
+   the experts ("say you are in a cave, new line"), and the questions
+   carry the nesting, so no block is opened or closed by hand.  Text in
+   double quotes is printed as typed, without an expert.
+
+   The questions are not in this program.  They are in ASK.SCR, a text
+   file: a "kind" line names a kind of program by the words that ask
+   for it, and the lines after it give its questions.  A "do" line
+   before the first kind lists the words that start a sentence the
+   experts take as it is; anything else in a reply is text to print. *)
+
+const
+ MAXLEVEL=3; MAXKEYS=6;
+ QSEE=1; QKEYS=2; QPRESS=3; QSTOP=4; QOTHER=5; QRETRY=6;
+ AKEYS=1; ADONE=2;
+type TLevel=record Key:array[1..MAXKEYS] of String[6]; N,At:Integer end;
+var
+ Asking,Stopped:Boolean; Stage,After,Levels:Integer;
+ Level:array[1..MAXLEVEL] of TLevel;
+ Todo:String; Bad:String[72]; LastQ:String[78]; AskKind:String[12];
+
+(* The line of ASK.SCR that starts with Tag, in the part for kind K
+   (K='': the part before the first kind). *)
+function ScriptLine(K,Tag:String; var Rest:String):Boolean;
+var T:Text; L,W:String; Here:Boolean;
+begin
+ ScriptLine:=False;
+ Assign(T,'ASK.SCR'); {$I-}Reset(T);{$I+}
+ if IOResult<>0 then Exit;
+ Here:=K='';
+ while not Eof(T) do begin
+  ReadLn(T,L); W:=NextWord(L);
+  if W='kind' then Here:=(K<>'') and HasWord(L,K)
+  else if Here and (W=Tag) then begin Rest:=L; ScriptLine:=True; Close(T); Exit end
+ end;
+ Close(T)
+end;
+
+(* The kind of program S asks for: the first word of the kind line that
+   has one of the words of S.  S='' gives the first kind there is. *)
+function FindKind(S:String):String;
+var T:Text; L,W:String;
+begin
+ FindKind:='';
+ Assign(T,'ASK.SCR'); {$I-}Reset(T);{$I+}
+ if IOResult<>0 then Exit;
+ while not Eof(T) do begin
+  ReadLn(T,L); W:=NextWord(L);
+  if W='kind' then begin
+   W:=FirstWord(L);
+   if S='' then begin FindKind:=W; Close(T); Exit end;
+   while L<>'' do if HasWord(S,NextWord(L)) then begin FindKind:=W; Close(T); Exit end
+  end
+ end;
+ Close(T)
+end;
+
+procedure Question(Tag,K:String);
+var Q:String; P:Integer;
+begin
+ if not ScriptLine(AskKind,Tag,Q) then Q:=Tag+' %?';
+ P:=Pos('%',Q);
+ if P>0 then begin Delete(Q,P,1); Insert(K,Q,P) end;
+ LastQ:=Q; WriteLn(Q); LogLine('? '+Q)
+end;
+
+(* Hand a sentence to the experts as if it had been typed. *)
+function Feed(S:String):Boolean;
+begin
+ if S='end' then begin Move('END',0); Feed:=True end
+ else begin LogLine('> '+S); Feed:=MakePlan(S) end
+end;
+
+procedure Finish;
+begin
+ if Feed('end') then ;
+ Asking:=False; LastQ:='That is the whole program: '+OutName+'.COM.';
+ WriteLn(LastQ); LogLine('? done')
+end;
+
+procedure GiveUp;
+begin
+ Asking:=False; LastQ:='I cannot go on from here.  What is there so far has been kept.';
+ WriteLn(LastQ); LogLine('? gave up')
+end;
+
+procedure AskPress;
+begin Question('press',Level[Levels].Key[Level[Levels].At]); Stage:=QPRESS end;
+
+(* What a key leads to has been taken: close it and go to the next key,
+   or to what the other keys do. *)
+procedure CloseKey;
+begin
+ if Levels=0 then begin Finish; Exit end;
+ if Feed('end') then ;
+ Inc(Level[Levels].At);
+ if Level[Levels].At<=Level[Levels].N then AskPress
+ else begin Question('other',''); Stage:=QOTHER end
+end;
+
+(* Take the parts of the reply in Todo, one sentence each.  A part that
+   is refused is given back as a question, and the rest waits. *)
+function Drain:Boolean;
+var P,Verbs:String; K:Integer; Ok:Boolean;
+begin
+ Drain:=False;
+ if not ScriptLine('','do',Verbs) then Verbs:='';
+ while Todo<>'' do begin
+  K:=1;
+  if Todo[1]='"' then begin        (* text to print as typed *)
+   K:=2; while (K<=Length(Todo)) and (Todo[K]<>'"') do Inc(K);
+   Inc(K)
+  end
+  else while (K<=Length(Todo)) and not (Todo[K] in [',','.',';','!']) do Inc(K);
+  P:=Copy(Todo,1,K-1); Delete(Todo,1,K);
+  while (P<>'') and (P[1]=' ') do Delete(P,1,1);
+  while (Todo<>'') and (Todo[1]=' ') do Delete(Todo,1,1);
+  if (P<>'') and ((P[1]='"') or (Tidy(P)<>'')) then begin
+   if Tidy(P)='stop' then Stopped:=True;
+   if P[1]='"' then Ok:=Feed('print '+P) and Feed('NEWLINE')
+   else if HasWord(Verbs,FirstWord(Tidy(P))) then Ok:=Feed(P)
+   else begin
+    if FirstWord(Tidy(P))='say' then Delete(P,1,Pos('y',P)+1);
+    Exact:=Copy(Tidy(P),1,80); Ok:=Feed('say '+P+', new line'); Exact:=''
+   end;
+   if not Ok then begin
+    Bad:=Copy(P,1,72); Stage:=QRETRY;
+    P:=Bad; if Length(P)>24 then P:=Copy(P,1,21)+'...';
+    LastQ:='I could not use "'+P+'".  Another way?  (Enter: as typed)';
+    WriteLn(LastQ); LogLine('? '+LastQ);
+    Exit
+   end
+  end
+ end;
+ Drain:=True
+end;
+
+(* Go on once a reply has been taken whole. *)
+procedure Advance;
+begin
+ if not Drain then Exit;
+ if After=ADONE then begin
+  (* this place is finished: back out to the key that led here *)
+  Dec(Levels);
+  if Levels=0 then Finish else CloseKey
+ end
+ else if Stopped then CloseKey
+ else if Levels=MAXLEVEL then begin Question('stop',''); Stage:=QSTOP end
+ else begin Question('keys',''); Stage:=QKEYS end
+end;
+
+procedure Answer(L:String);
+var T,W:String;
+begin
+ T:=Tidy(L); LogLine('= '+L);
+ if T='cancel' then begin Asking:=False; LastQ:='No more questions.'; WriteLn(LastQ); Exit end;
+ case Stage of
+  QSEE,QOTHER:begin
+   Todo:=L; Stopped:=False;
+   if Stage=QSEE then After:=AKEYS else After:=ADONE;
+   Advance
+  end;
+  QKEYS:begin
+   Inc(Levels); Level[Levels].N:=0; Level[Levels].At:=1;
+   while T<>'' do begin
+    W:=NextWord(T);
+    if ((Length(W)=1) or (W='space') or (W='enter') or (W='escape')) and (Level[Levels].N<MAXKEYS) then begin
+     Inc(Level[Levels].N); Level[Levels].Key[Level[Levels].N]:=W
+    end
+   end;
+   if Level[Levels].N=0 then begin
+    Dec(Levels);
+    if Levels=0 then begin if Feed('stop') then ; Finish end
+    else begin Question('stop',''); Stage:=QSTOP end
+   end
+   else if Feed('KEY') then AskPress
+   else GiveUp
+  end;
+  QPRESS:begin
+   if Feed('if the key is '+Level[Levels].Key[Level[Levels].At]+':') then begin
+    Todo:=L; Stopped:=False; After:=AKEYS; Advance
+   end else GiveUp
+  end;
+  QSTOP:begin
+   if (T='yes') or (T='y') then begin if Feed('stop') then ; CloseKey end
+   else if (T='no') or (T='n') then CloseKey
+   else Question('stop','')
+  end;
+  QRETRY:begin
+   if T='' then Todo:='"'+Bad+'" '+Todo else Todo:=L+','+Todo;
+   Advance
+  end
+ end;
+ if Steps>0 then Save
+end;
+
+(* The lines of MAKECOM.HLP that start with Tag.  The help is a file so
+   that its text does not take memory the experts need. *)
+procedure ShowPart(Tag:String);
+var T:Text; L:String; N:Integer;
+begin
+ Assign(T,'MAKECOM.HLP'); {$I-}Reset(T);{$I+}
+ if IOResult<>0 then begin WriteLn('MAKECOM.HLP is missing'); Exit end;
+ N:=Length(Tag)+1;
+ while not Eof(T) do begin
+  ReadLn(T,L);
+  if Copy(L,1,N)=Tag+' ' then WriteLn(Copy(L,N+1,255))
+ end;
+ Close(T)
+end;
+
+(* Begin asking, if L asks for a kind of program ASK.SCR knows. *)
+function StartAsking(L:String):Boolean;
+var T,F:String;
+begin
+ StartAsking:=False; T:=Tidy(L); F:=NextWord(T);
+ if F='ask' then begin
+  (* ASK, or ASK and a kind; "ask for a number ..." is a request like any other *)
+  if (T<>'') and ((Pos(' ',T)>0) or (FindKind(T)='')) then Exit;
+  AskKind:=FindKind(T);
+  if AskKind='' then begin WriteLn('ASK.SCR is missing or has no questions'); StartAsking:=True; Exit end
+ end
+ else if (F='make') or (F='build') or (F='write') or (F='create') then begin
+  AskKind:=FindKind(T);
+  if (T='') or (AskKind='') then Exit
+ end
+ else Exit;
+ StartAsking:=True; LogLine('> '+L);
+ Levels:=0;
+ if not Feed('forever:') then begin GiveUp; Exit end;
+ Asking:=True; Question('see',''); Stage:=QSEE;
+ Save
+end;
+
 procedure Handle(L:String);
 var Cmd,Rest,W:String; I:Integer; V:Longint; Changed:Boolean;
 begin
+ if Asking then begin Answer(L); Exit end;
+ if StartAsking(L) then Exit;
  Rest:=L; Cmd:=NextWord(Rest); Changed:=False;
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
  while (Rest<>'') and (Rest[Length(Rest)]=' ') do Delete(Rest,Length(Rest),1);
@@ -941,31 +1188,10 @@ begin
    end;
    WriteLn
   end;
-  WriteLn('OUT n   ECHO text   LET v=n   INPUT v   STOP');
-  WriteLn('FOR v=n TO n ... NEXT   FOR v=n DOWNTO n ... NEXT');
-  WriteLn('TIMES n ... END   FOREVER ... END   IF n<n ... ELSE ... END   REPEAT n');
+  ShowPart('list');
   Exit
  end
- else if (Cmd='HELP') and (Rest='') then begin
-  WriteLn('Say what the program should do, a sentence at a time:');
-  WriteLn('  make screen flash, play sound');
-  WriteLn('  count down from 10 and beep each time then say liftoff');
-  WriteLn('  build an alarm clock');
-  WriteLn('A colon opens a block; the next sentences go inside it:');
-  WriteLn('  repeat 3 times:      count from 1 to 5:      forever:');
-  WriteLn('  if it is bigger than 5:      if the key is q:      else');
-  WriteLn('The blue line is where new code goes.  Up and Down move it, into and');
-  WriteLn('out of blocks; Tab and Shift-Tab jump from block to block; Home and End');
-  WriteLn('go to the top and bottom.  Del on an empty line deletes the line below.');
-  WriteLn('Typed commands: END leaves a block, NEW empties the program, NAME file');
-  WriteLn('names it (now ',OutName,'), LIST shows the language, QUIT ends.');
-  WriteLn('F2, or Enter on an empty line, takes up the line below for changing.');
-  WriteLn('In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.');
-  WriteLn('F5 (RUN in a script) runs the program and comes back.  MEM, XMS ON/OFF.');
-  WriteLn('The program is also kept as text in NAME.SRC; LOAD name takes one up.');
-  WriteLn('In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.');
-  Exit
- end
+ else if (Cmd='HELP') and (Rest='') then begin ShowPart('help'); Exit end
  else if (Cmd='MEM') and (Rest='') then begin
   {$IFDEF VER70}WriteLn('heap=',MemAvail,' largest=',MaxAvail,' stack=',Sptr);{$ENDIF}
   I:=0; for V:=1 to Count do if Kept[V]<>0 then Inc(I);
@@ -1183,7 +1409,8 @@ begin
  end;
  Rewrite(Output);
  NMsg:=0; MsgPart:=''; Field:=''; FPos:=0; TopItem:=1; Done:=False; EditLine:=0;
- WriteLn('Say what the program should do and press Enter.  F1 shows more.');
+ if Asking then WriteLn(LastQ)
+ else WriteLn('Say what the program should do and press Enter.  F1 shows more.');
  while not Done do begin
   Draw('');
   K:=GetKey;
@@ -1214,6 +1441,10 @@ begin
   else if (K=256+79) and (Field<>'') then FPos:=Length(Field)
   else if (K=256+83) and (Field<>'') then begin
    if FPos<Length(Field) then Delete(Field,FPos+1,1)
+  end
+  else if (K=13) and (Field='') and Asking then begin
+   NMsg:=0; Draw('working...'); Handle('');
+   NMsg:=0; WriteLn(LastQ)
   end
   else if (K=256+60) or ((K=13) and (Field='') and (EditLine=0)) then begin
    (* F2, or Enter on an empty line: take up the line below for changing *)
@@ -1257,7 +1488,10 @@ begin
   else if (K=13) and (Field<>'') then begin
    L:=Field; Field:=''; FPos:=0; NMsg:=0;
    if Tidy(L)='quit' then Done:=True
-   else begin Draw('working...'); Handle(L) end
+   else begin
+    Draw('working...'); I:=Ord(Asking); Handle(L);
+    if Asking or (I=1) then begin NMsg:=0; WriteLn(LastQ) end     (* only the question stays *)
+   end
   end
  end;
  Close(Output);
@@ -1275,13 +1509,13 @@ begin
  while not Eof(T) do begin
   ReadLn(T,L);
   while (L<>'') and (L[1]=' ') do Delete(L,1,1);
-  if (L<>'') and (Tidy(L)<>'quit') then begin WriteLn('> ',L); Handle(L) end
+  if ((L<>'') or Asking) and (Tidy(L)<>'quit') then begin WriteLn('> ',L); Handle(L) end
  end;
  Close(T)
 end;
 
 begin
- Interactive:=ConsoleIO; Active:=0; OutName:='OUT'; Steps:=0; Cur:=1;
+ Interactive:=ConsoleIO; Active:=0; Asking:=False; Exact:=''; OutName:='OUT'; Steps:=0; Cur:=1;
  XmsOn:=XmsPresent; FromMem:=0; FromDisk:=0; MemMs:=0; DiskMs:=0; KeepMs:=0;
  for Steps:=1 to MAXITEMS do begin Kept[Steps]:=0; Tried[Steps]:=False end;
  Steps:=0;
@@ -1311,7 +1545,7 @@ begin
   ReadLn(Line); WriteLn('> ',Line);      (* show what was read *)
   while (Line<>'') and (Line[1]=' ') do Delete(Line,1,1);
   if (Tidy(Line)='quit') then Break;
-  if Line<>'' then Handle(Line);
+  if (Line<>'') or Asking then Handle(Line);
   System.Flush(Output)
  end;
  ReleaseMemory

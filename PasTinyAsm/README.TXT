@@ -1,7 +1,7 @@
 PasTinyAsm 1.0 - say what a program should do, get a .COM file
 ================================================================
-Files: MAKECOM.EXE, EXPERTS.CAT, SCREEN.BIN, SOUND.BIN, TEXT.BIN,
-TASKS.BIN.
+Files: MAKECOM.EXE, MAKECOM.HLP, ASK.SCR, EXPERTS.CAT, SCREEN.BIN,
+SOUND.BIN, TEXT.BIN, TASKS.BIN, RECIPES.BIN, EXPORT.EXE.
 Keep them in one directory.  Needs a 386 and about 590 KB of free
 conventional memory.  A coprocessor is optional.
 
@@ -54,6 +54,16 @@ inside it:
   Esc            clear what you typed
   F1             help         Alt-X or QUIT   leave
 Typed commands: END leaves a block, NEW starts again, NAME file.
+
+BE ASKED.  Type  make an adventure  (or  make a menu) and answer
+the questions: what is seen first, which keys may be pressed, what
+each key leads to.  Separate things with commas:
+  you fall into a pit, game over, stop
+Parts that start with beep, play, flash, clear, wait or stop are
+done; anything else is printed.  If a part cannot be used you are
+asked to say it another way; Enter alone prints it as typed.
+CANCEL ends the questions.  They are in ASK.SCR: change them, or
+add a kind of program of your own.
 
 MAKECOM file starts with the lines of a file already entered.
 MAKECOM < file runs without the editor (UP DOWN TAB GO n DEL n SHOW).

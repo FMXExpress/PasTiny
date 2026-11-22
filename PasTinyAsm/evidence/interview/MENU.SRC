@@ -1,0 +1,22 @@
+FOREVER
+PRINT press 1 for a beep
+NEWLINE
+PRINT press 2 for a siren
+NEWLINE
+PRINT press q to quit
+NEWLINE
+KEY
+IF K='1'
+BEEP 440 300
+END
+IF K='2'
+SIREN 2
+END
+IF K='q'
+PRINT goodbye
+NEWLINE
+STOP
+END
+PRINT that is not on the menu
+NEWLINE
+END

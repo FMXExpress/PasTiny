@@ -1,0 +1,22 @@
+; MAKECOM.HLP - what F1 and HELP show ("help" part) and the end of LIST ("list" part).
+help Say what the program should do, a sentence at a time:
+help   make screen flash, play sound
+help   count down from 10 and beep each time then say liftoff
+help   build an alarm clock
+help A colon opens a block; the next sentences go inside it:
+help   repeat 3 times:      count from 1 to 5:      forever:
+help   if it is bigger than 5:      if the key is q:      else
+help The blue line is where new code goes.  Up and Down move it, into and
+help out of blocks; Tab and Shift-Tab jump from block to block; Home and End
+help go to the top and bottom.  Del on an empty line deletes the line below.
+help Typed commands: END leaves a block, NEW empties the program, NAME file
+help names it, LIST shows the language, QUIT ends.
+help F2, or Enter on an empty line, takes up the line below for changing.
+help In what you type: Left, Right, Home, End, Del, Ctrl-Left, Ctrl-Right.
+help F5 (RUN in a script) runs the program and comes back.  MEM, XMS ON/OFF.
+help The program is also kept as text in NAME.SRC; LOAD name takes one up.
+help In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.
+help "make an adventure" (or ASK) asks you questions and builds from the answers.
+list OUT n   ECHO text   LET v=n   INPUT v   STOP
+list FOR v=n TO n ... NEXT   FOR v=n DOWNTO n ... NEXT
+list TIMES n ... END   FOREVER ... END   IF n<n ... ELSE ... END   REPEAT n

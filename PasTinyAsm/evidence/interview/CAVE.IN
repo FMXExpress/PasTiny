@@ -1,0 +1,19 @@
+name cave
+clear the screen
+make an adventure
+you are in a dark cave, press n for north or e for east
+n and e
+you fall into a pit, game over, stop
+you find a locked door, press o to open it or b to go back
+press o for open or b for back
+o
+the door opens and you are free, play a high beep
+
+
+maybe
+yes
+you walk back
+
+show
+mem
+quit

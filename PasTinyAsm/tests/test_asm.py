@@ -110,6 +110,8 @@ assert buildlib.render()[0].split() == (root / 'LIB.INC').read_text().split(), '
 with tempfile.TemporaryDirectory() as tmp:
     dest = Path(tmp) / 'run'; dest.mkdir()
     models = '--models' in sys.argv
+    for name in ('ASK.SCR', 'MAKECOM.HLP'):
+        shutil.copyfile(root / name, dest / name)
     for name in FILES:
         if models:
             shutil.copyfile(root / name, dest / name)
@@ -144,6 +146,26 @@ with tempfile.TemporaryDirectory() as tmp:
         assert got == want, (script, got, out)
         assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp), script
     print('Blocks: %d sessions give the expected outline, and their programs match NASM.' % len(BLOCKS))
+    # The interviewer: "make an adventure" is answered with questions, and the
+    # replies alone give the program.  Quoted replies need no model.
+    out = run(dest, ['make an adventure', '"a dark cave"', 'n, e and space', '"a pit", stop', '"a door"', 'o', '"free"', '',
+                     'perhaps', 'yes', '"you walk back"', '', '', 'no', '"hm"', 'CLS', 'show', 'help'])
+    got = [l for l in out[out.rindex('> show'):out.rindex('> help')].splitlines()[1:] if l.strip()]
+    want = ['FOREVER', ' PRINT "a dark cave"', ' NEWLINE', ' KEY', " IF K='n'", '  PRINT "a pit"', '  NEWLINE', '  STOP', ' END',
+            " IF K='e'", '  PRINT "a door"', '  NEWLINE', '  KEY', "  IF K='o'", '   PRINT "free"', '   NEWLINE', '   STOP',
+            '  END', '  PRINT "you walk back"', '  NEWLINE', ' END', ' IF K=32', ' END', ' PRINT "hm"', ' NEWLINE', 'END', 'CLS']
+    want = ['%3d %s%s' % (i + 1, ' ' * (len(w) - len(w.lstrip())), w) for i, w in enumerate(want)] + ['   >']
+    assert got == want, (got, out)
+    for q in ('What does the player see first?', 'What happens when they press space?', 'That is the whole program'):
+        assert q in out, (q, out)
+    assert out.count('Does the game stop there?') == 3 and 'asks you questions' in out, out
+    assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp)
+    out = run(dest, ['ask menu', 'cancel', 'CLS', 'show'])
+    assert 'What does the menu show?' in out and 'No more questions.' in out and '  2   CLS' in out, out
+    # "ask for a number ..." is a request, not the ASK command.
+    out = run(dest, ['ask for a number and print its double', 'INPUT A', 'show'])
+    assert 'questions' not in out and 'What does' not in out and '  1 INPUT A' in out, out
+    print('Interview: an adventure is built from replies to questions alone, and matches NASM.')
     for script, want in EDITS:
         out = run(dest, script + ['show'])
         got = [l for l in out[out.rindex('> show'):].splitlines()[1:] if l.strip() and not l.startswith('> ')]

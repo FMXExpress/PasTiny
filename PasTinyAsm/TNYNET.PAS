@@ -61,7 +61,7 @@ begin
  {$IFNDEF FPC}if MaxAvail<N then Fail('not enough memory. TINY needs about 540 KB free (type MEM).');{$ENDIF}
  GetMem(P,N); Memory:=P
 end;
-const BufSize=1024;      (* PasTinyAsm: 1 KB, not 4 KB; the program needs the room *)
+const BufSize=512;       (* PasTinyAsm: half a KB, not 4 KB; the program needs the room *)
 var Buffer:array[0..BufSize-1] of Byte;
  Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint;
  XPos:Longint;      (* how far into the XMS block the reading has got *)
