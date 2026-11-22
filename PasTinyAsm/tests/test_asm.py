@@ -162,6 +162,9 @@ with tempfile.TemporaryDirectory() as tmp:
     assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp)
     out = run(dest, ['ask menu', 'cancel', 'CLS', 'show'])
     assert 'What does the menu show?' in out and 'No more questions.' in out and '  2   CLS' in out, out
+    # "ask for a number ..." is a request, not the ASK command.
+    out = run(dest, ['ask for a number and print its double', 'INPUT A', 'show'])
+    assert 'questions' not in out and 'What does' not in out and '  1 INPUT A' in out, out
     print('Interview: an adventure is built from replies to questions alone, and matches NASM.')
     for script, want in EDITS:
         out = run(dest, script + ['show'])

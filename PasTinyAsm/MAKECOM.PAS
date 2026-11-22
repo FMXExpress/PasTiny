@@ -1152,8 +1152,10 @@ var T,F:String;
 begin
  StartAsking:=False; T:=Tidy(L); F:=NextWord(T);
  if F='ask' then begin
+  (* ASK, or ASK and a kind; "ask for a number ..." is a request like any other *)
+  if (T<>'') and ((Pos(' ',T)>0) or (FindKind(T)='')) then Exit;
   AskKind:=FindKind(T);
-  if AskKind='' then begin WriteLn('ASK.SCR has no questions for that'); StartAsking:=True; Exit end
+  if AskKind='' then begin WriteLn('ASK.SCR is missing or has no questions'); StartAsking:=True; Exit end
  end
  else if (F='make') or (F='build') or (F='write') or (F='create') then begin
   AskKind:=FindKind(T);
