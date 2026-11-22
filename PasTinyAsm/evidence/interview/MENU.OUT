@@ -1,0 +1,85 @@
+PasTinyAsm 1.2  FPU yes
+heap=485400
+extended memory: 14912 KB free, experts will be kept there
+> name menu
+name MENU
+> make a menu
+1 forever: -> FOREVER   (no model)
+What does the menu show?
+wrote MENU.COM 63 bytes, MENU.ASM
+> press 1 for a beep, press 2 for a siren, press q to quit
+2 say press 1 for a beep -> PRINT press 1 for a beep
+3 new line -> NEWLINE
+4 say press 2 for a siren -> PRINT press 2 for a siren
+5 new line -> NEWLINE
+6 say press q to quit -> PRINT press q to quit
+7 new line -> NEWLINE
+Which keys choose something?  (Enter if none)
+wrote MENU.COM 161 bytes, MENU.ASM
+> 1 2 q
+8 KEY -> KEY   (no model)
+What does 1 do?
+wrote MENU.COM 174 bytes, MENU.ASM
+> beep
+9 if the key is 1: -> IF K='1'   (no model)
+10 beep -> BEEP 440 300
+Which keys choose something?  (Enter if none)
+wrote MENU.COM 259 bytes, MENU.ASM
+> 
+Does the program end after that?  (yes or no)
+wrote MENU.COM 259 bytes, MENU.ASM
+> no
+What does 2 do?
+wrote MENU.COM 259 bytes, MENU.ASM
+> play a siren
+12 if the key is 2: -> IF K='2'   (no model)
+13 play a siren -> SIREN 2
+Which keys choose something?  (Enter if none)
+wrote MENU.COM 353 bytes, MENU.ASM
+> 
+Does the program end after that?  (yes or no)
+wrote MENU.COM 353 bytes, MENU.ASM
+> no
+What does q do?
+wrote MENU.COM 353 bytes, MENU.ASM
+> say goodbye, stop
+15 if the key is q: -> IF K='q'   (no model)
+16 say goodbye -> PRINT goodbye
+17 new line -> NEWLINE
+18 stop -> STOP   (no model)
+And for any other key?  (Enter for nothing)
+wrote MENU.COM 392 bytes, MENU.ASM
+> say that is not on the menu
+20 say that is not on the menu -> PRINT that is not on the menu   (second choice)
+21 new line -> NEWLINE
+That is the whole program: MENU.COM.
+wrote MENU.COM 425 bytes, MENU.ASM
+> show
+  1 FOREVER
+  2   PRINT press 1 for a beep
+  3   NEWLINE
+  4   PRINT press 2 for a siren
+  5   NEWLINE
+  6   PRINT press q to quit
+  7   NEWLINE
+  8   KEY
+  9   IF K='1'
+ 10     BEEP 440 300
+ 11   END
+ 12   IF K='2'
+ 13     SIREN 2
+ 14   END
+ 15   IF K='q'
+ 16     PRINT goodbye
+ 17     NEWLINE
+ 18     STOP
+ 19   END
+ 20   PRINT that is not on the menu
+ 21   NEWLINE
+ 22 END
+   >
+> mem
+heap=1200 largest=1200 stack=18152
+experts loaded: 4 times from extended memory (229 ms), 0 times from disk (0 ms)
+kept in extended memory: 3 (113 ms to read them in), 13784 KB free there
+> quit

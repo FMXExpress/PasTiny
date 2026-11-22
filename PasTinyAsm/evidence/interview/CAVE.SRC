@@ -1,0 +1,30 @@
+CLS
+FOREVER
+PRINT you are in a dark cave
+NEWLINE
+PRINT press n for north or e for east
+NEWLINE
+KEY
+IF K='n'
+PRINT you fall into a pit
+NEWLINE
+PRINT game over
+NEWLINE
+STOP
+END
+IF K='e'
+PRINT you find a locked door
+NEWLINE
+PRINT press o for open or b for back
+NEWLINE
+KEY
+IF K='o'
+PRINT "the door opens and you are free"
+NEWLINE
+BEEP 1000 300
+STOP
+END
+PRINT you walk back
+NEWLINE
+END
+END

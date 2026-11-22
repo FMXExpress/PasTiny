@@ -1,0 +1,38 @@
+CLS
+FOREVER
+PRINT you stand in front of an old house
+NEWLINE
+PRINT "press d for the door or w for the window"
+NEWLINE
+KEY
+IF K='d'
+PRINT the door creaks open
+NEWLINE
+PRINT a ghost is waiting inside
+NEWLINE
+PRINT you run away screaming
+NEWLINE
+STOP
+END
+IF K='w'
+PRINT you climb in through the window
+NEWLINE
+PRINT there is a chest here
+NEWLINE
+PRINT "press c to open the chest"
+NEWLINE
+KEY
+IF K='c'
+PRINT the chest is full of gold
+NEWLINE
+PRINT you win
+NEWLINE
+SCALE
+STOP
+END
+PRINT "you leave the chest alone and climb out again"
+NEWLINE
+END
+PRINT nothing happens
+NEWLINE
+END

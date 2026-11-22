@@ -1,0 +1,15 @@
+name menu
+make a menu
+press 1 for a beep, press 2 for a siren, press q to quit
+1 2 q
+beep
+
+no
+play a siren
+
+no
+say goodbye, stop
+say that is not on the menu
+show
+mem
+quit
