@@ -5,7 +5,9 @@
 
 The base model is not changed.  Each of its 24 matrices W gets two small
 ones, B (rows x RANK) and A (RANK x columns), and the expert is W + B.A;
-only A, B and the 9 gain vectors are trained.  Same data, batches and
+only A, B and the 9 gain vectors are trained.  The table of letters gets
+such a pair too: it is used both to read and to write, and without it an
+expert could not write a character the base model never wrote ('<').  Same data, batches and
 schedule as train_asm.py, so the two can be compared.
 
 At the end the adapter is rounded to 8 bits a row, as it would be kept on
@@ -72,6 +74,19 @@ for block in model.blocks:
         setattr(block, name, Lora(getattr(block, name)))
     block.g1.requires_grad = True; block.g2.requires_grad = True
 model.gf.requires_grad = True
+letters = Lora(model.emb)
+
+
+def forward(tokens):
+    table = letters.merged()
+    x = table[tokens] + model.pos(torch.arange(tokens.shape[1]))
+    for block in model.blocks:
+        x = block(x)
+    return F.linear(w.rms(x, model.gf), table)
+
+
+model.forward = forward
+model.letters = letters          # so that its parameters are found
 train = [p for p in model.parameters() if p.requires_grad]
 opt = torch.optim.AdamW(train, lr=float(os.environ.get('LR', '2e-3')), weight_decay=0.0)
 sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / 200) * (0.1 if s > steps * 0.8 else 1.0))
@@ -106,16 +121,25 @@ for step in range(1, steps + 1):
 # scale and 8-bit values; then the gains.
 blob = bytearray(b'TLR1' + struct.pack('<H', rank))
 plain = w.load_bin(start)
+
+
+def keep(mat):
+    global blob
+    for row in mat:
+        scale = row.abs().max().item() / 127
+        q = (row / scale).round().to(torch.int8) if scale else torch.zeros_like(row, dtype=torch.int8)
+        blob += struct.pack('<f', scale) + struct.pack('<%db' % row.numel(), *q.tolist())
+
+
 with torch.no_grad():
+    a8, b8 = rounded(letters.a), rounded(letters.b.t()).t()
+    keep(b8.t()); keep(a8)
+    plain.emb.weight.copy_(letters.merged(a8, b8))
     for pb, block in zip(plain.blocks, model.blocks):
         for name in NAMES:
             m = getattr(block, name)
             a8, b8 = rounded(m.a), rounded(m.b.t()).t()      # one scale for each of the RANK directions
-            for mat in (b8.t(), a8):
-                for row in mat:
-                    scale = row.abs().max().item() / 127
-                    q = (row / scale).round().to(torch.int8) if scale else torch.zeros_like(row, dtype=torch.int8)
-                    blob += struct.pack('<f', scale) + struct.pack('<%db' % row.numel(), *q.tolist())
+            keep(b8.t()); keep(a8)
             getattr(pb, name).weight.copy_(m.merged(a8, b8))
         for g in ('g1', 'g2'):
             getattr(pb, g).copy_(getattr(block, g)); blob += struct.pack('<%df' % 96, *getattr(block, g).tolist())
