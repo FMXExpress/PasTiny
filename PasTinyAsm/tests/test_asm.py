@@ -161,6 +161,10 @@ with tempfile.TemporaryDirectory() as tmp:
     for script in (['CLS', 'del 1'], ['TIMES 2:', 'CLS', 'del 1'], ['CLS', 'HIDE', 'del 1', 'del 1']):
         out = run(dest, script)
         assert 'removed' in out and not any((dest / ('OUT.' + e)).exists() for e in ('COM', 'ASM', 'SRC')), (script, out)
+    # Text in quotes is printed exactly, spaces at its ends included.
+    out = run(dest, ['print " two  spaces: "', 'show'])
+    assert b' two  spaces: $' in (dest / 'OUT.COM').read_bytes() and 'PRINT " two  spaces: "' in out, out
+    assert (dest / 'OUT.COM').read_bytes() == nasm_build((dest / 'OUT.ASM').read_text(), tmp)
     print('Review fixes: quoted characters keep their case; an emptied program removes its files.')
     # The program is also kept as text, and that text loads back to the same program.
     session = ['name keep', 'TIMES 2:', 'CLS', 'count from 1 to 3:', 'print the count', 'end', "IF K='q':", 'STOP', 'end', 'else',
@@ -201,7 +205,7 @@ with tempfile.TemporaryDirectory() as tmp:
         (dest / 'BAD.SRC').write_text('TIMES 2\nCLS\n')
         r = subprocess.run([export, 'BAD', 'PAS'], capture_output=True, text=True, cwd=dest)
         assert r.returncode != 0 and not (dest / 'BAD.PAS').exists(), r.stdout
-        print('Export: 5 programs written as Turbo Pascal and as QBasic; a program with an open block is refused.')
+        print('Export: 6 programs written as Turbo Pascal and as QBasic; a program with an open block is refused.')
     if models:
         for req, want in PLANS:
             out = run(dest, [req])

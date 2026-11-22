@@ -45,8 +45,8 @@ asm
 end;
 
 begin
-  (* write and read through DOS, so that text keeps the colours on the screen *)
-  Assign(Output, ''); Rewrite(Output); Assign(Input, ''); Reset(Input);
+  (* write through DOS, so that text keeps the colours on the screen *)
+  Assign(Output, ''); Rewrite(Output);
   ClrScr;
   Paint(1);
   Ink(14);

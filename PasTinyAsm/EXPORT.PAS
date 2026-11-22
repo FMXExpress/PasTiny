@@ -10,7 +10,10 @@ program ExportSource;
 
    Turbo Pascal: the program uses the Crt unit for sound, delays and the
    cursor, but writes through DOS, so that text keeps the colours already
-   on the screen, as it does in the .COM file.  Numbers are Words (0 to
+   on the screen, as it does in the .COM file.  Numbers and keys are both
+   read through DOS, letter by letter, as the .COM file reads them; Pascal's
+   own ReadLn reads ahead, and a key typed after a number would be lost in
+   what it had read.  Numbers are Words (0 to
    65535) with range and overflow checks off, and results are cut to a
    Word where they are printed or compared, which is how the .COM file
    counts.
@@ -366,13 +369,20 @@ begin
   W('end;'); W('')
  end;
  if Need[HAsk] then begin
-  W('(* Read a whole number; anything else counts as 0. *)');
-  W('procedure Ask(var V: Word);'); W('var S: String; L: Longint; Code: Integer;'); W('begin');
-  W('  ReadLn(S); Val(S, L, Code);'); W('  if Code <> 0 then L := 0;'); W('  V := L'); W('end;'); W('')
+  W('(* Read a whole number, letter by letter through DOS, up to Enter, with');
+  W('   the same DOS calls as the .COM file: what is typed is shown, and');
+  W('   anything that is not a digit is passed over. *)');
+  W('procedure Ask(var V: Word);'); W('var C: Byte; N: Word;'); W('begin');
+  W('  Flush(Output); N := 0;'); W('  repeat');
+  W('    asm'); W('      mov ah,1'); W('      int 21h'); W('      mov C,al'); W('    end;');
+  W('    if (C >= 48) and (C <= 57) then N := N * 10 + (C - 48)');
+  W('  until (C = 13) or (C = 26);');
+  W('  asm'); W('    mov ah,2'); W('    mov dl,10'); W('    int 21h'); W('  end;');
+  W('  V := N'); W('end;'); W('')
  end;
  W('begin');
- W('  (* write and read through DOS, so that text keeps the colours on the screen *)');
- W('  Assign(Output, '#39#39'); Rewrite(Output); Assign(Input, '#39#39'); Reset(Input);')
+ W('  (* write through DOS, so that text keeps the colours on the screen *)');
+ W('  Assign(Output, '#39#39'); Rewrite(Output);')
 end;
 
 procedure BasicHead;

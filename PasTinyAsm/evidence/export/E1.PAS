@@ -6,8 +6,8 @@ uses Crt;
 var A, B, I, S, X, Y, T1, R0: Word;
 
 begin
-  (* write and read through DOS, so that text keeps the colours on the screen *)
-  Assign(Output, ''); Rewrite(Output); Assign(Input, ''); Reset(Input);
+  (* write through DOS, so that text keeps the colours on the screen *)
+  Assign(Output, ''); Rewrite(Output);
   for R0 := 1 to 2 do begin
     (* FOR I=1 TO 5:OUT I*I:NEXT *)
     for I := 1 to 5 do begin

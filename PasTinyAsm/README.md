@@ -188,7 +188,8 @@ end;                                        NEXT I
 WriteLn('liftoff');                         PRINT "liftoff"
 ```
 
-- **The Pascal was compiled and run.** Five programs covering arithmetic, loops both ways, nested blocks, tests with `ELSE`, keyboard numbers, key loops with `STOP`, the screen calls and the sound calls were exported, compiled with Turbo Pascal 7 and run beside our own `.COM` files under DOS. What they printed was the same; the colour left on the screen was the same (`1E`); the sound program took 61 clock ticks from the `.COM` and 62 from the Pascal. The sources, the exports and the comparison are in [`evidence/export/`](evidence/export/).
+- **The Pascal was compiled and run.** Six programs covering arithmetic, loops both ways, nested blocks, tests with `ELSE`, keyboard numbers, key loops with `STOP`, the screen calls, the sound calls and a calculator that mixes typed numbers with single keys were exported, compiled with Turbo Pascal 7 and run beside our own `.COM` files under DOS. What they printed was the same byte for byte; the colour left on the screen was the same (`1E`); the sound program took 61 clock ticks from the `.COM` and 62 from the Pascal. The sources, the exports and the comparison are in [`evidence/export/`](evidence/export/).
+- **Numbers are read the way the `.COM` reads them.** The exported Pascal first used `ReadLn`, which holds a whole line back and lost input when a program also read single keys; the calculator showed it. `Ask` now reads digits with the same DOS call as the library. Text typed in quotes also keeps the spaces at its ends in the `.COM`, as it always did in the exports.
 - **It is made to match.** The Pascal uses `Crt` for sound, delays and the cursor but writes through DOS, so text keeps the colours already on the screen as it does in the `.COM`; its numbers are `Word`s with checks off, cut to a `Word` where they are printed or compared, so 3 minus 5 is 65534 in both. A Pascal program is about 5 KB where the `.COM` is a few hundred bytes.
 - **Turbo Pascal's `Crt` stops with runtime error 200 on a very fast machine.** That is Borland's fault, not this program's, and it happened here until the emulator was slowed to a 386's speed. On a 386 it does not arise.
 - **The QBasic has not been run.** No QBasic was to hand. It is checked for form only: numbers are long integers and do not wrap at 65535, waits use the `TIMER` clock, and `SOUND` counts in clock ticks, so timings will be close and not equal.
@@ -267,7 +268,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (81,632 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (81,648 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -297,7 +298,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 120, and a program 40 lines, 4,096 bytes and 24 texts.
 - The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with five experts and the exporter it unpacks to 2,015,118 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with five experts and the exporter it unpacks to 2,015,502 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
 - The program needs about 590 KB of free conventional memory, and 2,320 bytes of heap remain with a model loaded; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
