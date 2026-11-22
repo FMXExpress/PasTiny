@@ -5,18 +5,32 @@ program E2;
 uses Crt;
 var A, B, I, T1: Word;
 
-(* Read a whole number; anything else counts as 0. *)
+(* Read a whole number, letter by letter through DOS, up to Enter, with
+   the same DOS calls as the .COM file: what is typed is shown, and
+   anything that is not a digit is passed over. *)
 procedure Ask(var V: Word);
-var S: String; L: Longint; Code: Integer;
+var C: Byte; N: Word;
 begin
-  ReadLn(S); Val(S, L, Code);
-  if Code <> 0 then L := 0;
-  V := L
+  Flush(Output); N := 0;
+  repeat
+    asm
+      mov ah,1
+      int 21h
+      mov C,al
+    end;
+    if (C >= 48) and (C <= 57) then N := N * 10 + (C - 48)
+  until (C = 13) or (C = 26);
+  asm
+    mov ah,2
+    mov dl,10
+    int 21h
+  end;
+  V := N
 end;
 
 begin
-  (* write and read through DOS, so that text keeps the colours on the screen *)
-  Assign(Output, ''); Rewrite(Output); Assign(Input, ''); Reset(Input);
+  (* write through DOS, so that text keeps the colours on the screen *)
+  Assign(Output, ''); Rewrite(Output);
   (* INPUT A:INPUT B:OUT A+B:OUT A*B:OUT A-B:OUT A/B *)
   Ask(A);
   Ask(B);

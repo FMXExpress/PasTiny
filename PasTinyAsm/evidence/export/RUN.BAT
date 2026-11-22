@@ -1,6 +1,9 @@
 config -set cycles=12000
+E1.COM > C1.TXT
 E1.EXE > P1.TXT
+E2.COM < EI2.IN > C2.TXT
 E2.EXE < EI2.IN > P2.TXT
+E3.COM < EI3.IN > C3.TXT
 E3.EXE < EI3.IN > P3.TXT
 cls
 E4.COM
@@ -14,5 +17,7 @@ TICKS.COM >> C5.TXT
 TICKS.COM > P5.TXT
 E5.EXE >> P5.TXT
 TICKS.COM >> P5.TXT
-echo finished > ENDE.OUT
+E6.COM < CALCKEY.IN > C6.TXT
+E6.EXE < CALCKEY.IN > P6.TXT
+echo finished > ENDF.OUT
 exit

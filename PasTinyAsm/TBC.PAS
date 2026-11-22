@@ -239,22 +239,25 @@ begin
  Inc(Depth); Blocks[Depth].Kind:=Kind; Blocks[Depth].L1:=L1; Blocks[Depth].L2:=L2; Blocks[Depth].V:=V
 end;
 
-function AddText(S:String):Integer;
+(* Exact: the text was typed in quotes and keeps its spaces at both ends. *)
+function AddText(S:String; Exact:Boolean):Integer;
 var I:Integer;
 begin
  AddText:=1;
- while (S<>'') and (S[1]=' ') do Delete(S,1,1);
- while (S<>'') and (S[Length(S)]=' ') do Delete(S,Length(S),1);
+ if not Exact then begin
+  while (S<>'') and (S[1]=' ') do Delete(S,1,1);
+  while (S<>'') and (S[Length(S)]=' ') do Delete(S,Length(S),1)
+ end;
  for I:=1 to Length(S) do if (S[I]='$') or (S[I]='"') or (S[I]<' ') or (S[I]>'~') then S[I]:='?';
  if (S='') or (Length(S)>60) then begin Error('no text'); Exit end;
  if NText=MAXTEXT then begin Error('too many texts'); Exit end;
  Inc(NText); Texts^[NText]:=S; AddText:=NText
 end;
 
-procedure PrintText(S:String; Line:Boolean);
+procedure PrintText(S:String; Line,Exact:Boolean);
 var N:Integer;
 begin
- N:=AddText(S);
+ N:=AddText(S,Exact);
  B($BA); AddFix(3,N); T('mov     dx,text'+NumStr(N));
  CallLib(FindCall('PRINT'));
  if Line then CallLib(FindCall('NEWLINE'))
@@ -282,7 +285,7 @@ begin
  if Key='' then begin Error('statement expected'); Exit end;
  I:=FindCall(Key);
  if Key='NL' then I:=FindCall('NEWLINE');
- if (Key='PRINT') or (Key='ECHO') then begin PrintText(Copy(Raw,P,255),Key='ECHO'); Exit end
+ if (Key='PRINT') or (Key='ECHO') then begin PrintText(Copy(Raw,P,255),Key='ECHO',False); Exit end
  else if (I>0) and (Lib[I].Kind<4) then begin
   Blanks;
   if (Cur=#0) and (Lib[I].Kind>0) then begin
@@ -436,7 +439,7 @@ var K,Before:Integer; Part:String;
 begin
  CompileLine:=False; Before:=Depth;
  if Failed then Exit;
- if (S<>'') and (S[1]=#255) then PrintText(Copy(S,2,255),False)
+ if (S<>'') and (S[1]=#255) then PrintText(Copy(S,2,255),False,True)
  else if RepeatCount(S)=0 then begin
   if Listing then WriteLn(Lst,'                                ; ',S);
   S:=S+':';

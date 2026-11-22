@@ -29,8 +29,8 @@ begin
 end;
 
 begin
-  (* write and read through DOS, so that text keeps the colours on the screen *)
-  Assign(Output, ''); Rewrite(Output); Assign(Input, ''); Reset(Input);
+  (* write through DOS, so that text keeps the colours on the screen *)
+  Assign(Output, ''); Rewrite(Output);
   (* BEEP 880 100:WAIT 500 *)
   Beep(880, 100);
   Delay(500);

@@ -1,0 +1,37 @@
+CLS
+PRINT "Calculator"
+NEWLINE
+FOREVER
+PRINT "first number: "
+INPUT A
+PRINT "second number: "
+INPUT B
+PRINT "a add, s subtract, m multiply, d divide, q quit: "
+KEY
+NEWLINE
+IF K='q'
+STOP
+END
+IF K='a'
+OUT A+B
+END
+IF K='m'
+OUT A*B
+END
+IF K='s'
+IF A<B
+PRINT "-"
+OUT B-A
+ELSE
+OUT A-B
+END
+END
+IF K='d'
+IF B=0
+PRINT "cannot divide by zero"
+NEWLINE
+ELSE
+OUT A/B
+END
+END
+END
