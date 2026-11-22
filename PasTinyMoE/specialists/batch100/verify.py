@@ -7,20 +7,24 @@ from zipfile import ZipFile
 
 batch = Path(__file__).resolve().parent
 project = batch.parents[1]
+refined = json.loads((batch / "refined/hashes.json").read_text())
 with ZipFile(project / "dist/SPEC100.ZIP") as package:
     assert package.read("TINY.BIN") == (project / "TINY.BIN").read_bytes()
     catalog = package.read("EXPERTS.CAT")
     assert catalog[:5] == b"PEC1\x64" and len(catalog) == 5 + 100 * 68
     with ZipFile(project / "dist/SPEC90.ZIP") as previous:
         for name in previous.namelist():
-            if name.endswith(".BIN"):
+            if name.endswith(".BIN") and name not in refined:
                 assert package.read(name) == previous.read(name), name
     weights = {}
     for offset in range(5, len(catalog), 68):
         record = catalog[offset:offset + 68]
         name = record[2:2 + record[1]].decode("ascii")
         data = package.read(name)
-        assert data == (batch.parent / "models" / name).read_bytes()
+        folder = batch / "refined" if name in refined else batch.parent / "models"
+        assert data == (folder / name).read_bytes()
+        if name in refined:
+            assert hashlib.sha256(data).hexdigest() == refined[name]
         assert zlib.crc32(data) == int.from_bytes(record[-4:], "little")
         weights[record[0]] = hashlib.sha256(data).digest()
     assert len(set(weights.values())) == len(weights) == 100

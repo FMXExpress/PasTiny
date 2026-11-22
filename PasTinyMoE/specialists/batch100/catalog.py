@@ -32,7 +32,13 @@ def entries():
     # Preserve the ordering of the released SPEC90 catalog.
     from specialists.batch90.catalog import entries as previous_entries
 
-    return previous_entries() + json.loads((root / "entries.json").read_text())
+    catalog = previous_entries() + json.loads((root / "entries.json").read_text())
+    refined = json.loads((root / "refined/hashes.json").read_text())
+    for entry in catalog:
+        if entry["name"] in refined:
+            entry["source"] = str((root / "refined" / entry["name"]).relative_to(project))
+            entry["sha256"] = refined[entry["name"]]
+    return catalog
 
 
 if __name__ == "__main__":

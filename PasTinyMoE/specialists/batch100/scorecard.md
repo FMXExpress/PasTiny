@@ -5,9 +5,9 @@ Each question compares the original Tiny weights with SPEC100 automatic routing.
 | Prompt set | Original exact | SPEC100 AUTO exact | Asked for selection |
 | --- | ---: | ---: | ---: |
 | Original 60 questions | 60/60 | 50/60 | 0 |
-| Previous 90 experts | 7/1273 | 1056/1273 | 0 |
-| Latest ten experts | 0/108 | 82/108 | 0 |
-| All 100 experts | 7/1381 | 1138/1381 | 0 |
+| Previous 90 experts | 7/1273 | 1069/1273 | 0 |
+| Latest ten experts | 0/108 | 90/108 | 0 |
+| All 100 experts | 7/1381 | 1159/1381 | 0 |
 
 ## Per-expert results
 
@@ -21,7 +21,7 @@ Each example pairs a held-out question with its reference answer. Routing and ex
 | 004 | File and Path Terms | 12/12 | 12/12 | what does a pathname identify in dos → A file or directory location. |
 | 005 | DOS memory terms | 15/15 | 10/15 | what is the low 640k region called conventional memory → The first 640 KB of PC address space. |
 | 006 | Floppy disk terms | 14/14 | 11/14 | what should i understand by track in a floppy manual → A circular recording path on one side. |
-| 007 | FAT Volume Terms | 8/8 | 1/8 | what does a cluster group together on a fat volume → Group of sectors allocated as one unit. |
+| 007 | FAT Volume Terms | 8/8 | 7/8 | what does a cluster group together on a fat volume → Group of sectors allocated as one unit. |
 | 008 | DOS Startup Files | 6/6 | 4/6 | what is the role of config.sys during ms dos startup → Sets system options and loads drivers. |
 | 009 | Batch file vocabulary | 18/18 | 12/18 | what does echo hello print → It displays hello. |
 | 010 | Text file conventions | 18/18 | 12/18 | which ascii number is a carriage return → ASCII 13. |
@@ -44,7 +44,7 @@ Each example pairs a held-out question with its reference answer. Routing and ex
 | 027 | Compiler Messages | 8/8 | 6/8 | why does assigning true to an integer cause type mismatch → The types are incompatible. |
 | 028 | Debugger Vocabulary | 8/8 | 5/8 | what happens when a debugger reaches a breakpoint → Pauses execution at a chosen location. |
 | 029 | Number notation | 12/12 | 9/12 | what base uses only zero and one → Binary uses base two. |
-| 030 | Boolean logic | 12/12 | 4/12 | when is a two input and gate true → True when both inputs are true. |
+| 030 | Boolean logic | 12/12 | 12/12 | when is a two input and gate true → True when both inputs are true. |
 | 031 | Sorting vocabulary | 8/8 | 6/8 | recognize this sorting example: the field that determines record order → Sort key. |
 | 032 | Data structures | 6/6 | 5/6 | identify a structure with this rule: last in first out → Stack. |
 | 033 | Archive formats | 18/18 | 17/18 | what filename extension identifies a ZIP archive → .zip |
@@ -52,7 +52,7 @@ Each example pairs a held-out question with its reference answer. Routing and ex
 | 035 | Database vocabulary | 8/8 | 5/8 | explain the structure of a table in a database → Related records arranged in rows and columns. |
 | 036 | Text editor navigation | 10/10 | 8/10 | what does the caret tell an editor user → It marks the current insertion point. |
 | 037 | Modem Desk | 12/12 | 9/12 | which dialing mode does modem command atdt select → Tone dial. |
-| 038 | BBS and Terminal | 12/12 | 4/12 | who is called the sysop on a bulletin board → System operator. |
+| 038 | BBS and Terminal | 12/12 | 11/12 | who is called the sysop on a bulletin board → System operator. |
 | 039 | WordStar | 18/18 | 13/18 | how can i save my wordstar file and keep editing? → Ctrl-K S. |
 | 040 | Lotus 1-2-3 | 18/18 | 12/18 | which key edits the current lotus spreadsheet cell? → F2. |
 | 041 | Word Bench | 24/24 | 24/24 | in a few words what is meant by brief → Short in duration. |

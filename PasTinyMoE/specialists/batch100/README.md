@@ -7,7 +7,7 @@ The DOS package contains 100 trained models. The ten added here cover compiler a
 | [027 Compiler Messages](027/README.md) | [COMPILE.BIN](../models/COMPILE.BIN) | 8/8 | 6/8 |
 | [028 Debugger Vocabulary](028/README.md) | [DEBUGGER.BIN](../models/DEBUGGER.BIN) | 8/8 | 5/8 |
 | [029 Number notation](029/README.md) | [NUMBASE.BIN](../models/NUMBASE.BIN) | 12/12 | 9/12 |
-| [030 Boolean logic](030/README.md) | [BOOLLOG.BIN](../models/BOOLLOG.BIN) | 12/12 | 4/12 |
+| [030 Boolean logic](030/README.md) | [BOOLLOG.BIN](refined/BOOLLOG.BIN) | 12/12 | 12/12 |
 | [031 Sorting vocabulary](031/README.md) | [SORTING.BIN](../models/SORTING.BIN) | 8/8 | 6/8 |
 | [032 Data structures](032/README.md) | [DATASTR.BIN](../models/DATASTR.BIN) | 6/6 | 5/6 |
 | [033 Archive formats](033/README.md) | [ARCHIVES.BIN](../models/ARCHIVES.BIN) | 18/18 | 17/18 |
@@ -15,13 +15,15 @@ The DOS package contains 100 trained models. The ten added here cover compiler a
 | [035 Database vocabulary](035/README.md) | [DATABASE.BIN](../models/DATABASE.BIN) | 8/8 | 5/8 |
 | [036 Text editor navigation](036/README.md) | [EDITNAV.BIN](../models/EDITNAV.BIN) | 10/10 | 8/10 |
 
+The current package includes [refined FAT, Boolean and BBS experts](refined/README.md).
+
 ## Evaluation
 
-Automatic routing selected the intended expert on 108/108 reserved prompts and produced 82/108 exact answers (75.9%). Pinning the intended expert produced 82/108 exact answers. The original general model produced 0/108. These prompts ask about facts taught during training using different wording.
+Automatic routing selected the intended expert on 108/108 reserved prompts and produced 90/108 exact answers (83.3%). Pinning the intended expert produced 90/108 exact answers. The original general model produced 0/108. These prompts ask about facts taught during training using different wording.
 
-All 1312 prior evaluation outcomes were reproduced. DOSBox-X ran the full AUTO set with an emulated FPU and a two-prompt smoke test in 386 mode with the FPU disabled. [Per-question host results](answers.jsonl) · [DOS replay](ALL.LOG) · [386 smoke test](NOFPU.LOG)
+The regression replay checks 1,312 versioned outcomes, including the revised FAT and BBS answers. DOSBox-X ran the full AUTO set with an emulated FPU and a two-prompt smoke test in 386 mode with the FPU disabled. [Per-question host results](answers.jsonl) · [DOS replay](ALL.LOG) · [386 smoke test](NOFPU.LOG)
 
-Boolean Logic answered 4 of 12 held-out prompts exactly with either routing mode. For “when is a two input and gate true”, the model generated “It reverses the true.” The expected answer is “True when both inputs are true.” The independent DOS catalog check listed all 100 IDs and free heap returned to 24,824 bytes after switching between experts 100 and 1 with the emulated FPU disabled. [Catalog and memory transcript](CATALOG.LOG)
+The refined Boolean Logic model answers all 12 reserved prompts exactly. The independent DOS catalog check listed all 100 IDs and free heap returned to 24,824 bytes after switching between experts 100 and 1 with the emulated FPU disabled. [Catalog and memory transcript](CATALOG.LOG)
 
 ## Build and verify
 
