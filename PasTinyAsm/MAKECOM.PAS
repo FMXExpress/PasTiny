@@ -498,7 +498,7 @@ end;
 (* One step of the request, as typed.  Force is the expert to ask, or 0
    to let the router choose. *)
 function AddStep(Raw:String; Force:Integer):Boolean;
-var S,A,Why,Why2,Up:String; Q:String[80]; S0,Raw0:String[130]; Id,K,K2:Integer; Tokens:Longint;
+var S,A,Why,Why2,Up:String; Q:String[80]; S0,Raw0:String[130]; Id,K,K2:Integer; Tokens,Value:Longint;
  At:array[1..MAXDOUBT] of Integer; Sl,Again:Boolean;
 begin
  AddStep:=False; A:=''; SlotT:=0; SlotN:=0;
@@ -512,11 +512,14 @@ begin
   Up:=Raw; for K:=1 to Length(Up) do Up[K]:=UpCase(Up[K])
  end
  else if K>0 then begin
-  (* quoted text is printed exactly as typed *)
-  A:=Copy(Raw,K+1,255); K2:=Pos('"',A); if K2>0 then A:=Copy(A,1,K2-1);
-  S:=Tidy(Copy(Raw,1,K-1))+' "'+A+'"';
-  if (A='') or (Length(A)>60) then begin Refuse(S,'no text'); Exit end;
-  AddStep:=Accept(S,#255+A,' ','   (no model)'); Exit
+  S:=Tidy(Copy(Raw,1,K-1));
+  A:=Copy(Raw,K+1,255); K2:=Pos('"',A);
+  if (Pos('|'+S+'|','|print|print out|say|display|write|show me|show|type|output|')=0) or
+     (K2<>Length(A)) or (K2<2) or (K2>61) then begin
+   Refuse(Raw,'use PRINT with one quoted phrase (1 to 60 characters)'); Exit
+  end;
+  A:=Copy(A,1,K2-1);
+  AddStep:=Accept(Raw,#255+A,' ','   (no model)'); Exit
  end;
  S:=Tidy(Raw);
  if Copy(S,1,5)='then ' then Delete(S,1,5);
@@ -526,6 +529,23 @@ begin
   (* typed as a line of the language *)
   A:=Raw; if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=CodeCase(Raw);
   AddStep:=Accept(Raw,A,' ','   (no model)'); Exit
+ end;
+ if (Force=0) and (Exact='') then begin
+  K:=0;
+  if Copy(Up,1,21)='PRINT OUT THE NUMBER ' then K:=21;
+  if Copy(Up,1,19)='SHOW ME THE NUMBER ' then K:=19;
+  if Copy(Up,1,17)='PRINT THE NUMBER ' then K:=17;
+  if K>0 then begin
+   A:=Copy(Raw,K+1,255);
+   for K2:=1 to Length(A) do
+    if A[K2] in ['A'..'Z'] then A[K2]:=Chr(Ord(A[K2])+32);
+   if not WordNumber(A,Value) then Value:=-1;
+   if (Value<0) or (Value>65535) then begin
+    Refuse(Raw,'which whole number from 0 to 65535 should I print?'); Exit
+   end;
+   Str(Value,A);
+   AddStep:=Accept(S,'NUMBER '+A,' ','   (no model)'); Exit
+  end
  end;
  Id:=Force;
  if (Id=0) and (Exact<>'') and (Copy(S,1,4)='say ') then Id:=XTEXT;      (* the interviewer's text *)
@@ -875,9 +895,12 @@ begin
  NPend:=0; NClose:=0; Part:=''; Quote:=False; Ok:=True; R:=R+'.';
  for I:=1 to Length(R) do if Ok then begin
   if R[I]='"' then Quote:=not Quote;
-  if (not Quote) and (R[I] in ['.',';']) then begin Ok:=Sentence(Part); Part:='' end
+  if (not Quote) and (R[I] in ['.',';']) and
+     not ((R[I]='.') and (I>1) and (I<Length(R)) and
+          (R[I-1] in ['0'..'9']) and (R[I+1] in ['0'..'9'])) then begin Ok:=Sentence(Part); Part:='' end
   else Part:=Part+R[I]
  end;
+ if Quote then begin Refuse(Part,'close the quoted text'); Exit end;
  if not Ok or (NPend=0) then Exit;
  Body:=NPend;
  while NClose>0 do begin      (* blocks opened by this request end after its lines *)
