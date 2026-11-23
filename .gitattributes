@@ -5,6 +5,10 @@
 *.INC text eol=crlf
 *.DPR text eol=crlf
 *.BAT text eol=crlf
+*.SCR text eol=crlf
+*.HLP text eol=crlf
+*.SRC text eol=crlf
+*.IN text eol=crlf
 *.EXE binary
 *.BIN binary
 *.DXE binary
