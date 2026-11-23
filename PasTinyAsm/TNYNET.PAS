@@ -57,7 +57,6 @@ var Emb,Pos:TTable;
     5 KB back. *)
  Bm:TVec; Bx,Bh,Bq,Bt,Ba,Bs,Score:PVec;
  Xq:TQVec; Qq,Ww:PQVec;
- Ee:array[0..CTX-1] of Longint;
  ExpTab:array[0..1535] of SmallInt;
  AttDiv:Single; TablesDone,TablesTotal:Integer;
  F:File;
@@ -435,11 +434,11 @@ begin
    for J:=0 to P do begin
     S:=Big-Bs^[J]; S:=S*128.0;
     if S>=1535.5 then K:=1536 else begin S:=S+0.5; K:=Trunc(S) end;
-    if K<1536 then Ee[J]:=ExpTab[K] else Ee[J]:=0;
-    Esum:=Esum+Ee[J]
+    if K<1536 then K:=ExpTab[K] else K:=0;
+    Bs^[J]:=K; Esum:=Esum+K
    end;
    Wm:=0; for J:=0 to P do begin
-    Bs^[J]:=Ee[J]*Vs[Z]^[J]; if Bs^[J]>Wm then Wm:=Bs^[J]
+    Bs^[J]:=Bs^[J]*Vs[Z]^[J]; if Bs^[J]>Wm then Wm:=Bs^[J]
    end;
    if Wm>0 then Wsc:=Wm/32767.0 else Wsc:=0;
    for J:=0 to P do begin

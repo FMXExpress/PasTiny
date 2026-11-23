@@ -10,6 +10,8 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 ## Exact text arguments
 
+Begin a request with `display the phrase` or `write the sentence` to print the rest of the request literally, including command words and punctuation. These forms accept up to 60 characters. Use a quoted phrase to delimit the text when supplying a separate instruction afterward.
+
 Use one quoted phrase with PRINT or SAY to preserve punctuation and spaces. Close the quotes and use 1–60 characters. For `print the number`, `print out the number` or `show me the number`, the editor directly accepts 0–65535 or a number word from zero to twenty. Invalid values prompt for a whole number.
 
 ## Room games and sound lookup
@@ -394,7 +396,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Markers are `n1` to `n6` and `t1` to `t3`: a request has at most six numbers from 2 up and three quoted texts, and a quoted text inside a task cannot hold a colon.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 392 bytes of heap remained in the TP7 text-check smoke test with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 360 bytes of heap remained in the TP7 text-binding smoke test with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.

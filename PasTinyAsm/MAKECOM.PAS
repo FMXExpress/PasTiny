@@ -514,7 +514,7 @@ begin
  else if K>0 then begin
   S:=Tidy(Copy(Raw,1,K-1));
   A:=Copy(Raw,K+1,255); K2:=Pos('"',A);
-  if (Pos('|'+S+'|','|print|print out|say|display|write|show me|show|type|output|')=0) or
+  if (Pos('|'+S+'|','|print|print out|say|display|write|show me|show|type|output|display the phrase|write the sentence|')=0) or
      (K2<>Length(A)) or (K2<2) or (K2>61) then begin
    Refuse(Raw,'use PRINT with one quoted phrase (1 to 60 characters)'); Exit
   end;
@@ -886,19 +886,36 @@ begin
  Dec(Steps,Count)
 end;
 
+(* An explicit phrase introducer fixes the payload boundary. *)
+function PhraseStart(R:String):Integer;
+begin
+ R:=CodeCase(R);
+ PhraseStart:=0;
+ if Copy(R,1,19)='DISPLAY THE PHRASE ' then PhraseStart:=20;
+ if Copy(R,1,19)='WRITE THE SENTENCE ' then PhraseStart:=20
+end;
+
 (* Plan a request: split it into sentences at . and ; and put the lines
    they give into the program before line Cur, all or none. *)
 function MakePlan(R:String):Boolean;
 var I,Body:Integer; Part:String; Quote,Ok:Boolean;
 begin
  MakePlan:=False;
- NPend:=0; NClose:=0; Part:=''; Quote:=False; Ok:=True; R:=R+'.';
+ NPend:=0; NClose:=0; Part:=''; Quote:=False; Ok:=True;
+ I:=PhraseStart(R);
+ if (I>0) and (Pos('"',R)=0) then begin
+  Part:=Copy(R,I,255);
+  if Length(Part)>60 then begin Refuse(R,'quote a phrase of at most 60 characters'); Exit end;
+  Ok:=Accept(R,#255+Part,' ','   (no model)')
+ end else begin
+ R:=R+'.';
  for I:=1 to Length(R) do if Ok then begin
   if R[I]='"' then Quote:=not Quote;
   if (not Quote) and (R[I] in ['.',';']) and
      not ((R[I]='.') and (I>1) and (I<Length(R)) and
           (R[I-1] in ['0'..'9']) and (R[I+1] in ['0'..'9'])) then begin Ok:=Sentence(Part); Part:='' end
   else Part:=Part+R[I]
+ end;
  end;
  if Quote then begin Refuse(Part,'close the quoted text'); Exit end;
  if not Ok or (NPend=0) then Exit;
