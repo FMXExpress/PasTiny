@@ -55,30 +55,39 @@ begin
 end;
 
 { Same PC-speaker letter patterns as PasTiny. }
-procedure SayLetter(C:Char; Shift:Word);
+procedure SayLetter(C:Char; Shift,Pace:Word);
+ function Duration(Ms:Word):Word;
+ begin Duration:=(Ms*Pace+50) div 100 end;
 begin
  case UpCase(C) of
- 'A':Buzz(730,1090,64,Shift); 'E':Buzz(530,1840,56,Shift);
- 'I','Y':Buzz(300,2290,52,Shift); 'O':Buzz(570,840,64,Shift);
- 'U':Buzz(320,870,56,Shift); 'S','Z','C','X':Hiss(46);
- 'F','H','V','J':Hiss(30);
- 'P','T','K','Q':begin Tone(3200,2); DelayMs(18) end;
- 'B','D','G':begin Buzz(180,260,12,Shift); DelayMs(10) end;
- 'M','N':Buzz(210,300,40,Shift); 'L','R','W':Buzz(400,1100,36,Shift);
- ' ':DelayMs(45); ',','-':DelayMs(110); '.','!','?',':':DelayMs(200);
- '0'..'9':Buzz(420+(Ord(C)-48)*60,900+(Ord(C)-48)*90,70,Shift);
- else DelayMs(20)
+ 'A':Buzz(730,1090,Duration(64),Shift); 'E':Buzz(530,1840,Duration(56),Shift);
+ 'I','Y':Buzz(300,2290,Duration(52),Shift); 'O':Buzz(570,840,Duration(64),Shift);
+ 'U':Buzz(320,870,Duration(56),Shift); 'S','Z','C','X':Hiss(Duration(46));
+ 'F','H','V','J':Hiss(Duration(30));
+ 'P','T','K','Q':begin Tone(3200,2); DelayMs(Duration(18)) end;
+ 'B','D','G':begin Buzz(180,260,Duration(12),Shift); DelayMs(Duration(10)) end;
+ 'M','N':Buzz(210,300,Duration(40),Shift); 'L','R','W':Buzz(400,1100,Duration(36),Shift);
+ ' ':DelayMs(Duration(45)); ',','-':DelayMs(Duration(110)); '.','!','?',':':DelayMs(Duration(200));
+ '0'..'9':Buzz(420+(Ord(C)-48)*60,900+(Ord(C)-48)*90,Duration(70),Shift);
+ else DelayMs(Duration(20))
  end
 end;
 
-procedure SpeakAnswer(A:String);
-var I:Integer;
+procedure SpeakAnswer(A:String; ExpertId:Integer);
+var I,Profile:Integer; Pitch,Pace:Word;
 begin
  if not SoundOn then Exit;
  if not VoiceOn then begin ReadySound; Exit end;
+ Pitch:=115; Pace:=100;
+ if (ExpertId>=1) and (ExpertId<=100) then begin
+  { 37 is coprime to 100, so every expert gets its own pitch and pace pair. }
+  Profile:=(ExpertId-1)*37 mod 100;
+  Pitch:=101+3*(Profile mod 10);
+  Pace:=82+4*(Profile div 10)
+ end;
  for I:=1 to Length(A) do begin
   if KeyPressed then begin TNYSYS.ReadKey; Break end;
-  SayLetter(A[I],115-30*Longint(I-1) div (Length(A)+1))
+  SayLetter(A[I],Pitch-30*Longint(I-1) div (Length(A)+1),Pace)
  end
 end;
 

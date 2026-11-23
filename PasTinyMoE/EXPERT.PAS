@@ -131,7 +131,7 @@ begin
    if J=0 then Report('unknown id') else begin Switch(J); Pinned:=Active=J end
   end else if (Q<>'') and ToolsOn and (not Pinned) and ToolAnswer(Q,A) then begin
    Report(A);
-   {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then SpeakAnswer(A);{$ENDIF}{$ENDIF}
+   {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then SpeakAnswer(A,0);{$ENDIF}{$ENDIF}
    if not ScreenUI then WriteLn('answer ms=0 chars=',Length(A),' tool')
   end else if Q<>'' then begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); if not ScreenUI then WriteLn('route ms=',NowMs-T);
@@ -156,7 +156,7 @@ begin
     if First>=0 then WriteLn('first char ms=',First-T,' output span ms=',Last-First);
     end;
     if Cancelled then Report('cancelled')
-    {$IFDEF VER70}{$IFDEF SPEC100}else if ScreenUI then SpeakAnswer(A){$ENDIF}{$ENDIF}
+    {$IFDEF VER70}{$IFDEF SPEC100}else if ScreenUI then SpeakAnswer(A,Items[J].Id){$ENDIF}{$ENDIF}
    end
   end
  end;
