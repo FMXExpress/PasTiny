@@ -13,7 +13,7 @@ type
  TSglArr=array[0..15999] of Single; PSglArr=^TSglArr;
  TVec=array[0..MAXHID-1] of Single; PVec=^TVec;
  TQVec=array[0..MAXHID-1] of SmallInt; PQVec=^TQVec;
- TTable=record Scale:PSglArr; W:PS8Arr; Rows,Cols:TIdx end;
+ TTable=record Scale:PSglArr; W:PS8Arr; Rows,Cols:TIdx; {$IFDEF XMSSTREAM}FileOffset:Longint;{$ENDIF} end;
  TStepProc=procedure(I,N:Integer); TLetterProc=procedure(C:Integer);
  TLoadProc=procedure(Done,Total:Integer); TFailProc=procedure;
 var D,L,H,HD,HID:Integer; Creativity:Integer; LastConf:Single;
@@ -104,15 +104,32 @@ begin
  TableBytes:=Longint(T.Rows)*RowBytes(T.Cols);
  {$IFDEF FACTORS16}if IsFactor(T) then TableBytes:=4*(T.Rows+T.Cols);{$ENDIF}
 end;
+{$IFDEF XMSSTREAM}
+const FirstHalf=38784; SecondHalf=50944; LayerBytes=89728; EmbedEnd=22512;
+{$IFDEF XMSLAYER}
+const StageBytes=FirstHalf;
+var TailStage:PS8Arr;
+{$ELSE}
+const StageBytes=25600;
+{$ENDIF}
+var Stage:PS8Arr; StreamHandle:Word; LayerOffset:Longint;
+{$ENDIF}
 procedure ReserveTable(var T:TTable; Rows,Cols:Integer);
 begin
  T.Rows:=Rows; T.Cols:=Cols;
+ {$IFDEF XMSSTREAM}
+ if (Rows<>VOCAB) and (Rows<>CTX) then begin T.W:=nil; T.Scale:=nil; Exit end;
+ {$ENDIF}
  T.Scale:=Memory(ScaleCount(T)*4); T.W:=Memory(TableBytes(T))
 end;
 procedure Reserve;
 var J:Integer;
 begin
  D:=96; L:=4; H:=4; HID:=256; HD:=D div H; AttDiv:=Sqrt(HD);
+ {$IFDEF XMSSTREAM}
+ Stage:=Memory(StageBytes);
+ {$IFDEF XMSLAYER}TailStage:=Memory(SecondHalf);{$ENDIF}
+ {$ENDIF}
  ReserveTable(Emb,VOCAB,D); ReserveTable(Pos,CTX,D);
  for J:=0 to L-1 do begin
   G1[J]:=Memory(D*4); G2[J]:=Memory(D*4);
@@ -160,7 +177,17 @@ begin
 end;
 procedure ReadTable(var T:TTable);
 var R:Integer;
+{$IFDEF XMSSTREAM} Scale:Single;{$ENDIF}
 begin
+ {$IFDEF XMSSTREAM}
+ if T.W=nil then begin
+  T.FileOffset:=XPos-Available+Used;
+  for R:=0 to T.Rows-1 do begin
+   Scalars(Scale,1); ReadBytes(Stage^[0],T.Cols)
+  end;
+  Exit
+ end;
+ {$ENDIF}
  {$IFDEF FACTORS16}
  if IsFactor(T) then begin
   Scalars(T.Scale^[0],ScaleCount(T)); ReadBytes(T.W^[0],TableBytes(T)); Exit
@@ -175,6 +202,10 @@ var Header:packed record Magic:array[1..4] of Char; Width,Layers,Heads,Hidden:Wo
  J,K,Err:Integer; Size,V:Longint;
 begin
  Ready:=False; TryModel:=False; LoadError:='';
+ {$IFDEF XMSSTREAM}
+ StreamHandle:=0;
+ if ModelXms=0 then begin LoadError:='XMS required for streaming'; Exit end;
+ {$ENDIF}
  if not Reserved then Reserve;
  for J:=0 to 255 do begin
   V:=J;
@@ -208,7 +239,8 @@ begin
   if Err<>0 then LoadError:='close failure'
  end;
  if (LoadError='') and ((not Check)<>Expected) then LoadError:='CRC32 mismatch';
- Ready:=LoadError=''; TryModel:=Ready
+ Ready:=LoadError=''; TryModel:=Ready;
+ {$IFDEF XMSSTREAM}if Ready then StreamHandle:=ModelXms;{$ENDIF}
 end;
 procedure AllocMemory;
 var J,K:Integer;
@@ -232,6 +264,10 @@ var J:Integer;
 begin
  if not Reserved then Exit;
  Reserved:=False; Ready:=False;
+ {$IFDEF XMSSTREAM}
+ FreeMem(Stage,StageBytes);
+ {$IFDEF XMSLAYER}FreeMem(TailStage,SecondHalf);{$ENDIF}
+ {$ENDIF}
  FreeTable(Emb); FreeTable(Pos);
  for J:=0 to L-1 do begin
   FreeTable(Wq[J]); FreeTable(Wk[J]); FreeTable(Wv[J]);
@@ -343,9 +379,34 @@ begin
  for I:=0 to T.Rows-1 do Y[I]:=FactorDot(T.W,4*T.Cols+4*I,16,Latent)*T.Scale^[T.Cols+16+I]
 end;
 {$ENDIF}
+{$IFDEF XMSSTREAM}
+procedure StreamMatvec(var T:TTable; var X,Y:TVec);
+var R:Integer; Offset,Stride:Word; InputScale,Sum:Single; Weights:PS8Arr;
+{$IFDEF XMSLAYER} Relative:Longint;{$ENDIF}
+begin
+ Stride:=T.Cols+4;
+ {$IFDEF XMSLAYER}
+ Relative:=T.FileOffset-LayerOffset;
+ Weights:=Stage;
+ if Relative>=FirstHalf then begin Dec(Relative,FirstHalf); Weights:=TailStage end;
+ Offset:=Relative;
+ {$ELSE}
+ Offset:=0; Weights:=Stage;
+ if not XmsRead(StreamHandle,T.FileOffset,Stage^[0],T.Rows*Stride) then
+  Fail('XMS projection read failed');
+ {$ENDIF}
+ InputScale:=Quant16(X,T.Cols,Xq);
+ for R:=0 to T.Rows-1 do begin
+  Sum:=DotS8I16(PS8Arr(@Weights^[Offset+4]),Xq,T.Cols);
+  Sum:=Sum*PSglArr(@Weights^[Offset])^[0]; Y[R]:=Sum*InputScale;
+  Inc(Offset,Stride)
+ end
+end;
+{$ENDIF}
 procedure Matvec(var T:TTable; var X,Y:TVec);
 var R,C:TIdx; Offset:Longint; S,Sx,V:Single; A:Longint;
 begin
+ {$IFDEF XMSSTREAM}if T.W=nil then begin StreamMatvec(T,X,Y); Exit end;{$ENDIF}
  {$IFDEF FACTORS16}if IsFactor(T) then begin FactorMatvec(T,X,Y); Exit end;{$ENDIF}
  {$IFNDEF FLOATMATH}Sx:=Quant16(X,T.Cols,Xq);{$ENDIF}
  Offset:=0;
@@ -432,6 +493,12 @@ begin
   Bx^[I]:=S+V
  end;
  for Z:=0 to L-1 do begin
+  {$IFDEF XMSLAYER}
+  LayerOffset:=EmbedEnd+Longint(Z)*LayerBytes;
+  if not XmsRead(StreamHandle,LayerOffset,Stage^[0],FirstHalf) or
+     not XmsRead(StreamHandle,LayerOffset+FirstHalf,TailStage^[0],SecondHalf) then
+   Fail('XMS layer read failed');
+  {$ENDIF}
   Norm(Bx^,G1[Z],Bh^);
   Matvec(Wk[Z],Bh^,Bt^); Ks[Z]^[P]:=Store(PS8Arr(@Kc[Z]^[P*D]),Bt^);
   Matvec(Wv[Z],Bh^,Bt^); Vs[Z]^[P]:=Store(PS8Arr(@Vc[Z]^[P*D]),Bt^);
