@@ -78,10 +78,14 @@ var Buffer:array[0..BufSize-1] of Byte absolute Xq;
  Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint absolute Bm;
  XPos:Longint;      (* how far into the XMS block the reading has got *)
  Reserved:Boolean;
+function RowBytes(Cols:Integer):Integer;
+begin
+ {$IFDEF TERNARY}RowBytes:=(Cols+3) div 4;{$ELSE}RowBytes:=Cols;{$ENDIF}
+end;
 procedure ReserveTable(var T:TTable; Rows,Cols:Integer);
 begin
  T.Rows:=Rows; T.Cols:=Cols;
- T.Scale:=Memory(Rows*4); T.W:=Memory(Longint(Rows)*Cols)
+ T.Scale:=Memory(Rows*4); T.W:=Memory(Longint(Rows)*RowBytes(Cols))
 end;
 procedure Reserve;
 var J:Integer;
@@ -136,7 +140,7 @@ procedure ReadTable(var T:TTable);
 var R:Integer;
 begin
  for R:=0 to T.Rows-1 do begin
-  Scalars(T.Scale^[R],1); ReadBytes(T.W^[Longint(R)*T.Cols],T.Cols)
+  Scalars(T.Scale^[R],1); ReadBytes(T.W^[Longint(R)*RowBytes(T.Cols)],RowBytes(T.Cols))
  end
 end;
 function TryModel(Name:String; Expected:Longint):Boolean;
@@ -152,17 +156,18 @@ begin
   Lookup[J]:=V
  end;
  XPos:=0;
+ {$IFDEF TERNARY}ModelXms:=0;{$ENDIF}
  if ModelXms=0 then begin
   FileMode:=0; Assign(F,Name);
   {$I-}Reset(F,1); Err:=IOResult;{$I+}
   if Err<>0 then begin LoadError:='open failed'; Exit end;
   {$I-}Size:=FileSize(F); Err:=IOResult;{$I+}
-  if (Err<>0) or (Size<>381808) then LoadError:='wrong file size'
+  if (Err<>0) or (Size<>{$IFDEF TERNARY}107560{$ELSE}381808{$ENDIF}) then LoadError:='wrong file size'
  end;
  Used:=0; Available:=0; Check:=-1;
  ReadBytes(Header,SizeOf(Header));
  if LoadError='' then
- if (Header.Magic<>'TNY2') or (Header.Width<>D) or (Header.Layers<>L) or
+ if (Header.Magic<>{$IFDEF TERNARY}'TTR1'{$ELSE}'TNY2'{$ENDIF}) or (Header.Width<>D) or (Header.Layers<>L) or
     (Header.Heads<>H) or (Header.Hidden<>HID) then LoadError:='unsupported TNY2 header';
  ReadTable(Emb); ReadTable(Pos);
  for J:=0 to L-1 do begin
@@ -191,7 +196,7 @@ begin
 end;
 procedure FreeTable(var T:TTable);
 begin
- if T.W<>nil then FreeMem(T.W,Longint(T.Rows)*T.Cols);
+ if T.W<>nil then FreeMem(T.W,Longint(T.Rows)*RowBytes(T.Cols));
  if T.Scale<>nil then FreeMem(T.Scale,T.Rows*4);
  T.W:=nil; T.Scale:=nil
 end;
@@ -265,6 +270,27 @@ begin
  A:=0; for I:=0 to N-1 do A:=A+Longint(W^[I])*X[I]; DotS8I16:=A
 end;
 {$ENDIF}
+{$IFDEF TERNARY}
+function Trit(W:PS8Arr; I:Integer):Integer;
+begin Trit:=((Byte(W^[I div 4]) shr ((I and 3)*2)) and 3)-1 end;
+
+function DotTernary(W:PS8Arr; var X:TQVec; N:Integer):Longint;
+var I,K:Integer; Bits:Byte; Sum:Longint;
+begin
+ Sum:=0; I:=0;
+ while I<N do begin
+  Bits:=Byte(W^[I div 4]); K:=0;
+  while (K<4) and (I<N) do begin
+   case Bits and 3 of
+    0: Sum:=Sum-X[I];
+    2: Sum:=Sum+X[I]
+   end;
+   Bits:=Bits shr 2; Inc(K); Inc(I)
+  end
+ end;
+ DotTernary:=Sum
+end;
+{$ENDIF}
 procedure Matvec(var T:TTable; var X,Y:TVec);
 var R,C:TIdx; Offset:Longint; S,Sx,V:Single; A:Longint;
 begin
@@ -273,14 +299,15 @@ begin
  for R:=0 to T.Rows-1 do begin
  {$IFDEF FLOATMATH}
   S:=0; for C:=0 to T.Cols-1 do begin
-   V:=T.W^[Offset+C]*X[C]; S:=S+V
+   {$IFDEF TERNARY}V:=Trit(PS8Arr(@T.W^[Offset]),C)*X[C];{$ELSE}V:=T.W^[Offset+C]*X[C];{$ENDIF} S:=S+V
   end;
   Y[R]:=S*T.Scale^[R];
  {$ELSE}
-  A:=DotS8I16(PS8Arr(@T.W^[Offset]),Xq,T.Cols);
+  {$IFDEF TERNARY}A:=DotTernary(PS8Arr(@T.W^[Offset]),Xq,T.Cols);
+  {$ELSE}A:=DotS8I16(PS8Arr(@T.W^[Offset]),Xq,T.Cols);{$ENDIF}
   S:=A; S:=S*T.Scale^[R]; Y[R]:=S*Sx;
  {$ENDIF}
-  Inc(Offset,T.Cols)
+  Inc(Offset,RowBytes(T.Cols))
  end
 end;
 procedure Norm(var X:TVec; G:PSglArr; var Y:TVec);
@@ -309,8 +336,14 @@ var I,J,Z,Head,Off,At:TIdx; S,Big,Sum,V,Qs,Wm,Wsc:Single;
  Acc,Esum:Longint; K:Longint;
 begin
  for I:=0 to D-1 do begin
+  {$IFDEF TERNARY}
+  S:=Trit(PS8Arr(@Emb.W^[Tok*RowBytes(D)]),I)*Emb.Scale^[Tok];
+  V:=Trit(PS8Arr(@Pos.W^[P*RowBytes(D)]),I)*Pos.Scale^[P];
+  {$ELSE}
   S:=Emb.W^[Tok*D+I]*Emb.Scale^[Tok];
-  V:=Pos.W^[P*D+I]*Pos.Scale^[P]; Bx^[I]:=S+V
+  V:=Pos.W^[P*D+I]*Pos.Scale^[P];
+  {$ENDIF}
+  Bx^[I]:=S+V
  end;
  for Z:=0 to L-1 do begin
   Norm(Bx^,G1[Z],Bh^);
