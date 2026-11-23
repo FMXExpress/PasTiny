@@ -1,7 +1,7 @@
 PasTinyAsm 1.0 - say what a program should do, get a .COM file
 ================================================================
 Files: MAKECOM.EXE, MAKECOM.HLP, ASK.SCR, EXPERTS.CAT, SCREEN.BIN,
-SOUND.BIN, TEXT.BIN, TASKS.BIN, RECIPES.BIN, EXPORT.EXE.
+SOUND.BIN, TEXT.BIN, TASKS.BIN, SLOTS.BIN, RECIPES.BIN, EXPORT.EXE.
 Keep them in one directory.  Needs a 386 and about 590 KB of free
 conventional memory.  A coprocessor is optional.
 
@@ -25,6 +25,10 @@ Separate the steps with commas, "and" or "then".  Things it knows:
   do it 3 times               (repeats the whole program)
 
 Put text in double quotes to print it exactly as typed.
+It may be several words inside a small program, and numbers may
+be as big as you like:
+  print "well done you" 7 times
+  count from 250 to 4000 and beep each time
 
 A whole sentence can ask for a small program:
   count down from 10 and beep each time then say liftoff

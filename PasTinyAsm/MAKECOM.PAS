@@ -205,13 +205,23 @@ end;
 
 (* A model can copy a number wrongly and still give a valid line.  So
    every number typed as digits in the step must be in the line. *)
+function WordNumber(W:String; var V:Longint):Boolean; forward;
+
+(* In a small program a number said as a word, two to twenty, has to be
+   in the line as well: "six rounds" must not become TIMES 4.  Not so in
+   a single call, where "two seconds" is 2000 and a text may say "two". *)
+var WordsCount:Boolean;
+
 function NumbersAgree(Step,L:String):Boolean;
 var W:String; V:Longint;
 begin
  NumbersAgree:=False;
  while Step<>'' do begin
   W:=NextWord(Step);
-  if Number(W,V) then if not LineHas(L,V) then Exit
+  if Number(W,V) then begin if not LineHas(L,V) then Exit end
+  (* "two numbers" asks for two, it is not a number of the program *)
+  else if WordsCount and WordNumber(W,V) and (V>=2) and (Copy(Step,1,7)<>'numbers') then
+   if not LineHas(L,V) then Exit
  end;
  NumbersAgree:=True
 end;
@@ -337,8 +347,6 @@ begin
     ((Copy(L,1,6)<>'PRINT ') or (Tidy(Copy(L,7,255))<>Exact)) then Exit;
  Passes:=True
 end;
-
-function WordNumber(W:String; var V:Longint):Boolean; forward;
 
 (* ------------------------------------------------------------ slots
 
@@ -542,7 +550,7 @@ begin
    (* number words as digits, but not in a text to print *)
    if DigitsOn and (Id<>XTEXT) and (Id<>XTASKS) and (Length(InDigits(S))<=72) then Q:=InDigits(S)
   end;
-  GStep:=S; Guiding:=GuideOn;
+  GStep:=S; Guiding:=GuideOn; WordsCount:=Id=XTASKS;
   Cancelled:=False; Think(Q,A,Tokens,PollEscape,nil);
   if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
   Raw0:=A; A:=PutBack(A,True,True);
@@ -1721,7 +1729,7 @@ begin
 end;
 
 begin
- Interactive:=ConsoleIO; Active:=0; Guiding:=False; GuideOn:=True; DigitsOn:=True; Guide:=Viable;
+ Interactive:=ConsoleIO; Active:=0; Guiding:=False; GuideOn:=True; DigitsOn:=True; WordsCount:=False; Guide:=Viable;
  KeyWords:=' OUT ECHO LET INPUT FOR NEXT TIMES END FOREVER IF ELSE STOP NL REPEAT ';
  for Steps:=1 to LIBCOUNT do KeyWords:=KeyWords+Lib[Steps].Name+' ';
  Asking:=False; Exact:=''; OutName:='OUT'; Steps:=0; Cur:=1;

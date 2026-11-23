@@ -1,0 +1,50 @@
+PasTinyAsm 1.2  FPU yes
+heap=488120
+extended memory: 14912 KB free, experts will be kept there
+> name sl1
+name SL1
+> count from 250 to 4000 and beep each time
+1 count from 250 to 4000 and beep each time -> FOR I=250 TO 4000:OUT I:BEEP:NEXT
+wrote SL1.COM 212 bytes, SL1.ASM
+> print "well done you" 7 times
+2 print well done you 7 times -> TIMES 7:ECHO well done you:END
+wrote SL1.COM 258 bytes, SL1.ASM
+> flash eighteen times
+3 flash eighteen times -> FLASH 18
+wrote SL1.COM 319 bytes, SL1.ASM
+> for six rounds print done and beep
+4 for six rounds print done and beep -> TIMES 6:ECHO done:BEEP:END   (second choice)
+wrote SL1.COM 360 bytes, SL1.ASM
+> count down from 10 and say liftoff at the end
+5 count down from 10 and say liftoff at the end -> FOR I=10 DOWNTO 1:OUT I:NEXT:ECHO liftoff
+wrote SL1.COM 428 bytes, SL1.ASM
+> show
+  1 FOR I=250 TO 4000:OUT I:BEEP:NEXT
+  2 TIMES 7:ECHO well done you:END
+  3 FLASH 18
+  4 TIMES 6:ECHO done:BEEP:END
+  5 FOR I=10 DOWNTO 1:OUT I:NEXT:ECHO liftoff
+   >
+> new
+new program
+> name sl3
+name SL3
+> build an alarm clock
+build an alarm clock:
+  = ask for a number and count down from it and wait a second each time
+1 ask for a number and count down from it and wait a second each time -> INPUT A:FOR I=A DOWNTO 1:OUT I:WAIT:NEXT
+  = play a siren
+2 play a siren -> SIREN 2
+  = flash the screen 3 times
+3 flash the screen 3 times -> FLASH 3
+wrote SL3.COM 356 bytes, SL3.ASM
+> show
+  1 INPUT A:FOR I=A DOWNTO 1:OUT I:WAIT:NEXT
+  2 SIREN 2
+  3 FLASH 3
+   >
+> mem
+heap=648 largest=648 stack=17640
+experts loaded: 9 times from extended memory (561 ms), 0 times from disk (0 ms)
+kept in extended memory: 5 (190 ms to read them in), 13032 KB free there
+> quit

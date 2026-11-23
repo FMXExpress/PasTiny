@@ -1,4 +1,5 @@
 unit XMSCACHE;
+{$S-}
 (* Keep expert files in extended memory.
 
    Changing experts means loading 381,808 bytes, and from a disk that is

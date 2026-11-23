@@ -54,7 +54,7 @@ The models never write an instruction. A 380 KB network cannot be trusted to get
 | Check | code | The line must compile, the numbers typed must be in it, and any text it prints must be words of the request. Otherwise it is refused, and nothing is written |
 | Compile | code | All the lines become 8086 code, followed by the library routines that were used |
 
-Five experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.BIN`:
+Six experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.BIN`:
 
 | Expert | Writes |
 |---|---|
@@ -62,6 +62,7 @@ Five experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.
 | `SOUND.BIN` | `BEEP hertz ms`, `SIREN n`, `SCALE`, `WAIT ms`, `KEY`, `REPEAT n` |
 | `TEXT.BIN` | `PRINT text`, `NEWLINE`, `NUMBER n` |
 | `TASKS.BIN` | whole small programs with loops, keyboard input, arithmetic and tests |
+| `SLOTS.BIN` | the same programs, asked with markers in place of numbers and quoted texts |
 | `RECIPES.BIN` | the steps of a named thing, as sentences for the other four |
 
 Two kinds of step skip the model: a step that is already a line of the language, and a step with text in double quotes, which prints that text exactly (`print "Hello, World!"`).
@@ -202,9 +203,47 @@ and so on until every key has been dealt with; then "And for any other key?" and
 
 **The questions are a file.** [`ASK.SCR`](ASK.SCR) holds them, as ELIZA's script held its patterns: a `kind` line names a kind of program by the words that ask for it (`adventure game story maze quest`, `menu chooser`) and the lines after it give that kind's questions. Change the wording, or add a kind, without touching the program. `ASK` or `ASK menu` starts an interview too; `cancel` ends one.
 
-**What was tried.** Three programs were built from replies alone and played under DOS ([`evidence/interview/`](evidence/interview/)): the cave (30 lines), a sound menu (20 lines) and a second game with a house, a ghost and a chest (37 lines). All three play as described. Of the 25 texts in the replies, the text expert wrote 20 as first worded (6 of them on a second choice), 1 after rewording, and 4 were printed as typed after Enter. The four it could not write were all long: two "press c for ... or w for ..." lines and two sentences joined by "and".
+**What was tried, before guided writing.** Three programs were built from replies alone and played under DOS ([`evidence/interview/`](evidence/interview/)): the cave (30 lines), a sound menu (20 lines) and a second game with a house, a ghost and a chest (37 lines). All three play as described. Of the 25 texts in the replies, the text expert wrote 20 as first worded (6 of them on a second choice), 1 after rewording, and 4 were printed as typed after Enter. The four it could not write were all long: two "press c for ... or w for ..." lines and two sentences joined by "and". With guided writing (below) the house game goes through without one "Another way?" ([`evidence/slots/HOUSE2.OUT`](evidence/slots/HOUSE2.OUT)).
 
 **What it does not do.** It asks the same questions whatever is said; it does not understand the story. A program is a tree of key presses, with no memory between places, so there is no inventory. The design is still the person's: the interviewer only makes sure nothing about the structure has to be typed.
+
+## Slots and guided writing
+
+Two older ideas, both about not asking the model to do what code does better.
+
+**Slots.** A small network copies badly. Asked to "count from 250 to 4000" the tasks expert, trained on numbers up to about 100, wrote lines the checks refused 296 times in 300. So a second expert for small programs, `SLOTS.BIN`, never sees a number or a quoted text. The program swaps them for markers before it asks and puts the values back into the answer:
+
+```
+count from 250 to 4000 and say "all done" at the end      what you type
+count from n1 to n2 and say t1 at the end                 what the expert is asked
+FOR I=n1 TO n2:OUT I:NEXT:ECHO t1                         what it writes
+FOR I=250 TO 4000:OUT I:NEXT:ECHO all done                what is compiled
+```
+
+Any number will do, and a quoted text of several words can sit inside a loop or a test, which was not possible before: a quote used to make the program print the text and drop the rest of the request.
+
+**The two experts work side by side.** The first slots expert, used alone, was worse on ordinary requests than the tasks expert (277 against 298 on new wordings). So nothing is taken away: the tasks expert is asked first, exactly as before, and the slots expert is asked when a task has a text in quotes, or when no line of the tasks expert passes the checks.
+
+| 300 requests each | tasks expert alone, as before | slots expert alone, first run | both, as shipped |
+|---|---|---|---|
+| trained shapes and combinations | 300 | 296 | 300 |
+| held-out combinations | 299 | 294 | 299 |
+| first held-out wordings | 300 | 300 | 300 |
+| new wordings | 298 | 277 | 300 |
+| numbers far outside training | 4 | 300 | 300 |
+| a text of several words in quotes | 0 | 300 | 300 |
+
+New wordings rose from 298 to 300 because the number check now also reads number words in a task: "for six rounds" written as `TIMES 4` is refused, and the request falls through to a second choice or to the slots expert.
+
+**Number words as digits.** The screen and sound experts are asked "flash 18 times" when you type "flash eighteen times". On new wordings the screen expert went from 297 to 300 and the sound expert from 259 to 261. Text to print is left alone.
+
+**Guided writing.** An expert writes a line a letter at a time. Before each letter is added, the program asks whether the line can still become a valid one: the first word of a statement must begin a word of the language, what `PRINT` prints must be words of the request in their order, and a colon may only follow a whole statement. If not, the expert's next best letter is tried.
+
+- It helps where the expert garbles. Thirty long adventure texts were given to the interviewer ([`evidence/slots/TEXTS.TXT`](evidence/slots/TEXTS.TXT)): unguided, 12 were accepted and 18 came back with "Another way?"; guided, all 30 were accepted. Here the interviewer knows the words to print, so the guide leaves the expert little to decide beyond `PRINT`.
+- It does not help where the expert misunderstands. On the screen, sound and text test sets the scores with and without the guide are the same: those errors are a wrong call or the wrong words kept, spelled perfectly. On the text expert's new wordings it is slightly worse in one respect: 113 are right either way, but the 3 lines that used to be refused are now steered into lines that pass, and are accepted wrong.
+- Holding back the end of a line made things worse. The first version let a line end only if it passed every check; an expert that wanted to stop then rambled, and the sound expert fell from 259 to 205 on new wordings. The end is never held back now, except while a text the interviewer asked for is unfinished.
+
+`GUIDE OFF` and `GUIDE ON` switch the guide (and the digits) for comparison.
 
 ## Running, the log and extended memory
 
@@ -304,7 +343,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (85,600 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (90,464 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -333,11 +372,13 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 80, a text 60, and a program 40 lines, 3,072 bytes and 24 texts. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
-- The numbers check only looks at numbers typed as digits. "beep for five seconds" is not checked against the 5.
-- The package no longer fits one floppy: with five experts and the exporter it unpacks to 2,022,183 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- In a single call the numbers check only looks at numbers typed as digits: "beep for five seconds" is not checked against the 5. In a small program number words from two to twenty are checked too.
+- The package no longer fits one floppy: with six experts and the exporter it unpacks to 2,409,101 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The slots expert was trained once more after the table above was begun (10,000 steps, 0 and 1 no longer slotted) and that second run was only measured together with the tasks expert, not alone.
+- Markers are `n1` to `n6` and `t1` to `t3`: a request has at most six numbers from 2 up and three quoted texts, and a quoted text inside a task cannot hold a colon.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 1,136 bytes of heap remain with a model loaded. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 648 bytes of heap remain with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
@@ -362,6 +403,7 @@ To retrain an expert (PyTorch, 35 to 55 minutes on one CPU core), then rewrite t
 ```
 python3 training/train_asm.py screen ../PasTinyMoE/TINY.BIN SCREEN.BIN 6000
 THREADS=4 python3 training/train_asm.py tasks ../PasTinyMoE/TINY.BIN TASKS.BIN 8000
+THREADS=4 python3 training/train_asm.py slots ../PasTinyMoE/TINY.BIN SLOTS.BIN 10000
 python3 tools/package.py
 ```
 

@@ -1,0 +1,46 @@
+Host build of the same source, 8-bit runtime, 300 requests in each set.
+
+TASKS: old program, old tasks expert alone
+tasks  trained shapes and combinations:       300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  held-out combinations:                 299 right, 0 refused, 1 wrong but accepted, of 300
+tasks  first held-out wordings (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  new wordings:                          298 right, 0 refused, 2 wrong but accepted, of 300
+tasks  numbers far outside training:          4 right, 296 refused, 0 wrong but accepted, of 300
+tasks  texts of several words in quotes:      0 right, 97 refused, 203 wrong but accepted, of 300
+
+TASKS: slots expert alone, first run (8,000 steps, 0 and 1 also slotted)
+tasks  trained shapes and combinations:       296 right, 0 refused, 4 wrong but accepted, of 300
+tasks  held-out combinations:                 294 right, 1 refused, 5 wrong but accepted, of 300
+tasks  first held-out wordings (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  new wordings:                          277 right, 4 refused, 19 wrong but accepted, of 300
+tasks  numbers far outside training:          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  texts of several words in quotes:      300 right, 0 refused, 0 wrong but accepted, of 300
+
+TASKS: tasks expert first, slots expert when it fails or a text is in quotes (as shipped)
+tasks  trained shapes and combinations:       300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  held-out combinations:                 299 right, 0 refused, 1 wrong but accepted, of 300
+tasks  first held-out wordings (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  new wordings:                          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  numbers far outside training:          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  texts of several words in quotes:      300 right, 0 refused, 0 wrong but accepted, of 300
+
+SCREEN, SOUND, TEXT: guided writing off, number words as typed
+screen trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+screen new wordings:                          297 right, 0 refused, 3 wrong but accepted, of 300
+sound  trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+sound  new wordings:                          259 right, 41 refused, 0 wrong but accepted, of 300
+text   trained wordings:                      298 right, 0 refused, 2 wrong but accepted, of 300
+text   trained wordings:                      298 right, 0 refused, 2 wrong but accepted, of 300
+text   new wordings:                          113 right, 3 refused, 184 wrong but accepted, of 300
+
+SCREEN, SOUND, TEXT: guided writing on, number words as digits for screen and sound (as shipped)
+screen trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+screen new wordings:                          300 right, 0 refused, 0 wrong but accepted, of 300
+sound  trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+sound  new wordings:                          261 right, 39 refused, 0 wrong but accepted, of 300
+text   trained wordings:                      298 right, 0 refused, 2 wrong but accepted, of 300
+text   new wordings:                          113 right, 0 refused, 187 wrong but accepted, of 300
+
+INTERVIEWER: the 30 texts of TEXTS.TXT, each given as the first reply
+guide off: accepted 12 of 30, 3 of them on a second choice, asked to reword 18
+guide on:  accepted 30 of 30, asked to reword 0

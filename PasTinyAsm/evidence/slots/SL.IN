@@ -1,0 +1,13 @@
+name sl1
+count from 250 to 4000 and beep each time
+print "well done you" 7 times
+flash eighteen times
+for six rounds print done and beep
+count down from 10 and say liftoff at the end
+show
+new
+name sl3
+build an alarm clock
+show
+mem
+quit

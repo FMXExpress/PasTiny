@@ -3,7 +3,7 @@ unit TNYSYS;
 {$IFDEF VER70}{$DEFINE TINYDOS}{$ENDIF}
 {$IFDEF GO32V2}{$DEFINE TINYDOS}{$ENDIF}
 {$IFDEF MSDOS}{$DEFINE TINYDOS}{$ENDIF}
-{$N+}{$E+}
+{$N+}{$E+}{$S-}
 {$R-}{$Q-}
 interface
 const ScreenWidth=80; ScreenHeight=25;

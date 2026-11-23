@@ -1,0 +1,119 @@
+PasTinyAsm 1.2  FPU yes
+heap=488120
+extended memory: 14912 KB free, experts will be kept there
+> name house2
+name HOUSE2
+> clear the screen
+1 clear the screen -> CLS
+wrote HOUSE2.COM 69 bytes, HOUSE2.ASM
+> make a game
+2 forever: -> FOREVER   (no model)
+What does the player see first?
+wrote HOUSE2.COM 72 bytes, HOUSE2.ASM
+> you stand in front of an old house, press d for the door or w for the window
+3 say you stand in front of an old house -> PRINT you stand in front of an old house
+4 new line -> NEWLINE
+5 say press d for the door or w for the window -> PRINT press d for the door or w for the window
+6 new line -> NEWLINE
+Which keys can they press now?  (Enter if none)
+wrote HOUSE2.COM 182 bytes, HOUSE2.ASM
+> d w
+7 KEY -> KEY   (no model)
+What happens when they press d?
+wrote HOUSE2.COM 195 bytes, HOUSE2.ASM
+> the door creaks open, a ghost is waiting inside, you run away screaming, stop
+8 if the key is d: -> IF K='d'   (no model)
+9 say the door creaks open -> PRINT the door creaks open
+10 new line -> NEWLINE
+11 say a ghost is waiting inside -> PRINT a ghost is waiting inside
+12 new line -> NEWLINE
+13 say you run away screaming -> PRINT you run away screaming
+14 new line -> NEWLINE
+15 stop -> STOP   (no model)
+What happens when they press w?
+wrote HOUSE2.COM 314 bytes, HOUSE2.ASM
+> you climb in through the window, there is a chest here, press c to open the chest
+17 if the key is w: -> IF K='w'   (no model)
+18 say you climb in through the window -> PRINT you climb in through the window
+19 new line -> NEWLINE
+20 say there is a chest here -> PRINT there is a chest here
+21 new line -> NEWLINE
+22 say press c to open the chest -> PRINT press c to open the chest
+23 new line -> NEWLINE
+Which keys can they press now?  (Enter if none)
+wrote HOUSE2.COM 438 bytes, HOUSE2.ASM
+> c
+24 KEY -> KEY   (no model)
+What happens when they press c?
+wrote HOUSE2.COM 446 bytes, HOUSE2.ASM
+> the chest is full of gold, you win, play a tune
+25 if the key is c: -> IF K='c'   (no model)
+26 say the chest is full of gold -> PRINT the chest is full of gold
+27 new line -> NEWLINE
+28 say you win -> PRINT you win
+29 new line -> NEWLINE
+30 play a tune -> SCALE
+Which keys can they press now?  (Enter if none)
+wrote HOUSE2.COM 583 bytes, HOUSE2.ASM
+> 
+Does the game stop there?  (yes or no)
+wrote HOUSE2.COM 583 bytes, HOUSE2.ASM
+> yes
+31 stop -> STOP   (no model)
+And for any other key?  (Enter for nothing)
+wrote HOUSE2.COM 588 bytes, HOUSE2.ASM
+> you leave the chest alone
+33 say you leave the chest alone -> PRINT you leave the chest alone
+34 new line -> NEWLINE
+And for any other key?  (Enter for nothing)
+wrote HOUSE2.COM 623 bytes, HOUSE2.ASM
+> nothing happens
+36 say nothing happens -> PRINT nothing happens
+37 new line -> NEWLINE
+That is the whole program: HOUSE2.COM.
+wrote HOUSE2.COM 648 bytes, HOUSE2.ASM
+> show
+  1 CLS
+  2 FOREVER
+  3   PRINT you stand in front of an old house
+  4   NEWLINE
+  5   PRINT press d for the door or w for the window
+  6   NEWLINE
+  7   KEY
+  8   IF K='d'
+  9     PRINT the door creaks open
+ 10     NEWLINE
+ 11     PRINT a ghost is waiting inside
+ 12     NEWLINE
+ 13     PRINT you run away screaming
+ 14     NEWLINE
+ 15     STOP
+ 16   END
+ 17   IF K='w'
+ 18     PRINT you climb in through the window
+ 19     NEWLINE
+ 20     PRINT there is a chest here
+ 21     NEWLINE
+ 22     PRINT press c to open the chest
+ 23     NEWLINE
+ 24     KEY
+ 25     IF K='c'
+ 26       PRINT the chest is full of gold
+ 27       NEWLINE
+ 28       PRINT you win
+ 29       NEWLINE
+ 30       SCALE
+ 31       STOP
+ 32     END
+ 33     PRINT you leave the chest alone
+ 34     NEWLINE
+ 35   END
+ 36   PRINT nothing happens
+ 37   NEWLINE
+ 38 END
+   >
+> mem
+heap=648 largest=648 stack=17640
+experts loaded: 4 times from extended memory (264 ms), 0 times from disk (0 ms)
+kept in extended memory: 3 (113 ms to read them in), 13784 KB free there
+> quit
