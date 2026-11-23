@@ -52,7 +52,7 @@ begin
  end;
  if not ScreenUI then WriteLn('load/recovery ms=',NowMs-Start);
  if Active<>0 then begin
-  Report('active '+Num(Items[Active].Id)+' '+Items[Active].Title);
+  if not ScreenUI then Report('active '+Num(Items[Active].Id)+' '+Items[Active].Title);
  end else Report('unloaded');
  {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ExpertStatus;{$ENDIF}{$ENDIF}
 end;
