@@ -1,0 +1,6 @@
+Set up an empty nine by nine grid with Black playing first
+Display the current position and ask the player where to move
+Finish after two consecutive passes and score stones and territory
+Take the entered row and column and tentatively place a stone
+Check connected groups for liberties and remove trapped enemy stones
+Prevent immediate ko, undo illegal moves and alternate colors

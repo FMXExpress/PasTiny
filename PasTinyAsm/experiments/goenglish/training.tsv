@@ -1,0 +1,30 @@
+A	make a nine by nine board and start with black
+A	set up the empty go board and first player
+A	initialize the board and set black to play
+A	create the board and its borders
+A	start with an empty board and black stones to move
+B	show the board and ask the current player for a move
+B	draw the board and read a row and column
+B	display the stones and let the player enter a point
+B	print the board and accept input or quit
+B	show the position and obtain the next move
+C	handle passes and score the game after two passes
+C	count consecutive passes and score area when both pass
+C	when players pass twice end and count territory and stones
+C	implement pass handling and final area scoring
+C	on two passes count the board and declare the winner
+D	validate the coordinate and place a stone on an empty point
+D	reject occupied points and try placing the current color
+D	check the chosen square and make a provisional placement
+D	decode row and column then put a stone on the board
+D	save the board and try the move on a vacant intersection
+E	find liberties and remove captured enemy groups
+E	remove opponents without liberties and reject suicide
+E	search connected groups for liberties after the move
+E	capture surrounded stones and detect self capture
+E	check all stone groups for freedom and clear captures
+F	enforce ko and switch players after legal moves
+F	reject a repeated board and undo an illegal move
+F	compare the previous position and update the turn
+F	roll back suicide or ko and commit other moves
+F	save the new position and hand the turn to the other player
