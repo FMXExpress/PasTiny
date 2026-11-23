@@ -34,3 +34,25 @@ done
 | Binary factors with Dual-SVID, rank 16 | 16/300 | 62,832 bytes |
 
 Estimates include the unchanged embeddings and gains, plus packed signs and float32 scales or dense float32 factors. They exclude format-specific headers. All tested reconstructions were exported at 381,808 bytes. This experiment measured answer quality through dense inference. It did not measure a packed kernel, DOS timing or actual heap savings. The single learning-rate schedule and training budget were shared across all variants.
+
+## Rank-16 ternary factors
+
+Train the rank-16 float factors for the same 650 steps as the float control, then initialize input and output scales from the mean absolute magnitudes of the trained factors. Normalize the latent factors by those scales and train for another 650 steps with round-and-clamp ternary weights in the forward pass. The optimizer starts fresh for the second phase and learns the input, latent and output scales.
+
+```sh
+python3 experiments/littlebit/train.py build/littlebit/TRIT16.BIN 16 --ternary-steps 650
+python3 experiments/littlebit/score_slots.py build/littlebit/check SOUND.BIN build/littlebit/F16.BIN build/littlebit/TRIT16.BIN
+```
+
+The slot benchmark picks a nearest example among training templates for the predicted operation and binds its arguments from the prompt. It scores the operation and full command independently.
+
+At rank 16 the 24 pairs contain 94,208 factor entries. Two bits per entry use 23,552 bytes. The float32 scales use 25,088 bytes, and the retained embeddings, gains and original header use 25,968 bytes, for approximately 74,608 bytes before any additional format metadata. Scoring uses a dense TNY2 reconstruction. This estimate has no packed-loader or DOS timing measurement.
+
+| Model | Exact raw commands | Correct operation | Exact after binding |
+| --- | ---: | ---: | ---: |
+| Shipped 8-bit sound expert | 208/300 | 212/300 | 212/300 |
+| Earlier packed ternary fine-tune | 163/300 | 190/300 | 190/300 |
+| Rank-16 float factors | 214/300 | 248/300 | 248/300 |
+| Rank-16 ternary factors | 188/300 | 233/300 | 233/300 |
+
+The rank-16 ternary run took 86.5 seconds for both phases on one CPU thread. Binding recovered 45 answers and lost zero previously exact answers. The 67 remaining misses all chose a different operation from the reference. This is a standalone expert comparison. The existing editor's lookup-first path scored 292/300 on the same requests.

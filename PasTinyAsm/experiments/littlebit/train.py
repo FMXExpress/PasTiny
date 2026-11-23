@@ -22,6 +22,7 @@ class Factors(nn.Module):
         self.left = nn.Parameter(u[:, :rank] * s[:rank].sqrt())
         self.right = nn.Parameter(s[:rank].sqrt()[:, None] * v[:rank])
         self.binary = binary
+        self.ternary = False
         if binary:
             self.output_scale = nn.Parameter(self.left.detach().abs().mean(1))
             self.input_scale = nn.Parameter(self.right.detach().abs().mean(0))
@@ -40,7 +41,23 @@ class Factors(nn.Module):
                 self.left.div_(self.output_scale[:, None].clamp_min(1e-8))
                 self.right.div_(self.input_scale.clamp_min(1e-8))
 
+    def enable_ternary(self):
+        with torch.no_grad():
+            output = self.left.abs().mean(1).clamp_min(1e-8)
+            inputs = self.right.abs().mean(0).clamp_min(1e-8)
+            self.left.div_(output[:, None])
+            self.right.div_(inputs)
+        self.output_scale = nn.Parameter(output)
+        self.input_scale = nn.Parameter(inputs)
+        self.latent_scale = nn.Parameter(torch.ones(self.left.shape[1]))
+        self.ternary = True
+
     def matrix(self):
+        if self.ternary:
+            def quantize(a):
+                return a.detach().round().clamp(-1, 1) + (a - a.detach())
+            return ((quantize(self.left) * self.output_scale[:, None]) *
+                    self.latent_scale) @ (quantize(self.right) * self.input_scale)
         if not self.binary:
             return self.left @ self.right
         def sign_ste(a):
@@ -56,10 +73,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output', type=Path)
     parser.add_argument('rank', type=int, choices=(8, 16))
-    parser.add_argument('--binary', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--binary', action='store_true')
+    mode.add_argument('--ternary-steps', type=int, default=0)
     parser.add_argument('--dual-svid', action='store_true')
     parser.add_argument('--steps', type=int, default=650)
     args = parser.parse_args()
+    if args.steps < 1 or args.ternary_steps < 0:
+        parser.error("require positive float or binary steps and nonnegative ternary steps")
     if args.dual_svid and not args.binary:
         parser.error("--dual-svid requires --binary")
     torch.set_num_threads(1)
@@ -74,7 +95,15 @@ def main():
             setattr(block, name, Factors(getattr(block, name).weight, args.rank, args.binary, args.dual_svid))
     opt = torch.optim.AdamW((p for p in model.parameters() if p.requires_grad), lr=.002, weight_decay=0)
     start = time.monotonic()
-    for step in range(args.steps):
+    for index in range(args.steps + args.ternary_steps):
+        if index == args.steps:
+            for block in model.blocks:
+                for name in projections:
+                    getattr(block, name).enable_ternary()
+            opt = torch.optim.AdamW((p for p in model.parameters() if p.requires_grad),
+                                    lr=.002, weight_decay=0)
+        phase_steps = args.steps if index < args.steps else args.ternary_steps
+        step = index if index < args.steps else index - args.steps
         pairs = [gen_asm.make(rng, 'sound') for _ in range(32)]
         seqs = [[ord(c)-30 for c in q]+[1]+[ord(c)-30 for c in a]+[1] for q, a in pairs]
         x = torch.zeros((len(pairs), max(map(len, seqs))-1), dtype=torch.long)
@@ -82,7 +111,7 @@ def main():
         for i, (seq, (q, _)) in enumerate(zip(seqs, pairs)):
             x[i, :len(seq)-1] = torch.tensor(seq[:-1])
             y[i, len(q):len(seq)-1] = torch.tensor(seq[len(q)+1:])
-        opt.param_groups[0]['lr'] = .002 * min(1, (step+1)/50) * (.2 if step >= args.steps*.8 else 1)
+        opt.param_groups[0]['lr'] = .002 * min(1, (step+1)/50) * (.2 if step >= phase_steps*.8 else 1)
         opt.zero_grad()
         loss = F.cross_entropy(model(x).flatten(0,1), y.flatten(), ignore_index=-100)
         loss.backward()
@@ -94,7 +123,7 @@ def main():
             for name in projections:
                 getattr(original, name).weight.copy_(getattr(adapted, name).matrix())
     tiny.export_bin(dense, args.output)
-    print(f'{args.steps} steps in {time.monotonic()-start:.1f}s, final batch loss {loss.item():.4f}')
+    print(f'{args.steps + args.ternary_steps} steps in {time.monotonic()-start:.1f}s, final batch loss {loss.item():.4f}')
 
 
 if __name__ == '__main__':
