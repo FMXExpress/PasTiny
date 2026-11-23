@@ -275,6 +275,8 @@ def slot(q):
     words, values, parts = [], [], q.split(' ')
     for i, w in enumerate(parts):
         v = int(w) if w.isdigit() else NUMWORDS.get(w)
+        if v is not None and v < 2:           # 0 and 1 stay: programs are full of their own ("FOR I=1", "LET P=1")
+            v = None
         if v is None or parts[i + 1:i + 2] == ['numbers']:
             words.append(w)
         else:

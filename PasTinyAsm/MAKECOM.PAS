@@ -41,7 +41,7 @@ program MakeCom;
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
  MAXSTEPS=40; MAXPEND=16;
- XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5;    (* catalog ids of the experts *)
+ XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5; XSLOTS=6;    (* catalog ids of the experts *)
 type TLine=String[80];      (* a line of the language; texts are 60 at most *)
 var
  Active:Integer; Interactive:Boolean;
@@ -342,8 +342,9 @@ function WordNumber(W:String; var V:Longint):Boolean; forward;
 
 (* ------------------------------------------------------------ slots
 
-   The tasks expert does not see the numbers of a request, nor a text
-   that is in double quotes.  They are swapped for markers before it is
+   The slots expert writes small programs as the tasks expert does, but
+   does not see the numbers of a request, nor a text that is in double
+   quotes.  They are swapped for markers before it is
    asked (n1, n2 ... for the numbers in the order they come, t1 ... for
    the texts) and put back into what it writes:
 
@@ -376,8 +377,8 @@ begin
  PullTexts:=True
 end;
 
-(* The step with n1, n2 ... for its numbers.  "two numbers" is not a
-   number of the program, and "one" is also a pronoun. *)
+(* The step with n1, n2 ... for its numbers from 2 up.  "two numbers" is
+   not a number of the program, and "one" is also a pronoun. *)
 function PullNumbers(S:String):String;
 var R,W,Rest:String; V:Longint; Is:Boolean;
 begin
@@ -385,7 +386,8 @@ begin
  while S<>'' do begin
   W:=NextWord(S);
   Is:=Number(W,V);
-  if not Is then Is:=WordNumber(W,V) and (V>=2);
+  if not Is then Is:=WordNumber(W,V);
+  if V<2 then Is:=False;      (* 0 and 1 stay: programs are full of their own *)
   Rest:=S;
   if Is and (SlotN<MAXNUM) and (NextWord(Rest)<>'numbers') then begin
    Inc(SlotN); NumV[SlotN]:=V; W:='n'+Chr(48+SlotN)
@@ -486,8 +488,8 @@ end;
 (* One step of the request, as typed.  Force is the expert to ask, or 0
    to let the router choose. *)
 function AddStep(Raw:String; Force:Integer):Boolean;
-var S,A,Why,Why2,Up:String; Q:String[80]; Raw0:String[130]; Id,K,K2:Integer; Tokens:Longint;
- At:array[1..MAXDOUBT] of Integer;
+var S,A,Why,Why2,Up:String; Q:String[80]; S0,Raw0:String[130]; Id,K,K2:Integer; Tokens:Longint;
+ At:array[1..MAXDOUBT] of Integer; Sl,Again:Boolean;
 begin
  AddStep:=False; A:=''; SlotT:=0; SlotN:=0;
  while (Raw<>'') and (Raw[1]=' ') do Delete(Raw,1,1);
@@ -519,35 +521,55 @@ begin
  if (Id=0) and (Exact<>'') and (Copy(S,1,4)='say ') then Id:=XTEXT;      (* the interviewer's text *)
  if Id=0 then Id:=Expert(S);
  if Id=0 then begin Refuse(S,'not understood'); Exit end;
- if not Switch(Id) then Exit;
- (* Q is what the expert is asked; S, with every value in its place, is
-    what its line is checked against *)
- Q:=S;
- if Id=XTASKS then begin Q:=PullNumbers(S); S:=PutBack(S,True,False) end
- (* number words as digits, but not in a text to print *)
- else if DigitsOn and (Id<>XTEXT) and (Length(InDigits(S))<=72) then Q:=InDigits(S);
- GStep:=S; Guiding:=GuideOn;
- Cancelled:=False; Think(Q,A,Tokens,PollEscape,nil);
- if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
- Raw0:=A; A:=PutBack(A,True,True);
- if not Passes(S,A,Why) then begin
-  (* the first answer will not do: try the second choice at each of the
-     places where the expert was least sure, and take the first that will *)
-  for K:=1 to MAXDOUBT do begin At[K]:=Doubt[K].At end;
-  for K:=1 to MAXDOUBT do if At[K]>0 then begin
-   Up:=Raw0; ThinkAgain(Q,Up,At[K],PollEscape);
-   if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
-   Up:=PutBack(Up,True,True);
-   if (Up<>'') and Passes(S,Up,Why2) then begin
-    Guiding:=False;
-    LogLine('  first answer "'+A+'" ('+Why+')');
-    AddStep:=Accept(S,Up,' ','   (second choice)'); Exit
-   end
+ (* Two experts write small programs.  TASKS sees the request as it is and
+    is asked first.  SLOTS sees markers for the numbers and for texts in
+    quotes; it is asked when there is a text in quotes, which only it
+    understands, or when no line of the first one passes the checks, as
+    happens with numbers far from those it was trained on.  S0 is the
+    step as typed (with t1 ... for texts in quotes); Q is what the expert
+    is asked; S, with every value in its place, is what its line is
+    checked against. *)
+ S0:=S; Sl:=(Id=XTASKS) and (SlotT>0);
+ if Sl and (FindId(XSLOTS)=0) then begin Refuse(S,'a text in quotes here needs the slots expert'); Exit end;
+ repeat
+  Again:=False;
+  if Sl then begin
+   if not Switch(XSLOTS) then Exit;
+   Q:=PullNumbers(S0); S:=PutBack(S0,True,False)
+  end else begin
+   if not Switch(Id) then Exit;
+   Q:=S0; S:=S0;
+   (* number words as digits, but not in a text to print *)
+   if DigitsOn and (Id<>XTEXT) and (Id<>XTASKS) and (Length(InDigits(S))<=72) then Q:=InDigits(S)
   end;
-  Guiding:=False;
-  if A='' then Refuse(S,'nothing that would pass could be written') else Refuse(S,'refused "'+A+'" ('+Why+')');
-  Exit
- end;
+  GStep:=S; Guiding:=GuideOn;
+  Cancelled:=False; Think(Q,A,Tokens,PollEscape,nil);
+  if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
+  Raw0:=A; A:=PutBack(A,True,True);
+  if not Passes(S,A,Why) then begin
+   (* the first answer will not do: try the second choice at each of the
+      places where the expert was least sure, and take the first that will *)
+   for K:=1 to MAXDOUBT do begin At[K]:=Doubt[K].At end;
+   for K:=1 to MAXDOUBT do if At[K]>0 then begin
+    Up:=Raw0; ThinkAgain(Q,Up,At[K],PollEscape);
+    if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
+    Up:=PutBack(Up,True,True);
+    if (Up<>'') and Passes(S,Up,Why2) then begin
+     Guiding:=False;
+     LogLine('  first answer "'+A+'" ('+Why+')');
+     AddStep:=Accept(S,Up,' ','   (second choice)'); Exit
+    end
+   end;
+   Guiding:=False;
+   if (Id=XTASKS) and not Sl and (FindId(XSLOTS)<>0) then begin
+    LogLine('  tasks expert: "'+A+'" ('+Why+'); the slots expert is asked');
+    Sl:=True; Again:=True
+   end else begin
+    if A='' then Refuse(S,'nothing that would pass could be written') else Refuse(S,'refused "'+A+'" ('+Why+')');
+    Exit
+   end
+  end
+ until not Again;
  Guiding:=False;
  AddStep:=Accept(S,A,' ','')
 end;
