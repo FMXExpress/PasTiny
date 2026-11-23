@@ -1,0 +1,15 @@
+HOUSE2.COM under DOS, keys w x w c:
+  you stand in front of an old house
+  press d for the door or w for the window
+  you climb in through the window
+  there is a chest here
+  press c to open the chest
+  you leave the chest alone
+  nothing happens
+  you stand in front of an old house
+  press d for the door or w for the window
+  you climb in through the window
+  there is a chest here
+  press c to open the chest
+  the chest is full of gold
+  you win

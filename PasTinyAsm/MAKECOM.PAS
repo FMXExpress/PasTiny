@@ -41,7 +41,7 @@ program MakeCom;
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
  MAXSTEPS=40; MAXPEND=16;
- XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5;    (* catalog ids of the experts *)
+ XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5; XSLOTS=6;    (* catalog ids of the experts *)
 type TLine=String[80];      (* a line of the language; texts are 60 at most *)
 var
  Active:Integer; Interactive:Boolean;
@@ -205,13 +205,23 @@ end;
 
 (* A model can copy a number wrongly and still give a valid line.  So
    every number typed as digits in the step must be in the line. *)
+function WordNumber(W:String; var V:Longint):Boolean; forward;
+
+(* In a small program a number said as a word, two to twenty, has to be
+   in the line as well: "six rounds" must not become TIMES 4.  Not so in
+   a single call, where "two seconds" is 2000 and a text may say "two". *)
+var WordsCount:Boolean;
+
 function NumbersAgree(Step,L:String):Boolean;
 var W:String; V:Longint;
 begin
  NumbersAgree:=False;
  while Step<>'' do begin
   W:=NextWord(Step);
-  if Number(W,V) then if not LineHas(L,V) then Exit
+  if Number(W,V) then begin if not LineHas(L,V) then Exit end
+  (* "two numbers" asks for two, it is not a number of the program *)
+  else if WordsCount and WordNumber(W,V) and (V>=2) and (Copy(Step,1,7)<>'numbers') then
+   if not LineHas(L,V) then Exit
  end;
  NumbersAgree:=True
 end;
@@ -338,17 +348,168 @@ begin
  Passes:=True
 end;
 
+(* ------------------------------------------------------------ slots
+
+   The slots expert writes small programs as the tasks expert does, but
+   does not see the numbers of a request, nor a text that is in double
+   quotes.  They are swapped for markers before it is
+   asked (n1, n2 ... for the numbers in the order they come, t1 ... for
+   the texts) and put back into what it writes:
+
+      count from 3 to 17 and say "all done" at the end
+      count from n1 to n2 and say t1 at the end
+      FOR I=n1 TO n2:OUT I:NEXT:ECHO t1
+
+   So it never copies a number or a quoted text, and any number will do.
+   training/gen_tasks.py makes its markers by the same rule. *)
+
+const MAXNUM=6; MAXTXT=3;
+var SlotN,SlotT:Integer; NumV:array[1..MAXNUM] of Longint; TxtV:array[1..MAXTXT] of String[60];
+
+(* Take the quoted texts out of S, leaving t1, t2 ...  False: too many,
+   too long, or one that could not stand in a line of several statements. *)
+function PullTexts(var S:String):Boolean;
+var K,K2:Integer; T:String;
+begin
+ PullTexts:=False; SlotT:=0;
+ K:=Pos('"',S);
+ while K>0 do begin
+  T:=Copy(S,K+1,255); K2:=Pos('"',T);
+  if K2=0 then Exit;
+  T:=Copy(T,1,K2-1);
+  if (T='') or (Length(T)>60) or (Pos(':',T)>0) or (SlotT=MAXTXT) then Exit;
+  Inc(SlotT); TxtV[SlotT]:=T;
+  Delete(S,K,K2+1); Insert(' t'+Chr(48+SlotT)+' ',S,K);
+  K:=Pos('"',S)
+ end;
+ PullTexts:=True
+end;
+
+(* The step with n1, n2 ... for its numbers from 2 up.  "two numbers" is
+   not a number of the program, and "one" is also a pronoun. *)
+function PullNumbers(S:String):String;
+var R,W,Rest:String; V:Longint; Is:Boolean;
+begin
+ R:=''; SlotN:=0;
+ while S<>'' do begin
+  W:=NextWord(S);
+  Is:=Number(W,V);
+  if not Is then Is:=WordNumber(W,V);
+  if V<2 then Is:=False;      (* 0 and 1 stay: programs are full of their own *)
+  Rest:=S;
+  if Is and (SlotN<MAXNUM) and (NextWord(Rest)<>'numbers') then begin
+   Inc(SlotN); NumV[SlotN]:=V; W:='n'+Chr(48+SlotN)
+  end;
+  if R<>'' then R:=R+' ';
+  R:=R+W
+ end;
+ PullNumbers:=R
+end;
+
+(* The step with its number words, two to twenty, as digits.  The screen
+   and sound experts are asked this way: they copy digits better than they turn
+   "eighteen" into 18. *)
+function InDigits(S:String):String;
+var R,W:String; V:Longint;
+begin
+ R:='';
+ while S<>'' do begin
+  W:=NextWord(S);
+  if WordNumber(W,V) and (V>=2) then Str(V,W);
+  if R<>'' then R:=R+' ';
+  R:=R+W
+ end;
+ InDigits:=R
+end;
+
+(* Put the values back where the markers are.  A marker stands alone:
+   the letters before and after it are not letters or digits. *)
+function PutBack(A:String; Texts,Numbers:Boolean):String;
+var R,V:String; I,K:Integer; Alone:Boolean;
+begin
+ R:=''; I:=1;
+ while I<=Length(A) do begin
+  Alone:=(I<Length(A)) and (A[I] in ['n','t']) and (A[I+1] in ['1'..'9']) and
+   ((I=1) or not (A[I-1] in ['a'..'z','A'..'Z','0'..'9'])) and
+   ((I+2>Length(A)) or not (A[I+2] in ['a'..'z','A'..'Z','0'..'9']));
+  K:=0; if Alone then K:=Ord(A[I+1])-48;
+  if Alone and (A[I]='n') and Numbers and (K<=SlotN) then begin
+   Str(NumV[K],V); R:=R+V; Inc(I,2)
+  end
+  else if Alone and (A[I]='t') and Texts and (K<=SlotT) then begin R:=R+TxtV[K]; Inc(I,2) end
+  else begin R:=R+A[I]; Inc(I) end
+ end;
+ PutBack:=R
+end;
+
+(* ---------------------------------------------------- guided writing
+
+   An expert writes a line a letter at a time.  Before each letter is
+   added the program asks whether the line can still become one that
+   will be accepted, and if not the expert's next best letter is tried:
+
+   - the first word of a statement must be the beginning of a word of
+     the language;
+   - what PRINT and ECHO print must be the beginning of words of the
+     request, in their order (or a marker, or signs, or yes and no);
+   - a colon may only follow a whole statement.
+
+   The finished line still has to pass the checks. *)
+
+var GStep:String; KeyWords:String; Guiding,GuideOn,DigitsOn:Boolean;
+
+function Viable(var A:String; C:Char):Boolean; far;
+var P,W,T,Why:String; K,Delta:Integer;
+begin
+ Viable:=True;
+ if not Guiding then Exit;
+ Viable:=False;
+ (* The end is never held back.  A line that ends wrong is refused by the
+    checks and the second choices get their turn; made to go on instead,
+    an expert that wants to stop only rambles. *)
+ P:=A; K:=Length(P);
+ while (K>0) and (P[K]<>':') do Dec(K);
+ Delete(P,1,K);
+ (* ... except while a text the interviewer asked for is unfinished *)
+ if (Exact<>'') and (C in [#0,':']) and (Copy(P,1,6)='PRINT ') and (Copy(P,7,255)<>Exact) then Exit;
+ if C=#0 then begin Viable:=True; Exit end;
+ if C=':' then begin Viable:=(P<>'') and CheckPart(PutBack(P,True,True),Delta,Why); Exit end;
+ P:=P+C;
+ K:=Pos(' ',P);
+ if K=0 then begin Viable:=Pos(' '+P,KeyWords)>0; Exit end;
+ W:=Copy(P,1,K-1); T:=Copy(P,K+1,255);
+ if Pos(' '+W+' ',KeyWords)=0 then Exit;
+ if (W='PRINT') or (W='ECHO') then begin
+  if T='' then begin Viable:=True; Exit end;
+  (* the interviewer knows the words to print: only they will do *)
+  if Exact<>'' then begin Viable:=Pos(T,Exact)=1; Exit end;
+  if (T[1]='t') and ((Length(T)=1) or ((Length(T)=2) and (T[2] in ['1'..'9']) and (Ord(T[2])-48<=SlotT))) then
+   begin Viable:=True; Exit end;
+  if (Pos(T,'yes')=1) or (Pos(T,'no')=1) then begin Viable:=True; Exit end;
+  Viable:=True;
+  for K:=1 to Length(T) do if T[K] in ['a'..'z','A'..'Z','0'..'9'] then Viable:=False;
+  if Pos(' '+T,' '+GStep)>0 then Viable:=True
+ end
+ else Viable:=C in ['0'..'9','A'..'Z','a'..'z',' ','+','-','*','/','=','<','>',#39]
+end;
+
 (* One step of the request, as typed.  Force is the expert to ask, or 0
    to let the router choose. *)
 function AddStep(Raw:String; Force:Integer):Boolean;
-var S,A,Why,Why2,Up:String; Id,K,K2:Integer; Tokens:Longint; At:array[1..MAXDOUBT] of Integer;
+var S,A,Why,Why2,Up:String; Q:String[80]; S0,Raw0:String[130]; Id,K,K2:Integer; Tokens:Longint;
+ At:array[1..MAXDOUBT] of Integer; Sl,Again:Boolean;
 begin
- AddStep:=False; A:='';
+ AddStep:=False; A:=''; SlotT:=0; SlotN:=0;
  while (Raw<>'') and (Raw[1]=' ') do Delete(Raw,1,1);
  while (Raw<>'') and (Raw[Length(Raw)]=' ') do Delete(Raw,Length(Raw),1);
  Up:=Raw; for K:=1 to Length(Up) do Up[K]:=UpCase(Up[K]);
  K:=Pos('"',Raw);
- if K>0 then begin
+ if (K>0) and (Force=XTASKS) then begin
+  (* a text in quotes inside a small program: the expert sees a marker *)
+  if not PullTexts(Raw) then begin Refuse(Tidy(Raw),'the text in quotes cannot be used here'); Exit end;
+  Up:=Raw; for K:=1 to Length(Up) do Up[K]:=UpCase(Up[K])
+ end
+ else if K>0 then begin
   (* quoted text is printed exactly as typed *)
   A:=Copy(Raw,K+1,255); K2:=Pos('"',A); if K2>0 then A:=Copy(A,1,K2-1);
   S:=Tidy(Copy(Raw,1,K-1))+' "'+A+'"';
@@ -364,25 +525,60 @@ begin
   A:=Raw; if (Pos('PRINT',Up)=0) and (Pos('ECHO',Up)=0) then A:=CodeCase(Raw);
   AddStep:=Accept(Raw,A,' ','   (no model)'); Exit
  end;
- Id:=Force; if Id=0 then Id:=Expert(S);
+ Id:=Force;
+ if (Id=0) and (Exact<>'') and (Copy(S,1,4)='say ') then Id:=XTEXT;      (* the interviewer's text *)
+ if Id=0 then Id:=Expert(S);
  if Id=0 then begin Refuse(S,'not understood'); Exit end;
- if not Switch(Id) then Exit;
- Cancelled:=False; Think(S,A,Tokens,PollEscape,nil);
- if Cancelled then begin WriteLn('cancelled'); Exit end;
- if not Passes(S,A,Why) then begin
-  (* the first answer will not do: try the second choice at each of the
-     places where the expert was least sure, and take the first that will *)
-  for K:=1 to MAXDOUBT do begin At[K]:=Doubt[K].At end;
-  for K:=1 to MAXDOUBT do if At[K]>0 then begin
-   Up:=A; ThinkAgain(S,Up,At[K],PollEscape);
-   if Cancelled then begin WriteLn('cancelled'); Exit end;
-   if (Up<>'') and Passes(S,Up,Why2) then begin
-    LogLine('  first answer "'+A+'" ('+Why+')');
-    AddStep:=Accept(S,Up,' ','   (second choice)'); Exit
-   end
+ (* Two experts write small programs.  TASKS sees the request as it is and
+    is asked first.  SLOTS sees markers for the numbers and for texts in
+    quotes; it is asked when there is a text in quotes, which only it
+    understands, or when no line of the first one passes the checks, as
+    happens with numbers far from those it was trained on.  S0 is the
+    step as typed (with t1 ... for texts in quotes); Q is what the expert
+    is asked; S, with every value in its place, is what its line is
+    checked against. *)
+ S0:=S; Sl:=(Id=XTASKS) and (SlotT>0);
+ if Sl and (FindId(XSLOTS)=0) then begin Refuse(S,'a text in quotes here needs the slots expert'); Exit end;
+ repeat
+  Again:=False;
+  if Sl then begin
+   if not Switch(XSLOTS) then Exit;
+   Q:=PullNumbers(S0); S:=PutBack(S0,True,False)
+  end else begin
+   if not Switch(Id) then Exit;
+   Q:=S0; S:=S0;
+   (* number words as digits, but not in a text to print *)
+   if DigitsOn and (Id<>XTEXT) and (Id<>XTASKS) and (Length(InDigits(S))<=72) then Q:=InDigits(S)
   end;
-  Refuse(S,'refused "'+A+'" ('+Why+')'); Exit
- end;
+  GStep:=S; Guiding:=GuideOn; WordsCount:=Id=XTASKS;
+  Cancelled:=False; Think(Q,A,Tokens,PollEscape,nil);
+  if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
+  Raw0:=A; A:=PutBack(A,True,True);
+  if not Passes(S,A,Why) then begin
+   (* the first answer will not do: try the second choice at each of the
+      places where the expert was least sure, and take the first that will *)
+   for K:=1 to MAXDOUBT do begin At[K]:=Doubt[K].At end;
+   for K:=1 to MAXDOUBT do if At[K]>0 then begin
+    Up:=Raw0; ThinkAgain(Q,Up,At[K],PollEscape);
+    if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
+    Up:=PutBack(Up,True,True);
+    if (Up<>'') and Passes(S,Up,Why2) then begin
+     Guiding:=False;
+     LogLine('  first answer "'+A+'" ('+Why+')');
+     AddStep:=Accept(S,Up,' ','   (second choice)'); Exit
+    end
+   end;
+   Guiding:=False;
+   if (Id=XTASKS) and not Sl and (FindId(XSLOTS)<>0) then begin
+    LogLine('  tasks expert: "'+A+'" ('+Why+'); the slots expert is asked');
+    Sl:=True; Again:=True
+   end else begin
+    if A='' then Refuse(S,'nothing that would pass could be written') else Refuse(S,'refused "'+A+'" ('+Why+')');
+    Exit
+   end
+  end
+ until not Again;
+ Guiding:=False;
  AddStep:=Accept(S,A,' ','')
 end;
 
@@ -628,10 +824,17 @@ begin
    end;
    Sentence:=Ok
   end
-  else if Pos('"',P)>0 then Sentence:=SplitSteps(P)
+  else if Pos('"',P)>0 then begin
+   (* text in quotes inside a small program goes to the tasks expert as a
+      marker; by itself it is printed as typed *)
+   U:=P;
+   if PullTexts(U) and IsTask(Tidy(U)) then Sentence:=AddStep(P,XTASKS) else Sentence:=SplitSteps(P)
+  end
   else if Special(Tidy(P),Ok) then Sentence:=Ok
-  else if IsRecipe(Tidy(P)) then Sentence:=Expand(P)
-  else if IsTask(Tidy(P)) then Sentence:=AddStep(P,XTASKS)
+  (* a reply the interviewer knows to be text is not a recipe or a task,
+     whatever words are in it *)
+  else if (Exact='') and IsRecipe(Tidy(P)) then Sentence:=Expand(P)
+  else if (Exact='') and IsTask(Tidy(P)) then Sentence:=AddStep(P,XTASKS)
   else Sentence:=SplitSteps(P)
  end
 end;
@@ -1158,8 +1361,14 @@ begin
   if AskKind='' then begin WriteLn('ASK.SCR is missing or has no questions'); StartAsking:=True; Exit end
  end
  else if (F='make') or (F='build') or (F='write') or (F='create') then begin
-  AskKind:=FindKind(T);
-  if (T='') or (AskKind='') then Exit
+  (* "make an adventure", "write a menu program": the article, the kind
+     and no more.  "write the words old story" is text to print. *)
+  F:=NextWord(T);
+  if (F<>'a') and (F<>'an') then Exit;
+  F:=NextWord(T);
+  if (F='') or (Pos(' ',F)>0) or ((T<>'') and (T<>'game') and (T<>'program')) then Exit;
+  AskKind:=FindKind(F);
+  if AskKind='' then Exit
  end
  else Exit;
  StartAsking:=True; LogLine('> '+L);
@@ -1218,6 +1427,11 @@ begin
   (* LOAD name: take up the program kept in name.SRC *)
   LogLine('> '+L);
   Changed:=LoadSource(Rest)
+ end
+ else if (Cmd='GUIDE') and ((Tidy(Rest)='on') or (Tidy(Rest)='off')) then begin
+  GuideOn:=Tidy(Rest)='on'; DigitsOn:=GuideOn;
+  if GuideOn then WriteLn('the experts are guided as they write') else WriteLn('the experts write unguided');
+  Exit
  end
  else if (Cmd='SAVE') and (Rest='') then begin Save; Exit end
  else if (Cmd='SHOW') and (Rest='') then begin Outline; Exit end
@@ -1515,7 +1729,10 @@ begin
 end;
 
 begin
- Interactive:=ConsoleIO; Active:=0; Asking:=False; Exact:=''; OutName:='OUT'; Steps:=0; Cur:=1;
+ Interactive:=ConsoleIO; Active:=0; Guiding:=False; GuideOn:=True; DigitsOn:=True; WordsCount:=False; Guide:=Viable;
+ KeyWords:=' OUT ECHO LET INPUT FOR NEXT TIMES END FOREVER IF ELSE STOP NL REPEAT ';
+ for Steps:=1 to LIBCOUNT do KeyWords:=KeyWords+Lib[Steps].Name+' ';
+ Asking:=False; Exact:=''; OutName:='OUT'; Steps:=0; Cur:=1;
  XmsOn:=XmsPresent; FromMem:=0; FromDisk:=0; MemMs:=0; DiskMs:=0; KeepMs:=0;
  for Steps:=1 to MAXITEMS do begin Kept[Steps]:=0; Tried[Steps]:=False end;
  Steps:=0;

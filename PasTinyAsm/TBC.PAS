@@ -42,7 +42,7 @@ unit TBC;
    Layout of the .COM file: a jump over 26 variable words, the main part,
    the library routines that were used, then the texts. *)
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
-{$IFDEF VER70}{$F+}{$ENDIF}
+{$IFDEF VER70}{$F+}{$S-}{$ENDIF}
 interface
 type TCall=record Name:String[7]; Kind:Byte; Lo1,Hi1,Lo2,Hi2,Ofs,Len:Word end;
 {$I LIB.INC}

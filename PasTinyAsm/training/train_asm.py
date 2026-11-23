@@ -3,7 +3,7 @@
 
   python3 train_asm.py EXPERT START.BIN OUT.BIN [STEPS]
 
-EXPERT is screen, sound, text, tasks or recipes (THREADS=n in the environment uses n cores).  Needs PyTorch and the loader in
+EXPERT is screen, sound, text, tasks, slots or recipes (THREADS=n in the environment uses n cores).  Needs PyTorch and the loader in
 ../../PasTinyJev/training.  Prints exact answers on 300 fresh steps in trained
 wordings and 300 in wordings never trained on, scored in floating point; the
 real score comes from running OUT.BIN in the 8-bit runtime (tests/test_asm.py).
@@ -41,10 +41,12 @@ opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=0.0)
 sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / 200) * (0.1 if s > steps * 0.8 else 1.0))
 r = random.Random(11)
 tests = random.Random(5)
-if expert == 'tasks':                 # whole small programs; "held" = held-out combinations of trained parts
-    draw = lambda rr: gen_tasks.make(rr, 'seen')
-    seen = [gen_tasks.make(tests, 'seen') for _ in range(300)]
-    held = [gen_tasks.make(tests, 'combo') for _ in range(300)]
+if expert in ('tasks', 'slots'):      # whole small programs; "held" = held-out combinations of trained parts
+    # the slots expert sees markers in place of numbers and quoted texts (see gen_tasks.py)
+    sl = expert == 'slots'
+    draw = lambda rr: gen_tasks.make(rr, 'seen', sl)
+    seen = [gen_tasks.make(tests, 'seen', sl) for _ in range(300)]
+    held = [gen_tasks.make(tests, 'combo', sl) for _ in range(300)]
 elif expert == 'recipes':             # one step of a recipe per question; "held" = held-out (recipe, change) pairs
     draw = lambda rr: gen_recipes.make(rr, 'seen')
     seen = [gen_recipes.make(tests, 'seen') for _ in range(300)]

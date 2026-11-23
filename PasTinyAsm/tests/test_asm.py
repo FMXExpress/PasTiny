@@ -21,7 +21,7 @@ sys.path.insert(0, str(root / 'tools')); sys.path.insert(0, str(root / 'training
 import buildlib, gen_asm, gen_recipes, gen_tasks
 
 exe = Path(sys.argv[1]).resolve()
-FILES = ['EXPERTS.CAT', 'SCREEN.BIN', 'SOUND.BIN', 'TEXT.BIN', 'TASKS.BIN', 'RECIPES.BIN']
+FILES = ['EXPERTS.CAT', 'SCREEN.BIN', 'SOUND.BIN', 'TEXT.BIN', 'TASKS.BIN', 'RECIPES.BIN', 'SLOTS.BIN']
 
 
 def run(dest, lines):
@@ -118,7 +118,7 @@ with tempfile.TemporaryDirectory() as tmp:
     if not models:                       # any valid model will do: no step reaches it
         import struct, zlib
         tiny = (root.parent / 'PasTinyMoE/TINY.BIN').read_bytes()
-        cat = bytearray(b'PEC1\x05')
+        cat = bytearray(b'PEC1' + bytes([len(FILES) - 1]))
         for i, name in enumerate(FILES[1:], 1):
             (dest / name).write_bytes(tiny)
             f = lambda v, w: bytes([len(v)]) + v.encode().ljust(w, b'\0')
@@ -164,7 +164,11 @@ with tempfile.TemporaryDirectory() as tmp:
     assert 'What does the menu show?' in out and 'No more questions.' in out and '  2   CLS' in out, out
     # "ask for a number ..." is a request, not the ASK command.
     out = run(dest, ['ask for a number and print its double', 'INPUT A', 'show'])
-    assert 'questions' not in out and 'What does' not in out and '  1 INPUT A' in out, out
+    assert 'questions' not in out and 'What does' not in out and ' INPUT A\n' in out, out
+    out = run(dest, ['write the words old story', 'make a game of it please', 'print the story', 'INPUT A', 'show'])
+    assert 'What does' not in out and ' INPUT A\n' in out, out
+    out = run(dest, ['write a story program', 'cancel'])
+    assert 'What does the player see first?' in out, out
     print('Interview: an adventure is built from replies to questions alone, and matches NASM.')
     for script, want in EDITS:
         out = run(dest, script + ['show'])
@@ -237,6 +241,12 @@ with tempfile.TemporaryDirectory() as tmp:
         for req in REFUSED:
             out = run(dest, ['name bad', req])
             assert 'nothing added' in out and not (dest / 'BAD.COM').exists(), (req, out)
+        # Slots: a number far from the trained ones and a text in quotes inside a small program.
+        out = run(dest, ['count from 250 to 4000 and beep each time', 'print "well done you" 7 times', 'show'])
+        assert '  1 FOR I=250 TO 4000:OUT I:BEEP:NEXT' in out and '  2 TIMES 7:ECHO well done you:END' in out, out
+        # Guided writing: a long text given to the interviewer is printed whole.
+        out = run(dest, ['make an adventure', 'press d for the door or w for the window', 'cancel', 'show'])
+        assert '  2   PRINT press d for the door or w for the window' in out and 'could not' not in out, out
         print('Plans: %d requests give the expected calls; %d bad requests write nothing.' % (len(PLANS), len(REFUSED)))
         sets = [('trained wordings', lambda e: None),
                 ('first held-out set (now trained)', lambda e: gen_asm.V1HELD[e]),
@@ -262,7 +272,8 @@ with tempfile.TemporaryDirectory() as tmp:
         # The tasks expert writes whole small programs.  "combinations" are parts it
         # was trained on, put together in ways that were held out of training.
         for label, split in (('trained shapes and combinations', 'seen'), ('held-out combinations', 'combo'),
-                             ('first held-out wordings (now trained)', 'words1'), ('new wordings', 'words')):
+                             ('first held-out wordings (now trained)', 'words1'), ('new wordings', 'words'),
+                             ('numbers far outside training', 'far'), ('texts of several words in quotes', 'quoted')):
             r = random.Random(7)
             pairs = [gen_tasks.make(r, split) for _ in range(300)]
             lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()
