@@ -16,7 +16,7 @@ Build with `TPC /B GO9.PAS`. The 81-point board and group traversal use Pascal a
 
 ## Go compiled by PasTinyAsm
 
-[Download PASGO.ZIP](../dist/PASGO.ZIP) for the XMS editor build, editable GOGAME.SRC and ready-to-play GOGAME.COM. Run GOGAME and enter the row and column as two digits. For example, 43 plays row 4, column 3. Enter 0 to pass and 100 to quit. Two passes score the final board by area with 6.5 komi for White. Play out disputed dead groups before passing.
+[Download PASASM.ZIP](../dist/PASASM.ZIP) for the default XMS editor build, editable GOGAME.SRC and ready-to-play GOGAME.COM. Run GOGAME and enter the row and column as two digits. For example, 43 plays row 4, column 3. Enter 0 to pass and 100 to quit. Two passes score the final board by area with 6.5 komi for White. Play out disputed dead groups before passing.
 
 In the bundled MAKECOM, type `LOAD GOGAME` to compile the 158-line editor program. It builds a standalone 6,697-byte COM. The board, group traversal, captures, suicide check, immediate ko, turn logic and scoring are written in the editor language. The game takes no model or XMS driver to play.
 

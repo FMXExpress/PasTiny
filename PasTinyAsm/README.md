@@ -10,7 +10,7 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 ## XMS streaming edition
 
-[Download PASXMS.ZIP](dist/PASXMS.ZIP) for the projection-streaming editor. Extract into a separate DOS directory and run MAKECOM with HIMEM.SYS or another XMS driver loaded. The editor streams the original 8-bit experts from extended memory. `MEM` reported 329,928 bytes of free conventional heap in DOSBox-X, including after switching experts, compiling and running a child program. Use the standard PASASM.ZIP edition on systems without XMS. [Benchmark and build instructions](experiments/xms/README.md)
+[Download PASASM.ZIP](dist/PASASM.ZIP) for the default extended editor. Load HIMEM.SYS or another XMS driver before running MAKECOM. It streams the six original 8-bit experts by projection and supports 180 source lines, a 14,000-byte output buffer, and indexed storage with GET and PUT. The archive includes the editable Go example and its compiled game. Use [PASRES.ZIP](dist/PASRES.ZIP) for the 40-line resident editor on systems without XMS. [Streaming benchmark](experiments/xms/README.md)
 
 ## Exact text arguments
 
@@ -271,7 +271,7 @@ New wordings rose from 298 to 300 because the number check now also reads number
 
 **Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
 
-**The program as text.** Beside `NAME.COM` and `NAME.ASM`, every change also writes `NAME.SRC`: the program's lines as the editor shows them, one to a line. `LOAD name` in the editor or a script, or `MAKECOM name.SRC` at the DOS prompt, takes such a file up again, so quitting no longer loses the editable form. It is plain text and can be written in any editor. Its lines are code and are not put to the experts; a file with a line that is not code, a block left open, or more than 40 lines is refused and the program in hand is kept.
+**The program as text.** Beside `NAME.COM` and `NAME.ASM`, every change also writes `NAME.SRC`: the program's lines as the editor shows them, one to a line. `LOAD name` in the editor or a script, or `MAKECOM name.SRC` at the DOS prompt, takes such a file up again, so quitting no longer loses the editable form. It is plain text and can be written in any editor. Its lines are code and are not put to the experts; a file with a line that is not code, a block left open, or more than the editor’s line limit is refused and the program in hand is kept.
 
 **As Turbo Pascal or QBasic.** `EXPORT name PAS` and `EXPORT name BAS` turn `name.SRC` into a Turbo Pascal or a QBasic program by fixed rules; no model takes part. It is a separate small program (`bin/EXPORT.EXE`, 20 KB), so it costs MAKECOM no memory.
 
@@ -393,7 +393,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
-- A step holds 72 characters, a line 80, a text 60, and a program 40 lines, 3,072 bytes and 24 texts. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
+- A step holds 72 characters, a line 80, a text 60, and a program 180 lines, 14,000 bytes and 48 texts in the default XMS build. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
 - In a single call the numbers check only looks at numbers typed as digits: "beep for five seconds" is not checked against the 5. In a small program number words from two to twenty are checked too.
 - The package no longer fits one floppy: with six experts and the exporter it unpacks to 2,409,101 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The slots expert was trained once more after the table above was begun (10,000 steps, 0 and 1 no longer slotted) and that second run was only measured together with the tasks expert, not alone.
@@ -416,7 +416,7 @@ python3 tools/buildlib.py                     LIB.ASM -> LIB.INC (needs NASM)
 fpc -Mtp -B MAKECOM.PAS                       host build for testing
 python3 tests/test_asm.py ./MAKECOM           compiler against NASM
 python3 tests/test_asm.py ./MAKECOM --models  plans, refusals and expert scores
-TPC /B MAKECOM.PAS                            the DOS program (BUILD.BAT)
+TPC /B /DXMSSTREAM;GAMEARRAY MAKECOM.PAS      the default DOS editor (BUILD.BAT)
 TPC /B EXPORT.PAS                             the exporter
 ```
 
