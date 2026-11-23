@@ -1431,6 +1431,50 @@ begin
  Save
 end;
 
+{$IFDEF GAMERULES}
+(* The rule expert chooses an ID. The editor expands it using the
+   documented shared board-program variable convention. *)
+procedure InsertRule(Request:String);
+var Choice, Source, WordText, Rest, CountText:String;
+    Tokens, Value, PassCount:Longint;
+    CountValues:Integer;
+begin
+ Request:=Tidy(Request);
+ if (Request='') or (Length(Request)>72) then begin
+  WriteLn('Describe one chess or Go rule, up to 72 characters.'); Exit
+ end;
+ if not Switch(7) then Exit;
+ Guiding:=False; Cancelled:=False;
+ Think(Request,Choice,Tokens,PollEscape,nil);
+ if Cancelled then Exit;
+ Source:='';
+ if FirstWord(Request)='chess' then begin
+  if (Choice='A') and HasWord(Request,'knight') then Source:='IF I*J=2:LET K=1:END';
+  if (Choice='B') and (HasWord(Request,'king') or HasWord(Request,'kings')) then
+   Source:='IF I<2:IF J<2:LET K=1:END:END';
+  if (Choice='C') and HasWord(Request,'bishop') then Source:='IF I=J:LET K=1:END';
+  if (Choice='D') and HasWord(Request,'rook') then Source:='IF I*J=0:LET K=1:END'
+ end else if FirstWord(Request)='go' then begin
+  if (Choice='E') and (HasWord(Request,'pass') or HasWord(Request,'passes')) then begin
+   Rest:=Request; CountValues:=0; PassCount:=0;
+   while Rest<>'' do begin
+    WordText:=NextWord(Rest);
+    if WordNumber(WordText,Value) then begin Inc(CountValues); PassCount:=Value end
+   end;
+   if (CountValues=1) and (PassCount>0) and (PassCount<=65535) then begin
+    Str(PassCount,CountText); Source:='IF F='+CountText+':STOP:END'
+   end
+  end;
+  if (Choice='F') and (HasWord(Request,'player') or HasWord(Request,'side')) then Source:='LET P=3-P';
+  if (Choice='G') and HasWord(Request,'liberties') then Source:='IF E=0:PUT A 0:END';
+  if (Choice='H') and HasWord(Request,'current') then Source:='PUT A P'
+ end;
+ LogLine('RULE '+Request+' -> '+Choice);
+ if Source='' then begin WriteLn('Rule unclear. Describe one supported rule.'); Exit end;
+ if MakePlan(Source) then Save else WriteLn('Rule did not fit the program.')
+end;
+{$ENDIF}
+
 procedure Handle(L:String);
 var Cmd,Rest,W:String; I:Integer; V:Longint; Changed:Boolean;
 begin
@@ -1452,6 +1496,9 @@ begin
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
  while (Rest<>'') and (Rest[Length(Rest)]=' ') do Delete(Rest,Length(Rest),1);
  V:=0;
+ {$IFDEF GAMERULES}
+ if Cmd='RULE' then begin InsertRule(Rest); Exit end;
+ {$ENDIF}
  if (Cmd='LIST') and (Rest='') then begin
   for I:=1 to LIBCOUNT do if Lib[I].Kind<4 then begin
    Write(Lib[I].Name);
