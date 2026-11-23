@@ -23,3 +23,13 @@ In the bundled MAKECOM, type `LOAD GOGAME` to compile the 158-line editor progra
 Build the editor with `TPC /B /DXMSSTREAM;GAMEARRAY MAKECOM.PAS`. This build adds space for 180 source lines and a 1,024-word array in each generated program. `GET variable index` reads a word. `PUT index expression` writes one. Literal indices must be in 0–1023. Calculated indices wrap modulo 1,024. The board program uses disjoint sections for the board, the rollback snapshot, the ko snapshot, visited flags and the traversal queue. The standard Turbo Pascal and QBasic exporters do not support these array statements.
 
 DOSBox-X tests covered capture, immediate ko, occupied-point and suicide rejection, quitting and area scoring after two passes. The XMS editor had 301,160 bytes free after compiling the program.
+
+## Chess compiled by PasTinyAsm
+
+Run CHESS.COM for a local two-player chess prototype. Enter the source square, then the destination square. Each square is two digits in row-column order. For example, 25 followed by 45 plays e2–e4. Enter 0 at the source prompt to quit.
+
+The 98-line CHESS.SRC implements ordinary piece moves, captures, blocked paths, turn handling, rejection of self-check and automatic queen promotion. The game does not implement castling, en passant, underpromotion, or automatic checkmate, stalemate and draw adjudication.
+
+To reproduce the packaged COM, type `LOAD CHESS`, `TOP`, then `say welcome to chess` in the bundled MAKECOM. The last request uses the Text expert, whose generated PRINT instruction becomes the introductory line. The rules were written by hand in PasTinyAsm. The shipped editor refused the one-shot request “make a two player chess game”.
+
+DOSBox-X verified legal moves, a capture, rejection of a blocked rook, and rejection of a move that leaves the king in check.

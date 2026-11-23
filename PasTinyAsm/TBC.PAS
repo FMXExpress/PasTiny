@@ -74,7 +74,7 @@ function FindCall(S:String):Integer;
 implementation
 const
  {$IFDEF GAMEARRAY}MAXLAB=620; MAXFIX=1000; MAXTEXT=48;{$ELSE}MAXLAB=220; MAXFIX=300; MAXTEXT=24;{$ENDIF}
- MAXDEPTH=12;
+ {$IFDEF GAMEARRAY}MAXDEPTH=20;{$ELSE}MAXDEPTH=12;{$ENDIF}
 type TBlock=record Kind:Char; L1,L2,V:Integer end;
  TFix=record Pos:Word; Kind:Byte; Id:Integer end;
  TFixes=array[1..MAXFIX] of TFix;
