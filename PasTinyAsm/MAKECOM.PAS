@@ -442,6 +442,8 @@ begin
  PutBack:=R
 end;
 
+{$I SOUNDLKP.INC}
+
 (* ---------------------------------------------------- guided writing
 
    An expert writes a line a letter at a time.  Before each letter is
@@ -537,6 +539,13 @@ begin
     step as typed (with t1 ... for texts in quotes); Q is what the expert
     is asked; S, with every value in its place, is what its line is
     checked against. *)
+ if Id=XSOUND then begin
+  WordsCount:=True; A:='';
+  if SoundLookup(S,A) then if Passes(S,A,Why) then begin
+   AddStep:=Accept(S,A,' ',''); Exit
+  end;
+  SlotN:=0
+ end;
  S0:=S; Sl:=(Id=XTASKS) and (SlotT>0);
  if Sl and (FindId(XSLOTS)=0) then begin Refuse(S,'a text in quotes here needs the slots expert'); Exit end;
  repeat
@@ -1115,21 +1124,25 @@ begin
  if (R.Flags and 1)<>0 then begin WriteLn('cannot get the memory back; MAKECOM must end'); Halt(2) end
 end;
 
-function RunProgram:Boolean;
+function RunChild(Name,Args:String):Boolean;
 var Err:Integer;
 begin
- RunProgram:=False;
- if Steps=0 then begin WriteLn('empty program'); Exit end;
- if not Build('') then begin WriteLn('cannot compile: ',CompErr); Exit end;
  ReleaseMemory; Active:=0;
  Resize(HeapPtr);
- SwapVectors; Exec(FExpand(OutName+'.COM'),''); SwapVectors;
+ SwapVectors; Exec(FExpand(Name),Args); SwapVectors;
  Err:=DosError;
  Resize(HeapEnd);
  if not Switch(XSCREEN) then Halt(2);
  AllocMemory;
- if Err<>0 then WriteLn('could not run ',OutName,'.COM (DOS error ',Err,')')
- else begin WriteLn('ran ',OutName,'.COM'); RunProgram:=True end
+ RunChild:=Err=0;
+ if Err<>0 then WriteLn('could not run ',Name,' (DOS error ',Err,')')
+end;
+function RunProgram:Boolean;
+begin
+ RunProgram:=False;
+ if Steps=0 then begin WriteLn('empty program'); Exit end;
+ if not Build('') then begin WriteLn('cannot compile: ',CompErr); Exit end;
+ if RunChild(OutName+'.COM','') then begin WriteLn('ran ',OutName,'.COM'); RunProgram:=True end
 end;
 {$ENDIF}
 
@@ -1382,6 +1395,18 @@ procedure Handle(L:String);
 var Cmd,Rest,W:String; I:Integer; V:Longint; Changed:Boolean;
 begin
  if Asking then begin Answer(L); Exit end;
+ Rest:=L; Cmd:=NextWord(Rest);
+ if ((Tidy(L)='ask world') or ((Tidy(Cmd)='world') and (Rest<>''))) then begin
+  {$IFDEF VER70}
+  if (Tidy(Cmd)='world') or Interactive then begin
+   if Tidy(Cmd)<>'world' then Rest:='';
+   if Interactive then begin TextAttr:=7; Window(1,1,80,25); ClrScr; GotoXY(1,1); Flush end;
+   if RunChild('WORLDGEN.EXE',Rest) then WriteLn('world interview ended')
+  end else
+  {$ENDIF}
+  WriteLn('Use WORLDGEN or WORLD file in DOS.');
+  Exit
+ end;
  if StartAsking(L) then Exit;
  Rest:=L; Cmd:=NextWord(Rest); Changed:=False;
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);

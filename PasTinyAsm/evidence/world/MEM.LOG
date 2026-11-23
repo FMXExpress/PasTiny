@@ -1,0 +1,26 @@
+PasTinyAsm 1.2  FPU yes
+heap=487912
+extended memory: 14912 KB free, experts will be kept there
+> xms off
+experts are read from disk
+> play a siren
+1 play a siren -> SIREN 2
+wrote OUT.COM 137 bytes, OUT.ASM
+> mem
+heap=1208 largest=1208 stack=17640
+experts loaded: 1 times from extended memory (646 ms), 0 times from disk (0 ms)
+extended memory is switched off (XMS ON)
+World builder. Players type east, west, look, take lamp, inventory or quit.
+New game filename (1-8 letters or digits, no extension)? How many rooms? Room 1 of 2 (room 1 is the start).
+Description (1-60 characters, no dollar sign)? East exit (room number, 0 for none)? West exit (room number, 0 for none)? Room 2 of 2 (room 1 is the start).
+Description (1-60 characters, no dollar sign)? East exit (room number, 0 for none)? West exit (room number, 0 for none)? Which room contains the lamp? Wrote MYGAME.COM. Run it at the DOS prompt.
+> world TWO.IN
+world interview ended
+> beep at 880 hertz
+2 beep at 880 hertz -> BEEP 880 300
+wrote OUT.COM 205 bytes, OUT.ASM
+> mem
+heap=1208 largest=1208 stack=17640
+experts loaded: 1 times from extended memory (646 ms), 1 times from disk (172 ms)
+extended memory is switched off (XMS ON)
+> quit

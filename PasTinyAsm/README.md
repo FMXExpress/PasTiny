@@ -8,6 +8,18 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 ![The same program run with F5](docs/editor-run.png)
 
+## Room games and sound lookup
+
+Type **ASK WORLD** in the DOS editor to build a standalone adventure. Name up to 120 rooms, connect their east and west exits by room number (0 means no exit), and choose where the lamp starts. Run the resulting `.COM` from DOS. The player can type `east`, `west`, `look`, `take lamp`, `inventory` and `quit`. The earlier key-tree interview remains available with `ASK adventure`.
+
+For a scripted world, use `WORLD answers.in` in MAKECOM or `WORLDGEN answers.in` from DOS. Put each reply on its own line: new filename without extension, room count, then description, east exit and west exit for each room, then the lamp room. Keep `WORLDGEN.EXE` and `WORLD.DAT` next to MAKECOM. The builder runs as a separate process while MAKECOM releases the resident model and restores it afterward.
+
+Sound requests now try a disk-based example lookup before loading the sound expert. The lookup substitutes the requested quantities, converts seconds to milliseconds, and passes a candidate through the compiler and meaning checks. A missing table, low similarity, conflicting best matches or a rejected candidate sends the request through the existing neural path. On 300 held-out sound requests (generator seed 935), the merged slots editor scored **263/300** exact before lookup and **292/300** with it, with 29 misses recovered and no previously exact answers lost.
+
+In DOSBox-X the previous TP7 build reported **648 bytes** of free conventional heap with a model resident. The new build reported **1,208 bytes**, also the largest free block, before and after a world-building subprocess with XMS caching switched off. The 24,510-byte sound map is read twelve records at a time on the stack. The loader reuses inference scratch memory, and attention projections with disjoint lifetimes share storage. A generated 50-room game occupied **1,046 bytes** and retained the lamp through travel to room 50. These measurements are from the emulator.
+
+To regenerate the data assets, run `python3 tools/soundmap.py` and `python3 tools/worldcore.py` from PasTinyAsm. The latter uses GNU as and ld. BUILD.BAT builds the editor, exporter and world builder with TP7.
+
 ## In pictures
 
 All of these are the Turbo Pascal 7 build running under DOS (DOSBox-X); see Limits for how they were captured.
@@ -378,7 +390,7 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Markers are `n1` to `n6` and `t1` to `t3`: a request has at most six numbers from 2 up and three quoted texts, and a quoted text inside a task cannot hold a colon.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 648 bytes of heap remain with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 1,208 bytes of heap remain with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.

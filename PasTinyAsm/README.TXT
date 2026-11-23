@@ -69,6 +69,11 @@ asked to say it another way; Enter alone prints it as typed.
 CANCEL ends the questions.  They are in ASK.SCR: change them, or
 add a kind of program of your own.
 
+ASK WORLD opens the room-game builder in DOS. Enter a new game name,
+room descriptions, east/west exits and the room holding the lamp.
+WORLD file reads the same replies from a file. Run the new COM at DOS.
+Keep WORLDGEN.EXE, WORLD.DAT and SOUND.MAP beside MAKECOM.EXE.
+
 MAKECOM file starts with the lines of a file already entered.
 MAKECOM < file runs without the editor (UP DOWN TAB GO n DEL n SHOW).
 

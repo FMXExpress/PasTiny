@@ -17,6 +17,7 @@ help F5 (RUN in a script) runs the program and comes back.  MEM, XMS ON/OFF.
 help The program is also kept as text in NAME.SRC; LOAD name takes one up.
 help In a script: UP DOWN TOP BOTTOM TAB BACK GO n DEL n EDIT n text SHOW.
 help "make an adventure" (or ASK) asks you questions and builds from the answers.
+help ASK WORLD builds a room-and-inventory game. WORLD file reads its answers.
 list OUT n   ECHO text   LET v=n   INPUT v   STOP
 list FOR v=n TO n ... NEXT   FOR v=n DOWNTO n ... NEXT
 list TIMES n ... END   FOREVER ... END   IF n<n ... ELSE ... END   REPEAT n

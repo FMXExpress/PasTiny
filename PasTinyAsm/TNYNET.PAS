@@ -73,8 +73,9 @@ begin
  GetMem(P,N); Memory:=P
 end;
 const BufSize=512;       (* PasTinyAsm: half a KB, not 4 KB; the program needs the room *)
-var Buffer:array[0..BufSize-1] of Byte;
- Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint;
+(* Loading and inference never overlap. Reuse their fixed scratch buffers. *)
+var Buffer:array[0..BufSize-1] of Byte absolute Xq;
+ Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint absolute Bm;
  XPos:Longint;      (* how far into the XMS block the reading has got *)
  Reserved:Boolean;
 procedure ReserveTable(var T:TTable; Rows,Cols:Integer);
@@ -83,7 +84,7 @@ begin
  T.Scale:=Memory(Rows*4); T.W:=Memory(Longint(Rows)*Cols)
 end;
 procedure Reserve;
-var J,K:Integer; V:Longint;
+var J:Integer;
 begin
  D:=96; L:=4; H:=4; HID:=256; HD:=D div H; AttDiv:=Sqrt(HD);
  ReserveTable(Emb,VOCAB,D); ReserveTable(Pos,CTX,D);
@@ -94,12 +95,6 @@ begin
   ReserveTable(F1[J],HID,D); ReserveTable(F2[J],D,HID)
  end;
  Gf:=Memory(D*4);
- for J:=0 to 255 do begin
-  V:=J;
-  for K:=1 to 8 do
-   if Odd(V) then V:=(V shr 1) xor Longint($EDB88320) else V:=V shr 1;
-  Lookup[J]:=V
- end;
  Reserved:=True
 end;
 procedure ReadBytes(var Dest; N:Word);
@@ -146,10 +141,16 @@ begin
 end;
 function TryModel(Name:String; Expected:Longint):Boolean;
 var Header:packed record Magic:array[1..4] of Char; Width,Layers,Heads,Hidden:Word end;
- J,Err:Integer; Size:Longint;
+ J,K,Err:Integer; Size,V:Longint;
 begin
  Ready:=False; TryModel:=False; LoadError:='';
  if not Reserved then Reserve;
+ for J:=0 to 255 do begin
+  V:=J;
+  for K:=1 to 8 do
+   if Odd(V) then V:=(V shr 1) xor Longint($EDB88320) else V:=V shr 1;
+  Lookup[J]:=V
+ end;
  XPos:=0;
  if ModelXms=0 then begin
   FileMode:=0; Assign(F,Name);
@@ -184,7 +185,7 @@ begin
   Kc[J]:=Memory(CTX*D); Vc[J]:=Memory(CTX*D);
   Ks[J]:=Memory(CTX*4); Vs[J]:=Memory(CTX*4)
  end;
- Bx:=Memory(D*4); Bh:=Memory(D*4); Bq:=Memory(D*4); Bt:=Memory(D*4); Ba:=Memory(D*4);
+ Bx:=Memory(D*4); Bh:=Memory(D*4); Bt:=Memory(D*4); Bq:=Bt; Ba:=Bh;
  Bs:=Memory(CTX*4); Score:=Memory(VOCAB*4); Qq:=Memory(D*2); Ww:=Memory(CTX*2);
  for K:=0 to 1535 do ExpTab[K]:=Trunc(Exp(-K/128.0)*32767.0+0.5)
 end;
@@ -212,7 +213,7 @@ begin
  end;
  if Gf<>nil then FreeMem(Gf,D*4);
  if Bx<>nil then begin
-  FreeMem(Bx,D*4); FreeMem(Bh,D*4); FreeMem(Bq,D*4); FreeMem(Bt,D*4); FreeMem(Ba,D*4);
+  FreeMem(Bx,D*4); FreeMem(Bh,D*4); FreeMem(Bt,D*4);
   FreeMem(Bs,CTX*4); FreeMem(Score,VOCAB*4); FreeMem(Qq,D*2); FreeMem(Ww,CTX*2); Bx:=nil
  end
 end;
