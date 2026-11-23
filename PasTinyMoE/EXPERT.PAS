@@ -12,7 +12,12 @@ program Expert;
 {$IFDEF SPEC9}{$DEFINE SPEC8}{$ENDIF}
 {$IFDEF SPEC8}{$DEFINE SPEC5}{$ENDIF}
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
-{$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
+{$IFDEF VER70}{$F+}
+{$IFDEF SPEC100}
+{ Leave conventional memory for the model and DOS drivers. }
+{$M 12288,0,655360}
+{$ELSE}{$M 16384,0,655360}{$ENDIF}
+{$ENDIF}
 {$N+}{$E+}
 uses TNYNET,TNYSYS,EXPCAT,TOOLS{$IFDEF SPEC5},PILOTRT{$ENDIF};
 {$IFDEF SPEC100}const OriginalSlot=129;{$ENDIF}
@@ -62,7 +67,9 @@ begin
  if ScreenUI then begin
   Inc(Letters);
   RecordConfidence;
-  Chat(Chr(C),10); Monitor; PollEscape(0,0); Exit
+  Chat(Chr(C),10); Monitor;
+  if not VoiceOn then Tone(900+(C mod 16)*70,6);
+  PollEscape(0,0); Exit
  end;
  {$ENDIF}{$ENDIF}
  Write(Chr(C)); if Interactive then System.Flush(Output);
@@ -88,7 +95,7 @@ begin
  Items[OriginalSlot].Check:=$15282977;
  {$ENDIF}
  Switch(1); AllocMemory; if not ScreenUI then MemoryReport;
- {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then Monitor;{$ENDIF}{$ENDIF}
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then begin Monitor; ReadySound end;{$ENDIF}{$ENDIF}
  if Interactive and not ScreenUI then
   WriteLn('LIST, USE id, AUTO, TOOLS ON/OFF, MEM, QUIT. Escape cancels an answer.');
  while True do begin
@@ -123,7 +130,9 @@ begin
    Val(Copy(Q,5,255),K,Code); J:=0; if Code=0 then J:=FindId(K);
    if J=0 then Report('unknown id') else begin Switch(J); Pinned:=Active=J end
   end else if (Q<>'') and ToolsOn and (not Pinned) and ToolAnswer(Q,A) then begin
-   Report(A); if not ScreenUI then WriteLn('answer ms=0 chars=',Length(A),' tool')
+   Report(A);
+   {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then SpeakAnswer(A);{$ENDIF}{$ENDIF}
+   if not ScreenUI then WriteLn('answer ms=0 chars=',Length(A),' tool')
   end else if Q<>'' then begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); if not ScreenUI then WriteLn('route ms=',NowMs-T);
     {$IFDEF SPEC100}
@@ -147,11 +156,12 @@ begin
     if First>=0 then WriteLn('first char ms=',First-T,' output span ms=',Last-First);
     end;
     if Cancelled then Report('cancelled')
+    {$IFDEF VER70}{$IFDEF SPEC100}else if ScreenUI then SpeakAnswer(A){$ENDIF}{$ENDIF}
    end
   end
  end;
  {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ExpertStatus;{$ENDIF}{$ENDIF}
  end;
- {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then TextMode(3);{$ENDIF}{$ENDIF}
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then begin NoSound; TextMode(3) end;{$ENDIF}{$ENDIF}
  ReleaseMemory
 end.

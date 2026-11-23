@@ -8,6 +8,7 @@ const
 const MonitorX=61; InputWidth=54;
 var ChatX,ChatY:Integer; Peak:array[0..5] of Single;
  Heat:array[0..17] of Byte; HeatCount,Letters:Integer; LastQuestion:String[MAXQ];
+ SoundOn,VoiceOn:Boolean;
 
 procedure At(X,Y,Color:Integer; S:String);
 var I:Integer;
@@ -25,6 +26,66 @@ begin
  At(X1+2,Y1,Color,#181);
  At(X1+3,Y1,$3F,' '+Title+' ');
  At(X1+5+Length(Title),Y1,Color,#198)
+end;
+
+procedure Tone(Hz,Ms:Word);
+begin
+ if SoundOn then begin Sound(Hz); DelayMs(Ms); NoSound end
+end;
+
+procedure ReadySound;
+begin Tone(1319,40); Tone(1760,70) end;
+
+procedure Buzz(F1,F2,Ms,Shift:Word);
+var T:Word;
+begin
+ F1:=Longint(F1)*Shift div 100; F2:=Longint(F2)*Shift div 100;
+ T:=0;
+ while T<Ms do begin
+  Sound(F1); DelayMs(2); Sound(F2); DelayMs(2); Inc(T,4)
+ end;
+ NoSound
+end;
+
+procedure Hiss(Ms:Word);
+var T:Word;
+begin
+ for T:=1 to Ms do begin Sound(2500+Random(4500)); DelayMs(1) end;
+ NoSound
+end;
+
+{ Same PC-speaker letter patterns as PasTiny. }
+procedure SayLetter(C:Char; Shift:Word);
+begin
+ case UpCase(C) of
+ 'A':Buzz(730,1090,64,Shift); 'E':Buzz(530,1840,56,Shift);
+ 'I','Y':Buzz(300,2290,52,Shift); 'O':Buzz(570,840,64,Shift);
+ 'U':Buzz(320,870,56,Shift); 'S','Z','C','X':Hiss(46);
+ 'F','H','V','J':Hiss(30);
+ 'P','T','K','Q':begin Tone(3200,2); DelayMs(18) end;
+ 'B','D','G':begin Buzz(180,260,12,Shift); DelayMs(10) end;
+ 'M','N':Buzz(210,300,40,Shift); 'L','R','W':Buzz(400,1100,36,Shift);
+ ' ':DelayMs(45); ',','-':DelayMs(110); '.','!','?',':':DelayMs(200);
+ '0'..'9':Buzz(420+(Ord(C)-48)*60,900+(Ord(C)-48)*90,70,Shift);
+ else DelayMs(20)
+ end
+end;
+
+procedure SpeakAnswer(A:String);
+var I:Integer;
+begin
+ if not SoundOn then Exit;
+ if not VoiceOn then begin ReadySound; Exit end;
+ for I:=1 to Length(A) do begin
+  if KeyPressed then begin TNYSYS.ReadKey; Break end;
+  SayLetter(A[I],115-30*Longint(I-1) div (Length(A)+1))
+ end
+end;
+
+procedure SoundStatus;
+begin
+ if SoundOn then At(21,25,$3E,'ON ') else At(21,25,$3E,'OFF');
+ if VoiceOn and SoundOn then At(35,25,$3E,'ON ') else At(35,25,$3E,'OFF')
 end;
 
 procedure BeginUI;
@@ -48,8 +109,11 @@ begin
  At(62,23,8,#24+' last  F1 help');
  At(1,25,$30,'                                                                                ');
  At(2,25,$3F,'F1'); At(4,25,$30,' Help');
- At(11,25,$3F,'F9'); At(13,25,$30,' Capture');
- At(23,25,$3F,'Esc'); At(26,25,$30,' Quit');
+ At(12,25,$3F,'F2'); At(14,25,$30,' Sound ');
+ At(26,25,$3F,'F3'); At(28,25,$30,' Voice ');
+ At(40,25,$3F,'F9'); At(42,25,$30,' Capture');
+ At(52,25,$3F,'Esc'); At(55,25,$30,' Quit');
+ SoundOn:=True; VoiceOn:=True; SoundStatus;
  At(MonitorX,16,8,'EXPERT');
  ChatX:=1; ChatY:=1;
  FillChar(Peak,SizeOf(Peak),0);
@@ -143,7 +207,8 @@ procedure ShowHelp;
 begin
  Chat('PasTinyMoE keyboard and commands'+#13#10,11);
  Chat('Up recalls the last question. F9 saves SCREEN.DMP.'+#13#10,7);
- Chat('Esc cancels generation or quits at the prompt.'+#13#10,7);
+ Chat('F2 toggles sound. F3 toggles robot voice.'+#13#10,7);
+ Chat('Any key stops speech. Esc quits at the prompt.'+#13#10,7);
  Chat('LIST shows expert IDs. USE id pins an expert.'+#13#10,7);
  Chat('AUTO restores routing. TOOLS ON/OFF toggles tools.'+#13#10,7);
  Chat('MEM shows free conventional memory.'+#13#10,7)
@@ -167,13 +232,15 @@ begin
    27: begin S:='quit'; Exit end;
    8: if Length(S)>0 then Delete(S,Length(S),1);
    315: ShowHelp;
+   316: begin SoundOn:=not SoundOn; SoundStatus; Tone(1800,2) end;
+   317: begin VoiceOn:=not VoiceOn; SoundStatus; Tone(1800,2) end;
    328: S:=LastQuestion;
    256+67: begin
     Assign(F,'SCREEN.DMP'); {$I-}Rewrite(F,1);
     if IOResult=0 then begin BlockWrite(F,Screen,SizeOf(Screen)); Close(F) end;
     if IOResult<>0 then ;{$I+}
    end;
-   32..126: if Length(S)<MAXQ then S:=S+Chr(C)
+   32..126: if Length(S)<MAXQ then begin S:=S+Chr(C); Tone(1800,2) end
   end
  until False
 end;
