@@ -46,7 +46,9 @@ unit TBC;
 interface
 type TCall=record Name:String[7]; Kind:Byte; Lo1,Hi1,Lo2,Hi2,Ofs,Len:Word end;
 {$I LIB.INC}
-const MAXCODE=3072; ORIGIN=$100; VARBASE=$103;
+const
+ {$IFDEF GAMEARRAY}MAXCODE=14000; GameWords=1024; GameBase=$137;{$ELSE}MAXCODE=3072;{$ENDIF}
+ ORIGIN=$100; VARBASE=$103;
 type TCode=array[0..MAXCODE-1] of Byte;
 (* The program being built.  The big tables live on the heap: the data
    segment of the DOS program is nearly full. *)
@@ -70,7 +72,9 @@ function RepeatCount(S:String):Word;
 function FindCall(S:String):Integer;
 
 implementation
-const MAXLAB=220; MAXFIX=300; MAXTEXT=24; MAXDEPTH=12;
+const
+ {$IFDEF GAMEARRAY}MAXLAB=620; MAXFIX=1000; MAXTEXT=48;{$ELSE}MAXLAB=220; MAXFIX=300; MAXTEXT=24;{$ENDIF}
+ MAXDEPTH=12;
 type TBlock=record Kind:Char; L1,L2,V:Integer end;
  TFix=record Pos:Word; Kind:Byte; Id:Integer end;
  TFixes=array[1..MAXFIX] of TFix;
@@ -317,6 +321,27 @@ begin
  else if Key='OUT' then begin
   Argument(0,65535); CallLib(FindCall('NUMBER')); CallLib(FindCall('NEWLINE'))
  end
+ {$IFDEF GAMEARRAY}
+ else if (Key='GET') or (Key='PUT') then begin
+  Blanks;
+  if Key='GET' then
+   if not ReadVar(V) then begin Error('GET v index expected'); Exit end;
+  Blanks; Argument(0,GameWords-1);
+  B($25); W(GameWords-1); T('and     ax,1023');
+  B($D1); B($E0); T('shl     ax,1');
+  if Key='GET' then begin
+   B($93); T('xchg    ax,bx');
+   B($8B); B($87); W(GameBase); T('mov     ax,[bx+0137h]');
+   StoreVar(V)
+  end else begin
+   if Cur<>' ' then begin Error('PUT index value expected'); Exit end;
+   B($50); T('push    ax');
+   Blanks; Expr;
+   B($5B); T('pop     bx');
+   B($89); B($87); W(GameBase); T('mov     [bx+0137h],ax')
+  end
+ end
+ {$ENDIF}
  else if Key='LET' then begin
   Blanks;
   if not ReadVar(V) or (Cur<>'=') then begin Error('LET v=n expected'); Exit end;
@@ -425,8 +450,11 @@ begin
   WriteLn(Lst,'; ',ListName,', written by PasTinyAsm.  The routines are in LIB.ASM.');
   WriteLn(Lst,'        org     100h')
  end;
- B($E9); W(52); T('jmp     near start');
+ B($E9); W(52{$IFDEF GAMEARRAY}+2*GameWords{$ENDIF}); T('jmp     near start');
  for I:=1 to 52 do B(0); T('times 26 dw 0           ; the variables A to Z');
+ {$IFDEF GAMEARRAY}
+ for I:=1 to 2*GameWords do B(0); T('times 1024 dw 0');
+ {$ENDIF}
  if Listing then WriteLn(Lst,'start:');
  if LoopN>0 then begin
   B($B9); W(LoopN); T('mov     cx,'+NumStr(LoopN));

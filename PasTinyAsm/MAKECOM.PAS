@@ -40,7 +40,7 @@ program MakeCom;
 {$N+}{$E+}
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE;
 const
- MAXSTEPS=40; MAXPEND=16;
+ {$IFDEF GAMEARRAY}MAXSTEPS=180;{$ELSE}MAXSTEPS=40;{$ENDIF} MAXPEND=16;
  XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5; XSLOTS=6;    (* catalog ids of the experts *)
 type TLine=String[80];      (* a line of the language; texts are 60 at most *)
 var
@@ -1800,6 +1800,7 @@ end;
 begin
  Interactive:=ConsoleIO; Active:=0; Guiding:=False; GuideOn:=True; DigitsOn:=True; WordsCount:=False; Guide:=Viable;
  KeyWords:=' OUT ECHO LET INPUT FOR NEXT TIMES END FOREVER IF ELSE STOP NL REPEAT ';
+ {$IFDEF GAMEARRAY}KeyWords:=KeyWords+'GET PUT ';{$ENDIF}
  for Steps:=1 to LIBCOUNT do KeyWords:=KeyWords+Lib[Steps].Name+' ';
  Asking:=False; Exact:=''; OutName:='OUT'; Steps:=0; Cur:=1;
  XmsOn:=XmsPresent; FromMem:=0; FromDisk:=0; MemMs:=0; DiskMs:=0; KeepMs:=0;
