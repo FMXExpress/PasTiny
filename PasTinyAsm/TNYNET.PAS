@@ -363,11 +363,44 @@ begin
   Inc(Offset,RowBytes(T.Cols))
  end
 end;
+{$IFDEF FIXEDRMS}
+(* Integer square root, rounded down. The initial guess is a power of two
+   above the root, so Newton steps decrease until they reach the result. *)
+function Root32(N:Longint):Longint;
+var Guess,Next,Scale:Longint;
+begin
+ if N=0 then begin Root32:=0; Exit end;
+ Scale:=N; Guess:=1;
+ while Scale>0 do begin Scale:=Scale shr 2; Guess:=Guess shl 1 end;
+ repeat
+  Next:=(Guess+N div Guess) shr 1;
+  if Next>=Guess then begin Root32:=Guess; Exit end;
+  Guess:=Next
+ until False
+end;
+{$ENDIF}
+
 procedure Norm(var X:TVec; G:PSglArr; var Y:TVec);
 var I:TIdx; S,V:Single;
+{$IFDEF FIXEDRMS}
+    Q,Energy,Root:Longint; Scale,Peak:Single;
+{$ENDIF}
 begin
+ {$IFDEF FIXEDRMS}
+ Peak:=0;
+ for I:=0 to D-1 do if Abs(X[I])>Peak then Peak:=Abs(X[I]);
+ Scale:=1024;
+ while Peak*Scale>4095 do Scale:=Scale*0.5;
+ Energy:=Round(D*1e-5*Scale*Scale);
+ for I:=0 to D-1 do begin
+  Q:=Round(X[I]*Scale); Energy:=Energy+Q*Q
+ end;
+ Root:=Root32(Energy);
+ if Root>0 then S:=Scale*9.797958971/Root else S:=316.227766;
+ {$ELSE}
  S:=0; for I:=0 to D-1 do begin V:=X[I]*X[I]; S:=S+V end;
  V:=S/D; S:=1.0/Sqrt(V+1e-5);
+ {$ENDIF}
  for I:=0 to D-1 do begin V:=X[I]*S; Y[I]:=V*G^[I] end
 end;
 function SafeExp(X:Single):Single;
