@@ -14,6 +14,8 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 When the extended DOS editor sends your request to Tiny, the right sidebar shows the selected expert, live layer activity, character confidence, recent output and generation speed. The last model pass stays visible until the next editor action. F9 captures it; F5 runs the generated program as usual. Scripted runs use the plain transcript.
 
+The extended editor uses the DOS PC speaker for key clicks and robot chatter after each model pass. Each expert has its own pitch and cadence. **F3** toggles sound, **F4** toggles voice, and **Esc** stops playback. Scripted runs are silent.
+
 ![The PasTinyAsm neural monitor after translating an English request](docs/editor-monitor.png)
 
 

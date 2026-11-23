@@ -81,7 +81,7 @@ end;
 {$ENDIF}
 
 {$IFDEF XMSSTREAM}
-var EditorBegin,EditorEnd:procedure;
+var EditorBegin:procedure; EditorEnd:procedure(A:String);
  EditorStep:TStepProc; EditorLetter:TLetterProc;
 {$ENDIF}
 
@@ -91,7 +91,7 @@ begin
  if Assigned(EditorBegin) then begin
   EditorBegin;
   Think(Q,A,Tokens,EditorStep,EditorLetter);
-  EditorEnd; Exit
+  EditorEnd(A); Exit
  end;
  {$ENDIF}
  Think(Q,A,Tokens,PollEscape,nil)
@@ -1668,6 +1668,7 @@ begin
 end;
 
 {$IFDEF XMSSTREAM}
+{$I EDVOICE.INC}
 { The monitor temporarily uses columns 59-80 of the editor. }
 var NeuralVisible:Boolean;
  NeuralTitle,NeuralPhase:String[18]; NeuralRecent:String[18];
@@ -1761,14 +1762,16 @@ begin
  NeuralRecent:=NeuralRecent+Chr(C);
  NeuralHeat[Length(NeuralRecent)]:=Trunc(100*LastConf);
  Inc(NeuralChars);
- NeuralPhase:='Generating'; DrawNeural; Flush
+ NeuralPhase:='Generating'; DrawNeural; Flush;
+ if not VoiceOn and not Cancelled then Tone(900+(C mod 16)*70,6)
 end;
 
-procedure EndNeural;
+procedure EndNeural(A:String);
 begin
  NeuralElapsed:=NowMs-NeuralStart;
  if Cancelled then NeuralPhase:='Cancelled' else NeuralPhase:='Last model pass';
- DrawNeural; Flush
+ DrawNeural; Flush;
+ if not Cancelled and (A<>'') then SpeakAnswer(A,Active)
 end;
 
 {$ENDIF}
@@ -1843,7 +1846,15 @@ begin
   for I:=21 to 24 do Row(I,'',7);
   Row(24,' press a key',$0E)
  end;
+ {$IFDEF XMSSTREAM}
+ S:=' F1 Help  F2 Edit  F3 Sound:';
+ if SoundOn then S:=S+'On ' else S:=S+'Off';
+ S:=S+'  F4 Voice:';
+ if SoundOn and VoiceOn then S:=S+'On ' else S:=S+'Off';
+ Row(25,S+'  F5 Run  F9 Snap  Alt-X Quit',$70);
+ {$ELSE}
  Row(25,' Up/Down move  Enter add  F2 change  Del delete  F5 run  F1 help  Alt-X quit',$70);
+ {$ENDIF}
  {$IFDEF XMSSTREAM}if NeuralVisible and (NMsg<=4) then DrawNeural;{$ENDIF}
  Window(1,1,80,25); GotoXY(CurX,CurY); Flush
 end;
@@ -1859,6 +1870,7 @@ begin
  {$IFDEF XMSSTREAM}
  EditorBegin:=BeginNeural; EditorEnd:=EndNeural;
  EditorStep:=ReadNeural; EditorLetter:=LetterNeural; NeuralVisible:=False;
+ SoundOn:=True; VoiceOn:=True; ReadySound;
  {$ENDIF}
  NMsg:=0; MsgPart:=''; Field:=''; FPos:=0; TopItem:=1; Done:=False; EditLine:=0;
  if Asking then WriteLn(LastQ)
@@ -1871,9 +1883,16 @@ begin
    (* F9: save a picture of the screen, as tests/snap.asm does *)
    Assign(F,'SNAP.SCR'); Rewrite(F,1); BlockWrite(F,Screen,4000); Close(F)
   end
+  {$IFDEF XMSSTREAM}
+  else if K=256+61 then begin SoundOn:=not SoundOn; Tone(1800,2) end
+  else if K=256+62 then begin VoiceOn:=not VoiceOn; Tone(1800,2) end
+  {$ENDIF}
   else if NMsg>4 then NMsg:=0       (* a page was showing: any key puts it away *)
   else if (K>=32) and (K<=126) then begin
-   if Length(Field)<200 then begin Insert(Chr(K),Field,FPos+1); Inc(FPos) end
+   if Length(Field)<200 then begin
+    Insert(Chr(K),Field,FPos+1); Inc(FPos);
+    {$IFDEF XMSSTREAM}Tone(1800,2);{$ENDIF}
+   end
   end
   else if K=8 then begin
    if FPos>0 then begin Delete(Field,FPos,1); Dec(FPos) end
@@ -1947,7 +1966,7 @@ begin
    end
   end
  end;
- {$IFDEF XMSSTREAM}EditorBegin:=nil;{$ENDIF}
+ {$IFDEF XMSSTREAM}EditorBegin:=nil; NoSound;{$ENDIF}
  Close(Output);
  System.Move(SavedOut,Output,SizeOf(TextRec));
  TextAttr:=7; Window(1,1,80,25); ClrScr; GotoXY(1,1); Flush
