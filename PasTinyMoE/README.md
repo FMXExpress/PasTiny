@@ -4,7 +4,7 @@
 
 Extract the ZIP into a new directory on your DOS drive. Run `EXPERT`, type `LIST` for IDs or ask a question. For manual selection type `USE 2` (Turbo Pascal Coach). Type `AUTO` to resume automatic routing or `QUIT` to exit.
 
-The default interactive DOS screen shows the conversation, the loaded expert, live layer activity, character confidence and generation speed. Press Esc at the prompt to exit, or F9 to save `SCREEN.DMP`. The `LIST` command pages through the catalog. Run `EXPERT /P` for the plain console. Redirected input or output also uses the plain console for scripts and benchmarks. [Screenshot](../docs/screenshots/moe-neon.png)
+The default interactive DOS screen shows the conversation, the loaded expert, live layer activity, character confidence, generation speed and whether routing is automatic or pinned. Press Up to recall the last input, F1 for help, F9 to save `SCREEN.DMP` or Esc at the prompt to exit. The `LIST` command pages through the catalog. Run `EXPERT /P` for the plain console. Redirected input or output also uses the plain console for scripts and benchmarks. [Screenshot](../docs/screenshots/moe-neon.png)
 
 **SPEC100 AUTO falls back to the original Tiny model when no expert matches.** Replaying the original 60 questions under DOS raised exact matches from 3/60 to 50/60. Tiny answered all 47 unmatched questions correctly. Specialists handled the other 13 and answered three correctly.
 

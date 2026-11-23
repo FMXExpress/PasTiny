@@ -48,11 +48,8 @@ begin
  if not ScreenUI then WriteLn('load/recovery ms=',NowMs-Start);
  if Active<>0 then begin
   Report('active '+Num(Items[Active].Id)+' '+Items[Active].Title);
-  {$IFDEF VER70}{$IFDEF SPEC100}
-  if ScreenUI then begin At(58,18,9,'EXPERT'); At(58,19,15,'                     ');
-   At(58,19,15,Copy(Items[Active].Title,1,21)); Flush end;
-  {$ENDIF}{$ENDIF}
- end else Report('unloaded')
+ end else Report('unloaded');
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ExpertStatus;{$ENDIF}{$ENDIF}
 end;
 procedure PollEscape(I,N:Integer);
 begin
@@ -64,8 +61,7 @@ begin
  {$IFDEF VER70}{$IFDEF SPEC100}
  if ScreenUI then begin
   Inc(Letters);
-  if Length(Heat)=18 then Delete(Heat,1,1);
-  if LastConf>0.8 then Heat:=Heat+#219 else if LastConf>0.5 then Heat:=Heat+#178 else Heat:=Heat+#176;
+  RecordConfidence;
   Chat(Chr(C),10); Monitor; PollEscape(0,0); Exit
  end;
  {$ENDIF}{$ENDIF}
@@ -92,6 +88,7 @@ begin
  Items[OriginalSlot].Check:=$15282977;
  {$ENDIF}
  Switch(1); AllocMemory; if not ScreenUI then MemoryReport;
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then Monitor;{$ENDIF}{$ENDIF}
  if Interactive and not ScreenUI then
   WriteLn('LIST, USE id, AUTO, TOOLS ON/OFF, MEM, QUIT. Escape cancels an answer.');
  while True do begin
@@ -141,7 +138,7 @@ begin
     end else J:=Active;
    if (J<>0) and Ready then begin
     {$IFDEF VER70}{$IFDEF SPEC100}
-    if ScreenUI then begin Letters:=0; Heat:=''; Chat('TINY ',11) end;
+    if ScreenUI then begin Letters:=0; HeatCount:=0; Chat('TINY ',11) end;
     {$ENDIF}{$ENDIF}
     First:=-1; T:=NowMs; Think(Q,A,Tokens,PollEscape,Letter); Elapsed:=NowMs-T;
     if ScreenUI then Report('') else begin
@@ -152,7 +149,8 @@ begin
     if Cancelled then Report('cancelled')
    end
   end
- end
+ end;
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ExpertStatus;{$ENDIF}{$ENDIF}
  end;
  {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then TextMode(3);{$ENDIF}{$ENDIF}
  ReleaseMemory
