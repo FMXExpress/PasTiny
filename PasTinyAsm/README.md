@@ -12,6 +12,11 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 [Download PASASM.ZIP](dist/PASASM.ZIP) for the default extended editor. Load HIMEM.SYS or another XMS driver before running MAKECOM. It streams the six original 8-bit experts by projection and supports 180 source lines, a 14,000-byte output buffer, and indexed storage with GET and PUT. The archive includes the editable Go example and its compiled game. Use [PASRES.ZIP](dist/PASRES.ZIP) for the 40-line resident editor on systems without XMS. [Streaming benchmark](experiments/xms/README.md)
 
+When the extended DOS editor sends your request to Tiny, the right sidebar shows the selected expert, live layer activity, character confidence, recent output and generation speed. The last model pass stays visible until the next editor action. F9 captures it; F5 runs the generated program as usual. Scripted runs use the plain transcript.
+
+![The PasTinyAsm neural monitor after translating an English request](docs/editor-monitor.png)
+
+
 ## Exact text arguments
 
 Begin a request with `display the phrase` or `write the sentence` to print the rest of the request literally, including command words and punctuation. These forms accept up to 60 characters. Use a quoted phrase to delimit the text when supplying a separate instruction afterward.

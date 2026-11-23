@@ -80,6 +80,23 @@ begin
 end;
 {$ENDIF}
 
+{$IFDEF XMSSTREAM}
+var EditorBegin,EditorEnd:procedure;
+ EditorStep:TStepProc; EditorLetter:TLetterProc;
+{$ENDIF}
+
+procedure Translate(Q:String; var A:String; var Tokens:Longint);
+begin
+ {$IFDEF XMSSTREAM}
+ if Assigned(EditorBegin) then begin
+  EditorBegin;
+  Think(Q,A,Tokens,EditorStep,EditorLetter);
+  EditorEnd; Exit
+ end;
+ {$ENDIF}
+ Think(Q,A,Tokens,PollEscape,nil)
+end;
+
 (* Load expert Id, unless it is the one loaded.  The first time an
    expert is wanted its file is read into extended memory, if there is
    any, and from then on it is copied from there, not read from disk. *)
@@ -576,7 +593,7 @@ begin
    if DigitsOn and (Id<>XTEXT) and (Id<>XTASKS) and (Length(InDigits(S))<=72) then Q:=InDigits(S)
   end;
   GStep:=S; Guiding:=GuideOn; WordsCount:=Id=XTASKS;
-  Cancelled:=False; Think(Q,A,Tokens,PollEscape,nil);
+  Cancelled:=False; Translate(Q,A,Tokens);
   if Cancelled then begin Guiding:=False; WriteLn('cancelled'); Exit end;
   Raw0:=A; A:=PutBack(A,True,True);
   if not Passes(S,A,Why) then begin
@@ -775,7 +792,7 @@ begin
  repeat
   Str(N+1,Num);
   if Length(Num)+Length(Core)+Length(Prev)+4>72 then begin Refuse(S,'request too long'); Exit end;
-  Cancelled:=False; Think(Num+' '+Core+' | '+Prev,A,Tokens,PollEscape,nil);
+  Cancelled:=False; Translate(Num+' '+Core+' | '+Prev,A,Tokens);
   if Cancelled then begin WriteLn('cancelled'); Exit end;
   if (A='') or (Length(A)>72) then begin Refuse(S,'no recipe for this'); Exit end;
   if A<>'done' then begin
@@ -1431,7 +1448,7 @@ begin
  end;
  if not Switch(7) then Exit;
  Guiding:=False; Cancelled:=False;
- Think(Request,Choice,Tokens,PollEscape,nil);
+ Translate(Request,Choice,Tokens);
  if Cancelled then Exit;
  Source:='';
  if FirstWord(Request)='chess' then begin
@@ -1650,6 +1667,112 @@ begin
   else Screen[(Y-1)*80+X-1]:=32+Word(Attr)*256
 end;
 
+{$IFDEF XMSSTREAM}
+{ The monitor temporarily uses columns 59-80 of the editor. }
+var NeuralVisible:Boolean;
+ NeuralTitle,NeuralPhase:String[18]; NeuralRecent:String[18];
+ NeuralHeat:array[1..18] of Byte; NeuralPeak:array[0..MAXL-1] of Single;
+ NeuralStart,NeuralElapsed:Longint; NeuralChars,NeuralRead:Integer;
+
+procedure NeuralText(X,Y:Integer; S:String; Color:Byte);
+var I:Integer;
+begin
+ for I:=1 to Length(S) do Screen[(Y-1)*80+X+I-2]:=Ord(S[I])+Word(Color)*256
+end;
+
+procedure NeuralMeter(X,Y,W,V:Integer; Color:Byte);
+var I:Integer;
+begin
+ for I:=0 to W-1 do
+  if Longint(V)*W>=100*(I+1) then NeuralText(X+I,Y,#219,Color)
+  else NeuralText(X+I,Y,#250,8)
+end;
+
+procedure DrawNeural;
+var Y,I,V:Integer; S:String; Ms:Longint; Rate:Real; Color:Byte;
+begin
+ for Y:=3 to 23 do begin
+  NeuralText(59,Y,#186+'                    '+#186,11)
+ end;
+ NeuralText(59,2,#201#205#181,11); NeuralText(62,2,' NEURAL MONITOR ', $3F);
+ NeuralText(78,2,#198#205#187,11);
+ NeuralText(59,24,#200,11); NeuralText(80,24,#188,11);
+ for I:=60 to 79 do NeuralText(I,24,#205,11);
+ NeuralText(61,3,'LAYER ACTIVITY',8);
+ for I:=0 to L-1 do if I<6 then begin
+  V:=0;
+  if NeuralPeak[I]>0 then V:=Trunc(100*LayerAct[I]/NeuralPeak[I]);
+  NeuralText(61,4+I,'L'+Chr(49+I),11);
+  Color:=10; if Odd(I) then Color:=11;
+  NeuralMeter(64,4+I,15,V,Color)
+ end;
+ NeuralText(61,10,'CONFIDENCE',8);
+ if NeuralChars>0 then begin
+  V:=NeuralHeat[Length(NeuralRecent)];
+  NeuralMeter(61,11,13,V,10); Str(V:3,S); NeuralText(74,11,' '+S+'%',15)
+ end else NeuralText(61,11,' --',8);
+ NeuralText(61,12,'LAST LETTERS',8);
+ for I:=1 to Length(NeuralRecent) do begin
+  Color:=12;
+  if NeuralHeat[I]>80 then Color:=10 else if NeuralHeat[I]>50 then Color:=14;
+  NeuralText(60+I,13,NeuralRecent[I],Color)
+ end;
+ NeuralText(61,15,'SPEED',8);
+ Ms:=NeuralElapsed; if Ms<0 then Ms:=NowMs-NeuralStart; Rate:=0;
+ if (NeuralChars>0) and (Ms>0) then Rate:=1000.0*NeuralChars/Ms;
+ Str(Rate:5:1,S); NeuralText(61,16,S+' letters/s',7);
+ NeuralText(61,18,'EXPERT',8); NeuralText(61,19,NeuralTitle,15);
+ NeuralText(61,21,NeuralPhase,11)
+end;
+
+procedure ObserveLayers;
+var I:Integer;
+begin
+ for I:=0 to L-1 do
+  if LayerAct[I]>NeuralPeak[I] then NeuralPeak[I]:=LayerAct[I]
+end;
+
+procedure BeginNeural;
+var J:Integer;
+begin
+ NeuralVisible:=True; NeuralChars:=0; NeuralRecent:=''; NeuralRead:=0;
+ FillChar(NeuralPeak,SizeOf(NeuralPeak),0);
+ J:=FindId(Active); NeuralTitle:='';
+ if J>0 then NeuralTitle:=Copy(Items[J].Title,1,18);
+ NeuralStart:=NowMs; NeuralElapsed:=-1; NeuralPhase:='Reading'; DrawNeural; Flush
+end;
+
+procedure ReadNeural(I,N:Integer);
+var S:String;
+begin
+ PollEscape(I,N);
+ if (I=NeuralRead) or Cancelled then Exit;
+ NeuralRead:=I; ObserveLayers;
+ Str(100*I div N,S); NeuralPhase:='Reading '+S+'%';
+ DrawNeural; Flush
+end;
+
+procedure LetterNeural(C:Integer);
+begin
+ PollEscape(0,0); ObserveLayers;
+ if Length(NeuralRecent)=18 then begin
+  Delete(NeuralRecent,1,1); System.Move(NeuralHeat[2],NeuralHeat[1],17)
+ end;
+ NeuralRecent:=NeuralRecent+Chr(C);
+ NeuralHeat[Length(NeuralRecent)]:=Trunc(100*LastConf);
+ Inc(NeuralChars);
+ NeuralPhase:='Generating'; DrawNeural; Flush
+end;
+
+procedure EndNeural;
+begin
+ NeuralElapsed:=NowMs-NeuralStart;
+ if Cancelled then NeuralPhase:='Cancelled' else NeuralPhase:='Last model pass';
+ DrawNeural; Flush
+end;
+
+{$ENDIF}
+
 function Spaces(N:Integer):String;
 var S:String;
 begin S:=''; while (N>0) and (Length(S)<60) do begin S:=S+' '; Dec(N) end; Spaces:=S end;
@@ -1721,6 +1844,7 @@ begin
   Row(24,' press a key',$0E)
  end;
  Row(25,' Up/Down move  Enter add  F2 change  Del delete  F5 run  F1 help  Alt-X quit',$70);
+ {$IFDEF XMSSTREAM}if NeuralVisible and (NMsg<=4) then DrawNeural;{$ENDIF}
  Window(1,1,80,25); GotoXY(CurX,CurY); Flush
 end;
 
@@ -1732,12 +1856,17 @@ begin
   Handle:=$FFFF; Mode:=fmClosed; BufSize:=SizeOf(MsgBuf); BufPtr:=@MsgBuf; OpenFunc:=@MsgOpen; Name[0]:=#0
  end;
  Rewrite(Output);
+ {$IFDEF XMSSTREAM}
+ EditorBegin:=BeginNeural; EditorEnd:=EndNeural;
+ EditorStep:=ReadNeural; EditorLetter:=LetterNeural; NeuralVisible:=False;
+ {$ENDIF}
  NMsg:=0; MsgPart:=''; Field:=''; FPos:=0; TopItem:=1; Done:=False; EditLine:=0;
  if Asking then WriteLn(LastQ)
  else WriteLn('Say what the program should do and press Enter.  F1 shows more.');
  while not Done do begin
   Draw('');
   K:=GetKey;
+  {$IFDEF XMSSTREAM}if K<>256+67 then NeuralVisible:=False;{$ENDIF}
   if K=256+67 then begin
    (* F9: save a picture of the screen, as tests/snap.asm does *)
    Assign(F,'SNAP.SCR'); Rewrite(F,1); BlockWrite(F,Screen,4000); Close(F)
@@ -1818,6 +1947,7 @@ begin
    end
   end
  end;
+ {$IFDEF XMSSTREAM}EditorBegin:=nil;{$ENDIF}
  Close(Output);
  System.Move(SavedOut,Output,SizeOf(TextRec));
  TextAttr:=7; Window(1,1,80,25); ClrScr; GotoXY(1,1); Flush
