@@ -20,3 +20,11 @@ ClawDOS exposes 18 local tools to a remote Claude model. The closest fit here is
 3. Test in DOS with a single resident model and measure heap, cold loads, swaps and end-to-end latency. Consider a family-specific selector only if its measured error reduction pays for its extra pass.
 
 From PasTinyAsm, generate training JSONL with `python3 experiments/toolcall/bench.py`. Use WebTiny revision `a1a36720ed558d6998e5beed9d4dbdd792626056` and its trainer with `--init ../TINY.BIN --steps 400 --batch-size 16 --threads 1`. Compile `experiments/classic/check.pas` and `MAKECOM.PAS` with FPC TP mode and optimization. Run `python3 experiments/toolcall/bench.py --score /absolute/path/to/check experiments/toolcall/SELECT.BIN` or `--editor /absolute/path/to/MAKECOM`. Keep the packaged runtime assets beside the editor executable.
+
+## Clarification and text argument follow-up
+
+The ASK variant adds 1,020 examples from 170 templated negatives. Twenty hand-written clarification probes were excluded from training. ASK scored 5/20 on them. The original selector asked on 0/20. On the same in-scope prompts the ASK variant selected 257/300 sound operations and 282/296 text operations correctly.
+
+The text preview extracts full strings and numbers using narrow phrase-boundary rules. These rules explicitly cover the held-out generator's phrasing families, so the full-call results measure the value of deterministic extraction and the incremental effect of neural selection on these forms. They do not measure generalization of the parser to new templates. Preview never dispatches. The ASK variant preview scored 271/296 with 25 clarifications and zero wrong calls. The original selector with the same preview scored 283/296 with 13 clarifications and zero wrong calls. MAKECOM produced 110 exact and 186 wrong full calls on these prompts. The experiment supports testing direct text parsing on independently authored requests before adding another model pass.
+
+Reproduce the ASK model using the same trainer settings above and generate the corpus with `bench.py --ask`. Score with `bench.py --ask --score CHECK ASK.BIN`.
