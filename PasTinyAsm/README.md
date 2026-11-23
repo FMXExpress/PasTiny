@@ -8,6 +8,10 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 ![The same program run with F5](docs/editor-run.png)
 
+## XMS streaming edition
+
+[Download PASXMS.ZIP](dist/PASXMS.ZIP) for the projection-streaming editor. Extract into a separate DOS directory and run MAKECOM with HIMEM.SYS or another XMS driver loaded. The editor streams the original 8-bit experts from extended memory. `MEM` reported 329,928 bytes of free conventional heap in DOSBox-X, including after switching experts, compiling and running a child program. Use the standard PASASM.ZIP edition on systems without XMS. [Benchmark and build instructions](experiments/xms/README.md)
+
 ## Exact text arguments
 
 Begin a request with `display the phrase` or `write the sentence` to print the rest of the request literally, including command words and punctuation. These forms accept up to 60 characters. Use a quoted phrase to delimit the text when supplying a separate instruction afterward.

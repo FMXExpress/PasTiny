@@ -1484,8 +1484,12 @@ begin
   Exit
  end
  else if (Cmd='XMS') and ((Tidy(Rest)='on') or (Tidy(Rest)='off')) then begin
+  {$IFDEF XMSSTREAM}
+  WriteLn('Projection streaming requires XMS.');
+  {$ELSE}
   XmsOn:=XmsPresent and (Tidy(Rest)='on');
   if XmsOn then WriteLn('experts are kept in extended memory') else WriteLn('experts are read from disk');
+  {$ENDIF}
   Exit
  end
  else if (Cmd='LOAD') and (Rest<>'') and (Pos(' ',Rest)=0) then begin
@@ -1805,6 +1809,9 @@ begin
  Creativity:=0; WriteLn('PasTinyAsm 1.2  FPU ',FPUName);
  {$IFDEF VER70}WriteLn('heap=',MemAvail);{$ENDIF}
  if XmsOn then WriteLn('extended memory: ',XmsFreeKB,' KB free, experts will be kept there');
+ {$IFDEF XMSSTREAM}
+ if not XmsOn then begin WriteLn('Projection streaming requires HIMEM or another XMS driver.'); Halt(1) end;
+ {$ENDIF}
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
  (* MAKECOM file: start from the lines of that file; MAKECOM name.SRC:
