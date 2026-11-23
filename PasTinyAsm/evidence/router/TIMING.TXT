@@ -1,0 +1,30 @@
+HOW LONG ROUTING TAKES: the router and the word lists it replaced
+
+DOSBox-X, normal core, emulated 386, fixed cycles; Turbo Pascal 7 builds.
+tests/rttime.pas routes the 300 requests of tests/ROUTER.TXT (39 letters on
+average) and reads the BIOS clock before and after.  tests/wltime.pas runs
+the old word-list routines (is it a recipe, is it a small program, which
+expert) on the same 300 requests.  These are emulator figures, not
+measurements on a Pocket386 or any other real machine.
+
+                              50,000 cycles      7,800 cycles      2,500 cycles
+                              (the repository's
+                              standard setting)
+word lists                    0.58 ms a request   3.75 ms           not run
+router, Pascal inner loop     31.6 ms             203.5 ms          640.2 ms
+router, assembly inner loop   13.0 ms             83.5 ms           not run
+  (as shipped)                0.34 ms a letter    2.16 ms a letter
+
+The router is about 22 times slower than the word lists.  It runs once for a
+sentence and once for each of its steps, when Enter is pressed; nothing is
+routed while typing.
+
+For scale: ten single-step screen requests through MAKECOM (streaming
+edition) took 19.8 s at 50,000 cycles, 1,977 ms a request, nearly all of it
+the expert writing its line.
+
+The assembly loop gives the trainer's answers on all 300 requests
+(tests/rtcheck.pas, run under DOS at each speed).  What is left is mostly the
+three 32-bit multiplications and three divisions by 4,096 that each of the
+32 units does for each letter through the Pascal library; they have not
+been rewritten.

@@ -110,7 +110,7 @@ assert buildlib.render()[0].split() == (root / 'LIB.INC').read_text().split(), '
 with tempfile.TemporaryDirectory() as tmp:
     dest = Path(tmp) / 'run'; dest.mkdir()
     models = '--models' in sys.argv
-    for name in ('ASK.SCR', 'MAKECOM.HLP'):
+    for name in ('ASK.SCR', 'MAKECOM.HLP', 'ROUTER.BIN'):
         shutil.copyfile(root / name, dest / name)
     for name in FILES:
         if models:
@@ -170,6 +170,13 @@ with tempfile.TemporaryDirectory() as tmp:
     out = run(dest, ['write a story program', 'cancel'])
     assert 'What does the player see first?' in out, out
     print('Interview: an adventure is built from replies to questions alone, and matches NASM.')
+    # The router: MAKECOM must send each request of tests/ROUTER.TXT where the trainer's own
+    # whole-number sums sent it (the first word of the line).
+    names = ['screen', 'sound', 'text', 'tasks', 'none', 'recipes', 'several']
+    cases = [l.split(' ', 1) for l in (root / 'tests/ROUTER.TXT').read_text().splitlines() if l.strip()]
+    rows = [l.split() for l in run(dest, ['where ' + q for _, q in cases]).splitlines() if l.startswith('where ')]
+    assert len(rows) == len(cases) and all(names[int(r[1])] == c for r, (c, _) in zip(rows, cases)), rows[:5]
+    print('Router: %d requests go where the trainer sent them.' % len(cases))
     for script, want in EDITS:
         out = run(dest, script + ['show'])
         got = [l for l in out[out.rindex('> show'):].splitlines()[1:] if l.strip() and not l.startswith('> ')]
