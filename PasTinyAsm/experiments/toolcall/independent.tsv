@@ -1,0 +1,30 @@
+print out the checksum passed	PRINT the checksum passed
+display the phrase disk ready	PRINT disk ready
+write the sentence welcome aboard	PRINT welcome aboard
+show me the number 640	NUMBER 640
+print out the number 00017	NUMBER 17
+start another line	NEWLINE
+print "Wait, then play a siren."	PRINT Wait, then play a siren.
+say "READY: press a key"	PRINT READY: press a key
+display "The disk is full!"	PRINT The disk is full!
+show me "the number 17"	PRINT the number 17
+print "  two spaces  "	PRINT   two spaces\x20\x20
+print out the number seventeen	NUMBER 17
+output the decimal value 255	NUMBER 255
+advance to a fresh line	NEWLINE
+put the words hello dos on the screen	PRINT hello dos
+show me the files in this directory	ASK
+show me how to print a number	ASK
+show me the available memory	ASK
+print out the project notes	ASK
+print out the number 65536	ASK
+print "unfinished	ASK
+print ""	ASK
+print "one" then beep	ASK
+display the phrase	ASK
+play a siren twice	ASK
+rename the file	ASK
+print out the current time	ASK
+show me the number -12	ASK
+show me the number 3.5	ASK
+show me the number of free bytes	ASK

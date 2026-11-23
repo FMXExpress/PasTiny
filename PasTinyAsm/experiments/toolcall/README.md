@@ -28,3 +28,14 @@ The ASK variant adds 1,020 examples from 170 templated negatives. Twenty hand-wr
 The text preview extracts full strings and numbers using narrow phrase-boundary rules. These rules explicitly cover the held-out generator's phrasing families, so the full-call results measure the value of deterministic extraction and the incremental effect of neural selection on these forms. They do not measure generalization of the parser to new templates. Preview never dispatches. The ASK variant preview scored 271/296 with 25 clarifications and zero wrong calls. The original selector with the same preview scored 283/296 with 13 clarifications and zero wrong calls. MAKECOM produced 110 exact and 186 wrong full calls on these prompts. The experiment supports testing direct text parsing on independently authored requests before adding another model pass.
 
 Reproduce the ASK model using the same trainer settings above and generate the corpus with `bench.py --ask`. Score with `bench.py --ask --score CHECK ASK.BIN`.
+
+## Hand-written text requests
+
+Run `python3 experiments/toolcall/independent.py` to compare the previous preview and an explicit-command preview on 30 hand-written requests. The cases include quoted punctuation and spaces, numbers outside the word range, mixed requests and requests for live information.
+
+| Preview | Exact of 15 supported | Clarified supported | Correct ASK of 15 other | Wrong calls |
+| --- | ---: | ---: | ---: | ---: |
+| Previous rules | 6 | 9 | 10 | 5 |
+| Explicit commands | 8 | 7 | 15 | 0 |
+
+The previous rules offered to print “the available memory” when asked to show it. The explicit preview limits printing to a quoted payload, preserves it exactly, and clarifies unrecognized forms. Numeric commands require an explicit numeric form and an unsigned 16-bit value. The sample was authored independently of the training generator and informed the explicit preview design, so these results are a diagnostic comparison. Both previews return text for review and execute nothing.
