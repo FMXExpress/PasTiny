@@ -4,7 +4,7 @@
 
 Extract the ZIP into a new directory on your DOS drive. Run `EXPERT`, type `LIST` for IDs or ask a question. For manual selection type `USE 2` (Turbo Pascal Coach). Type `AUTO` to resume automatic routing or `QUIT` to exit.
 
-The default interactive DOS screen shows the conversation, the loaded expert, live layer activity, character confidence and generation speed. Press Esc at the prompt to exit, or F9 to save `SCREEN.DMP`. The `LIST` command pages through the catalog. Run `EXPERT /P` for the plain console. Redirected input or output also uses the plain console for scripts and benchmarks. [Screenshot](../docs/screenshots/moe-neon.png)
+The default interactive DOS screen shows the conversation, the loaded expert, live layer activity, character confidence, generation speed and whether routing is automatic or pinned. Press Up to recall the last input, F1 for help, F9 to save `SCREEN.DMP` or Esc at the prompt to exit. The `LIST` command pages through the catalog. Run `EXPERT /P` for the plain console. PC-speaker effects and robot chatter are on by default in the interactive screen. Each numbered expert has a fixed pitch and cadence, so its voice follows it in both AUTO and USE. Original Tiny and built-in tools use the standard voice. F2 mutes all sound and F3 toggles the robot voice. Press any key during playback to stop it. Redirected input or output uses the silent plain console for scripts and benchmarks. [Screenshot](../docs/screenshots/moe-neon.png)
 
 **SPEC100 AUTO falls back to the original Tiny model when no expert matches.** Replaying the original 60 questions under DOS raised exact matches from 3/60 to 50/60. Tiny answered all 47 unmatched questions correctly. Specialists handled the other 13 and answered three correctly.
 
@@ -60,7 +60,7 @@ Measured on the 780 held-out questions of the TINY 2.1 training kit, with the ge
 
 Every one of the 167 tool answers was right. The one numbers question still counted wrong is "651 is larger." where the reference says "bigger". None of the 600 other questions set a tool off.
 
-`python3 tests/test_tools.py ./EXPERT` checks 33 exact answers, 10 questions that must be left to the models, and the off-by-default rule, with a host build. Under DOS, a Turbo Pascal 7 build ran [`evidence/tools/TOOLS.IN`](evidence/tools/TOOLS.IN) in DOSBox-X with an emulated FPU ([`FPU.LOG`](evidence/tools/FPU.LOG)) and on an emulated 386 without one ([`NOFPU.LOG`](evidence/tools/NOFPU.LOG)). The unit adds about 18 KB to the executable (30,320 to 48,624 bytes in the plain build) and leaves the free heap after loading a model unchanged at 30,872 bytes. The executables in `bin/` and `dist/` were built before this unit and do not contain it; run BUILD.BAT to get it.
+`python3 tests/test_tools.py ./EXPERT` checks 33 exact answers, 10 questions that must be left to the models, and the off-by-default rule, with a host build. Under DOS, a Turbo Pascal 7 build ran [`evidence/tools/TOOLS.IN`](evidence/tools/TOOLS.IN) in DOSBox-X with an emulated FPU ([`FPU.LOG`](evidence/tools/FPU.LOG)) and on an emulated 386 without one ([`NOFPU.LOG`](evidence/tools/NOFPU.LOG)). The unit adds about 18 KB to the executable (30,320 to 48,624 bytes in the plain build) and leaves the free heap after loading a model unchanged at 30,872 bytes. The current SPEC100 executable and ZIP include these tools.
 
 ## Rebuild and package
 

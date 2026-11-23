@@ -12,7 +12,12 @@ program Expert;
 {$IFDEF SPEC9}{$DEFINE SPEC8}{$ENDIF}
 {$IFDEF SPEC8}{$DEFINE SPEC5}{$ENDIF}
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
-{$IFDEF VER70}{$F+}{$M 16384,0,655360}{$ENDIF}
+{$IFDEF VER70}{$F+}
+{$IFDEF SPEC100}
+{ Leave conventional memory for the model and DOS drivers. }
+{$M 12288,0,655360}
+{$ELSE}{$M 16384,0,655360}{$ENDIF}
+{$ENDIF}
 {$N+}{$E+}
 uses TNYNET,TNYSYS,EXPCAT,TOOLS{$IFDEF SPEC5},PILOTRT{$ENDIF};
 {$IFDEF SPEC100}const OriginalSlot=129;{$ENDIF}
@@ -47,12 +52,9 @@ begin
  end;
  if not ScreenUI then WriteLn('load/recovery ms=',NowMs-Start);
  if Active<>0 then begin
-  Report('active '+Num(Items[Active].Id)+' '+Items[Active].Title);
-  {$IFDEF VER70}{$IFDEF SPEC100}
-  if ScreenUI then begin At(58,18,9,'EXPERT'); At(58,19,15,'                     ');
-   At(58,19,15,Copy(Items[Active].Title,1,21)); Flush end;
-  {$ENDIF}{$ENDIF}
- end else Report('unloaded')
+  if not ScreenUI then Report('active '+Num(Items[Active].Id)+' '+Items[Active].Title);
+ end else Report('unloaded');
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ExpertStatus;{$ENDIF}{$ENDIF}
 end;
 procedure PollEscape(I,N:Integer);
 begin
@@ -64,9 +66,10 @@ begin
  {$IFDEF VER70}{$IFDEF SPEC100}
  if ScreenUI then begin
   Inc(Letters);
-  if Length(Heat)=18 then Delete(Heat,1,1);
-  if LastConf>0.8 then Heat:=Heat+#219 else if LastConf>0.5 then Heat:=Heat+#178 else Heat:=Heat+#176;
-  Chat(Chr(C),10); Monitor; PollEscape(0,0); Exit
+  RecordConfidence;
+  Chat(Chr(C),10); Monitor;
+  if not VoiceOn then Tone(900+(C mod 16)*70,6);
+  PollEscape(0,0); Exit
  end;
  {$ENDIF}{$ENDIF}
  Write(Chr(C)); if Interactive then System.Flush(Output);
@@ -92,6 +95,7 @@ begin
  Items[OriginalSlot].Check:=$15282977;
  {$ENDIF}
  Switch(1); AllocMemory; if not ScreenUI then MemoryReport;
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then begin Monitor; ReadySound end;{$ENDIF}{$ENDIF}
  if Interactive and not ScreenUI then
   WriteLn('LIST, USE id, AUTO, TOOLS ON/OFF, MEM, QUIT. Escape cancels an answer.');
  while True do begin
@@ -126,7 +130,9 @@ begin
    Val(Copy(Q,5,255),K,Code); J:=0; if Code=0 then J:=FindId(K);
    if J=0 then Report('unknown id') else begin Switch(J); Pinned:=Active=J end
   end else if (Q<>'') and ToolsOn and (not Pinned) and ToolAnswer(Q,A) then begin
-   Report(A); if not ScreenUI then WriteLn('answer ms=0 chars=',Length(A),' tool')
+   Report(A);
+   {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then SpeakAnswer(A,0);{$ENDIF}{$ENDIF}
+   if not ScreenUI then WriteLn('answer ms=0 chars=',Length(A),' tool')
   end else if Q<>'' then begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); if not ScreenUI then WriteLn('route ms=',NowMs-T);
     {$IFDEF SPEC100}
@@ -141,7 +147,7 @@ begin
     end else J:=Active;
    if (J<>0) and Ready then begin
     {$IFDEF VER70}{$IFDEF SPEC100}
-    if ScreenUI then begin Letters:=0; Heat:=''; Chat('TINY ',11) end;
+    if ScreenUI then begin Letters:=0; HeatCount:=0; Chat('TINY ',11) end;
     {$ENDIF}{$ENDIF}
     First:=-1; T:=NowMs; Think(Q,A,Tokens,PollEscape,Letter); Elapsed:=NowMs-T;
     if ScreenUI then Report('') else begin
@@ -150,10 +156,12 @@ begin
     if First>=0 then WriteLn('first char ms=',First-T,' output span ms=',Last-First);
     end;
     if Cancelled then Report('cancelled')
+    {$IFDEF VER70}{$IFDEF SPEC100}else if ScreenUI then SpeakAnswer(A,Items[J].Id){$ENDIF}{$ENDIF}
    end
   end
- end
  end;
- {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then TextMode(3);{$ENDIF}{$ENDIF}
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ExpertStatus;{$ENDIF}{$ENDIF}
+ end;
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then begin NoSound; TextMode(3) end;{$ENDIF}{$ENDIF}
  ReleaseMemory
 end.
