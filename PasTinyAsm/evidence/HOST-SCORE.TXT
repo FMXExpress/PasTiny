@@ -15,7 +15,7 @@ sound  first held-out set (now trained): 300 right, 0 refused, 0 wrong but accep
 sound  new wordings:                     261 right, 39 refused, 0 wrong but accepted, of 300
 text   trained wordings:                 297 right, 2 refused, 1 wrong but accepted, of 300
 text   first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
-text   new wordings:                     113 right, 0 refused, 187 wrong but accepted, of 300
+text   new wordings:                     209 right, 0 refused, 91 wrong but accepted, of 300
 tasks  trained shapes and combinations:       300 right, 0 refused, 0 wrong but accepted, of 300
 tasks  held-out combinations:                 299 right, 0 refused, 1 wrong but accepted, of 300
 tasks  first held-out wordings (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300

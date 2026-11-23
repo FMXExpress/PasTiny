@@ -56,3 +56,52 @@ At rank 16 the 24 pairs contain 94,208 factor entries. Two bits per entry use 23
 | Rank-16 ternary factors | 188/300 | 233/300 | 233/300 |
 
 The rank-16 ternary run took 86.5 seconds for both phases on one CPU thread. Binding recovered 45 answers and lost zero previously exact answers. The 67 remaining misses all chose a different operation from the reference. This is a standalone expert comparison. The existing editor's lookup-first path scored 292/300 on the same requests.
+
+## TF16 DOS build
+
+TF16 keeps the two embedding tables and all normalization gains in their original format. Each projection stores input, 16 latent and output float32 scales, then the right and left ternary factors using four entries per byte. The Pascal runtime applies two successive packed add/subtract projections, with float32 intermediates. Attention and the inference cache retain their existing representation. This changes rounding relative to the dense int8 reconstruction, so evaluate the packed output directly.
+
+From PasTinyAsm, train and package in a fresh directory:
+
+```sh
+mkdir -p build/tf16 build/tf16-host build/dense-host
+for expert in screen sound text tasks recipes slots; do
+  python3 experiments/littlebit/train.py "build/tf16/$expert.BIN" 16 \
+    --expert "$expert" --ternary-steps 650 --packed "build/tf16/$expert.T16"
+done
+python3 tools/package.py --factors build/tf16
+fpc -B -Mtp -O2 -dFACTORS16 -Fu. -FUbuild/tf16-host -FEbuild/tf16-host experiments/classic/check.pas
+fpc -B -Mtp -O2 -Fu. -FUbuild/dense-host -FEbuild/dense-host experiments/classic/check.pas
+python3 experiments/littlebit/score_experts.py build/dense-host/check build/tf16-host/check build/tf16
+```
+
+Use `TPC /B /DFACTORS16 MAKECOM.PAS` for DOS. Run the resulting editor with the new EXPERTS.CAT, six uppercase T16 model filenames and the ordinary runtime assets. A directory for the TF16 build keeps its catalog alongside the corresponding models.
+
+The experimental [PAS16.ZIP](../../dist/PAS16.ZIP) contains all six TF16 experts and the TP7 editor. Each model uses 74,608 bytes, for 447,648 bytes across the six model files. In DOSBox-X the editor reported 306,792 bytes of free conventional heap with a resident expert. It loaded experts through XMS and directly from disk. The standalone TP7 harness loaded and ran five prompts per expert.
+
+## Integer-only inference
+
+TF16 reduces weight storage. Its dot products unpack the factors and add or subtract floating-point activations. Input, latent and output scales are floats, and RMS normalization uses a floating-point square root. The existing integer attention path already uses a lookup table for exponentials but still uses float arithmetic around the lookup. An integer-only port would need fixed-point activations, scales and rescaling, plus integer normalization and attention. The current build still links the Turbo Pascal emulator. DOSBox-X reported an FPU present even in the run requesting `fpu=false`, so this experiment establishes neither software-FPU throughput nor Pocket386 speed.
+
+| Expert | Shipped 8-bit | Packed TF16 |
+| --- | ---: | ---: |
+| Screen | 288/300 | 254/300 |
+| Sound | 208/300 | 186/300 |
+| Text | 127/300 | 131/300 |
+| Tasks | 298/300 | 9/300 |
+| Recipes | 225/300 | 84/300 |
+| Slots | 293/300 | 32/300 |
+
+The host tests use held-out wording for Screen, Sound and Text, and held-out combinations for Tasks, Recipes and Slots. These scores compare direct outputs before editor checks. The DOS harness matched the packed host output on all 30 smoke prompts. On Sound, operation-constrained argument binding raised TF16 to 234/300, recovering 48 full commands. The experimental package is useful for evaluating heap savings. Tasks, Recipes and Slots need much stronger results before TF16 can replace the standard package.
+
+## Argument-binding diagnostic for the other experts
+
+Run `python3 experiments/littlebit/score_shapes.py build/tf16-host/check build/tf16`. The comparison masks digits and the literal payload of PRINT and ECHO, preserving operators, variables and statement order. It also normalizes NL to NEWLINE. This uses reference answers to identify compatible outputs. It is a diagnostic, with no live binder or guarantee that arguments can be extracted from the request. Recipes emit natural-language steps, so the mask only recognizes simple numeric differences there.
+
+| Expert | Exact | Same shape after masking |
+| --- | ---: | ---: |
+| Screen | 254/300 | 267/300 |
+| Text | 131/300 | 292/300 |
+| Tasks | 9/300 | 13/300 |
+| Recipes | 84/300 | 88/300 |
+| Slots | 32/300 | 32/300 |

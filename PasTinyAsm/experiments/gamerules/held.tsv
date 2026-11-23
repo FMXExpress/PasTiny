@@ -1,0 +1,8 @@
+knight	chess for the knight set k when gaps i and j form an l	IF I*J=2:LET K=1:END
+king	chess turn on k if the kings row and column gaps are no more than one	IF I<2:IF J<2:LET K=1:END:END
+bishop	chess use equal axis gaps as the bishop condition for k	IF I=J:LET K=1:END
+rook	chess for rook validity set k if a gap i or j vanishes	IF I*J=0:LET K=1:END
+passes	go halt as soon as the pass counter f is two	IF F=2:STOP:END
+turn	go change p to the other side after a legal turn	LET P=3-P
+capture	go if liberties e are exhausted remove point a	IF E=0:PUT A 0:END
+place	go write the current stone p into intersection a	PUT A P

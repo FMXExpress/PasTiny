@@ -21,9 +21,13 @@ A Pascal port of [TINY 2.1](https://github.com/WollyMonjac/Tiny-2.1), a small ch
 
 ### Screenshots from DOSBox-X
 
+![PasTiny DOS conversation and live neural monitor](docs/screenshots/pastiny.png)
+
+PasTiny’s Turbo Pascal 7 DOS build, captured from the VGA text buffer with its neon palette.
+
 | PasTinyMoE routes two questions | PasTinyJev scores a billing message |
 | --- | --- |
-| [![SPEC100 answers Lima with original Tiny, then loads Debugger Vocabulary for a breakpoint question](docs/screenshots/moe.png)](docs/screenshots/moe.png) | [![PasTinyJev assigns a billing probability of 0.9826 to “I was charged twice this month”](docs/screenshots/jev.png)](docs/screenshots/jev.png) |
+| [![SPEC100 answers Lima with original Tiny, then loads Debugger Vocabulary for a breakpoint question](docs/screenshots/moe-neon.png)](docs/screenshots/moe-neon.png) | [![PasTinyJev assigns a billing probability of 0.9826 to “I was charged twice this month”](docs/screenshots/jev.png)](docs/screenshots/jev.png) |
 
 | PasTinyAsm editor | Running the program with F5 |
 | --- | --- |

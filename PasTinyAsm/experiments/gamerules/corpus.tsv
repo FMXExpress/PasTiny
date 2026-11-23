@@ -1,0 +1,24 @@
+knight	chess set k when a knight moves one row and two columns or vice versa	IF I*J=2:LET K=1:END
+knight	chess knight rule legal flag k uses row gap i and column gap j	IF I*J=2:LET K=1:END
+knight	chess enable k for an l shaped knight move using gaps i and j	IF I*J=2:LET K=1:END
+king	chess allow the king one square each way using gaps i and j and flag k	IF I<2:IF J<2:LET K=1:END:END
+king	chess set k for a king move when both gaps i and j are less than two	IF I<2:IF J<2:LET K=1:END:END
+king	chess king moves at most one row i and one column j set k	IF I<2:IF J<2:LET K=1:END:END
+bishop	chess set k when a bishop goes diagonally with gaps i and j	IF I=J:LET K=1:END
+bishop	chess diagonal bishop legality k requires equal row and column gaps	IF I=J:LET K=1:END
+bishop	chess permit the bishop when the row gap i equals column gap j	IF I=J:LET K=1:END
+rook	chess set k when a rook moves along one rank or file using gaps i and j	IF I*J=0:LET K=1:END
+rook	chess rook movement flag k is true if either axis gap is zero	IF I*J=0:LET K=1:END
+rook	chess permit a straight rook move using row gap i and column gap j	IF I*J=0:LET K=1:END
+passes	go stop the game after two passes counted in f	IF F=2:STOP:END
+passes	go end play when consecutive passes f reach two	IF F=2:STOP:END
+passes	go if f records two passes then stop	IF F=2:STOP:END
+turn	go switch player p between one and two	LET P=3-P
+turn	go hand the next move to the other player using p	LET P=3-P
+turn	go alternate player p from one to two or back	LET P=3-P
+capture	go if a group has zero liberties e then empty its board point a	IF E=0:PUT A 0:END
+capture	go clear square a when its group has no liberties in e	IF E=0:PUT A 0:END
+capture	go remove the stone at a if e says there are no liberties	IF E=0:PUT A 0:END
+place	go place the current player p at board address a	PUT A P
+place	go store the color p in cell a	PUT A P
+place	go set board cell a to the current players color p	PUT A P

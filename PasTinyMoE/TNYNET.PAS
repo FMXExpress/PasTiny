@@ -49,7 +49,7 @@ begin
  {$IFNDEF FPC}if MaxAvail<N then Fail('not enough memory. TINY needs about 540 KB free (type MEM).');{$ENDIF}
  GetMem(P,N); Memory:=P
 end;
-const BufSize=4096;
+const BufSize=1024;
 var Buffer:array[0..BufSize-1] of Byte;
  Used,Available:Word; Check:Longint; Lookup:array[0..255] of Longint;
  Reserved:Boolean;

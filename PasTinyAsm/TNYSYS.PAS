@@ -9,10 +9,14 @@ interface
 const ScreenWidth=80; ScreenHeight=25;
 type TScreen=array[0..1999] of Word;
 var TextAttr:Byte; SkipDelays:Boolean;
-(* PasTinyAsm: under DOS the screen is the colour text memory itself, not
-   a copy of it that Flush sends there.  That gives the program 4,000
-   bytes back, and means a monochrome card (B000) is not served. *)
-{$IFDEF VER70}var Screen:TScreen absolute $B800:$0000;{$ELSE}var Screen:TScreen;{$ENDIF}
+(* PasTinyAsm: RESIDENT is the edition that keeps a whole expert in
+   conventional memory (the Turbo Pascal build without XMSSTREAM).  It has
+   no room for a copy of the screen, so there the screen is the colour
+   text memory itself and a monochrome card (B000) is not served.  The
+   default edition streams its weights from extended memory and keeps the
+   copy. *)
+{$IFDEF VER70}{$IFNDEF XMSSTREAM}{$DEFINE RESIDENT}{$ENDIF}{$ENDIF}
+{$IFDEF RESIDENT}var Screen:TScreen absolute $B800:$0000;{$ELSE}var Screen:TScreen;{$ENDIF}
 procedure Window(X1,Y1,X2,Y2:Integer);
 procedure GotoXY(X,Y:Integer);
 function WhereX:Integer;
@@ -105,7 +109,7 @@ begin
  {$IFDEF DPMI}
  if Segment=$B000 then Move(Screen,Mem[SegB000:0],4000)
  else Move(Screen,Mem[SegB800:0],4000);
- {$ELSE}{$IFNDEF VER70}Move(Screen,Mem[Segment:0],4000);{$ENDIF}{$ENDIF}{$ENDIF}
+ {$ELSE}{$IFNDEF RESIDENT}Move(Screen,Mem[Segment:0],4000);{$ENDIF}{$ENDIF}{$ENDIF}
  R.AH:=2; R.BH:=0; R.DL:=Wx1+Cx-2; R.DH:=Wy1+Cy-2; Intr($10,R)
 end;
 function InByte(P:Word):Byte;

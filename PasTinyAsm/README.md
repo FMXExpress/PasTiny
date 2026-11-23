@@ -8,7 +8,13 @@ You type a sentence, the program on the screen grows by a line, and the `.COM` f
 
 ![The same program run with F5](docs/editor-run.png)
 
+## XMS streaming edition
+
+[Download PASASM.ZIP](dist/PASASM.ZIP) for the default extended editor. Load HIMEM.SYS or another XMS driver before running MAKECOM. It streams the six original 8-bit experts by projection and supports 180 source lines, a 14,000-byte output buffer, and indexed storage with GET and PUT. The archive includes the editable Go example and its compiled game. Use [PASRES.ZIP](dist/PASRES.ZIP) for the 40-line resident editor on systems without XMS. [Streaming benchmark](experiments/xms/README.md)
+
 ## Exact text arguments
+
+Begin a request with `display the phrase` or `write the sentence` to print the rest of the request literally, including command words and punctuation. These forms accept up to 60 characters. Use a quoted phrase to delimit the text when supplying a separate instruction afterward.
 
 Use one quoted phrase with PRINT or SAY to preserve punctuation and spaces. Close the quotes and use 1–60 characters. For `print the number`, `print out the number` or `show me the number`, the editor directly accepts 0–65535 or a number word from zero to twenty. Invalid values prompt for a whole number.
 
@@ -286,13 +292,15 @@ In the last column the first two sets also hold out-of-scope requests, so they a
 
 **Where it is worse: saying no.** The lists knew nothing but their own words, so a request with none of them was "not understood". Of twenty hand-written requests for things the program cannot do ("what time is it", "format the disk"), the lists refused 19. A router with no `none` answer sent every one to some expert, and four came back as accepted lines (`HIDE` for "turn off the computer"). Trained with 64 kinds of out-of-scope request as a seventh answer, it refuses 13 of the twenty and 5 are still accepted wrong; a second run refused 15 and let 2 through. That is better than nothing and not as good as the lists.
 
-**What it gave back.** The lists and their code are gone, and the router costs less than they did: with it, and with the editor writing straight to video memory, 1,576 bytes of heap are spare under DOS where there were 312.
+**How long it takes.** About 22 times as long as the lists: 13.0 ms a request against 0.58 ms, for 300 requests of 39 letters on average in DOSBox-X at the repository's standard 50,000 fixed cycles on an emulated 386, and 83.5 ms against 3.75 ms at 7,800 cycles ([`evidence/router/TIMING.TXT`](evidence/router/TIMING.TXT)). It runs when Enter is pressed, once for the sentence and once for each step, not while typing. A whole single-step request took 1,977 ms at the same setting, nearly all of it the expert writing its line. The inner loop is in assembly; the rest of each unit's arithmetic still goes through Turbo Pascal's 32-bit library and could be made faster. None of this was timed on a real machine.
+
+**Memory.** The default edition, which streams its weights from extended memory, has 298,408 bytes of heap spare with the router in it. The resident edition (no XMS) only fits because there the editor writes straight to colour text memory and keeps no copy of the screen: 1,672 bytes spare.
 
 ## Running, the log and extended memory
 
 **Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
 
-**The program as text.** Beside `NAME.COM` and `NAME.ASM`, every change also writes `NAME.SRC`: the program's lines as the editor shows them, one to a line. `LOAD name` in the editor or a script, or `MAKECOM name.SRC` at the DOS prompt, takes such a file up again, so quitting no longer loses the editable form. It is plain text and can be written in any editor. Its lines are code and are not put to the experts; a file with a line that is not code, a block left open, or more than 40 lines is refused and the program in hand is kept.
+**The program as text.** Beside `NAME.COM` and `NAME.ASM`, every change also writes `NAME.SRC`: the program's lines as the editor shows them, one to a line. `LOAD name` in the editor or a script, or `MAKECOM name.SRC` at the DOS prompt, takes such a file up again, so quitting no longer loses the editable form. It is plain text and can be written in any editor. Its lines are code and are not put to the experts; a file with a line that is not code, a block left open, or more than the editor’s line limit is refused and the program in hand is kept.
 
 **As Turbo Pascal or QBasic.** `EXPORT name PAS` and `EXPORT name BAS` turn `name.SRC` into a Turbo Pascal or a QBasic program by fixed rules; no model takes part. It is a separate small program (`bin/EXPORT.EXE`, 20 KB), so it costs MAKECOM no memory.
 
@@ -386,7 +394,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (93,712 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (95,376 bytes, the default streaming edition). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -414,20 +422,20 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - The flash and the sounds were not seen or heard: DOSBox-X ran without a display or sound device. What was checked is that the programs finish, take the right time and leave the right colours in screen memory. Nothing was run on real hardware.
 - The screen routines write to colour text memory at `B800:0000` and assume 80 by 25. Delays use BIOS interrupt 15h function 86h (AT-class machines).
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
-- A step holds 72 characters, a line 80, a text 60, and a program 40 lines, 3,072 bytes and 24 texts. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
+- A step holds 72 characters, a line 80, a text 60, and a program 180 lines, 14,000 bytes and 48 texts in the default XMS build. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
 - In a single call the numbers check only looks at numbers typed as digits: "beep for five seconds" is not checked against the 5. In a small program number words from two to twenty are checked too.
-- The package no longer fits one floppy: with six experts and the exporter it unpacks to 2,447,296 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with six experts and the exporter it unpacks to 2,466,820 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The slots expert was trained once more after the table above was begun (10,000 steps, 0 and 1 no longer slotted) and that second run was only measured together with the tasks expert, not alone.
 - Markers are `n1` to `n6` and `t1` to `t3`: a request has at most six numbers from 2 up and three quoted texts, and a quoted text inside a task cannot hold a colon.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 1,576 bytes of heap remain with a model loaded (312 before the router replaced the word lists). Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 360 bytes of heap remained in the TP7 text-binding smoke test with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
 - The router was chosen among its training runs by the wordings held back from it, not by the fresh set or the twenty out-of-scope requests; those two are where the runs differ most. The fresh wordings and the out-of-scope requests were written by the author of everything else.
-- How long the router takes on a real 386 was not measured; it does about a thousand multiplications a letter.
-- Under DOS the editor writes to colour text memory at `B800:0000` directly; a monochrome card is not served.
+- The router's times are from an emulator; no real 386 was used.
+- In the resident edition the editor writes to colour text memory at `B800:0000` directly, so a monochrome card is not served there. The default streaming edition is unchanged. `PASASM.ZIP` and `PASRES.ZIP` carry the router; the other packages in `dist/` hold earlier builds, which still route by word lists.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
 - One training run per expert and version; the scores above are from those runs.
 - The new held-out set was written by the same author as the training wordings, so it is easier than what a stranger would type.
@@ -439,7 +447,7 @@ python3 tools/buildlib.py                     LIB.ASM -> LIB.INC (needs NASM)
 fpc -Mtp -B MAKECOM.PAS                       host build for testing
 python3 tests/test_asm.py ./MAKECOM           compiler against NASM
 python3 tests/test_asm.py ./MAKECOM --models  plans, refusals and expert scores
-TPC /B MAKECOM.PAS                            the DOS program (BUILD.BAT)
+TPC /B /DXMSSTREAM;GAMEARRAY MAKECOM.PAS      the default DOS editor (BUILD.BAT)
 TPC /B EXPORT.PAS                             the exporter
 ```
 

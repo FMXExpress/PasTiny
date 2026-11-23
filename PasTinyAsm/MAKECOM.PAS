@@ -40,7 +40,7 @@ program MakeCom;
 {$N+}{$E+}
 uses {$IFDEF VER70}Dos,{$ENDIF}TNYNET,TNYSYS,EXPCAT,TBC,XMSCACHE,ROUTER;
 const
- MAXSTEPS=40; MAXPEND=16;
+ {$IFDEF GAMEARRAY}MAXSTEPS=180;{$ELSE}MAXSTEPS=40;{$ENDIF} MAXPEND=16;
  XSCREEN=1; XSOUND=2; XTEXT=3; XTASKS=4; XRECIPES=5; XSLOTS=6;    (* catalog ids of the experts *)
 type TLine=String[80];      (* a line of the language; texts are 60 at most *)
 var
@@ -510,7 +510,7 @@ begin
  else if K>0 then begin
   S:=Tidy(Copy(Raw,1,K-1));
   A:=Copy(Raw,K+1,255); K2:=Pos('"',A);
-  if (Pos('|'+S+'|','|print|print out|say|display|write|show me|show|type|output|')=0) or
+  if (Pos('|'+S+'|','|print|print out|say|display|write|show me|show|type|output|display the phrase|write the sentence|')=0) or
      (K2<>Length(A)) or (K2<2) or (K2>61) then begin
    Refuse(Raw,'use PRINT with one quoted phrase (1 to 60 characters)'); Exit
   end;
@@ -872,19 +872,36 @@ begin
  Dec(Steps,Count)
 end;
 
+(* An explicit phrase introducer fixes the payload boundary. *)
+function PhraseStart(R:String):Integer;
+begin
+ R:=CodeCase(R);
+ PhraseStart:=0;
+ if Copy(R,1,19)='DISPLAY THE PHRASE ' then PhraseStart:=20;
+ if Copy(R,1,19)='WRITE THE SENTENCE ' then PhraseStart:=20
+end;
+
 (* Plan a request: split it into sentences at . and ; and put the lines
    they give into the program before line Cur, all or none. *)
 function MakePlan(R:String):Boolean;
 var I,Body:Integer; Part:String; Quote,Ok:Boolean;
 begin
  MakePlan:=False;
- NPend:=0; NClose:=0; Part:=''; Quote:=False; Ok:=True; R:=R+'.';
+ NPend:=0; NClose:=0; Part:=''; Quote:=False; Ok:=True;
+ I:=PhraseStart(R);
+ if (I>0) and (Pos('"',R)=0) then begin
+  Part:=Copy(R,I,255);
+  if Length(Part)>60 then begin Refuse(R,'quote a phrase of at most 60 characters'); Exit end;
+  Ok:=Accept(R,#255+Part,' ','   (no model)')
+ end else begin
+ R:=R+'.';
  for I:=1 to Length(R) do if Ok then begin
   if R[I]='"' then Quote:=not Quote;
   if (not Quote) and (R[I] in ['.',';']) and
      not ((R[I]='.') and (I>1) and (I<Length(R)) and
           (R[I-1] in ['0'..'9']) and (R[I+1] in ['0'..'9'])) then begin Ok:=Sentence(Part); Part:='' end
   else Part:=Part+R[I]
+ end;
  end;
  if Quote then begin Refuse(Part,'close the quoted text'); Exit end;
  if not Ok or (NPend=0) then Exit;
@@ -1400,6 +1417,50 @@ begin
  Save
 end;
 
+{$IFDEF GAMERULES}
+(* The rule expert chooses an ID. The editor expands it using the
+   documented shared board-program variable convention. *)
+procedure InsertRule(Request:String);
+var Choice, Source, WordText, Rest, CountText:String;
+    Tokens, Value, PassCount:Longint;
+    CountValues:Integer;
+begin
+ Request:=Tidy(Request);
+ if (Request='') or (Length(Request)>72) then begin
+  WriteLn('Describe one chess or Go rule, up to 72 characters.'); Exit
+ end;
+ if not Switch(7) then Exit;
+ Guiding:=False; Cancelled:=False;
+ Think(Request,Choice,Tokens,PollEscape,nil);
+ if Cancelled then Exit;
+ Source:='';
+ if FirstWord(Request)='chess' then begin
+  if (Choice='A') and HasWord(Request,'knight') then Source:='IF I*J=2:LET K=1:END';
+  if (Choice='B') and (HasWord(Request,'king') or HasWord(Request,'kings')) then
+   Source:='IF I<2:IF J<2:LET K=1:END:END';
+  if (Choice='C') and HasWord(Request,'bishop') then Source:='IF I=J:LET K=1:END';
+  if (Choice='D') and HasWord(Request,'rook') then Source:='IF I*J=0:LET K=1:END'
+ end else if FirstWord(Request)='go' then begin
+  if (Choice='E') and (HasWord(Request,'pass') or HasWord(Request,'passes')) then begin
+   Rest:=Request; CountValues:=0; PassCount:=0;
+   while Rest<>'' do begin
+    WordText:=NextWord(Rest);
+    if WordNumber(WordText,Value) then begin Inc(CountValues); PassCount:=Value end
+   end;
+   if (CountValues=1) and (PassCount>0) and (PassCount<=65535) then begin
+    Str(PassCount,CountText); Source:='IF F='+CountText+':STOP:END'
+   end
+  end;
+  if (Choice='F') and (HasWord(Request,'player') or HasWord(Request,'side')) then Source:='LET P=3-P';
+  if (Choice='G') and HasWord(Request,'liberties') then Source:='IF E=0:PUT A 0:END';
+  if (Choice='H') and HasWord(Request,'current') then Source:='PUT A P'
+ end;
+ LogLine('RULE '+Request+' -> '+Choice);
+ if Source='' then begin WriteLn('Rule unclear. Describe one supported rule.'); Exit end;
+ if MakePlan(Source) then Save else WriteLn('Rule did not fit the program.')
+end;
+{$ENDIF}
+
 procedure Handle(L:String);
 var Cmd,Rest,W:String; I:Integer; V:Longint; Changed:Boolean;
 begin
@@ -1421,6 +1482,9 @@ begin
  for I:=1 to Length(Cmd) do Cmd[I]:=UpCase(Cmd[I]);
  while (Rest<>'') and (Rest[Length(Rest)]=' ') do Delete(Rest,Length(Rest),1);
  V:=0;
+ {$IFDEF GAMERULES}
+ if Cmd='RULE' then begin InsertRule(Rest); Exit end;
+ {$ENDIF}
  if (Cmd='LIST') and (Rest='') then begin
   for I:=1 to LIBCOUNT do if Lib[I].Kind<4 then begin
    Write(Lib[I].Name);
@@ -1453,8 +1517,12 @@ begin
   Exit
  end
  else if (Cmd='XMS') and ((Tidy(Rest)='on') or (Tidy(Rest)='off')) then begin
+  {$IFDEF XMSSTREAM}
+  WriteLn('Projection streaming requires XMS.');
+  {$ELSE}
   XmsOn:=XmsPresent and (Tidy(Rest)='on');
   if XmsOn then WriteLn('experts are kept in extended memory') else WriteLn('experts are read from disk');
+  {$ENDIF}
   Exit
  end
  else if (Cmd='LOAD') and (Rest<>'') and (Pos(' ',Rest)=0) then begin
@@ -1773,6 +1841,7 @@ end;
 begin
  Interactive:=ConsoleIO; Active:=0; Guiding:=False; GuideOn:=True; DigitsOn:=True; WordsCount:=False; Guide:=Viable;
  KeyWords:=' OUT ECHO LET INPUT FOR NEXT TIMES END FOREVER IF ELSE STOP NL REPEAT ';
+ {$IFDEF GAMEARRAY}KeyWords:=KeyWords+'GET PUT ';{$ENDIF}
  for Steps:=1 to LIBCOUNT do KeyWords:=KeyWords+Lib[Steps].Name+' ';
  Asking:=False; Exact:=''; OutName:='OUT'; Steps:=0; Cur:=1;
  XmsOn:=XmsPresent; FromMem:=0; FromDisk:=0; MemMs:=0; DiskMs:=0; KeepMs:=0;
@@ -1783,6 +1852,9 @@ begin
  Creativity:=0; WriteLn('PasTinyAsm 1.2  FPU ',FPUName);
  {$IFDEF VER70}WriteLn('heap=',MemAvail);{$ENDIF}
  if XmsOn then WriteLn('extended memory: ',XmsFreeKB,' KB free, experts will be kept there');
+ {$IFDEF XMSSTREAM}
+ if not XmsOn then begin WriteLn('Projection streaming requires HIMEM or another XMS driver.'); Halt(1) end;
+ {$ENDIF}
  if not Switch(XSCREEN) then Halt(1);
  AllocMemory;
  (* MAKECOM file: start from the lines of that file; MAKECOM name.SRC:

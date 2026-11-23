@@ -13,7 +13,7 @@ type
  TSglArr=array[0..15999] of Single; PSglArr=^TSglArr;
  TVec=array[0..MAXHID-1] of Single; PVec=^TVec;
  TQVec=array[0..MAXHID-1] of SmallInt; PQVec=^TQVec;
- TTable=record Scale:PSglArr; W:PS8Arr; Rows,Cols:TIdx end;
+ TTable=record Scale:PSglArr; W:PS8Arr; Rows,Cols:TIdx; {$IFDEF XMSSTREAM}FileOffset:Longint;{$ENDIF} end;
  TStepProc=procedure(I,N:Integer); TLetterProc=procedure(C:Integer);
  TLoadProc=procedure(Done,Total:Integer); TFailProc=procedure;
 var D,L,H,HD,HID:Integer; Creativity:Integer; LastConf:Single;
@@ -57,7 +57,6 @@ var Emb,Pos:TTable;
     5 KB back. *)
  Bm:TVec; Bx,Bh,Bq,Bt,Ba,Bs,Score:PVec;
  Xq:TQVec; Qq,Ww:PQVec;
- Ee:array[0..CTX-1] of Longint;
  ExpTab:array[0..1535] of SmallInt;
  AttDiv:Single; TablesDone,TablesTotal:Integer;
  F:File;
@@ -72,6 +71,15 @@ begin
  {$IFNDEF FPC}if MaxAvail<N then Fail('not enough memory. TINY needs about 540 KB free (type MEM).');{$ENDIF}
  GetMem(P,N); Memory:=P
 end;
+{$IFDEF FACTORS16}
+const ModelBytes=74608; Magic='TF16';
+{$ELSE}
+ {$IFDEF TERNARY}
+ const ModelBytes=107560; Magic='TTR1';
+ {$ELSE}
+ const ModelBytes=381808; Magic='TNY2';
+ {$ENDIF}
+{$ENDIF}
 const BufSize=512;       (* PasTinyAsm: half a KB, not 4 KB; the program needs the room *)
 (* Loading and inference never overlap. Reuse their fixed scratch buffers. *)
 var Buffer:array[0..BufSize-1] of Byte absolute Xq;
@@ -82,15 +90,46 @@ function RowBytes(Cols:Integer):Integer;
 begin
  {$IFDEF TERNARY}RowBytes:=(Cols+3) div 4;{$ELSE}RowBytes:=Cols;{$ENDIF}
 end;
+{$IFDEF FACTORS16}
+function IsFactor(var T:TTable):Boolean;
+begin IsFactor:=(T.Rows<>VOCAB) and (T.Rows<>CTX) end;
+{$ENDIF}
+function ScaleCount(var T:TTable):Word;
+begin
+ ScaleCount:=T.Rows;
+ {$IFDEF FACTORS16}if IsFactor(T) then ScaleCount:=T.Rows+T.Cols+16;{$ENDIF}
+end;
+function TableBytes(var T:TTable):Word;
+begin
+ TableBytes:=Longint(T.Rows)*RowBytes(T.Cols);
+ {$IFDEF FACTORS16}if IsFactor(T) then TableBytes:=4*(T.Rows+T.Cols);{$ENDIF}
+end;
+{$IFDEF XMSSTREAM}
+const FirstHalf=38784; SecondHalf=50944; LayerBytes=89728; EmbedEnd=22512;
+{$IFDEF XMSLAYER}
+const StageBytes=FirstHalf;
+var TailStage:PS8Arr;
+{$ELSE}
+const StageBytes=25600;
+{$ENDIF}
+var Stage:PS8Arr; StreamHandle:Word; LayerOffset:Longint;
+{$ENDIF}
 procedure ReserveTable(var T:TTable; Rows,Cols:Integer);
 begin
  T.Rows:=Rows; T.Cols:=Cols;
- T.Scale:=Memory(Rows*4); T.W:=Memory(Longint(Rows)*RowBytes(Cols))
+ {$IFDEF XMSSTREAM}
+ if (Rows<>VOCAB) and (Rows<>CTX) then begin T.W:=nil; T.Scale:=nil; Exit end;
+ {$ENDIF}
+ T.Scale:=Memory(ScaleCount(T)*4); T.W:=Memory(TableBytes(T))
 end;
 procedure Reserve;
 var J:Integer;
 begin
  D:=96; L:=4; H:=4; HID:=256; HD:=D div H; AttDiv:=Sqrt(HD);
+ {$IFDEF XMSSTREAM}
+ Stage:=Memory(StageBytes);
+ {$IFDEF XMSLAYER}TailStage:=Memory(SecondHalf);{$ENDIF}
+ {$ENDIF}
  ReserveTable(Emb,VOCAB,D); ReserveTable(Pos,CTX,D);
  for J:=0 to L-1 do begin
   G1[J]:=Memory(D*4); G2[J]:=Memory(D*4);
@@ -108,9 +147,9 @@ begin
  while (Offset<N) and (LoadError='') do begin
   if Used=Available then begin
    if ModelXms<>0 then begin
-    (* from extended memory: the next piece of the 381,808 bytes *)
+    (* Read the next block from the resident XMS image. *)
     Available:=BufSize; Err:=0;
-    if 381808-XPos<BufSize then Available:=381808-XPos;
+    if ModelBytes-XPos<BufSize then Available:=ModelBytes-XPos;
     if Available>0 then if not XmsRead(ModelXms,XPos,Buffer,Available) then Err:=1;
     Inc(XPos,Available)
    end else begin
@@ -138,7 +177,22 @@ begin
 end;
 procedure ReadTable(var T:TTable);
 var R:Integer;
+{$IFDEF XMSSTREAM} Scale:Single;{$ENDIF}
 begin
+ {$IFDEF XMSSTREAM}
+ if T.W=nil then begin
+  T.FileOffset:=XPos-Available+Used;
+  for R:=0 to T.Rows-1 do begin
+   Scalars(Scale,1); ReadBytes(Stage^[0],T.Cols)
+  end;
+  Exit
+ end;
+ {$ENDIF}
+ {$IFDEF FACTORS16}
+ if IsFactor(T) then begin
+  Scalars(T.Scale^[0],ScaleCount(T)); ReadBytes(T.W^[0],TableBytes(T)); Exit
+ end;
+ {$ENDIF}
  for R:=0 to T.Rows-1 do begin
   Scalars(T.Scale^[R],1); ReadBytes(T.W^[Longint(R)*RowBytes(T.Cols)],RowBytes(T.Cols))
  end
@@ -148,6 +202,10 @@ var Header:packed record Magic:array[1..4] of Char; Width,Layers,Heads,Hidden:Wo
  J,K,Err:Integer; Size,V:Longint;
 begin
  Ready:=False; TryModel:=False; LoadError:='';
+ {$IFDEF XMSSTREAM}
+ StreamHandle:=0;
+ if ModelXms=0 then begin LoadError:='XMS required for streaming'; Exit end;
+ {$ENDIF}
  if not Reserved then Reserve;
  for J:=0 to 255 do begin
   V:=J;
@@ -162,12 +220,12 @@ begin
   {$I-}Reset(F,1); Err:=IOResult;{$I+}
   if Err<>0 then begin LoadError:='open failed'; Exit end;
   {$I-}Size:=FileSize(F); Err:=IOResult;{$I+}
-  if (Err<>0) or (Size<>{$IFDEF TERNARY}107560{$ELSE}381808{$ENDIF}) then LoadError:='wrong file size'
+  if (Err<>0) or (Size<>ModelBytes) then LoadError:='wrong file size'
  end;
  Used:=0; Available:=0; Check:=-1;
  ReadBytes(Header,SizeOf(Header));
  if LoadError='' then
- if (Header.Magic<>{$IFDEF TERNARY}'TTR1'{$ELSE}'TNY2'{$ENDIF}) or (Header.Width<>D) or (Header.Layers<>L) or
+ if (Header.Magic<>Magic) or (Header.Width<>D) or (Header.Layers<>L) or
     (Header.Heads<>H) or (Header.Hidden<>HID) then LoadError:='unsupported TNY2 header';
  ReadTable(Emb); ReadTable(Pos);
  for J:=0 to L-1 do begin
@@ -181,7 +239,8 @@ begin
   if Err<>0 then LoadError:='close failure'
  end;
  if (LoadError='') and ((not Check)<>Expected) then LoadError:='CRC32 mismatch';
- Ready:=LoadError=''; TryModel:=Ready
+ Ready:=LoadError=''; TryModel:=Ready;
+ {$IFDEF XMSSTREAM}if Ready then StreamHandle:=ModelXms;{$ENDIF}
 end;
 procedure AllocMemory;
 var J,K:Integer;
@@ -196,8 +255,8 @@ begin
 end;
 procedure FreeTable(var T:TTable);
 begin
- if T.W<>nil then FreeMem(T.W,Longint(T.Rows)*RowBytes(T.Cols));
- if T.Scale<>nil then FreeMem(T.Scale,T.Rows*4);
+ if T.W<>nil then FreeMem(T.W,TableBytes(T));
+ if T.Scale<>nil then FreeMem(T.Scale,ScaleCount(T)*4);
  T.W:=nil; T.Scale:=nil
 end;
 procedure ReleaseMemory;
@@ -205,6 +264,10 @@ var J:Integer;
 begin
  if not Reserved then Exit;
  Reserved:=False; Ready:=False;
+ {$IFDEF XMSSTREAM}
+ FreeMem(Stage,StageBytes);
+ {$IFDEF XMSLAYER}FreeMem(TailStage,SecondHalf);{$ENDIF}
+ {$ENDIF}
  FreeTable(Emb); FreeTable(Pos);
  for J:=0 to L-1 do begin
   FreeTable(Wq[J]); FreeTable(Wk[J]); FreeTable(Wv[J]);
@@ -291,9 +354,60 @@ begin
  DotTernary:=Sum
 end;
 {$ENDIF}
+{$IFDEF FACTORS16}
+function FactorDot(W:PS8Arr; Offset,N:Integer; var X:TVec):Single;
+var I,J:Integer; Bits:Byte; Sum:Single;
+begin
+ Sum:=0;
+ for I:=0 to (N div 4)-1 do begin
+  Bits:=Byte(W^[Offset+I]);
+  for J:=0 to 3 do begin
+   case Bits and 3 of
+    0: Sum:=Sum-X[I*4+J];
+    2: Sum:=Sum+X[I*4+J]
+   end;
+   Bits:=Bits shr 2
+  end
+ end;
+ FactorDot:=Sum
+end;
+procedure FactorMatvec(var T:TTable; var X,Y:TVec);
+var I:Integer; Scaled,Latent:TVec;
+begin
+ for I:=0 to T.Cols-1 do Scaled[I]:=X[I]*T.Scale^[I];
+ for I:=0 to 15 do Latent[I]:=FactorDot(T.W,I*(T.Cols div 4),T.Cols,Scaled)*T.Scale^[T.Cols+I];
+ for I:=0 to T.Rows-1 do Y[I]:=FactorDot(T.W,4*T.Cols+4*I,16,Latent)*T.Scale^[T.Cols+16+I]
+end;
+{$ENDIF}
+{$IFDEF XMSSTREAM}
+procedure StreamMatvec(var T:TTable; var X,Y:TVec);
+var R:Integer; Offset,Stride:Word; InputScale,Sum:Single; Weights:PS8Arr;
+{$IFDEF XMSLAYER} Relative:Longint;{$ENDIF}
+begin
+ Stride:=T.Cols+4;
+ {$IFDEF XMSLAYER}
+ Relative:=T.FileOffset-LayerOffset;
+ Weights:=Stage;
+ if Relative>=FirstHalf then begin Dec(Relative,FirstHalf); Weights:=TailStage end;
+ Offset:=Relative;
+ {$ELSE}
+ Offset:=0; Weights:=Stage;
+ if not XmsRead(StreamHandle,T.FileOffset,Stage^[0],T.Rows*Stride) then
+  Fail('XMS projection read failed');
+ {$ENDIF}
+ InputScale:=Quant16(X,T.Cols,Xq);
+ for R:=0 to T.Rows-1 do begin
+  Sum:=DotS8I16(PS8Arr(@Weights^[Offset+4]),Xq,T.Cols);
+  Sum:=Sum*PSglArr(@Weights^[Offset])^[0]; Y[R]:=Sum*InputScale;
+  Inc(Offset,Stride)
+ end
+end;
+{$ENDIF}
 procedure Matvec(var T:TTable; var X,Y:TVec);
 var R,C:TIdx; Offset:Longint; S,Sx,V:Single; A:Longint;
 begin
+ {$IFDEF XMSSTREAM}if T.W=nil then begin StreamMatvec(T,X,Y); Exit end;{$ENDIF}
+ {$IFDEF FACTORS16}if IsFactor(T) then begin FactorMatvec(T,X,Y); Exit end;{$ENDIF}
  {$IFNDEF FLOATMATH}Sx:=Quant16(X,T.Cols,Xq);{$ENDIF}
  Offset:=0;
  for R:=0 to T.Rows-1 do begin
@@ -310,11 +424,44 @@ begin
   Inc(Offset,RowBytes(T.Cols))
  end
 end;
+{$IFDEF FIXEDRMS}
+(* Integer square root, rounded down. The initial guess is a power of two
+   above the root, so Newton steps decrease until they reach the result. *)
+function Root32(N:Longint):Longint;
+var Guess,Next,Scale:Longint;
+begin
+ if N=0 then begin Root32:=0; Exit end;
+ Scale:=N; Guess:=1;
+ while Scale>0 do begin Scale:=Scale shr 2; Guess:=Guess shl 1 end;
+ repeat
+  Next:=(Guess+N div Guess) shr 1;
+  if Next>=Guess then begin Root32:=Guess; Exit end;
+  Guess:=Next
+ until False
+end;
+{$ENDIF}
+
 procedure Norm(var X:TVec; G:PSglArr; var Y:TVec);
 var I:TIdx; S,V:Single;
+{$IFDEF FIXEDRMS}
+    Q,Energy,Root:Longint; Scale,Peak:Single;
+{$ENDIF}
 begin
+ {$IFDEF FIXEDRMS}
+ Peak:=0;
+ for I:=0 to D-1 do if Abs(X[I])>Peak then Peak:=Abs(X[I]);
+ Scale:=1024;
+ while Peak*Scale>4095 do Scale:=Scale*0.5;
+ Energy:=Round(D*1e-5*Scale*Scale);
+ for I:=0 to D-1 do begin
+  Q:=Round(X[I]*Scale); Energy:=Energy+Q*Q
+ end;
+ Root:=Root32(Energy);
+ if Root>0 then S:=Scale*9.797958971/Root else S:=316.227766;
+ {$ELSE}
  S:=0; for I:=0 to D-1 do begin V:=X[I]*X[I]; S:=S+V end;
  V:=S/D; S:=1.0/Sqrt(V+1e-5);
+ {$ENDIF}
  for I:=0 to D-1 do begin V:=X[I]*S; Y[I]:=V*G^[I] end
 end;
 function SafeExp(X:Single):Single;
@@ -346,6 +493,12 @@ begin
   Bx^[I]:=S+V
  end;
  for Z:=0 to L-1 do begin
+  {$IFDEF XMSLAYER}
+  LayerOffset:=EmbedEnd+Longint(Z)*LayerBytes;
+  if not XmsRead(StreamHandle,LayerOffset,Stage^[0],FirstHalf) or
+     not XmsRead(StreamHandle,LayerOffset+FirstHalf,TailStage^[0],SecondHalf) then
+   Fail('XMS layer read failed');
+  {$ENDIF}
   Norm(Bx^,G1[Z],Bh^);
   Matvec(Wk[Z],Bh^,Bt^); Ks[Z]^[P]:=Store(PS8Arr(@Kc[Z]^[P*D]),Bt^);
   Matvec(Wv[Z],Bh^,Bt^); Vs[Z]^[P]:=Store(PS8Arr(@Vc[Z]^[P*D]),Bt^);
@@ -381,11 +534,11 @@ begin
    for J:=0 to P do begin
     S:=Big-Bs^[J]; S:=S*128.0;
     if S>=1535.5 then K:=1536 else begin S:=S+0.5; K:=Trunc(S) end;
-    if K<1536 then Ee[J]:=ExpTab[K] else Ee[J]:=0;
-    Esum:=Esum+Ee[J]
+    if K<1536 then K:=ExpTab[K] else K:=0;
+    Bs^[J]:=K; Esum:=Esum+K
    end;
    Wm:=0; for J:=0 to P do begin
-    Bs^[J]:=Ee[J]*Vs[Z]^[J]; if Bs^[J]>Wm then Wm:=Bs^[J]
+    Bs^[J]:=Bs^[J]*Vs[Z]^[J]; if Bs^[J]>Wm then Wm:=Bs^[J]
    end;
    if Wm>0 then Wsc:=Wm/32767.0 else Wsc:=0;
    for J:=0 to P do begin

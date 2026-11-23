@@ -55,6 +55,44 @@ begin
  LoadRouter:=RouterReady
 end;
 
+(* The sum of N products of an 8-bit weight and a 16-bit state value.
+   Turbo Pascal multiplies 32-bit numbers through a library call; this
+   is the one 16-bit multiplication a product needs, and four times as
+   fast. *)
+{$IFDEF VER70}
+function Dot(var B; var X; N:Word):Longint; assembler;
+var Hi:Word;
+asm
+ push ds
+ mov Hi,0
+ xor bx,bx
+ lds si,B
+ les di,X
+ mov cx,N
+ cld
+@next:
+ lodsb
+ cbw
+ imul word ptr es:[di]
+ add bx,ax
+ adc Hi,dx
+ add di,2
+ loop @next
+ pop ds
+ mov ax,bx
+ mov dx,Hi
+end;
+{$ELSE}
+function Dot(var B; var X; N:Word):Longint;
+type TB=array[0..255] of ShortInt; TX=array[0..255] of Integer;
+var I:Integer; Acc:Longint;
+begin
+ Acc:=0;
+ for I:=0 to N-1 do Acc:=Acc+Longint(TB(B)[I])*TX(X)[I];
+ Dot:=Acc
+end;
+{$ENDIF}
+
 function Route(S:String; Classes:Integer):Integer;
 var Hs,Nw:array[0..MAXH-1] of Integer; P,X,I,J,Best:Integer; A,Acc,Z,Cd,Top,Next:Longint;
 begin
@@ -69,8 +107,7 @@ begin
   else if S[P]=',' then X:=28;
   if X>=0 then begin
    for I:=0 to H-1 do begin
-    Acc:=0;
-    for J:=0 to H-1 do Acc:=Acc+Longint(U^[I*H+J])*Hs[J];
+    Acc:=Dot(U^[I*H],Hs,H);
     A:=Longint(W^[X*H+I])*(ONE div Scale)+Acc div Scale;
     Z:=(A+Bz[I]) div 4+ONE div 2;
     if Z<0 then Z:=0 else if Z>ONE then Z:=ONE;
@@ -84,8 +121,7 @@ begin
  if Classes>K then Classes:=K;
  Best:=0; Top:=-MaxLongint; Next:=-MaxLongint;
  for I:=0 to Classes-1 do begin
-  Acc:=0;
-  for J:=0 to H-1 do Acc:=Acc+Longint(C^[I*H+J])*Hs[J];
+  Acc:=Dot(C^[I*H],Hs,H);
   Acc:=Acc div Scale+Bc[I];
   if Acc>Top then begin Next:=Top; Top:=Acc; Best:=I end
   else if Acc>Next then Next:=Acc
