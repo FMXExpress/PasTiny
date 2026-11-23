@@ -5,6 +5,7 @@ The router reads a request and says which expert should have it:
 
   screen sound text    one call
   tasks                a small program (the tasks and slots experts)
+  none                 something the program cannot do: "what time is it", "copy the file"
   recipes              "build an alarm clock"
   several              several steps in one sentence, to be split and routed one by one
 
@@ -24,7 +25,7 @@ Splits:
 import json, random, re, sys
 import gen_asm, gen_recipes, gen_tasks
 
-CLASSES = ['screen', 'sound', 'text', 'tasks', 'recipes', 'several']
+CLASSES = ['screen', 'sound', 'text', 'tasks', 'none', 'recipes', 'several']
 JOIN = [', ', ' and ', ' then ', ' and then ', ', then ']
 
 
@@ -77,6 +78,40 @@ def fresh(r, c):
     return q
 
 
+# Things people ask a computer for that this program cannot do.  The router has to say so
+# and not hand them to an expert, which would write some line for them.
+OTHER = ['tell me the time', 'what day is it today', 'what is the date', 'how much disk space is left', 'show me the files',
+         'list the directory', 'copy {f} to {f}', 'delete the file {f}', 'rename {f}', 'open {f}', 'load {f}', 'edit {f}',
+         'what is your name', 'how are you today', 'hello there', 'good morning', 'thank you', 'what do you know',
+         'tell me a story about {o}', 'do you like {o}', 'i have {n} {o}', 'the {o} is {a}', 'where is the {o}',
+         'why are {o} {a}', 'is it going to rain', 'how far is the moon', 'what is {n} times {n}', 'what is {n} minus {n}',
+         'call {o}', 'send a letter to {o}', 'go {d}', 'walk {d}', 'take the {o}', 'look at the {o}', 'drop the {o}',
+         'save my work', 'print this on the printer', 'connect to the network', 'start the game', 'install {f}',
+         'shut down', 'restart the machine', 'how do i use this', 'explain {o}', 'translate {o} into french',
+         'draw a picture of {o}', 'find {o} in {f}', 'sort the list', 'check my spelling', 'remind me tomorrow',
+         'what does {o} mean', 'i am {a}', 'that was {a}', 'never mind', 'forget it', 'yes', 'no', 'maybe later',
+         'compile {f}', 'make a backup', 'show the calendar', 'add {o} to my list', 'buy {n} {o}', 'who won']
+THINGS = ('cats dogs apples trees rivers houses cars books chairs birds friends teachers doctors horses boats gardens '
+          'windows kitchens mountains letters pencils shoes clouds bridges trains').split()
+HOW = 'happy tired hungry green old cold funny broken heavy quiet strange lovely'.split()
+FILES = ['readme', 'autoexec', 'config', 'notes', 'report', 'letter', 'budget', 'homework', 'drive a', 'drive c', 'the folder']
+PLAIN = ('about after always animal answer because between bring children city country dinner early family father garden '
+         'happen important island know learn letter listen maybe money mother never often people person place problem '
+         'question remember river school should sister small something story summer think together tomorrow town travel '
+         'under usually water weather week window winter woman world year young').split()
+
+
+def other(r):
+    if r.random() < 0.25:                 # words that are English and ask for nothing here
+        return ' '.join(r.sample(PLAIN, r.randint(1, 5)))
+    q = r.choice(OTHER)
+    while '{n}' in q:
+        q = q.replace('{n}', str(r.randint(2, 99)), 1)
+    while '{f}' in q:
+        q = q.replace('{f}', r.choice(FILES), 1)
+    return q.replace('{o}', r.choice(THINGS)).replace('{a}', r.choice(HOW)).replace('{d}', r.choice(['north', 'south', 'east', 'west', 'up', 'home']))
+
+
 def single(r, split):
     e = r.choice(['screen', 'sound', 'text'])
     pool = {'seen': gen_asm.P[e] + gen_asm.V1[e], 'valid': gen_asm.V1HELD[e], 'new': gen_asm.HELD[e]}.get(split)
@@ -123,8 +158,10 @@ def make(r, split='seen', raw=False):
     if split == 'all':                 # what the router is trained on: everything the word lists were written with
         q, c = make(r, r.choice(['seen', 'seen', 'new']), raw=True)
         return (q if raw else tidy(vary(r, q))), c
-    kind = r.choice(['one', 'one', 'one', 'tasks', 'tasks', 'recipes', 'several'])
-    if kind == 'one':
+    kind = r.choice(['one', 'one', 'one', 'tasks', 'tasks', 'recipes', 'several'] + ['none'] * (split in ('seen', 'valid')))
+    if kind == 'none':
+        q, c = other(r), 'none'
+    elif kind == 'one':
         q, c = single(r, split)
     elif kind == 'tasks':
         how = {'seen': ['seen', 'seen', 'seen', 'far', 'quoted'], 'valid': ['words1'], 'new': ['words', 'combo']}.get(split)

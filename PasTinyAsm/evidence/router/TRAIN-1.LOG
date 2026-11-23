@@ -1,0 +1,25 @@
+hidden 32: 2249 numbers
+step 500 loss 0.9070 trained 796/1000 held back 830/1000 (kept) 29s
+step 1000 loss 0.3731 trained 871/1000 held back 903/1000 (kept) 59s
+step 1500 loss 0.2374 trained 914/1000 held back 931/1000 (kept) 90s
+step 2000 loss 0.1666 trained 935/1000 held back 948/1000 (kept) 120s
+step 2500 loss 0.1259 trained 963/1000 held back 976/1000 (kept) 149s
+step 3000 loss 0.1004 trained 969/1000 held back 974/1000 178s
+step 3500 loss 0.0917 trained 965/1000 held back 988/1000 (kept) 206s
+step 4000 loss 0.0962 trained 974/1000 held back 994/1000 (kept) 235s
+step 4500 loss 0.0743 trained 977/1000 held back 993/1000 262s
+step 5000 loss 0.0625 trained 970/1000 held back 990/1000 289s
+step 5500 loss 0.0589 trained 982/1000 held back 995/1000 (kept) 316s
+step 6000 loss 0.0660 trained 974/1000 held back 993/1000 345s
+step 6500 loss 0.0467 trained 990/1000 held back 997/1000 (kept) 375s
+step 7000 loss 0.0337 trained 993/1000 held back 998/1000 (kept) 405s
+step 7500 loss 0.0327 trained 992/1000 held back 999/1000 (kept) 434s
+step 8000 loss 0.0313 trained 991/1000 held back 998/1000 466s
+2330 bytes, whole numbers only: trained wordings 992/1000
+   none 125/126  recipes 137/137  screen 124/124  several 109/112  sound 123/126  tasks 252/252  text 122/123
+2330 bytes, whole numbers only: held back wordings 999/1000
+   none 133/133  recipes 145/145  screen 110/110  several 95/95  sound 136/136  tasks 251/251  text 129/130
+2330 bytes, whole numbers only: new wordings 1000/1000
+   recipes 121/121  screen 155/155  several 137/137  sound 138/138  tasks 301/301  text 148/148
+2330 bytes, whole numbers only: fresh wordings 779/1000
+   recipes 97/131  screen 135/160  several 123/133  sound 129/149  tasks 204/284  text 91/143

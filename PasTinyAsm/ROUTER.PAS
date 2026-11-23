@@ -18,7 +18,8 @@ unit ROUTER;
    training/train_router.py trains it and does these same sums; its
    ROUTER.TXT lists requests with the answers both must give. *)
 interface
-const RSCREEN=0; RSOUND=1; RTEXT=2; RTASKS=3; RRECIPES=4; RSEVERAL=5;
+(* RNONE: something the program cannot do. *)
+const RSCREEN=0; RSOUND=1; RTEXT=2; RTASKS=3; RNONE=4; RRECIPES=5; RSEVERAL=6;
 var RouterReady:Boolean;
 (* How far the answer led the next best one; small means unsure. *)
 var RouteLead:Longint;

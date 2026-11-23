@@ -79,6 +79,8 @@ Six experts, each a 381,808-byte TINY 2.1 model trained from the general `TINY.B
 | `TEXT.BIN` | `PRINT text`, `NEWLINE`, `NUMBER n` |
 | `TASKS.BIN` | whole small programs with loops, keyboard input, arithmetic and tests |
 | `SLOTS.BIN` | the same programs, asked with markers in place of numbers and quoted texts |
+
+`ROUTER.BIN` (2,330 bytes) is not an expert: it is the small network that decides which of them gets a request.
 | `RECIPES.BIN` | the steps of a named thing, as sentences for the other four |
 
 Two kinds of step skip the model: a step that is already a line of the language, and a step with text in double quotes, which prints that text exactly (`print "Hello, World!"`).
@@ -261,6 +263,31 @@ New wordings rose from 298 to 300 because the number check now also reads number
 
 `GUIDE OFF` and `GUIDE ON` switch the guide (and the digits) for comparison.
 
+## The router: a two-kilobyte network chooses the expert
+
+Which expert gets a request used to be decided by word lists in the program: "beep", "tone" and thirty other words meant sound, "count", "table" and thirty more meant a small program. Every collision was patched with another word. Now a small recurrent network decides, `ROUTER.BIN`, 2,330 bytes.
+
+**What it is.** A FastGRNN cell (Kusupati and others, 2018) 32 wide. It reads the request a letter at a time, 29 letters in all (every digit is the same letter, and the comma is one), and after the last letter picks one of seven answers: `screen`, `sound`, `text`, `tasks`, `recipes`, `several` (split the sentence and route each step) or `none` (something the program cannot do). Its weights are 8-bit, its state 16-bit fixed point, and its sigmoid and tanh are straight lines, so it uses no floating point and stays in memory beside whichever expert is loaded. [`ROUTER.PAS`](ROUTER.PAS) is 110 lines; [`training/train_router.py`](training/train_router.py) trains it in eight minutes and does the same whole-number sums, and the tests check that the two agree on 300 requests.
+
+**How it compares with the word lists.** 2,000 requests of each kind, right when sent to the class they belong to ([`evidence/router/ROUTING.TXT`](evidence/router/ROUTING.TXT)):
+
+| | word lists | router, same data as the lists | router as shipped, with `none` |
+|---|---|---|---|
+| trained wordings | 1,992 | 1,995 | 1,992 |
+| wordings held back from the router | 1,989 | 1,997 | 2,000 |
+| "new" wordings, which the lists had been mended on | 1,990 | 2,000 | 1,993 |
+| fresh wordings, written afterwards and new to both | 1,289 | 1,397 | 1,568 |
+
+In the last column the first two sets also hold out-of-scope requests, so they are not the same 2,000 as in the others.
+
+- **On wordings it has met, it is as good as the lists.** A first router, trained without the "new" set, got 1,818 of those 2,000 where the lists got 1,990; but the lists had been corrected against exactly that set. Given the same wordings, the router gets them all.
+- **On wordings neither has met, it is better, and unevenly so.** Five routers, differing in width, in what they were trained on and in the run, gave 1,397, 1,516, 1,568, 1,617 and 1,657 of 2,000 on the fresh set, against 1,289 for the lists, which did not recognise a single fresh recipe request ("make me an egg timer").
+- **End to end the scores are nearly the same.** Of the twelve test sets, nine are unchanged. Text on trained wordings went from 298 right and 2 accepted wrong to 297 right and 1 accepted wrong ("print the words ... fast" no longer becomes a counting loop, but two requests are now "not understood"); sound on trained wordings went from 300 to 298, both lost to "not understood". Trained recipe requests went from 100 to 99 of 100.
+
+**Where it is worse: saying no.** The lists knew nothing but their own words, so a request with none of them was "not understood". Of twenty hand-written requests for things the program cannot do ("what time is it", "format the disk"), the lists refused 19. A router with no `none` answer sent every one to some expert, and four came back as accepted lines (`HIDE` for "turn off the computer"). Trained with 64 kinds of out-of-scope request as a seventh answer, it refuses 13 of the twenty and 5 are still accepted wrong; a second run refused 15 and let 2 through. That is better than nothing and not as good as the lists.
+
+**What it gave back.** The lists and their code are gone, and the router costs less than they did: with it, and with the editor writing straight to video memory, 1,576 bytes of heap are spare under DOS where there were 312.
+
 ## Running, the log and extended memory
 
 **Run and come back.** With a model loaded there is no room in 640K to start another program. So F5 (or `RUN` in a script) lets the model go, hands the memory above MAKECOM back to DOS, runs the `.COM` file, then takes the memory back and loads the model again. The program being built is not in that memory, so nothing is lost. A scripted `RUN` refuses a program that waits for the keyboard, because its input would be the rest of the script.
@@ -359,7 +386,7 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (90,464 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (93,712 bytes). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|
@@ -389,16 +416,18 @@ So more wordings make the experts right on more phrasings, but do not make them 
 - Text without quotes is small letters and digits only, and a text with "and" or "then" in it is split into two steps. Use quotes.
 - A step holds 72 characters, a line 80, a text 60, and a program 40 lines, 3,072 bytes and 24 texts. An interview goes three keys deep, with six keys in one place; the second game above, at 37 lines, is about as large as an adventure gets.
 - In a single call the numbers check only looks at numbers typed as digits: "beep for five seconds" is not checked against the 5. In a small program number words from two to twenty are checked too.
-- The package no longer fits one floppy: with six experts and the exporter it unpacks to 2,409,101 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
+- The package no longer fits one floppy: with six experts and the exporter it unpacks to 2,447,296 bytes. Without `TASKS.BIN` (and with a three-entry catalog) the program still runs, at about 1.2 MB, which does fit.
 - The slots expert was trained once more after the table above was begun (10,000 steps, 0 and 1 no longer slotted) and that second run was only measured together with the tasks expert, not alone.
 - Markers are `n1` to `n6` and `t1` to `t3`: a request has at most six numbers from 2 up and three quoted texts, and a quoted text inside a task cannot hold a colon.
 - The tasks expert knows about 30 program shapes. A request outside them gets a wrong line or a refusal; it does not reason about new logic.
 - Variables are unsigned 16-bit; arithmetic wraps, and dividing by zero ends the program with the DOS divide message.
-- The program needs about 590 KB of free conventional memory, and 392 bytes of heap remained in the TP7 text-check smoke test with a model loaded. Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
+- The program needs about 590 KB of free conventional memory, and 1,576 bytes of heap remain with a model loaded (312 before the router replaced the word lists). Slots and guided writing were paid for by putting the network's work vectors on the heap at their real sizes (5 KB) and by turning off stack checks in every unit but the main program. To make room for the interviewer the help text moved into `MAKECOM.HLP`, a stored line went from 120 characters to 80 (none can be longer than 66) and the model file buffer was halved; the stack was raised to 20 KB for the recipe path. Its copies of the engine units are cut to the one model shape it uses and to 8 catalog entries, which is where the room came from.
 - Block openers are a fixed set of wordings read by code. Without the colon, "repeat 3 times" still means the whole program.
 - The editor shows the code, not your sentences, so a line taken up for changing shows its code. The cursor moves inside the line being typed, but typing always inserts; there is no overwrite mode. It assumes an 80 by 25 text screen.
 - One run of the typed change test stalled in the emulator and three repeats of the same keys did not; I could not find a cause in the program.
-- The router is a word list in `MAKECOM.PAS`, not a model.
+- The router was chosen among its training runs by the wordings held back from it, not by the fresh set or the twenty out-of-scope requests; those two are where the runs differ most. The fresh wordings and the out-of-scope requests were written by the author of everything else.
+- How long the router takes on a real 386 was not measured; it does about a thousand multiplications a letter.
+- Under DOS the editor writes to colour text memory at `B800:0000` directly; a monochrome card is not served.
 - `bin/MAKECOM.EXE` was built with a Turbo Pascal 7 copy whose runtime differs slightly from the one used for the other executables in this repository.
 - One training run per expert and version; the scores above are from those runs.
 - The new held-out set was written by the same author as the training wordings, so it is easier than what a stranger would type.
@@ -420,10 +449,11 @@ To retrain an expert (PyTorch, 35 to 55 minutes on one CPU core), then rewrite t
 python3 training/train_asm.py screen ../PasTinyMoE/TINY.BIN SCREEN.BIN 6000
 THREADS=4 python3 training/train_asm.py tasks ../PasTinyMoE/TINY.BIN TASKS.BIN 8000
 THREADS=4 python3 training/train_asm.py slots ../PasTinyMoE/TINY.BIN SLOTS.BIN 10000
+python3 training/train_router.py ROUTER.BIN 32 8000        the router; ROUTER.BIN.TXT becomes tests/ROUTER.TXT
 python3 tools/package.py
 ```
 
-To add a routine: write it in `LIB.ASM` with its `;;` header line, run `tools/buildlib.py`, add wordings for it to `training/gen_asm.py` and words for it to the router in `MAKECOM.PAS`, and retrain that expert.
+To add a routine: write it in `LIB.ASM` with its `;;` header line, run `tools/buildlib.py`, add wordings for it to `training/gen_asm.py` retrain that expert, and retrain the router (`training/train_router.py`), which learns the new wordings from the same file.
 
 The task shapes and their held-out combinations are in [`training/gen_tasks.py`](training/gen_tasks.py).
 

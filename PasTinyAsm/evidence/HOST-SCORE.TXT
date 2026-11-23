@@ -1,19 +1,20 @@
 Compiler: 12 programs match NASM byte for byte.
 Blocks: 6 sessions give the expected outline, and their programs match NASM.
 Interview: an adventure is built from replies to questions alone, and matches NASM.
+Router: 300 requests go where the trainer sent them.
 Edits: 2 sessions that change lines in place give the expected outline and match NASM.
 Review fixes: quoted characters keep their case; an emptied program removes its files.
 Source: a program kept as text loads back to the same listing and the same .COM file; 3 bad files are refused.
 Export: 6 programs written as Turbo Pascal and as QBasic; a program with an open block is refused.
 Plans: 6 requests give the expected calls; 4 bad requests write nothing.
 screen trained wordings:                 300 right, 0 refused, 0 wrong but accepted, of 300
-screen first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+screen first held-out set (now trained): 299 right, 1 refused, 0 wrong but accepted, of 300
 screen new wordings:                     300 right, 0 refused, 0 wrong but accepted, of 300
-sound  trained wordings:                 300 right, 0 refused, 0 wrong but accepted, of 300
+sound  trained wordings:                 298 right, 2 refused, 0 wrong but accepted, of 300
 sound  first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
 sound  new wordings:                     261 right, 39 refused, 0 wrong but accepted, of 300
-text   trained wordings:                 298 right, 0 refused, 2 wrong but accepted, of 300
-text   first held-out set (now trained): 299 right, 0 refused, 1 wrong but accepted, of 300
+text   trained wordings:                 297 right, 2 refused, 1 wrong but accepted, of 300
+text   first held-out set (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
 text   new wordings:                     113 right, 0 refused, 187 wrong but accepted, of 300
 tasks  trained shapes and combinations:       300 right, 0 refused, 0 wrong but accepted, of 300
 tasks  held-out combinations:                 299 right, 0 refused, 1 wrong but accepted, of 300
@@ -22,6 +23,6 @@ tasks  new wordings:                          300 right, 0 refused, 0 wrong but 
 tasks  numbers far outside training:          300 right, 0 refused, 0 wrong but accepted, of 300
 tasks  texts of several words in quotes:      300 right, 0 refused, 0 wrong but accepted, of 300
 Recipes: the steps of all 30 recipes, typed by hand, are accepted.
-recipes trained recipes and pairs:         100 right, 0 refused, 0 wrong but accepted, of 100 requests
+recipes trained recipes and pairs:         99 right, 1 refused, 0 wrong but accepted, of 100 requests
 recipes held-out recipe and change pairs:  24 right, 9 refused, 67 wrong but accepted, of 100 requests
-recipes new names and wordings:            36 right, 10 refused, 54 wrong but accepted, of 100 requests
+recipes new names and wordings:            36 right, 11 refused, 53 wrong but accepted, of 100 requests

@@ -1,0 +1,46 @@
+PasTinyAsm 1.2  FPU yes
+heap=488280
+extended memory: 14912 KB free, experts will be kept there
+> name rt1
+name RT1
+> make the screen blue, say hello, beep
+1 make the screen blue -> COLOR 1
+2 say hello -> PRINT hello
+3 beep -> BEEP 440 300
+wrote RT1.COM 181 bytes, RT1.ASM
+> count down from 5 and beep each time
+4 count down from 5 and beep each time -> FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT
+wrote RT1.COM 278 bytes, RT1.ASM
+> print the words old story fast
+5 print the words old story fast -> PRINT old story fast
+wrote RT1.COM 299 bytes, RT1.ASM
+> what time is it
+6 what time is it: not understood
+nothing added
+> copy notes to drive a
+6 copy notes to drive a: not understood
+nothing added
+> build an alarm clock
+build an alarm clock:
+  = ask for a number and count down from it and wait a second each time
+6 ask for a number and count down from it and wait a second each time -> INPUT A:FOR I=A DOWNTO 1:OUT I:WAIT:NEXT
+  = play a siren
+7 play a siren -> SIREN 2
+  = flash the screen 3 times
+8 flash the screen 3 times -> FLASH 3
+wrote RT1.COM 558 bytes, RT1.ASM
+> show
+  1 COLOR 1
+  2 PRINT hello
+  3 BEEP 440 300
+  4 FOR I=5 DOWNTO 1:OUT I:BEEP:NEXT
+  5 PRINT old story fast
+  6 INPUT A:FOR I=A DOWNTO 1:OUT I:WAIT:NEXT
+  7 SIREN 2
+  8 FLASH 3
+   >
+> mem
+heap=1576 largest=1576 stack=17640
+experts loaded: 7 times from extended memory (409 ms), 0 times from disk (0 ms)
+kept in extended memory: 4 (207 ms to read them in), 13408 KB free there
+> quit

@@ -2,7 +2,7 @@
 """Train the PasTinyAsm router: a kilobyte-sized recurrent network that reads
 a request a letter at a time and says which expert should have it.
 
-  python3 train_router.py OUT.BIN [HIDDEN] [STEPS]
+  python3 train_router.py OUT.BIN [HIDDEN] [STEPS]      (SEED=n in the environment for another run)
 
 The cell is FastGRNN (Kusupati et al., 2018), one matrix pair for gate and
 candidate:
@@ -31,7 +31,8 @@ import gen_router as g
 out = sys.argv[1]
 H = int(sys.argv[2]) if len(sys.argv) > 2 else 32
 steps = int(sys.argv[3]) if len(sys.argv) > 3 else 6000
-torch.manual_seed(1); torch.set_num_threads(int(os.environ.get('THREADS', '2')))
+seed = int(os.environ.get('SEED', '1'))
+torch.manual_seed(seed); torch.set_num_threads(int(os.environ.get('THREADS', '2')))
 LETTERS = ' abcdefghijklmnopqrstuvwxyz0,'           # 29: every digit is "0"
 V, K, S, Q = len(LETTERS), len(g.CLASSES), 6, 12     # weights are n/2^S, the state is n/2^Q
 code = lambda s: [LETTERS.index(c) for c in s]
@@ -103,7 +104,7 @@ def run(p, q):
 m = Router()
 opt = torch.optim.AdamW(m.parameters(), lr=3e-3, weight_decay=float(os.environ.get('DECAY', '0.01')))
 sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / 100) * (0.1 if s > steps * 0.8 else 1.0))
-r, tests = random.Random(11), random.Random(5)
+r, tests = random.Random(10 + seed), random.Random(5)
 seen = [g.make(tests, 'seen') for _ in range(1000)]
 valid = [g.make(tests, 'valid') for _ in range(1000)]     # wordings the router is not trained on: they pick the step to keep
 new = [g.make(tests, 'new') for _ in range(1000)]

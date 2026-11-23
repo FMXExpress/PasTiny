@@ -1,0 +1,106 @@
+WHERE REQUESTS GO: the word lists and the router
+
+Host build of the same source.  2,000 requests of each kind; a request is right
+when it is sent to the class it belongs to.
+
+  trained    wordings the experts were trained on
+  held back  wordings the experts know and the router was not trained on
+  new        wordings no expert was trained on; the word lists had been mended on
+             them, so the shipped router was trained on them too
+  fresh      wordings written after everything else, new to lists and router alike
+
+1. Before the lists were removed: lists and a router of the same size trained
+   WITHOUT the "new" wordings (6 classes, no "none")
+
+trained   word lists 1992 of 2000   recipes 285/285  screen 285/285  several 275/281  sound 270/270  tasks 592/592  text 285/287
+trained   router     1997 of 2000   recipes 285/285  screen 285/285  several 279/281  sound 270/270  tasks 592/592  text 286/287
+held back word lists 1989 of 2000   recipes 293/293  screen 273/273  several 310/316  sound 296/296  tasks 558/558  text 259/264
+held back router     1997 of 2000   recipes 293/293  screen 273/273  several 315/316  sound 296/296  tasks 557/558  text 263/264
+new       word lists 1990 of 2000   recipes 268/268  screen 273/273  several 292/298  sound 292/292  tasks 554/554  text 311/315
+new       router     1818 of 2000   recipes 268/268  screen 240/273  several 290/298  sound 196/292  tasks 520/554  text 304/315
+fresh     word lists 1289 of 2000   recipes 0/317  screen 226/270  several 284/284  sound 268/293  tasks 309/533  text 202/303
+fresh     router     1617 of 2000   recipes 226/317  screen 230/270  several 283/284  sound 224/293  tasks 405/533  text 249/303
+
+2. The same, router trained on everything the lists were written with
+   (width 32, then width 48; the list rows are the same requests)
+
+trained   word lists 1992 of 2000   recipes 285/285  screen 285/285  several 275/281  sound 270/270  tasks 592/592  text 285/287
+trained   router     1995 of 2000   recipes 285/285  screen 284/285  several 279/281  sound 270/270  tasks 592/592  text 285/287
+held back word lists 1989 of 2000   recipes 293/293  screen 273/273  several 310/316  sound 296/296  tasks 558/558  text 259/264
+held back router     1997 of 2000   recipes 293/293  screen 273/273  several 316/316  sound 296/296  tasks 558/558  text 261/264
+new       word lists 1990 of 2000   recipes 268/268  screen 273/273  several 292/298  sound 292/292  tasks 554/554  text 311/315
+new       router     2000 of 2000   recipes 268/268  screen 273/273  several 298/298  sound 292/292  tasks 554/554  text 315/315
+fresh     word lists 1289 of 2000   recipes 0/317  screen 226/270  several 284/284  sound 268/293  tasks 309/533  text 202/303
+fresh     router     1397 of 2000   recipes 185/317  screen 212/270  several 281/284  sound 249/293  tasks 239/533  text 231/303
+trained   word lists 1992 of 2000   recipes 285/285  screen 285/285  several 275/281  sound 270/270  tasks 592/592  text 285/287
+trained   router     1995 of 2000   recipes 285/285  screen 284/285  several 278/281  sound 270/270  tasks 592/592  text 286/287
+held back word lists 1989 of 2000   recipes 293/293  screen 273/273  several 310/316  sound 296/296  tasks 558/558  text 259/264
+held back router     1998 of 2000   recipes 293/293  screen 273/273  several 314/316  sound 296/296  tasks 558/558  text 264/264
+new       word lists 1990 of 2000   recipes 268/268  screen 273/273  several 292/298  sound 292/292  tasks 554/554  text 311/315
+new       router     1996 of 2000   recipes 268/268  screen 273/273  several 296/298  sound 292/292  tasks 554/554  text 313/315
+fresh     word lists 1289 of 2000   recipes 0/317  screen 226/270  several 284/284  sound 268/293  tasks 309/533  text 202/303
+fresh     router     1657 of 2000   recipes 222/317  screen 225/270  several 275/284  sound 232/293  tasks 455/533  text 248/303
+
+3. As shipped: 7 classes, with "none" for things the program cannot do.
+   Two training runs; the first, which did best on the held-back wordings,
+   is ROUTER.BIN.  (The trained and held-back sets now hold "none" requests,
+   so their rows are not the same requests as above.)
+
+run 1
+trained   router 1992 of 2000 right,   1 called "none" wrongly   none 257/258  recipes 244/244  screen 250/251  several 215/218  sound 255/256  tasks 523/523  text 248/250
+held back router 2000 of 2000 right,   0 called "none" wrongly   none 224/224  recipes 254/254  screen 256/256  several 274/274  sound 218/218  tasks 516/516  text 258/258
+new       router 1993 of 2000 right,   1 called "none" wrongly   recipes 268/268  screen 273/273  several 296/298  sound 292/292  tasks 553/554  text 311/315
+fresh     router 1568 of 2000 right, 213 called "none" wrongly   recipes 216/317  screen 216/270  several 272/284  sound 251/293  tasks 406/533  text 207/303
+accepted 5 of 20, "not understood" 13
+    1 you are free -> PRINT are free
+    1 delete everything on drive c -> CLS
+    1 run the spreadsheet -> PRINT run the spreadsheet
+    1 two plus two -> PRINT plus two
+    1 turn off the computer -> HIDE
+
+run 2
+trained   router 1989 of 2000 right,   3 called "none" wrongly   none 257/258  recipes 244/244  screen 251/251  several 213/218  sound 253/256  tasks 523/523  text 248/250
+held back router 1998 of 2000 right,   2 called "none" wrongly   none 224/224  recipes 254/254  screen 255/256  several 274/274  sound 218/218  tasks 515/516  text 258/258
+new       router 2000 of 2000 right,   0 called "none" wrongly   recipes 268/268  screen 273/273  several 298/298  sound 292/292  tasks 554/554  text 315/315
+fresh     router 1516 of 2000 right, 100 called "none" wrongly   recipes 193/317  screen 231/270  several 280/284  sound 249/293  tasks 323/533  text 240/303
+accepted 2 of 20, "not understood" 15
+    1 you are free -> PRINT are free
+    1 how much memory is left -> PRINT much memory is left
+
+   "accepted" lines: twenty hand-written requests for things the program cannot
+   do, end to end.  The word lists (the program on main before this change)
+   gave "not understood" for 19 of them and accepted 1 ("delete everything on
+   drive c" as CLS).
+
+4. End to end, the same 300 requests a set, 8-bit runtime
+
+with the word lists
+screen trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+screen new wordings:                          300 right, 0 refused, 0 wrong but accepted, of 300
+sound  trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+sound  new wordings:                          291 right, 9 refused, 0 wrong but accepted, of 300
+text   trained wordings:                      298 right, 0 refused, 2 wrong but accepted, of 300
+text   new wordings:                          113 right, 0 refused, 187 wrong but accepted, of 300
+tasks  trained shapes and combinations:       300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  held-out combinations:                 299 right, 0 refused, 1 wrong but accepted, of 300
+tasks  first held-out wordings (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  new wordings:                          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  numbers far outside training:          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  texts of several words in quotes:      300 right, 0 refused, 0 wrong but accepted, of 300
+
+with the router as shipped
+screen trained wordings:                      300 right, 0 refused, 0 wrong but accepted, of 300
+screen new wordings:                          300 right, 0 refused, 0 wrong but accepted, of 300
+sound  trained wordings:                      298 right, 2 refused, 0 wrong but accepted, of 300
+sound  new wordings:                          291 right, 9 refused, 0 wrong but accepted, of 300
+text   trained wordings:                      297 right, 2 refused, 1 wrong but accepted, of 300
+text   new wordings:                          113 right, 0 refused, 187 wrong but accepted, of 300
+tasks  trained shapes and combinations:       300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  held-out combinations:                 299 right, 0 refused, 1 wrong but accepted, of 300
+tasks  first held-out wordings (now trained): 300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  new wordings:                          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  numbers far outside training:          300 right, 0 refused, 0 wrong but accepted, of 300
+tasks  texts of several words in quotes:      300 right, 0 refused, 0 wrong but accepted, of 300
+
+5. Memory under DOS (Turbo Pascal 7 build, a model loaded): 312 bytes of heap
+   spare on main before, 1,576 with the router (see RT.OUT).

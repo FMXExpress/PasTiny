@@ -135,37 +135,6 @@ function FirstWord(S:String):String;
 var K:Integer;
 begin K:=Pos(' ',S); if K=0 then FirstWord:=S else FirstWord:=Copy(S,1,K-1) end;
 
-(* The router: which expert knows this step?  0 = none. *)
-function Expert(S:String):Integer;
-const
- NS=9; ScreenWords:array[1..NS] of String[10]=
-  ('cursor','border','background','cls','flash','blink','row','column','col');
- NA=34; SoundWords:array[1..NA] of String[12]=
-  ('beep','sound','tone','note','notes','noise','siren','alarm','scale','tune','music','melody',
-   'song','speaker','hertz','hz','wait','pause','sleep','delay','hold','rest','key','keypress',
-   'repeat','times','twice','again','loop','ms','milliseconds','second','seconds','moment');
- NT=10; TextVerbs:array[1..NT] of String[10]=
-  ('number','new','next','newline','skip','begin','start','go','move','line');
- NC=11; ScreenNouns:array[1..NC] of String[10]=
-  ('screen','display','text','letters','writing','color','colour','clear','wipe','erase','everything');
-var I:Integer; F:String;
-begin
- if Copy(S,1,7)='please ' then Delete(S,1,7);
- F:=FirstWord(S); Expert:=XTEXT;
- if (F='say') or (F='print') or (F='write') or (F='type') or (F='output') then Exit;
- Expert:=XSCREEN;
- for I:=1 to NS do if HasWord(S,ScreenWords[I]) then Exit;
- Expert:=XTEXT;
- if (F='show') or (F='display') or (F='put') then Exit;
- Expert:=XSOUND;
- for I:=1 to NA do if HasWord(S,SoundWords[I]) then Exit;
- Expert:=XSCREEN;
- for I:=1 to NC do if HasWord(S,ScreenNouns[I]) then
-  if not HasWord(S,'line') then Exit;
- Expert:=XTEXT;
- for I:=1 to NT do if (F=TextVerbs[I]) or HasWord(S,'line') or HasWord(S,'number') then Exit;
- Expert:=0
-end;
 
 (* A request as the router is given it: small letters, digits, commas and
    single spaces. *)
@@ -183,18 +152,15 @@ begin
  RouteText:=R
 end;
 
-(* The expert for one step: the router's choice, or without a router the
-   word lists' (0: none). *)
-var RouterOn:Boolean;
-
+(* The expert for one step, as the router sees it; 0 when it says the
+   step is something the program cannot do.  Word lists did this once;
+   see the README. *)
 function StepExpert(S:String):Integer;
 begin
- if RouterOn and RouterReady then
-  case Route(S,4) of
-   RSCREEN:StepExpert:=XSCREEN; RSOUND:StepExpert:=XSOUND; RTEXT:StepExpert:=XTEXT;
-   else StepExpert:=XTASKS
-  end
- else StepExpert:=Expert(S)
+ case Route(S,5) of
+  RSCREEN:StepExpert:=XSCREEN; RSOUND:StepExpert:=XSOUND; RTEXT:StepExpert:=XTEXT; RTASKS:StepExpert:=XTASKS;
+  else StepExpert:=0
+ end
 end;
 
 (* Cut the next word off the front of S. *)
@@ -641,22 +607,6 @@ begin
  AddStep:=Accept(S,A,' ','')
 end;
 
-(* Is this sentence a request for a small program with a loop, a
-   question or a test in it?  Those go whole to the tasks expert. *)
-function IsTask(S:String):Boolean;
-const NK=31; TaskWords:array[1..NK] of String[10]=
- ('count','countdown','numbers','ask','table','squares','even','odd','each','every','higher','lower',
-  'cycle','if','many','rounds','add','otherwise','multiples','cubes','powers','asking','timer','stars',
-  'triangle','rising','falling','multiply','fast','slowly','backwards');
-var I:Integer; F:String;
-begin
- IsTask:=False;
- if FindId(XTASKS)=0 then Exit;
- for I:=1 to NK do if HasWord(S,TaskWords[I]) then IsTask:=True;
- (* "print hello 5 times" *)
- F:=FirstWord(S);
- if ((F='print') or (F='say')) and (Copy(S,Length(S)-5,6)=' times') then IsTask:=True
-end;
 
 (* Split one sentence into steps at commas and at the words "and" and
    "then", but never inside double quotes. *)
@@ -793,29 +743,15 @@ function Sentence(P:String):Boolean; forward;
    The steps are gathered first, so that this expert is loaded once, and
    then planned like sentences typed by hand: everything that checks a
    typed sentence checks them too. *)
-function IsRecipe(S:String):Boolean;
-var F:String;
-begin
- F:=FirstWord(S);
- (* "build a ...", "create a ...", "write a ... program", "i want a ... program";
-    not "repeat the program 3 times", which is about the program in hand *)
- IsRecipe:=(FindId(XRECIPES)<>0) and
-  ((F='build') or (F='create') or
-   (HasWord(S,'program') and ((F='write') or (Copy(S,1,7)='i want '))))
-end;
+
 
 (* What a whole sentence is: a recipe, a small program, or steps to be
    split and routed one by one (RSEVERAL; a single call is that too). *)
 function SentenceClass(P:String):Integer;
 var K:Integer;
 begin
- if RouterOn and RouterReady then begin
-  K:=Route(RouteText(P),6);
-  if (K<>RRECIPES) and (K<>RTASKS) then K:=RSEVERAL
- end
- else if IsRecipe(Tidy(P)) then K:=RRECIPES
- else if IsTask(Tidy(P)) then K:=RTASKS
- else K:=RSEVERAL;
+ K:=Route(RouteText(P),7);
+ if (K<>RRECIPES) and (K<>RTASKS) then K:=RSEVERAL;
  if (K=RRECIPES) and (FindId(XRECIPES)=0) then K:=RSEVERAL;
  if (K=RTASKS) and (FindId(XTASKS)=0) then K:=RSEVERAL;
  SentenceClass:=K
@@ -1531,19 +1467,11 @@ begin
   if GuideOn then WriteLn('the experts are guided as they write') else WriteLn('the experts write unguided');
   Exit
  end
- else if (Cmd='ROUTER') and ((Tidy(Rest)='on') or (Tidy(Rest)='off')) then begin
-  RouterOn:=Tidy(Rest)='on';
-  if RouterOn and RouterReady then WriteLn('the router chooses the expert') else WriteLn('word lists choose the expert');
-  Exit
- end
  {$IFNDEF VER70}
  else if Cmd='WHERE' then begin
-  (* for tests: where the word lists and the router would send a request *)
-  W:=Tidy(Rest);
-  if IsRecipe(W) then I:=RRECIPES else if IsTask(W) then I:=RTASKS
-  else if (Pos(',',Rest)>0) or (Pos(' and ',Rest)>0) or (Pos(' then ',Rest)>0) then I:=RSEVERAL
-  else case Expert(W) of XSCREEN:I:=RSCREEN; XSOUND:I:=RSOUND; XTEXT:I:=RTEXT; else I:=9 end;
-  WriteLn('where ',I,' ',Route(RouteText(Rest),6),' ',RouteLead);
+  (* for tests: where the router would send a request, and how sure it is *)
+  I:=Route(RouteText(Rest),7); Write('where ',I,' ',RouteLead);
+  I:=Route(RouteText(Rest),5); WriteLn(' ',I,' ',RouteLead);
   Exit
  end
  {$ENDIF}
@@ -1851,8 +1779,7 @@ begin
  for Steps:=1 to MAXITEMS do begin Kept[Steps]:=0; Tried[Steps]:=False end;
  Steps:=0;
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
- RouterOn:=LoadRouter('ROUTER.BIN');
- if not RouterOn then WriteLn('no ROUTER.BIN: word lists choose the expert');
+ if not LoadRouter('ROUTER.BIN') then begin WriteLn('ROUTER.BIN is missing or damaged'); Halt(1) end;
  Creativity:=0; WriteLn('PasTinyAsm 1.2  FPU ',FPUName);
  {$IFDEF VER70}WriteLn('heap=',MemAvail);{$ENDIF}
  if XmsOn then WriteLn('extended memory: ',XmsFreeKB,' KB free, experts will be kept there');
