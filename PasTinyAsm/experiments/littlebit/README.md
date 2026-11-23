@@ -1,0 +1,36 @@
+# Binary factorization of the Tiny sound expert
+
+This is a single-path adaptation of [LittleBit](https://arxiv.org/abs/2506.13771). It replaces all 24 transformer projections with rank-constrained factors and keeps the token embeddings, position embeddings and normalization gains frozen. Binary training uses straight-through sign quantization and learned input, latent and output scales. The optional Dual-SVID run initializes those scales with rank-one SVDs of the factor magnitudes. The experiment omits the paper's residual path.
+
+All runs start from SOUND.BIN and train on the same draws from the sound generator using 650 steps, batch size 32, seed 11 for the generator and one PyTorch CPU thread per process. The stock Pascal integer engine scores the dense, row-quantized reconstruction on the same 300 held-out sound prompts as the ternary experiment. Scores measure full commands before editor lookup or validation. The exports are ordinary TNY2 files.
+
+## Reproduce
+
+From PasTinyAsm with PyTorch installed:
+
+```sh
+mkdir -p build/littlebit
+fpc -B -Mtp -O2 -Fu. -FUbuild/littlebit -FEbuild/littlebit experiments/classic/check.pas
+for rank in 8 16; do
+  python3 experiments/littlebit/train.py "build/littlebit/F$rank.BIN" "$rank"
+  python3 experiments/littlebit/train.py "build/littlebit/B$rank.BIN" "$rank" --binary
+done
+python3 experiments/littlebit/train.py build/littlebit/D16.BIN 16 --binary --dual-svid
+for model in SOUND.BIN build/littlebit/*.BIN; do
+  python3 experiments/ternary/score.py build/littlebit/check "$model"
+done
+```
+
+## Results
+
+| Variant | Exact commands | Estimated factor storage |
+| --- | ---: | ---: |
+| Shipped SOUND.BIN | 208/300 | 381,808 bytes |
+| Packed ternary fine-tune from earlier experiment | 163/300 | 107,560 bytes |
+| Float32 factors, rank 8 | 164/300 | 214,384 bytes |
+| Float32 factors, rank 16 | 214/300 | 402,800 bytes |
+| Binary factors, rank 8 | 20/300 | 56,176 bytes |
+| Binary factors, rank 16 | 78/300 | 62,832 bytes |
+| Binary factors with Dual-SVID, rank 16 | 16/300 | 62,832 bytes |
+
+Estimates include the unchanged embeddings and gains, plus packed signs and float32 scales or dense float32 factors. They exclude format-specific headers. All tested reconstructions were exported at 381,808 bytes. This experiment measured answer quality through dense inference. It did not measure a packed kernel, DOS timing or actual heap savings. The single learning-rate schedule and training budget were shared across all variants.
