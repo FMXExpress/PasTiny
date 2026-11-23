@@ -1,0 +1,35 @@
+topic	suite	question	reference	auto_id	auto_answer	assessment	pinned_id	pinned_answer	pinned_assessment
+comms	practical	What should I try if calls to family will not connect after a disaster?	Send a text message.	0	The protech boney from the forgeen.	miss			
+comms	practical	Where should the family check-in contact live?	Outside the affected area.	0	In Europe.	miss			
+disaster	practical	What three actions should I take indoors when the ground shakes?	Drop, cover and hold on.	0	A ground of shakes in with lears.	miss			
+disaster	practical	How many exits from each room should a family disaster plan identify?	Two.	0	The pent.	miss			
+energy	practical	What can shade on a solar panel reduce?	Electrical output.	0	A soljan sold scand Reper.	miss			
+energy	practical	Which three quantities are related by Ohm's law?	Voltage, current and resistance.	65	Electrical resistance.	partial			
+food	practical	What should I do with the fridge door during a power outage?	Keep it closed.	0	In mat rof scamer.	miss			
+food	practical	Which should I eat first in an outage: fridge, freezer or shelf food?	Refrigerated food.	0	Steam is a gas.	miss			
+grow	practical	What should the bottom of a container for vegetables have?	Drainage holes.	0	It is .va.	miss			
+grow	practical	How can a gardener use vertical space in a small vegetable garden?	Grow plants up supports.	0	A taderen countries.	miss			
+health	practical	What should I record about when someone's illness started?	Symptom onset or how the illness began.	23	A dout.	miss			
+health	practical	What should go with a sick person sent to another health worker?	A written patient report.	0	It is No, angol is anois.	miss			
+hurt	practical	What should a first aider check about the scene before approaching?	Whether the scene is safe.	0	The sky has five secon.	miss			
+hurt	practical	Why keep checking an injured person while waiting for help?	Their condition may worsen.	0	A gravitiam find inter.	miss			
+land	practical	Which coastal areas are at greater risk from a tsunami?	Low-lying areas near the shore or waterways connected to the ocean.	50	From Japanese.	miss			
+land	practical	What can happen to loose wet sand during earthquake shaking?	It can liquefy.	0	Wetten of spare.	miss			
+power	practical	Which is safer for outage lighting: flashlights or candles?	Flashlights.	0	German, Fish iron and the other computers.	miss			
+power	practical	Where should I avoid running a car to charge my phone?	In a garage.	0	In Michines pholes.	miss			
+preserve	practical	Which canner is needed for low-acid vegetables?	A pressure canner.	0	It is lower.	miss			
+preserve	practical	What property of food helps decide which canning method to use?	Acidity or pH.	0	It is krey.	miss			
+repair	practical	What should I do with a damaged hand tool before a job?	Remove it from use or replace or repair it.	0	It was It was It is Trione.	miss			
+repair	practical	What part of a hand tool should I inspect for damage before carrying it?	The handle.	0	Venezuel in Egyptope.	miss			
+sanitation	practical	What should I do with drains if an earthquake has damaged the sewer?	Stop using them until repaired.	0	The peregrin Cameroon.	miss			
+sanitation	practical	How many layers of bags does the emergency bucket toilet guide use?	Two.	0	Two.	pass			
+shelter	practical	Where can someone go during extreme heat if home is too hot?	An air-conditioned or cool public place.	0	It is hantarks.	miss			
+shelter	practical	What can I put over windows to reduce heat from direct sunlight?	Shades or reflectors.	0	A frog.	miss			
+water	practical	Does boiling floodwater remove chemical contamination?	No.	0	No, Bolivia and Hermebern is landlocked.	partial			
+water	practical	What should I do with suspended particles before treating cloudy water?	Let them settle or strain them out.	0	It was Micronesia.	miss			
+comms	overlap	Which north does a magnetic compass point toward?	Magnetic north.	80	215 degrees.	miss	80	215 degrees.	miss
+comms	overlap	What is magnetic declination on a map?	Angle between true and magnetic north.	0	It is called a dayst.	miss	80	125 degrees.	miss
+land	overlap	What does a contour line connect on a topographic map?	Points of equal elevation.	79	Joins on romand elevene is 81.	miss	79	Joins on romand elevene is 81.	miss
+land	overlap	What does map scale compare?	Map distance with distance on the ground.	79	Relates map and ground distances.	pass	79	Relates map and ground distances.	pass
+energy	overlap	What is the unit of electric current?	Ampere or amp.	0	A folders for letcrus countries.	miss	65	Power.	miss
+energy	overlap	What unit measures electrical resistance?	Ohm.	0	A seont Elever.	miss	65	Power.	miss
