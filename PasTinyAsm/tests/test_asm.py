@@ -165,6 +165,10 @@ with tempfile.TemporaryDirectory() as tmp:
     # "ask for a number ..." is a request, not the ASK command.
     out = run(dest, ['ask for a number and print its double', 'INPUT A', 'show'])
     assert 'questions' not in out and 'What does' not in out and '  1 INPUT A' in out, out
+    out = run(dest, ['write the words old story', 'make a game of it please', 'print the story', 'INPUT A', 'show'])
+    assert 'What does' not in out and '  1 INPUT A' in out, out
+    out = run(dest, ['write a story program', 'cancel'])
+    assert 'What does the player see first?' in out, out
     print('Interview: an adventure is built from replies to questions alone, and matches NASM.')
     for script, want in EDITS:
         out = run(dest, script + ['show'])
@@ -262,7 +266,8 @@ with tempfile.TemporaryDirectory() as tmp:
         # The tasks expert writes whole small programs.  "combinations" are parts it
         # was trained on, put together in ways that were held out of training.
         for label, split in (('trained shapes and combinations', 'seen'), ('held-out combinations', 'combo'),
-                             ('first held-out wordings (now trained)', 'words1'), ('new wordings', 'words')):
+                             ('first held-out wordings (now trained)', 'words1'), ('new wordings', 'words'),
+                             ('numbers far outside training', 'far'), ('texts of several words in quotes', 'quoted')):
             r = random.Random(7)
             pairs = [gen_tasks.make(r, split) for _ in range(300)]
             lines = run(dest, [x for q, _ in pairs for x in ('new', q)]).splitlines()

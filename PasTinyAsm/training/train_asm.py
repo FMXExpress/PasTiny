@@ -42,9 +42,10 @@ sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: min(1.0, (s + 1) / 200)
 r = random.Random(11)
 tests = random.Random(5)
 if expert == 'tasks':                 # whole small programs; "held" = held-out combinations of trained parts
-    draw = lambda rr: gen_tasks.make(rr, 'seen')
-    seen = [gen_tasks.make(tests, 'seen') for _ in range(300)]
-    held = [gen_tasks.make(tests, 'combo') for _ in range(300)]
+    # the expert sees markers in place of numbers and quoted texts (see gen_tasks.py)
+    draw = lambda rr: gen_tasks.make(rr, 'seen', True)
+    seen = [gen_tasks.make(tests, 'seen', True) for _ in range(300)]
+    held = [gen_tasks.make(tests, 'combo', True) for _ in range(300)]
 elif expert == 'recipes':             # one step of a recipe per question; "held" = held-out (recipe, change) pairs
     draw = lambda rr: gen_recipes.make(rr, 'seen')
     seen = [gen_recipes.make(tests, 'seen') for _ in range(300)]

@@ -18,10 +18,26 @@ Splits:
   combo   held-out combinations of trained parts
   words1  the first version's held-out wordings, which are trained on now
   words   wordings never trained on
+  far     trained shapes with numbers far outside the trained ranges
+  quoted  trained shapes whose text is several words in double quotes
+
+SLOTS.  The expert does not see the numbers of a request, nor a text that
+is in quotes.  The program swaps them for markers before asking (n1, n2
+... for numbers in the order they come, t1 ... for texts) and puts the
+values back into the answer:
+
+    count from 3 to 17 and say "all done" at the end
+    count from n1 to n2 and say t1 at the end
+    FOR I=n1 TO n2:OUT I:NEXT:ECHO t1
+
+So the expert never copies a number or a quoted text, and any number will
+do.  slot() below is the same rule as Slot in MAKECOM.PAS.  A text that is
+not in quotes is left as the word it is; in training about half the texts
+are markers.
 
   python3 gen_tasks.py N [seen|combo|words1|words] [--seed S]     prints JSON lines
 """
-import json, random, sys
+import json, random, re, sys
 
 WORDS = ('zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen '
          'sixteen seventeen eighteen nineteen twenty').split()
@@ -249,8 +265,85 @@ def other(r, held, split):
     ])
 
 
-def make(r, split='seen'):
-    """One (request, program) of the given split."""
+NUMWORDS = {w: i for i, w in enumerate(WORDS) if i >= 2}          # "one" is also a pronoun: the bigger one
+PHRASES = ['all done', 'lift off now', 'well done you', 'the end', 'good morning', 'try again', 'that is it', 'here we go']
+_NUM = r'(?<![A-Za-z0-9])%s(?![A-Za-z0-9])'
+
+
+def slot(q):
+    """The request with markers for its numbers, and their values.  "two numbers" is not a number of the program."""
+    words, values, parts = [], [], q.split(' ')
+    for i, w in enumerate(parts):
+        v = int(w) if w.isdigit() else NUMWORDS.get(w)
+        if v is None or parts[i + 1:i + 2] == ['numbers']:
+            words.append(w)
+        else:
+            values.append(v); words.append('n%d' % len(values))
+    return ' '.join(words), values
+
+
+def slotted(r, q, a, texts=0.5):
+    """(request, answer, numbers, texts) as the expert sees them; None if a number of the request is also a
+    fixed number of the answer, so that no rule could tell which is which."""
+    q2, values = slot(q)
+    left = list(values)
+
+    def mark(m):
+        v = int(m.group())
+        if v in left:
+            k = left.index(v); left[k] = None
+            return 'n%d' % (k + 1)
+        return m.group()
+    a2 = re.sub(_NUM % r'\d+', mark, a)
+    for v in set(values):
+        if len(re.findall(_NUM % v, a)) > values.count(v):
+            return None
+    said = [m for m in re.findall(r'(?:ECHO|PRINT) ([a-z]+)', a) if m in q2.split(' ')]
+    order = []
+    if said and r.random() < texts:
+        order = sorted(set(said), key=q2.split(' ').index)
+        for k, t in enumerate(order, 1):
+            q2 = ' '.join('t%d' % k if w == t else w for w in q2.split(' '))
+            a2 = re.sub(r'(ECHO|PRINT) %s(?![a-z])' % t, r'\1 t%d' % k, a2)
+    return q2, a2, values, order
+
+
+def fill(q2, a2, numbers, texts, quote):
+    """Put values back in place of the markers."""
+    for k in range(len(numbers), 0, -1):
+        q2 = q2.replace('n%d' % k, str(numbers[k - 1])); a2 = a2.replace('n%d' % k, str(numbers[k - 1]))
+    for k in range(len(texts), 0, -1):
+        q2 = q2.replace('t%d' % k, quote % texts[k - 1]); a2 = a2.replace('t%d' % k, texts[k - 1])
+    return q2, a2
+
+
+def fits(q, a):
+    return len(q) <= 72 and len(q) + len(a) <= LIMIT
+
+
+def make(r, split='seen', slots=False):
+    """One (request, program) of the given split.  With slots, the pair as the expert sees it."""
+    if split in ('far', 'quoted'):
+        while True:
+            got = slotted(r, *make(r, 'seen'), texts=1.0)
+            if got is None:
+                continue
+            q2, a2, numbers, texts = got
+            if not (numbers if split == 'far' else texts):
+                continue
+            if split == 'far':                    # big numbers in the same order of size
+                big = sorted(r.sample(range(150, 10000), len(set(numbers))))
+                numbers = [big[sorted(set(numbers)).index(v)] for v in numbers]
+                q, a = fill(q2, a2, numbers, texts, '%s')
+            else:
+                q, a = fill(q2, a2, numbers, r.sample(PHRASES, len(texts)), '"%s"')
+            if fits(q, a) and fits(q2, a2):
+                return (q2, a2) if slots else (q, a)
+    if slots:
+        while True:
+            got = slotted(r, *make(r, split))
+            if got and fits(*got[:2]):
+                return got[:2]
     held = split == 'combo'
     fams = [count, count, times, ask, ask]
     if split == 'seen':
