@@ -72,6 +72,15 @@ begin
  {$IFNDEF FPC}if MaxAvail<N then Fail('not enough memory. TINY needs about 540 KB free (type MEM).');{$ENDIF}
  GetMem(P,N); Memory:=P
 end;
+{$IFDEF FACTORS16}
+const ModelBytes=74608; Magic='TF16';
+{$ELSE}
+ {$IFDEF TERNARY}
+ const ModelBytes=107560; Magic='TTR1';
+ {$ELSE}
+ const ModelBytes=381808; Magic='TNY2';
+ {$ENDIF}
+{$ENDIF}
 const BufSize=512;       (* PasTinyAsm: half a KB, not 4 KB; the program needs the room *)
 (* Loading and inference never overlap. Reuse their fixed scratch buffers. *)
 var Buffer:array[0..BufSize-1] of Byte absolute Xq;
@@ -82,10 +91,24 @@ function RowBytes(Cols:Integer):Integer;
 begin
  {$IFDEF TERNARY}RowBytes:=(Cols+3) div 4;{$ELSE}RowBytes:=Cols;{$ENDIF}
 end;
+{$IFDEF FACTORS16}
+function IsFactor(var T:TTable):Boolean;
+begin IsFactor:=(T.Rows<>VOCAB) and (T.Rows<>CTX) end;
+{$ENDIF}
+function ScaleCount(var T:TTable):Word;
+begin
+ ScaleCount:=T.Rows;
+ {$IFDEF FACTORS16}if IsFactor(T) then ScaleCount:=T.Rows+T.Cols+16;{$ENDIF}
+end;
+function TableBytes(var T:TTable):Word;
+begin
+ TableBytes:=Longint(T.Rows)*RowBytes(T.Cols);
+ {$IFDEF FACTORS16}if IsFactor(T) then TableBytes:=4*(T.Rows+T.Cols);{$ENDIF}
+end;
 procedure ReserveTable(var T:TTable; Rows,Cols:Integer);
 begin
  T.Rows:=Rows; T.Cols:=Cols;
- T.Scale:=Memory(Rows*4); T.W:=Memory(Longint(Rows)*RowBytes(Cols))
+ T.Scale:=Memory(ScaleCount(T)*4); T.W:=Memory(TableBytes(T))
 end;
 procedure Reserve;
 var J:Integer;
@@ -108,9 +131,9 @@ begin
  while (Offset<N) and (LoadError='') do begin
   if Used=Available then begin
    if ModelXms<>0 then begin
-    (* from extended memory: the next piece of the 381,808 bytes *)
+    (* Read the next block from the resident XMS image. *)
     Available:=BufSize; Err:=0;
-    if 381808-XPos<BufSize then Available:=381808-XPos;
+    if ModelBytes-XPos<BufSize then Available:=ModelBytes-XPos;
     if Available>0 then if not XmsRead(ModelXms,XPos,Buffer,Available) then Err:=1;
     Inc(XPos,Available)
    end else begin
@@ -139,6 +162,11 @@ end;
 procedure ReadTable(var T:TTable);
 var R:Integer;
 begin
+ {$IFDEF FACTORS16}
+ if IsFactor(T) then begin
+  Scalars(T.Scale^[0],ScaleCount(T)); ReadBytes(T.W^[0],TableBytes(T)); Exit
+ end;
+ {$ENDIF}
  for R:=0 to T.Rows-1 do begin
   Scalars(T.Scale^[R],1); ReadBytes(T.W^[Longint(R)*RowBytes(T.Cols)],RowBytes(T.Cols))
  end
@@ -162,12 +190,12 @@ begin
   {$I-}Reset(F,1); Err:=IOResult;{$I+}
   if Err<>0 then begin LoadError:='open failed'; Exit end;
   {$I-}Size:=FileSize(F); Err:=IOResult;{$I+}
-  if (Err<>0) or (Size<>{$IFDEF TERNARY}107560{$ELSE}381808{$ENDIF}) then LoadError:='wrong file size'
+  if (Err<>0) or (Size<>ModelBytes) then LoadError:='wrong file size'
  end;
  Used:=0; Available:=0; Check:=-1;
  ReadBytes(Header,SizeOf(Header));
  if LoadError='' then
- if (Header.Magic<>{$IFDEF TERNARY}'TTR1'{$ELSE}'TNY2'{$ENDIF}) or (Header.Width<>D) or (Header.Layers<>L) or
+ if (Header.Magic<>Magic) or (Header.Width<>D) or (Header.Layers<>L) or
     (Header.Heads<>H) or (Header.Hidden<>HID) then LoadError:='unsupported TNY2 header';
  ReadTable(Emb); ReadTable(Pos);
  for J:=0 to L-1 do begin
@@ -196,8 +224,8 @@ begin
 end;
 procedure FreeTable(var T:TTable);
 begin
- if T.W<>nil then FreeMem(T.W,Longint(T.Rows)*RowBytes(T.Cols));
- if T.Scale<>nil then FreeMem(T.Scale,T.Rows*4);
+ if T.W<>nil then FreeMem(T.W,TableBytes(T));
+ if T.Scale<>nil then FreeMem(T.Scale,ScaleCount(T)*4);
  T.W:=nil; T.Scale:=nil
 end;
 procedure ReleaseMemory;
@@ -291,9 +319,35 @@ begin
  DotTernary:=Sum
 end;
 {$ENDIF}
+{$IFDEF FACTORS16}
+function FactorDot(W:PS8Arr; Offset,N:Integer; var X:TVec):Single;
+var I,J:Integer; Bits:Byte; Sum:Single;
+begin
+ Sum:=0;
+ for I:=0 to (N div 4)-1 do begin
+  Bits:=Byte(W^[Offset+I]);
+  for J:=0 to 3 do begin
+   case Bits and 3 of
+    0: Sum:=Sum-X[I*4+J];
+    2: Sum:=Sum+X[I*4+J]
+   end;
+   Bits:=Bits shr 2
+  end
+ end;
+ FactorDot:=Sum
+end;
+procedure FactorMatvec(var T:TTable; var X,Y:TVec);
+var I:Integer; Scaled,Latent:TVec;
+begin
+ for I:=0 to T.Cols-1 do Scaled[I]:=X[I]*T.Scale^[I];
+ for I:=0 to 15 do Latent[I]:=FactorDot(T.W,I*(T.Cols div 4),T.Cols,Scaled)*T.Scale^[T.Cols+I];
+ for I:=0 to T.Rows-1 do Y[I]:=FactorDot(T.W,4*T.Cols+4*I,16,Latent)*T.Scale^[T.Cols+16+I]
+end;
+{$ENDIF}
 procedure Matvec(var T:TTable; var X,Y:TVec);
 var R,C:TIdx; Offset:Longint; S,Sx,V:Single; A:Longint;
 begin
+ {$IFDEF FACTORS16}if IsFactor(T) then begin FactorMatvec(T,X,Y); Exit end;{$ENDIF}
  {$IFNDEF FLOATMATH}Sx:=Quant16(X,T.Cols,Xq);{$ENDIF}
  Offset:=0;
  for R:=0 to T.Rows-1 do begin

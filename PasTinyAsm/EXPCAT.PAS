@@ -32,7 +32,12 @@ begin FindId:=0; for J:=1 to Count do if Items[J].Id=Id then FindId:=J end;
 function SafeName(S:String):Boolean;
 var I:Integer;
 begin SafeName:=False;
- if (Length(S)<5) or (Length(S)>12) or (Copy(S,Length(S)-3,4)<>'.BIN') then Exit;
+ if (Length(S)<5) or (Length(S)>12) then Exit;
+ {$IFDEF FACTORS16}
+ if Copy(S,Length(S)-3,4)<>'.T16' then Exit;
+ {$ELSE}
+ if Copy(S,Length(S)-3,4)<>'.BIN' then Exit;
+ {$ENDIF}
  for I:=1 to Length(S)-4 do if not (S[I] in ['A'..'Z','0'..'9','_']) then Exit;
  SafeName:=True
 end;
