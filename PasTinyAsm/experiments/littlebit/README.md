@@ -93,3 +93,15 @@ TF16 reduces weight storage. Its dot products unpack the factors and add or subt
 | Slots | 293/300 | 32/300 |
 
 The host tests use held-out wording for Screen, Sound and Text, and held-out combinations for Tasks, Recipes and Slots. These scores compare direct outputs before editor checks. The DOS harness matched the packed host output on all 30 smoke prompts. On Sound, operation-constrained argument binding raised TF16 to 234/300, recovering 48 full commands. The experimental package is useful for evaluating heap savings. Tasks, Recipes and Slots need much stronger results before TF16 can replace the standard package.
+
+## Argument-binding diagnostic for the other experts
+
+Run `python3 experiments/littlebit/score_shapes.py build/tf16-host/check build/tf16`. The comparison masks digits and the literal payload of PRINT and ECHO, preserving operators, variables and statement order. It also normalizes NL to NEWLINE. This uses reference answers to identify compatible outputs. It is a diagnostic, with no live binder or guarantee that arguments can be extracted from the request. Recipes emit natural-language steps, so the mask only recognizes simple numeric differences there.
+
+| Expert | Exact | Same shape after masking |
+| --- | ---: | ---: |
+| Screen | 254/300 | 267/300 |
+| Text | 131/300 | 292/300 |
+| Tasks | 9/300 | 13/300 |
+| Recipes | 84/300 | 88/300 |
+| Slots | 32/300 | 32/300 |
