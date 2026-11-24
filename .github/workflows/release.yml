@@ -1,5 +1,7 @@
-# Publishes the packages in dist/ and PasTinyAsm/dist/ as a GitHub release.
-# Started by hand: Actions, "Release packages", Run workflow.
+# Publishes the packages in dist/, PasTinyAsm/dist/ and PasTinyMoE/dist/ as a GitHub
+# release.  Started by hand: Actions, "Release packages", Run workflow.  If the tag
+# already has a release, the packages it lacks are added and its notes brought up
+# to date; files already attached are left as they are.
 name: Release packages
 on:
   workflow_dispatch:
@@ -21,14 +23,22 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check the packages against SHA256.TXT
         run: |
-          grep -E '  (dist/(TP7TINY|TINYPAS|DELPHI1)|PasTinyAsm/dist/(PASASM|PASRES))\.ZIP$' SHA256.TXT > want.txt
-          test "$(wc -l < want.txt)" -eq 5
+          grep -E '  (dist/(TP7TINY|TINYPAS|DELPHI1)|PasTinyAsm/dist/(PASASM|PASRES)|PasTinyMoE/dist/SPEC100)\.ZIP$' SHA256.TXT > want.txt
+          test "$(wc -l < want.txt)" -eq 6
           sha256sum -c want.txt
-      - name: Create the release
+      - name: Create the release, or add what an existing one lacks
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ inputs.tag }}
           TITLE: ${{ inputs.title }}
         run: |
-          gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "$TITLE" --notes-file dist/RELEASE.md \
-            dist/TP7TINY.ZIP dist/TINYPAS.ZIP PasTinyAsm/dist/PASASM.ZIP PasTinyAsm/dist/PASRES.ZIP dist/DELPHI1.ZIP
+          FILES="dist/TP7TINY.ZIP dist/TINYPAS.ZIP PasTinyAsm/dist/PASASM.ZIP PasTinyAsm/dist/PASRES.ZIP PasTinyMoE/dist/SPEC100.ZIP dist/DELPHI1.ZIP"
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            HAVE="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
+            for f in $FILES; do
+              if ! printf '%s\n' "$HAVE" | grep -qx "$(basename "$f")"; then gh release upload "$TAG" "$f"; fi
+            done
+            gh release edit "$TAG" --notes-file dist/RELEASE.md
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "$TITLE" --notes-file dist/RELEASE.md $FILES
+          fi
