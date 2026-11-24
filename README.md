@@ -122,7 +122,7 @@ Based on TINY 2.1 revision `1d5cf54677addf188a090ca1c91acb3d02989a1d`. Upstream 
 
 [`delphi1/`](delphi1/) is a Windows 3.1 port for Delphi 1 ([DELPHI1.ZIP](https://github.com/FMXExpress/PasTiny/raw/refs/heads/main/dist/DELPHI1.ZIP) has the source and `TINY.BIN` in one archive; there is no compiled program in it): the same network file, answers, neon screen, neural monitor and PC-speaker voice, drawn in a window. It uses the integer engine with 8086 assembler kernels by default, with `/FLOAT`, `/BENCH` and `/IN=`/`/OUT=` file mode. Open `TINY.DPR` in Delphi 1, or run `DCC TINY.DPR`, then put `TINY.EXE` next to the root `TINY.BIN`.
 
-Its network unit gives the same 60 reference answers as `TINY.C` when built with Free Pascal in TP mode, and the whole program compiles and assembles for Win16 with Free Pascal's i8086 compiler. **It has not yet been built with Delphi 1 or run on Windows 3.1**; see [delphi1/README.TXT](delphi1/README.TXT).
+Its network unit gives the same 60 reference answers as `TINY.C` when built with Free Pascal in TP mode, and the whole program compiles and assembles for Win16 with Free Pascal's i8086 compiler. It builds with Delphi 1's own command-line compiler (`DCC /B TINY.DPR`, Delphi Compiler Version 8.0). **It has not yet been run on Windows 3.1**; see [delphi1/README.TXT](delphi1/README.TXT).
 
 ## Delphi 13 and modern Free Pascal
 

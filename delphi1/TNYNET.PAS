@@ -661,7 +661,7 @@ end;
 
 function NowMs: Longint;
 begin
-  if Assigned(ClockMs) then NowMs := ClockMs() else NowMs := 0;
+  if Assigned(ClockMs) then NowMs := ClockMs else NowMs := 0;
 end;
 
 (* Answer question Q into Answer. The callbacks (may be nil) hear about

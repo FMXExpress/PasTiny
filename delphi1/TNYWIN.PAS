@@ -21,7 +21,12 @@ unit TnyWin;
 
 interface
 
+{ Delphi 1 keeps the WM_ message numbers in Messages }
+{$IFDEF FPC}
 uses WinTypes, WinProcs;
+{$ELSE}
+uses WinTypes, WinProcs, Messages;
+{$ENDIF}
 
 const
   K_ESC   = 27;
