@@ -57,7 +57,7 @@ procedure PutCh(C: Char);
 procedure CPutS(const S: String);
 procedure ClrScr;
 procedure Flush;
-procedure Cursor(On: Boolean);
+procedure Cursor(Visible: Boolean);
 
 procedure Pump;
 function KeyPressed: Boolean;
@@ -420,10 +420,10 @@ begin
   end;
 end;
 
-procedure Cursor(On: Boolean);
+procedure Cursor(Visible: Boolean);
 begin
-  CaretOn := On;
-  ShowTheCaret(On);
+  CaretOn := Visible;
+  ShowTheCaret(Visible);
 end;
 
 { ---- the window ------------------------------------------------------------ }

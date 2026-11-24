@@ -753,7 +753,7 @@ var
   S: String[12];
 begin
   Str(N, S);
-  NumStr := String(S);
+  NumStr := S;
 end;
 
 function TenthsStr(T: Longint): String;
@@ -797,7 +797,7 @@ end;
 procedure RunBench(var Fout: Text; const Build: String; Fpu: Integer);
 var
   I, Letters, Old: Integer;
-  Answer: String;
+  Answer, Question: String;
   Tenths, T0, T1, Ms, Tokens, AllMs, AllTokens: Longint;
 begin
   Old := Creativity;
@@ -820,7 +820,8 @@ begin
   for I := 1 to NBENCH do
   begin
     T0 := NowMs;
-    Letters := Think(String(BenchQ[I]), Answer, Tenths, nil, nil);
+    Question := BenchQ[I];
+    Letters := Think(Question, Answer, Tenths, nil, nil);
     T1 := NowMs;
     if AbortThink then Break;
     Ms := T1 - T0;
