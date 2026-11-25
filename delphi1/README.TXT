@@ -25,9 +25,7 @@ Building with Delphi 1
   No VCL, no .DFM or .RES files: only System, WinTypes and WinProcs, plus
   MMSYSTEM.DLL (Windows 3.1) for the millisecond timer. The EXE is small.
 
-  If Delphi 1 reports "Undeclared identifier: WM_PAINT" (or another WM_
-  name), add Messages to the uses clause of TNYWIN.PAS:
-      uses WinTypes, WinProcs, Messages;
+  Command line, building every unit: DCC /B TINY.DPR
 
 Running
   Windows 3.1 or 3.11 (also Windows 95/98). Double-click TINY.EXE, or
@@ -79,8 +77,10 @@ What was tested (on a modern Linux PC, as Delphi 1 was not available)
   - The whole program compiled for 16-bit Windows (Win16, large model)
     with Free Pascal's i8086 compiler, including the 8086 assembler
     kernels; the generated code assembles without errors.
-  - Not tested: building with Delphi 1 itself, linking, and running under
-    Windows 3.1. Delphi 1 may need small fixes (see the Messages note).
+  - Built with Delphi 1: the command-line compiler (DCC, Delphi Compiler
+    Version 8.0) compiles and links the whole program without errors
+    under a DOS emulator; TINY.EXE comes to 50,432 bytes.
+  - Not tested: running TINY.EXE under Windows 3.1.
 
   Floating point on a real 386/486 rounds slightly differently from a
   modern PC, so in rare cases a letter can differ from the DOS version.
