@@ -9,11 +9,11 @@ on:
       tag:
         description: Tag to create for the release
         required: true
-        default: v2.1p.1-preview
+        default: v2.1p.2-preview
       title:
         description: Release title
         required: true
-        default: "PasTiny 2.1P Preview 2: packages"
+        default: "PasTiny 2.1P Preview 3: packages"
 permissions:
   contents: write
 jobs:
