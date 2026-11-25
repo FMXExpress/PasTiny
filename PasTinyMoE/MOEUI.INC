@@ -6,9 +6,16 @@ const
  (42,26,4),(40,45,54),(13,16,28),(18,34,63),(18,63,42),(10,57,63),
  (63,22,34),(63,18,58),(63,54,14),(60,62,63));
 const MonitorX=61; InputWidth=54;
+{ The conversation panel, as in PasTiny: its window on the screen and the
+  colours of the labels, the question, the answer and the word being said. }
+const ChatL=3; ChatT=3; ChatR=56; ChatB=20; ChatW=54;
+ ColYou=13; ColAsk=14; ColTiny=11; ColAnswer=10; ColGlow=15; ColSpeak=$2F; ColDim=8;
 var ChatX,ChatY:Integer; Peak:array[0..5] of Single;
  Heat:array[0..17] of Byte; HeatCount,Letters:Integer; LastQuestion:String[MAXQ];
  SoundOn,VoiceOn:Boolean;
+ { where the answer being written starts in the panel, how many of its
+   letters are on the screen, the last one, and the sweep of the reading bar }
+ AnsX0,AnsY0,AnsCol,Spin:Integer; AnsPrev:Char;
 
 procedure At(X,Y,Color:Integer; S:String);
 var I:Integer;
@@ -73,24 +80,6 @@ begin
  end
 end;
 
-procedure SpeakAnswer(A:String; ExpertId:Integer);
-var I,Profile:Integer; Pitch,Pace:Word;
-begin
- if not SoundOn then Exit;
- if not VoiceOn then begin ReadySound; Exit end;
- Pitch:=115; Pace:=100;
- if (ExpertId>=1) and (ExpertId<=100) then begin
-  { 37 is coprime to 100, so every expert gets its own pitch and pace pair. }
-  Profile:=(ExpertId-1)*37 mod 100;
-  Pitch:=101+3*(Profile mod 10);
-  Pace:=82+4*(Profile div 10)
- end;
- for I:=1 to Length(A) do begin
-  if KeyPressed then begin TNYSYS.ReadKey; Break end;
-  SayLetter(A[I],Pitch-30*Longint(I-1) div (Length(A)+1),Pace)
- end
-end;
-
 procedure SoundStatus;
 begin
  if SoundOn then At(21,25,$3E,'ON ') else At(21,25,$3E,'OFF');
@@ -124,15 +113,73 @@ begin
  At(52,25,$3F,'Esc'); At(55,25,$30,' Quit');
  SoundOn:=True; VoiceOn:=True; SoundStatus;
  At(MonitorX,16,8,'EXPERT');
- ChatX:=1; ChatY:=1;
+ ChatX:=1; ChatY:=1; Spin:=0; AnsCol:=0; AnsX0:=8; AnsY0:=1;
  FillChar(Peak,SizeOf(Peak),0);
  HeatCount:=0; Letters:=0; LastQuestion:=''
 end;
 
 procedure Chat(S:String; Color:Byte);
 begin
- Window(3,3,56,20); GotoXY(ChatX,ChatY);
+ Window(ChatL,ChatT,ChatR,ChatB); GotoXY(ChatX,ChatY);
  TextAttr:=Color; PutS(S); ChatX:=WhereX; ChatY:=WhereY; Flush
+end;
+
+procedure Greet;
+begin
+ Chat('Hello! I am TINY, with a hundred specialists.'#13#10,ColDim);
+ Chat('Ask a question, or type LIST to see them.'#13#10,ColDim)
+end;
+
+{ Scroll the panel until Lines lines are free below the cursor, so that an
+  answer does not scroll while it is being written. }
+procedure ChatRoom(Lines:Integer);
+var Height,X,Y:Integer;
+begin
+ Height:=ChatB-ChatT+1; X:=WhereX; Y:=WhereY;
+ while (Y>Height-Lines+1) and (Y>1) do begin
+  GotoXY(1,Height); PutS(#10); Dec(Y)
+ end;
+ GotoXY(X,Y)
+end;
+
+{ Text that wraps under its own first letter, not under the label. }
+procedure ChatText(Color:Byte; S:String; Indent:Integer);
+var J:Integer;
+begin
+ TextAttr:=Color;
+ for J:=1 to Length(S) do begin
+  if WhereX>=ChatW then begin PutS(#13#10); GotoXY(Indent,WhereY) end;
+  PutCh(S[J])
+ end
+end;
+
+{ A question: a blank line after what came before, then  YOU > question. }
+procedure ChatYou(Q:String);
+begin
+ Window(ChatL,ChatT,ChatR,ChatB); GotoXY(ChatX,ChatY);
+ if WhereX>1 then PutS(#13#10);
+ if WhereY>1 then PutS(#13#10);
+ ChatRoom(6);
+ TextAttr:=ColYou; PutS(' YOU '#175' '); ChatText(ColAsk,Q,8); PutS(#13#10);
+ ChatX:=WhereX; ChatY:=WhereY; Flush
+end;
+
+{ The label of an answer; what follows is written by AnsLetter. }
+procedure ChatTiny;
+begin
+ Window(ChatL,ChatT,ChatR,ChatB); GotoXY(ChatX,ChatY);
+ if WhereX>1 then PutS(#13#10);
+ ChatRoom(4);
+ TextAttr:=ColTiny; PutS('TINY '#175' ');
+ AnsX0:=WhereX; AnsY0:=WhereY; AnsCol:=0;
+ ChatX:=WhereX; ChatY:=WhereY; Flush
+end;
+
+{ The place on the screen of letter J of the answer. }
+procedure AnsPos(J:Integer; var Sx,Sy:Integer);
+var Per:Integer;
+begin
+ Per:=ChatW-AnsX0; Sx:=ChatL+AnsX0-1+J mod Per; Sy:=ChatT+AnsY0-1+J div Per
 end;
 
 procedure Meter(X,Y,N:Integer; Value:Single; Color:Byte);
@@ -210,6 +257,88 @@ begin
  S:=' --.-';
  if (Letters>0) and (Last>T) then Str((1000.0*Letters)/(Last-T):5:1,S);
  At(MonitorX,15,7,S+' letters/s  '); Flush
+end;
+
+{ While the question is taken in, a letter at a time: a light sweeping to
+  and fro where the answer will be, and how much has been read. }
+procedure ReadStep(J,N:Integer);
+var K,Head,Sx,Sy,Dist:Integer; S:String;
+begin
+ Head:=Spin mod 18; if Head>=9 then Head:=17-Head;
+ AnsPos(0,Sx,Sy);
+ for K:=0 to 9 do begin
+  Dist:=Abs(Head-K);
+  case Dist of
+   0:At(Sx+K,Sy,15,#219);
+   1:At(Sx+K,Sy,ColYou,#178);
+   2:At(Sx+K,Sy,5,#177);
+   else At(Sx+K,Sy,ColDim,#250)
+  end
+ end;
+ Str(100*Longint(J+1) div N,S);
+ At(Sx+10,Sy,ColDim,' reading '+S+'%');
+ Inc(Spin); Monitor;
+ if J mod 3=0 then Tone(2400+Random(8)*150,3)
+end;
+
+{ A letter of the answer: a flicker of some other sign, then the letter
+  bright, and the one before it settles into the answer's colour. }
+procedure AnsLetter(C:Integer);
+var X,Y:Integer;
+begin
+ if AnsCol=0 then begin AnsPos(0,X,Y); At(X,Y,7,'                       ') end
+ else begin AnsPos(AnsCol-1,X,Y); At(X,Y,ColAnswer,AnsPrev) end;
+ AnsPos(AnsCol,X,Y);
+ if C<>32 then begin At(X,Y,11,Chr(33+Random(90))); Flush; DelayMs(10) end;
+ At(X,Y,ColGlow,Chr(C)); AnsPrev:=Chr(C); Inc(AnsCol);
+ Monitor;
+ if not VoiceOn then Tone(900+(C mod 16)*70,6)
+end;
+
+{ The answer is whole: settle its last letter, show its size and time at
+  the foot of the screen, and leave the panel ready for the next line. }
+procedure AnsDone(Ms:Longint);
+var X,Y:Integer; S,T:String;
+begin
+ if AnsCol=0 then begin AnsPos(0,X,Y); At(X,Y,7,'                       ') end
+ else begin AnsPos(AnsCol-1,X,Y); At(X,Y,ColAnswer,AnsPrev) end;
+ Str(AnsCol,S); Str(Ms div 1000,T); S:=S+' ltr '+T+'.'; Str((Ms mod 1000) div 100,T); S:=S+T+'s';
+ At(62,25,$30,'                  '); At(79-Length(S),25,$3F,S);
+ ChatX:=1; ChatY:=Y-ChatT+2; Flush
+end;
+
+{ Say the answer on the PC speaker, a word at a time, with the word being
+  said lit up in the panel.  Every expert has its own pitch and pace. }
+procedure SpeakAnswer(A:String; ExpertId:Integer);
+var I,K,First,N,Profile,Sx,Sy:Integer; Pitch,Pace:Word; Stop:Boolean;
+ procedure Paint(Color:Byte);
+ begin
+  K:=First;
+  while (K<I) and (A[K]<>' ') do begin AnsPos(K-1,Sx,Sy); At(Sx,Sy,Color,A[K]); Inc(K) end;
+  Flush
+ end;
+begin
+ if not SoundOn then Exit;
+ if not VoiceOn then begin ReadySound; Exit end;
+ Pitch:=115; Pace:=100;
+ if (ExpertId>=1) and (ExpertId<=100) then begin
+  { 37 is coprime to 100, so every expert gets its own pitch and pace pair. }
+  Profile:=(ExpertId-1)*37 mod 100;
+  Pitch:=101+3*(Profile mod 10);
+  Pace:=82+4*(Profile div 10)
+ end;
+ N:=Length(A); First:=1; Stop:=False;
+ while (First<=N) and not Stop do begin
+  I:=First; while (I<=N) and (A[I]<>' ') do Inc(I);
+  while (I<=N) and (A[I]=' ') do Inc(I);
+  if AnsCol=N then Paint(ColSpeak);
+  for K:=First to I-1 do if not Stop then begin
+   if KeyPressed then begin TNYSYS.ReadKey; Stop:=True end
+   else SayLetter(A[K],Pitch-30*Longint(K-1) div (N+1),Pace)
+  end;
+  if AnsCol=N then Paint(ColAnswer);
+  First:=I
+ end
 end;
 
 procedure ShowHelp;

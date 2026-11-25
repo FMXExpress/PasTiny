@@ -60,6 +60,12 @@ procedure PollEscape(I,N:Integer);
 begin
  if Interactive then if KeyPressed then if ReadKey=27 then Cancelled:=True
 end;
+(* While the question is read: the reading bar on the screen, and Escape. *)
+procedure ReadingStep(I,N:Integer);
+begin
+ {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then ReadStep(I,N);{$ENDIF}{$ENDIF}
+ PollEscape(I,N)
+end;
 procedure Letter(C:Integer);
 begin
  Last:=NowMs; if First<0 then First:=Last;
@@ -67,8 +73,7 @@ begin
  if ScreenUI then begin
   Inc(Letters);
   RecordConfidence;
-  Chat(Chr(C),10); Monitor;
-  if not VoiceOn then Tone(900+(C mod 16)*70,6);
+  AnsLetter(C);
   PollEscape(0,0); Exit
  end;
  {$ENDIF}{$ENDIF}
@@ -83,7 +88,7 @@ begin
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
  {$IFDEF VER70}{$IFDEF SPEC100}
  ScreenUI:=Interactive and (VideoMode=3) and (ParamCount=0);
- if ScreenUI then BeginUI;
+ if ScreenUI then begin BeginUI; Greet end;
  {$ENDIF}{$ENDIF}
  if not ScreenUI then WriteLn('catalog/init ms=',NowMs-Start);
  Creativity:=0;
@@ -108,7 +113,7 @@ begin
   Q:=Clean(Q);
   if Q='quit' then Break
   else begin
-  {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI and (Q<>'') then Chat('YOU '+Q+#13#10,14);{$ENDIF}{$ENDIF}
+  {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI and (Q<>'') then ChatYou(Q);{$ENDIF}{$ENDIF}
   if Q='list' then begin
    for J:=1 to Count do begin
     Report(Num(Items[J].Id)+' '+Items[J].Title);
@@ -130,8 +135,14 @@ begin
    Val(Copy(Q,5,255),K,Code); J:=0; if Code=0 then J:=FindId(K);
    if J=0 then Report('unknown id') else begin Switch(J); Pinned:=Active=J end
   end else if (Q<>'') and ToolsOn and (not Pinned) and ToolAnswer(Q,A) then begin
+   {$IFDEF VER70}{$IFDEF SPEC100}
+   if ScreenUI then begin
+    (* an exact answer from code, shown as an answer and spoken *)
+    ChatTiny; for K:=1 to Length(A) do AnsLetter(Ord(A[K]));
+    AnsDone(0); SpeakAnswer(A,0)
+   end else
+   {$ENDIF}{$ENDIF}
    Report(A);
-   {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then SpeakAnswer(A,0);{$ENDIF}{$ENDIF}
    if not ScreenUI then WriteLn('answer ms=0 chars=',Length(A),' tool')
   end else if Q<>'' then begin
    if not Pinned then begin T:=NowMs; J:=Route(Q); if not ScreenUI then WriteLn('route ms=',NowMs-T);
@@ -147,10 +158,11 @@ begin
     end else J:=Active;
    if (J<>0) and Ready then begin
     {$IFDEF VER70}{$IFDEF SPEC100}
-    if ScreenUI then begin Letters:=0; HeatCount:=0; Chat('TINY ',11) end;
+    if ScreenUI then begin Letters:=0; HeatCount:=0; ChatTiny end;
     {$ENDIF}{$ENDIF}
-    First:=-1; T:=NowMs; Think(Q,A,Tokens,PollEscape,Letter); Elapsed:=NowMs-T;
-    if ScreenUI then Report('') else begin
+    First:=-1; T:=NowMs; Think(Q,A,Tokens,ReadingStep,Letter); Elapsed:=NowMs-T;
+    {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then AnsDone(Elapsed);{$ENDIF}{$ENDIF}
+    if not ScreenUI then begin
     WriteLn;
     WriteLn('answer ms=',Elapsed,' chars=',Length(A));
     if First>=0 then WriteLn('first char ms=',First-T,' output span ms=',Last-First);

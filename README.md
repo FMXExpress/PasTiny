@@ -27,7 +27,7 @@ PasTiny’s Turbo Pascal 7 DOS build, captured from the VGA text buffer with its
 
 | PasTinyMoE routes two questions | PasTinyJev scores a billing message |
 | --- | --- |
-| [![SPEC100 answers Lima with original Tiny, then loads Debugger Vocabulary for a breakpoint question](docs/screenshots/moe-neon.png)](docs/screenshots/moe-neon.png) | [![PasTinyJev assigns a billing probability of 0.9826 to “I was charged twice this month”](docs/screenshots/jev.png)](docs/screenshots/jev.png) |
+| [![SPEC100 answers a capital question from a model and spells a word with a tool, in the same conversation layout as PasTiny](docs/screenshots/moe-neon.png)](docs/screenshots/moe-neon.png) | [![PasTinyJev assigns a billing probability of 0.9826 to “I was charged twice this month”](docs/screenshots/jev.png)](docs/screenshots/jev.png) |
 
 | PasTinyAsm editor | Running the program with F5 |
 | --- | --- |
