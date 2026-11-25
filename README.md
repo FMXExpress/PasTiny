@@ -91,6 +91,17 @@ Five questions, 189 character tokens per run; median of three runs. Average seco
 | TP7 integer, pure Pascal | 9.63 | 3.926 |
 | TP7 float | 10.73 | 3.523 |
 
+### FPU disabled: the all-integer engine
+
+The default engine now does everything in whole numbers. Before, only the dot products were integer; the scaling between layers, the normalising and the attention weights were floating point, and without a coprocessor those library calls were most of the time. Same settings as the table below, same build of the program with and without the change, one run each:
+
+| Engine (Turbo Pascal 7, no FPU) | One question, 34 tokens | Five questions, 189 tokens | Tokens/second |
+|---|---:|---:|---:|
+| All-integer (default) | 2.97 s | 15.65 s | 12.07 |
+| Integer dot products, floating point between (`/DOLDGLUE`) | 17.35 s | 96.76 s | 1.95 |
+
+That is about six times faster without a coprocessor, and the same speed as with one (15.62 s for the five questions with the FPU on, against 15.33 s for the old engine). All 60 reference answers are unchanged in every build. Start-up needs no floating point either: the exponential table is in the program (`EXPTAB.INC`) and the file's scales are taken apart bit by bit. The figures below this section were measured before the change and are kept as they were. Emulator figures, not Pocket386 measurements; raw logs in [BENCH/INTGLUE.TXT](BENCH/INTGLUE.TXT).
+
 ### FPU disabled
 
 One run per version of **“what is 7 times 8”**, 34 character tokens. This shorter workload keeps the software-float runs practical. These are seconds for that single question, not the five-question averages above.

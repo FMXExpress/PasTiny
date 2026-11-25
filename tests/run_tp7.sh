@@ -8,7 +8,7 @@ root=$(pwd)
 dest="$root/build/tp7"
 mkdir -p "$dest"
 cp "$TP7_DIR/TPC.EXE" "$TP7_DIR/TURBO.TPL" "$dest/"
-cp TINY.PAS TNYNET.PAS TNYSYS.PAS TNYUI.INC TINY.BIN "$dest/"
+cp TINY.PAS TNYNET.PAS TNYSYS.PAS TNYUI.INC EXPTAB.INC TINY.BIN "$dest/"
 python3 - "$dest" <<'PY'
 from pathlib import Path
 import sys
