@@ -8,7 +8,12 @@ unit TNYSYS;
 interface
 const ScreenWidth=80; ScreenHeight=25;
 type TScreen=array[0..1999] of Word;
-var TextAttr:Byte; Screen:TScreen; SkipDelays:Boolean;
+var TextAttr:Byte; SkipDelays:Boolean;
+(* The 100-expert program has a whole model in conventional memory and no
+   room left for a copy of the screen: there Screen is the colour text
+   memory itself.  Its screen interface only runs in colour mode 3. *)
+{$IFDEF VER70}{$IFDEF SPEC100}{$DEFINE DIRECTSCREEN}{$ENDIF}{$ENDIF}
+{$IFDEF DIRECTSCREEN}var Screen:TScreen absolute $B800:$0000;{$ELSE}var Screen:TScreen;{$ENDIF}
 procedure Window(X1,Y1,X2,Y2:Integer);
 procedure GotoXY(X,Y:Integer);
 function WhereX:Integer;
@@ -101,7 +106,7 @@ begin
  {$IFDEF DPMI}
  if Segment=$B000 then Move(Screen,Mem[SegB000:0],4000)
  else Move(Screen,Mem[SegB800:0],4000);
- {$ELSE}Move(Screen,Mem[Segment:0],4000);{$ENDIF}{$ENDIF}
+ {$ELSE}{$IFNDEF DIRECTSCREEN}Move(Screen,Mem[Segment:0],4000);{$ENDIF}{$ENDIF}{$ENDIF}
  R.AH:=2; R.BH:=0; R.DL:=Wx1+Cx-2; R.DH:=Wy1+Cy-2; Intr($10,R)
 end;
 function InByte(P:Word):Byte;

@@ -88,7 +88,7 @@ begin
  if not ReadCatalog then begin WriteLn('Invalid EXPERTS.CAT'); Halt(1) end;
  {$IFDEF VER70}{$IFDEF SPEC100}
  ScreenUI:=Interactive and (VideoMode=3) and (ParamCount=0);
- if ScreenUI then begin BeginUI; Greet end;
+ if ScreenUI then begin BootScreen; OnLoad:=BootBar end;
  {$ENDIF}{$ENDIF}
  if not ScreenUI then WriteLn('catalog/init ms=',NowMs-Start);
  Creativity:=0;
@@ -100,7 +100,11 @@ begin
  Items[OriginalSlot].Check:=$15282977;
  {$ENDIF}
  Switch(1); AllocMemory; if not ScreenUI then MemoryReport;
- {$IFDEF VER70}{$IFDEF SPEC100}if ScreenUI then begin Monitor; ReadySound end;{$ENDIF}{$ENDIF}
+ {$IFDEF VER70}{$IFDEF SPEC100}
+ if ScreenUI then begin
+  OnLoad:=nil; BootDone; BeginUI; Greet; ExpertStatus; Monitor; ReadySound
+ end;
+ {$ENDIF}{$ENDIF}
  if Interactive and not ScreenUI then
   WriteLn('LIST, USE id, AUTO, TOOLS ON/OFF, MEM, QUIT. Escape cancels an answer.');
  while True do begin

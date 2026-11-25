@@ -110,7 +110,8 @@ var R:Integer;
 begin
  for R:=0 to T.Rows-1 do begin
   Scalars(T.Scale^[R],1); ReadBytes(T.W^[Longint(R)*T.Cols],T.Cols)
- end
+ end;
+ Inc(TablesDone); if Assigned(OnLoad) then OnLoad(TablesDone,TablesTotal)
 end;
 function TryModel(Name:String; Expected:Longint):Boolean;
 var Header:packed record Magic:array[1..4] of Char; Width,Layers,Heads,Hidden:Word end;
@@ -123,7 +124,7 @@ begin
  if Err<>0 then begin LoadError:='open failed'; Exit end;
  {$I-}Size:=FileSize(F); Err:=IOResult;{$I+}
  if (Err<>0) or (Size<>381808) then LoadError:='wrong file size';
- Used:=0; Available:=0; Check:=-1;
+ Used:=0; Available:=0; Check:=-1; TablesDone:=0; TablesTotal:=2+6*L;
  ReadBytes(Header,SizeOf(Header));
  if LoadError='' then
  if (Header.Magic<>'TNY2') or (Header.Width<>D) or (Header.Layers<>L) or

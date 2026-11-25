@@ -16,6 +16,14 @@ var ChatX,ChatY:Integer; Peak:array[0..5] of Single;
  { where the answer being written starts in the panel, how many of its
    letters are on the screen, the last one, and the sweep of the reading bar }
  AnsX0,AnsY0,AnsCol,Spin:Integer; AnsPrev:Char;
+{ The start-up screen, as in PasTiny: the logo, where its next line of
+  progress goes, and whether it is still showing. }
+const Logo:array[0..4] of String[24]=(
+ '#####  ###  #   #  #   #', '  #     #   ##  #   # # ',
+ '  #     #   # # #    #  ', '  #     #   #  ##    #  ',
+ '  #    ###  #   #    #  ');
+ LogoCol:array[0..4] of Byte=(11,11,9,13,13); LogoX=16; LogoY=2;
+var BootY:Integer; Booting:Boolean;
 
 procedure At(X,Y,Color:Integer; S:String);
 var I:Integer;
@@ -86,7 +94,8 @@ begin
  if VoiceOn and SoundOn then At(35,25,$3E,'ON ') else At(35,25,$3E,'OFF')
 end;
 
-procedure BeginUI;
+{ Colour text mode with the neon palette, and an empty screen. }
+procedure NeonMode;
 var I:Integer;
 begin
  TextMode(3);
@@ -94,7 +103,121 @@ begin
   for I:=0 to 15 do SetDAC(PaletteIndex[I],PaletteRGB[I,0],PaletteRGB[I,1],PaletteRGB[I,2]);
   DisableBlink
  end;
- Window(1,1,80,25); TextAttr:=7; ClrScr;
+ Window(1,1,80,25); TextAttr:=7; ClrScr
+end;
+
+{ Signs falling down the screen; a key cuts it short. }
+procedure Rain;
+var Col,Spd:array[0..39] of ShortInt; F,X,Y,I:Integer; Color:Byte;
+begin
+ for I:=0 to 39 do begin Col[I]:=-Random(25); Spd[I]:=1+Random(2) end;
+ for F:=0 to 45 do begin
+  for I:=0 to 39 do begin
+   X:=2*I+1; Y:=Col[I];
+   if F<40 then Color:=ColAnswer else Color:=ColDim;
+   if (Y>=1) and (Y<=25) then At(X,Y,Color,Chr(33+Random(90)));
+   if (Y+1>=1) and (Y+1<=25) then At(X,Y+1,15,Chr(33+Random(90)));
+   if (Y-7>=1) and (Y-7<=25) then At(X,Y-7,7,' ');
+   Inc(Col[I],Spd[I]); if Col[I]>32 then Col[I]:=-Random(10)
+  end;
+  if F mod 4=0 then Tone(3000+Random(3000),2);
+  Flush; DelayMs(28);
+  if KeyPressed then begin TNYSYS.ReadKey; F:=45 end
+ end;
+ TextAttr:=7; ClrScr
+end;
+
+function LogoCell(Y,X:Integer):Boolean;
+begin
+ LogoCell:=(Y>=0) and (Y<5) and (X>=0) and (X<24) and (Logo[Y][X+1]='#')
+end;
+
+{ The logo gathers out of random signs, then a light sweeps over it. }
+procedure LogoIn;
+var Done:array[0..4,0..23] of Boolean; J,K,Y,X,N,Total:Integer;
+ procedure Cell(Color:Byte);
+ begin At(LogoX+2*X,LogoY+Y,Color,#219#219) end;
+begin
+ FillChar(Done,SizeOf(Done),0); N:=0; Total:=0;
+ for Y:=0 to 4 do for X:=0 to 23 do if LogoCell(Y,X) then Inc(Total);
+ K:=0;
+ while (N<Total) and (K<400) do begin
+  for J:=0 to 4 do begin
+   Y:=Random(5); X:=Random(24);
+   if LogoCell(Y,X) and not Done[Y,X] then begin
+    Done[Y,X]:=True; Inc(N);
+    if not ((Y<4) and (X<23) and LogoCell(Y+1,X+1)) then At(LogoX+2*X+2,LogoY+Y+1,1,#177#177);
+    Cell(LogoCol[Y])
+   end
+  end;
+  for J:=0 to 5 do begin
+   Y:=Random(5); X:=Random(24);
+   if LogoCell(Y,X) and not Done[Y,X] then
+    At(LogoX+2*X,LogoY+Y,ColDim,Chr(176+Random(3))+Chr(176+Random(3)))
+  end;
+  if K mod 3=0 then Tone(200+N*12,3);
+  Flush; DelayMs(12); Inc(K)
+ end;
+ for Y:=0 to 4 do for X:=0 to 23 do if LogoCell(Y,X) then Cell(LogoCol[Y]);
+ for K:=0 to 25 do begin
+  for Y:=0 to 4 do begin
+   X:=K; if LogoCell(Y,X) then Cell(15);
+   X:=K-2; if LogoCell(Y,X) then Cell(LogoCol[Y])
+  end;
+  Flush; DelayMs(14)
+ end
+end;
+
+{ Called as each table of the first expert is read: a bar, a percentage,
+  and a line for the letters and for each layer as it comes on. }
+procedure BootBar(Done,Total:Integer); far;
+var J,N:Integer; S:String; Color:Byte;
+begin
+ N:=36*Longint(Done) div Total; At(22,15,11,#222);
+ for J:=0 to 35 do begin
+  if J*3<N then Color:=11 else Color:=ColAnswer;
+  if J<N then At(23+J,15,Color,#219) else At(23+J,15,ColDim,#250)
+ end;
+ Str(100*Longint(Done) div Total:3,S); At(59,15,11,#221); At(60,15,15,' '+S+'%');
+ if (Done=2) or ((Done>2) and ((Done-2) mod 6=0)) then begin
+  if Done=2 then S:='letters + places'
+  else begin Str((Done-2) div 6,S); S:='layer '+S+' of '+Chr(48+L) end;
+  At(26,BootY,ColYou,#16); At(28,BootY,7,S);
+  for J:=29+Length(S) to 49 do At(J,BootY,ColDim,#250);
+  At(51,BootY,ColAnswer,'ONLINE'); Inc(BootY); Tone(880+110*(BootY mod 6),12)
+ end;
+ Flush
+end;
+
+{ The start-up screen up to the point where the first expert is read. }
+procedure BootScreen;
+begin
+ SoundOn:=True; VoiceOn:=True; Booting:=True; BootY:=17;
+ NeonMode; Cursor(False); Rain; LogoIn;
+ At(22,8,15,'M I X T U R E   O F   E X P E R T S');
+ At(27,9,ColDim,'SPEC100  '#250'  Turbo Pascal 7');
+ for BootY:=10 to 69 do At(BootY,11,3,#196);
+ BootY:=17;
+ At(22,13,11,'LOADING NEURAL WEIGHTS FROM '+Items[1].Name);
+ Flush
+end;
+
+{ The first expert is in: a rising tune and SYSTEM READY. }
+procedure BootDone;
+const Notes:array[0..5] of Word=(392,523,659,784,1047,1319);
+var J:Integer; Color:Byte;
+begin
+ for J:=0 to 5 do Tone(Notes[J],55); Tone(1568,140);
+ for J:=0 to 5 do begin
+  if Odd(J) then Color:=15 else Color:=ColAnswer;
+  At(30,BootY+1,Color,#16' SYSTEM  READY '#17); Flush; DelayMs(120)
+ end;
+ Booting:=False; Cursor(True)
+end;
+
+procedure BeginUI;
+begin
+ NeonMode;
  At(1,1,$1B,'                                                                                ');
  At(2,1,$1B,#17#16); At(5,1,$1F,'P A S T I N Y M O E');
  At(26,1,$1B,#250+'  NEURAL INTERFACE  '+#250+'  SPEC100');
@@ -209,6 +332,7 @@ end;
 procedure ExpertStatus;
 var S:String; Split:Integer;
 begin
+ if Booting then Exit;
  At(MonitorX,17,7,'                  ');
  At(MonitorX,18,7,'                  ');
  if Active=0 then S:='Unloaded' else S:=Items[Active].Title;
