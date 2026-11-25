@@ -71,22 +71,27 @@ Sound
   version. This works in Windows 3.1 and Windows 95/98. Windows NT, 2000
   and XP block it: use /QUIET there.
 
-What was tested (on a modern Linux PC, as Delphi 1 was not available)
+What was tested (on a modern Linux PC)
   - TNYNET.PAS compiled with Free Pascal in Turbo Pascal mode (16-bit
     Integer) with range and overflow checks: all 60 test questions give
     exactly the same answers as the original C program, for both the
     integer engine and the float engine (creativity 0).
-  - (Before the integer engine was made whole-number only, and not
-    repeated since:) the whole program compiled for 16-bit Windows (Win16, large model)
-    with Free Pascal's i8086 compiler, including the 8086 assembler
-    kernels; the generated code assembles without errors.
+  - Before the integer engine became whole-number only, and not
+    repeated since: the whole program compiled for 16-bit Windows
+    (Win16, large model) with Free Pascal's i8086 compiler, including
+    the 8086 assembler kernels of that time; the generated code
+    assembled without errors.
   - Built with Delphi 1: the command-line compiler (DCC, Delphi Compiler
     Version 8.0) compiles and links the whole program without errors
     under a DOS emulator; TINY.EXE comes to 57,088 bytes.
-  - Not tested: running TINY.EXE under Windows 3.1.
+  - Not tested: running TINY.EXE under Windows 3.1. The integer engine's
+    two new assembler routines (a 48-bit multiply-and-shift and a strided
+    dot product) are the ones the DOS version runs, but in this program
+    they have not yet run at all.
 
-  Floating point on a real 386/486 rounds slightly differently from a
-  modern PC, so in rare cases a letter can differ from the DOS version.
+  The integer engine gives the same letters on every machine. With
+  /FLOAT, floating point on a real 386/486 rounds slightly differently
+  from a modern PC, so in rare cases a letter can differ.
 
 Licence
   The original TINY repository has no licence file. TINY.BIN and the
