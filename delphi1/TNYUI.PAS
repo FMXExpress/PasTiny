@@ -85,7 +85,7 @@ var
   LastQ: String;
   SndLog: Text;
   SndLogOpen: Boolean;
-  ActMax: array[0..MAXL - 1] of Single;
+  ActMax: array[0..MAXL - 1] of Longint;
   Heat: array[0..17] of Integer;
   HeatN: Integer;
   Speed10: Longint;                         { letters per 10 seconds }
@@ -394,14 +394,14 @@ begin
   Lr := 0;
   while (Lr < L) and (Lr < 6) do
   begin
-    if LayerAct[Lr] > ActMax[Lr] then ActMax[Lr] := LayerAct[Lr];
-    if ActMax[Lr] > 0 then V := Trunc(1000.0 * LayerAct[Lr] / ActMax[Lr]) else V := 0;
+    if LayerLvl[Lr] > ActMax[Lr] then ActMax[Lr] := LayerLvl[Lr];
+    if ActMax[Lr] > 0 then V := Integer((1000 * LayerLvl[Lr]) div ActMax[Lr]) else V := 0;
     if Odd(Lr) then Meter(MON_X + 3, 4 + Lr, 15, V, C_FRAME)
     else Meter(MON_X + 3, 4 + Lr, 15, V, C_ANSWER);
-    ActMax[Lr] := ActMax[Lr] * 0.995;
+    ActMax[Lr] := ActMax[Lr] - (ActMax[Lr] + 199) div 200;   { sinks by a 200th }
     Inc(Lr);
   end;
-  V := Trunc(LastConf * 1000.0);
+  V := LastMil;
   Meter(MON_X, 11, 13, V, ConfColor(V));
   PutAt(MON_X + 13, 11, C_BRIGHT, ' ' + PadL(NumStr(V div 10), 3) + '%');
   GotoXY(MON_X, 13);
@@ -812,7 +812,7 @@ begin
   PutCh(Chr(C));
   ScrPrev := Chr(C);
   Inc(AnsCol);
-  V := Trunc(LastConf * 1000.0);
+  V := LastMil;
   if HeatN < 18 then
   begin
     Heat[HeatN] := V;

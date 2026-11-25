@@ -1672,7 +1672,7 @@ end;
 { The monitor temporarily uses columns 59-80 of the editor. }
 var NeuralVisible:Boolean;
  NeuralTitle,NeuralPhase:String[18]; NeuralRecent:String[18];
- NeuralHeat:array[1..18] of Byte; NeuralPeak:array[0..MAXL-1] of Single;
+ NeuralHeat:array[1..18] of Byte; NeuralPeak:array[0..MAXL-1] of Longint;
  NeuralStart,NeuralElapsed:Longint; NeuralChars,NeuralRead:Integer;
 
 procedure NeuralText(X,Y:Integer; S:String; Color:Byte);
@@ -1690,7 +1690,7 @@ begin
 end;
 
 procedure DrawNeural;
-var Y,I,V:Integer; S:String; Ms:Longint; Rate:Real; Color:Byte;
+var Y,I,V:Integer; S:String; Ms,Rate:Longint; Color:Byte;
 begin
  for Y:=3 to 23 do begin
   NeuralText(59,Y,#186+'                    '+#186,11)
@@ -1702,7 +1702,7 @@ begin
  NeuralText(61,3,'LAYER ACTIVITY',8);
  for I:=0 to L-1 do if I<6 then begin
   V:=0;
-  if NeuralPeak[I]>0 then V:=Trunc(100*LayerAct[I]/NeuralPeak[I]);
+  if NeuralPeak[I]>0 then V:=(100*LayerLvl[I]) div NeuralPeak[I];
   NeuralText(61,4+I,'L'+Chr(49+I),11);
   Color:=10; if Odd(I) then Color:=11;
   NeuralMeter(64,4+I,15,V,Color)
@@ -1720,8 +1720,9 @@ begin
  end;
  NeuralText(61,15,'SPEED',8);
  Ms:=NeuralElapsed; if Ms<0 then Ms:=NowMs-NeuralStart; Rate:=0;
- if (NeuralChars>0) and (Ms>0) then Rate:=1000.0*NeuralChars/Ms;
- Str(Rate:5:1,S); NeuralText(61,16,S+' letters/s',7);
+ (* letters a second, in tenths *)
+ if (NeuralChars>0) and (Ms>0) then Rate:=(Longint(10000)*NeuralChars+Ms div 2) div Ms;
+ Str(Rate div 10:3,S); NeuralText(61,16,S+'.'+Chr(48+Rate mod 10)+' letters/s',7);
  NeuralText(61,18,'EXPERT',8); NeuralText(61,19,NeuralTitle,15);
  NeuralText(61,21,NeuralPhase,11)
 end;
@@ -1730,7 +1731,7 @@ procedure ObserveLayers;
 var I:Integer;
 begin
  for I:=0 to L-1 do
-  if LayerAct[I]>NeuralPeak[I] then NeuralPeak[I]:=LayerAct[I]
+  if LayerLvl[I]>NeuralPeak[I] then NeuralPeak[I]:=LayerLvl[I]
 end;
 
 procedure BeginNeural;
@@ -1760,7 +1761,7 @@ begin
   Delete(NeuralRecent,1,1); System.Move(NeuralHeat[2],NeuralHeat[1],17)
  end;
  NeuralRecent:=NeuralRecent+Chr(C);
- NeuralHeat[Length(NeuralRecent)]:=Trunc(100*LastConf);
+ NeuralHeat[Length(NeuralRecent)]:=LastPct;
  Inc(NeuralChars);
  NeuralPhase:='Generating'; DrawNeural; Flush;
  if not VoiceOn and not Cancelled then Tone(900+(C mod 16)*70,6)

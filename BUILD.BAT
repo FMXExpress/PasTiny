@@ -5,6 +5,7 @@ rem BUILD BP    : Borland Pascal 7 real mode
 rem BUILD DPMI  : Borland Pascal 7 protected mode (RTM required at runtime)
 rem BUILD FLOAT : Turbo Pascal float engine
 rem BUILD NOASM : Turbo Pascal pure Pascal integer engine
+rem   (TPC /B /DOLDGLUE TINY.PAS builds the engine with floating point between the dot products)
 if "%1"=="BP" goto bp
 if "%1"=="DPMI" goto dpmi
 if "%1"=="FLOAT" goto flt

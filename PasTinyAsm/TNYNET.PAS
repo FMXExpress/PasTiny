@@ -2,6 +2,11 @@ unit TNYNET;
 {$IFDEF FPC}{$MODE TP}{$ENDIF}
 {$N+}{$E+}{$S-}
 {$IFDEF DEBUG}{$R+}{$Q+}{$ELSE}{$R-}{$Q-}{$ENDIF}
+{$IFDEF FLOATMATH}{$DEFINE FLOATGLUE}{$ENDIF}
+{$IFDEF OLDGLUE}{$DEFINE FLOATGLUE}{$ENDIF}
+{$IFDEF FACTORS16}{$DEFINE FLOATGLUE}{$ENDIF}
+{$IFDEF TERNARY}{$DEFINE FLOATGLUE}{$ENDIF}
+{$IFDEF FIXEDRMS}{$DEFINE FLOATGLUE}{$ENDIF}
 interface
 (* PasTinyAsm: the limits are cut to the one model shape it uses (D=96,
    HID=256, L=4), which frees about 10 KB of the data segment. *)
@@ -16,8 +21,12 @@ type
  TTable=record Scale:PSglArr; W:PS8Arr; Rows,Cols:TIdx; {$IFDEF XMSSTREAM}FileOffset:Longint;{$ENDIF} end;
  TStepProc=procedure(I,N:Integer); TLetterProc=procedure(C:Integer);
  TLoadProc=procedure(Done,Total:Integer); TFailProc=procedure;
-var D,L,H,HD,HID:Integer; Creativity:Integer; LastConf:Single;
- LayerAct:array[0..MAXL-1] of Single;
+var D,L,H,HD,HID:Integer; Creativity:Integer;
+ (* PasTinyAsm: what the panel shows, as whole numbers, so that the program
+    has no floating point left in it: how sure the last letter was, in
+    hundredths, and how busy each layer is, in 256ths. *)
+ LastPct:Integer; LayerLvl:array[0..MAXL-1] of Longint;
+ {$IFDEF FLOATGLUE}LastConf:Single; LayerAct:array[0..MAXL-1] of Single;{$ENDIF}
  OnLoad:TLoadProc; OnFail:TFailProc;
 function TryModel(Name:String; Expected:Longint):Boolean;
 var Ready,Cancelled:Boolean; LoadError:String[80];
@@ -41,11 +50,19 @@ const MAXDOUBT=3;
 type TGuide=function(var Answer:String; C:Char):Boolean;
 const MAXTRY=VOCAB;
 var Guide:TGuide;
-var Doubt:array[1..MAXDOUBT] of record At:Integer; Gap:Single end;
+var Doubt:array[1..MAXDOUBT] of record At:Integer; Gap:{$IFDEF FLOATGLUE}Single{$ELSE}Longint{$ENDIF} end;
 procedure ThinkAgain(Q:String; var Answer:String; At:Integer; OnStep:TStepProc);
 procedure Fail(Msg:String);
 implementation
 uses XMSCACHE;
+{$IFNDEF FLOATGLUE}
+(* The integer engine keeps its values as 32-bit whole numbers counting
+   65536ths, in the same memory the floating point engine used. *)
+type TFix=array[0..MAXHID-1] of Longint; PFix=^TFix;
+ TScale=record M:Word; Sh:Integer end;
+ TScaleArr=array[0..15999] of TScale; PScaleArr=^TScaleArr;
+ TLongArr=array[0..15999] of Longint; PLongArr=^TLongArr;
+{$ENDIF}
 var Emb,Pos:TTable;
  Wq,Wk,Wv,Wo,F1,F2:array[0..MAXL-1] of TTable;
  G1,G2:array[0..MAXL-1] of PSglArr; Gf:PSglArr;
@@ -55,11 +72,11 @@ var Emb,Pos:TTable;
     as many values as the model is wide, or has letters, or can look
     back, and are on the heap at those sizes, which gives the program
     5 KB back. *)
- Bm:TVec; Bx,Bh,Bq,Bt,Ba,Bs,Score:PVec;
+ {$IFDEF FLOATGLUE}Bm:TVec; Bx,Bh,Bq,Bt,Ba,Bs,Score:PVec;{$ELSE}Bm:TFix; Bx,Bh,Bq,Bt,Ba,Bs,Score:PFix;{$ENDIF}
  Xq:TQVec; Qq,Ww:PQVec;
- ExpTab:array[0..1535] of SmallInt;
- AttDiv:Single; TablesDone,TablesTotal:Integer;
+ {$IFDEF FLOATGLUE}AttDiv:Single;{$ENDIF} TablesDone,TablesTotal:Integer;
  F:File;
+{$I EXPTAB.INC}
 procedure Fail(Msg:String);
 begin
  if Assigned(OnFail) then OnFail;
@@ -125,7 +142,7 @@ end;
 procedure Reserve;
 var J:Integer;
 begin
- D:=96; L:=4; H:=4; HID:=256; HD:=D div H; AttDiv:=Sqrt(HD);
+ D:=96; L:=4; H:=4; HID:=256; HD:=D div H; {$IFDEF FLOATGLUE}AttDiv:=Sqrt(HD);{$ENDIF}
  {$IFDEF XMSSTREAM}
  Stage:=Memory(StageBytes);
  {$IFDEF XMSLAYER}TailStage:=Memory(SecondHalf);{$ENDIF}
@@ -197,6 +214,7 @@ begin
   Scalars(T.Scale^[R],1); ReadBytes(T.W^[Longint(R)*RowBytes(T.Cols)],RowBytes(T.Cols))
  end
 end;
+{$IFNDEF FLOATGLUE}procedure FixModel; forward;{$ENDIF}
 function TryModel(Name:String; Expected:Longint):Boolean;
 var Header:packed record Magic:array[1..4] of Char; Width,Layers,Heads,Hidden:Word end;
  J,K,Err:Integer; Size,V:Longint;
@@ -239,7 +257,9 @@ begin
   if Err<>0 then LoadError:='close failure'
  end;
  if (LoadError='') and ((not Check)<>Expected) then LoadError:='CRC32 mismatch';
- Ready:=LoadError=''; TryModel:=Ready;
+ Ready:=LoadError='';
+ {$IFNDEF FLOATGLUE}if Ready then FixModel;{$ENDIF}
+ TryModel:=Ready;
  {$IFDEF XMSSTREAM}if Ready then StreamHandle:=ModelXms;{$ENDIF}
 end;
 procedure AllocMemory;
@@ -250,8 +270,7 @@ begin
   Ks[J]:=Memory(CTX*4); Vs[J]:=Memory(CTX*4)
  end;
  Bx:=Memory(D*4); Bh:=Memory(D*4); Bt:=Memory(D*4); Bq:=Bt; Ba:=Bh;
- Bs:=Memory(CTX*4); Score:=Memory(VOCAB*4); Qq:=Memory(D*2); Ww:=Memory(CTX*2);
- for K:=0 to 1535 do ExpTab[K]:=Trunc(Exp(-K/128.0)*32767.0+0.5)
+ Bs:=Memory(CTX*4); Score:=Memory(VOCAB*4); Qq:=Memory(D*2); Ww:=Memory(CTX*2)
 end;
 procedure FreeTable(var T:TTable);
 begin
@@ -285,6 +304,7 @@ begin
   FreeMem(Bs,CTX*4); FreeMem(Score,VOCAB*4); FreeMem(Qq,D*2); FreeMem(Ww,CTX*2); Bx:=nil
  end
 end;
+{$IFDEF FLOATGLUE}
 function Quant16(var X:TVec; N:Integer; var Q:TQVec):Single;
 var I:TIdx; M,V,K:Single;
 begin
@@ -300,6 +320,7 @@ begin
   Quant16:=M/32767.0
  end
 end;
+{$ENDIF}
 {$IFDEF VER70}{$IFNDEF NOASM}{$DEFINE DOTASM}{$ENDIF}{$ENDIF}
 {$IFDEF DOTASM}
 function DotS8I16(W:PS8Arr; var X:TQVec; N:Word):Longint; assembler;
@@ -379,6 +400,7 @@ begin
  for I:=0 to T.Rows-1 do Y[I]:=FactorDot(T.W,4*T.Cols+4*I,16,Latent)*T.Scale^[T.Cols+16+I]
 end;
 {$ENDIF}
+{$IFDEF FLOATGLUE}
 {$IFDEF XMSSTREAM}
 procedure StreamMatvec(var T:TTable; var X,Y:TVec);
 var R:Integer; Offset,Stride:Word; InputScale,Sum:Single; Weights:PS8Arr;
@@ -554,7 +576,7 @@ begin
   Matvec(Wo[Z],Ba^,Bt^); for I:=0 to D-1 do Bx^[I]:=Bx^[I]+Bt^[I];
   Norm(Bx^,G2[Z],Bh^); Matvec(F1[Z],Bh^,Bm); S:=0;
   for I:=0 to HID-1 do if Bm[I]<0 then Bm[I]:=0 else S:=S+Bm[I];
-  LayerAct[Z]:=S/HID; Matvec(F2[Z],Bm,Bt^);
+  LayerAct[Z]:=S/HID; LayerLvl[Z]:=Trunc(LayerAct[Z]*256.0); Matvec(F2[Z],Bm,Bt^);
   for I:=0 to D-1 do Bx^[I]:=Bx^[I]+Bt^[I]
  end;
  Norm(Bx^,Gf,Bh^); Matvec(Emb,Bh^,Score^)
@@ -580,6 +602,7 @@ begin
  Sum:=0; for I:=0 to VOCAB-1 do Sum:=Sum+Probability(Score^[Best]-Score^[I]);
  V:=Probability(Score^[Best]-Score^[Tok]); LastConf:=V/Sum;
  {$ENDIF}
+ LastPct:=Trunc(100*LastConf);
  Chosen:=Tok
 end;
 function Pick:Integer;
@@ -603,6 +626,366 @@ begin
  end;
  Pick:=Chosen(Selected)
 end;
+{$ELSE}
+(* ------------------------------------------------ the integer engine
+
+   The same engine as PasTiny's (see TNYNET.PAS there for the account of
+   it): every value between the dot products is a 32-bit whole number
+   counting 65536ths, and the file's floating point scales and gains are
+   taken apart bit by bit, so nothing here needs a coprocessor or its
+   emulator.  Three things differ in PasTinyAsm:
+
+     the vectors are the heap blocks the floating point engine had, at the
+       same sizes, so the program needs no more memory;
+     a row that is streamed from extended memory still has its scale as a
+       floating point number in front of it, which is taken apart when the
+       row is used;
+     the largest value scale is found afresh at every step, because
+       ThinkAgain steps back into the middle of an answer. *)
+var SqrtD:Longint; AttM:Word; AttSh:Integer;
+const RULEDOUT=-$08000000;     (* the score of a letter the guide turned down *)
+
+{$IFDEF VER70}
+function MulShr(A:Longint; M:Word; Sh:Integer):Longint; assembler;
+asm
+ mov ax,word ptr A
+ mov dx,word ptr A+2
+ mov di,dx
+ or dx,dx
+ jns @pos
+ neg dx
+ neg ax
+ sbb dx,0
+@pos:
+ mov cx,dx
+ mul word ptr M
+ mov bx,ax
+ mov si,dx
+ mov ax,cx
+ mul word ptr M
+ add si,ax
+ adc dx,0
+ mov cx,Sh
+ or cx,cx
+ jle @sign
+ dec cx
+@words:
+ cmp cx,16
+ jb @bits
+ mov bx,si
+ mov si,dx
+ xor dx,dx
+ sub cx,16
+ jmp @words
+@bits:
+ jcxz @round
+@bit:
+ shr dx,1
+ rcr si,1
+ rcr bx,1
+ loop @bit
+@round:
+ add bx,1
+ adc si,0
+ adc dx,0
+ shr dx,1
+ rcr si,1
+ rcr bx,1
+@sign:
+ mov ax,bx
+ mov dx,si
+ or di,di
+ jns @out
+ neg dx
+ neg ax
+ sbb dx,0
+@out:
+end;
+(* The sum of N products of a byte, every Stride bytes from V on, and a
+   16-bit number. *)
+function DotStride(V:PS8Arr; Stride:Word; var W:TQVec; N:Word):Longint; assembler;
+var Hi:Word;
+asm
+ push ds
+ mov Hi,0
+ xor bx,bx
+ mov cx,N
+ lds si,V
+ les di,W
+ jcxz @done
+@loop:
+ mov al,[si]
+ cbw
+ imul word ptr es:[di]
+ add bx,ax
+ adc Hi,dx
+ add si,Stride
+ add di,2
+ loop @loop
+@done:
+ pop ds
+ mov ax,bx
+ mov dx,Hi
+end;
+{$ELSE}
+function MulShr(A:Longint; M:Word; Sh:Integer):Longint;
+var P:Int64;
+begin
+ P:=Int64(Abs(A))*M;
+ if Sh>0 then P:=(P+(Int64(1) shl (Sh-1))) shr Sh;
+ if A<0 then MulShr:=-Longint(P) else MulShr:=Longint(P)
+end;
+function DotStride(V:PS8Arr; Stride:Word; var W:TQVec; N:Word):Longint;
+var J:TIdx; A:Longint;
+begin
+ A:=0; for J:=0 to N-1 do A:=A+Longint(W[J])*V^[Longint(J)*Stride]; DotStride:=A
+end;
+{$ENDIF}
+
+function ISqrt(N:Longint):Longint;
+var R,B,T:Longint;
+begin
+ R:=0; B:=$40000000;
+ while B>N do B:=B shr 2;
+ while B<>0 do begin
+  T:=R+B;
+  if N>=T then begin N:=N-T; R:=(R shr 1)+B end else R:=R shr 1;
+  B:=B shr 2
+ end;
+ ISqrt:=R
+end;
+
+(* 1/Den as a 16-bit number M and a shift:  1/Den = M / 2^Sh. *)
+procedure Recip(Den:Longint; var M:Word; var Sh:Integer);
+var A:Integer;
+begin
+ A:=0;
+ while Den>65535 do begin Den:=Den shr 1; Inc(A) end;
+ while Den<32768 do begin Den:=Den shl 1; Dec(A) end;
+ Den:=$7FFFFFFF div Den; if Den>65535 then Den:=65535;
+ M:=Den; Sh:=31+A
+end;
+
+(* A floating point scale, as a 16-bit number M and a shift:  M / 2^Sh. *)
+procedure Unpack(B:Longint; var S:TScale);
+begin
+ if B<=0 then begin S.M:=0; S.Sh:=0 end
+ else begin S.Sh:=142-Integer((B shr 23) and 255); S.M:=((B and $7FFFFF) or $800000) shr 8 end
+end;
+procedure FixScales(var T:TTable);
+var R:TIdx; B:Longint;
+begin
+ if T.Scale=nil then Exit;
+ for R:=0 to T.Rows-1 do begin
+  B:=PLongArr(T.Scale)^[R]; Unpack(B,PScaleArr(T.Scale)^[R])
+ end
+end;
+procedure FixGains(G:PSglArr);
+var I:TIdx; B,M:Longint; S:Integer;
+begin
+ for I:=0 to D-1 do begin
+  B:=PLongArr(G)^[I]; M:=0;
+  if B and $7FFFFFFF<>0 then begin
+   M:=(B and $7FFFFF) or $800000; S:=138-Integer((B shr 23) and 255);
+   if S>=31 then M:=0
+   else if S>0 then M:=(M+(Longint(1) shl (S-1))) shr S
+   else if S<0 then M:=M shl (-S);
+   if B<0 then M:=-M
+  end;
+  PLongArr(G)^[I]:=M
+ end
+end;
+procedure FixModel;
+var J:Integer;
+begin
+ FixScales(Emb); FixScales(Pos);
+ for J:=0 to L-1 do begin
+  FixGains(G1[J]); FixGains(G2[J]);
+  FixScales(Wq[J]); FixScales(Wk[J]); FixScales(Wv[J]); FixScales(Wo[J]);
+  FixScales(F1[J]); FixScales(F2[J])
+ end;
+ FixGains(Gf);
+ SqrtD:=ISqrt(Longint(D) shl 24);                       (* sqrt(D) in 4096ths *)
+ Recip(127*ISqrt(Longint(HD) shl 24),AttM,AttSh)        (* 1 / (127 sqrt(HD)), sqrt in 4096ths *)
+end;
+
+(* X as 16-bit numbers:  X[i] is about Q[i] * 2^S.  The largest takes 15 bits. *)
+function QuantFix(var X:TFix; N:Integer; var Q:TQVec):Integer;
+var I:TIdx; M,V,Half:Longint; S:Integer;
+begin
+ M:=0; for I:=0 to N-1 do begin V:=Abs(X[I]); if V>M then M:=V end;
+ S:=0;
+ if M=0 then begin for I:=0 to N-1 do Q[I]:=0; QuantFix:=0; Exit end;
+ while (M shr S)>32766 do Inc(S);
+ if S>0 then begin
+  Half:=Longint(1) shl (S-1);
+  for I:=0 to N-1 do begin
+   V:=X[I]; if V<0 then Q[I]:=-((Half-V) shr S) else Q[I]:=(V+Half) shr S
+  end
+ end else begin
+  while (M shl 1)<=32766 do begin M:=M shl 1; Dec(S) end;
+  for I:=0 to N-1 do Q[I]:=X[I] shl (-S)
+ end;
+ QuantFix:=S
+end;
+
+{$IFDEF XMSSTREAM}
+procedure StreamMatFix(var T:TTable; var Q:TQVec; S:Integer; var Y:TFix);
+var R:Integer; Offset,Stride:Word; Weights:PS8Arr; Sc:TScale;
+{$IFDEF XMSLAYER} Relative:Longint;{$ENDIF}
+begin
+ Stride:=T.Cols+4;
+ {$IFDEF XMSLAYER}
+ Relative:=T.FileOffset-LayerOffset;
+ Weights:=Stage;
+ if Relative>=FirstHalf then begin Dec(Relative,FirstHalf); Weights:=TailStage end;
+ Offset:=Relative;
+ {$ELSE}
+ Offset:=0; Weights:=Stage;
+ if not XmsRead(StreamHandle,T.FileOffset,Stage^[0],T.Rows*Stride) then
+  Fail('XMS projection read failed');
+ {$ENDIF}
+ for R:=0 to T.Rows-1 do begin
+  Unpack(PLongArr(@Weights^[Offset])^[0],Sc);
+  Y[R]:=MulShr(DotS8I16(PS8Arr(@Weights^[Offset+4]),Q,T.Cols),Sc.M,Sc.Sh-S);
+  Inc(Offset,Stride)
+ end
+end;
+{$ENDIF}
+(* Y = T times the vector Q * 2^S. *)
+procedure MatFix(var T:TTable; var Q:TQVec; S:Integer; var Y:TFix);
+var R:TIdx; Offset:Longint;
+begin
+ {$IFDEF XMSSTREAM}if T.W=nil then begin StreamMatFix(T,Q,S,Y); Exit end;{$ENDIF}
+ Offset:=0;
+ for R:=0 to T.Rows-1 do begin
+  with PScaleArr(T.Scale)^[R] do
+   Y[R]:=MulShr(DotS8I16(PS8Arr(@T.W^[Offset]),Q,T.Cols),M,Sh-S);
+  Inc(Offset,T.Cols)
+ end
+end;
+
+(* Y = X divided by its root mean square, times the gains.  The square root
+   is taken of 12-bit numbers, whose 96 squares fit in 32 bits; the
+   division is by a 16-bit reciprocal. *)
+procedure NormFix(var X:TFix; G:PSglArr; var Y:TFix);
+var I:TIdx; S,E:Integer; Acc,F,V:Longint;
+begin
+ S:=QuantFix(X,D,Xq); Acc:=0;
+ for I:=0 to D-1 do begin V:=Xq[I] div 8; Acc:=Acc+V*V end;
+ if Acc=0 then begin for I:=0 to D-1 do Y[I]:=0; Exit end;
+ F:=(SqrtD shl 15) div ISqrt(Acc); E:=0;
+ while F>65535 do begin F:=F shr 1; Inc(E) end;
+ for I:=0 to D-1 do Y[I]:=MulShr(Longint(Xq[I])*PLongArr(G)^[I],F,26-E)
+end;
+
+(* Keep Src as bytes, the largest as 127.  Returns that largest value. *)
+function StoreFix(Dst:PS8Arr; var Src:TFix):Longint;
+var I:TIdx; Big,V,Den:Longint; Sh:Integer;
+begin
+ Big:=0; for I:=0 to D-1 do begin V:=Abs(Src[I]); if V>Big then Big:=V end;
+ if Big=0 then Big:=1;
+ Sh:=0; while (Big shr Sh)>$7FFFFF do Inc(Sh);
+ Den:=Big shr Sh;
+ for I:=0 to D-1 do begin
+  V:=((Abs(Src[I]) shr Sh)*127+Den shr 1) div Den;
+  if Src[I]<0 then Dst^[I]:=-V else Dst^[I]:=V
+ end;
+ StoreFix:=Big
+end;
+
+function ExpOf(Diff:Longint; Shift:Integer):Longint;
+begin
+ Diff:=(Diff+(Longint(1) shl (Shift-1))) shr Shift;
+ if Diff>1535 then ExpOf:=0 else ExpOf:=ExpTab[Diff]
+end;
+
+procedure Step(Tok,P:Integer);
+var I,J,Z,Head,Off:TIdx; S,Sq,Sw,Vsh:Integer; Big,Acc,Esum,V,Wm,Vm:Longint; Rm:Word; Rs:Integer;
+begin
+ for I:=0 to D-1 do begin
+  with PScaleArr(Emb.Scale)^[Tok] do V:=MulShr(Emb.W^[Tok*D+I],M,Sh-16);
+  with PScaleArr(Pos.Scale)^[P] do Bx^[I]:=V+MulShr(Pos.W^[P*D+I],M,Sh-16)
+ end;
+ for Z:=0 to L-1 do begin
+  {$IFDEF XMSLAYER}
+  LayerOffset:=EmbedEnd+Longint(Z)*LayerBytes;
+  if not XmsRead(StreamHandle,LayerOffset,Stage^[0],FirstHalf) or
+     not XmsRead(StreamHandle,LayerOffset+FirstHalf,TailStage^[0],SecondHalf) then
+   Fail('XMS layer read failed');
+  {$ENDIF}
+  NormFix(Bx^,G1[Z],Bh^); S:=QuantFix(Bh^,D,Xq);
+  (* the key of this place: its bytes, and its scale over 127 sqrt(HD) *)
+  MatFix(Wk[Z],Xq,S,Bt^); Big:=StoreFix(PS8Arr(@Kc[Z]^[P*D]),Bt^);
+  Sw:=0; while Big>65535 do begin Big:=Big shr 1; Inc(Sw) end;
+  with PScaleArr(Ks[Z])^[P] do begin M:=MulShr(Big,AttM,16); Sh:=AttSh+4-Sw-16 end;
+  MatFix(Wv[Z],Xq,S,Bt^); PLongArr(Vs[Z])^[P]:=StoreFix(PS8Arr(@Vc[Z]^[P*D]),Bt^);
+  Vm:=1; for J:=0 to P do if PLongArr(Vs[Z])^[J]>Vm then Vm:=PLongArr(Vs[Z])^[J];
+  Vsh:=0; while (Vm shr Vsh)>32767 do Inc(Vsh);
+  MatFix(Wq[Z],Xq,S,Bq^); Sq:=QuantFix(Bq^,D,Qq^);
+  for Head:=0 to H-1 do begin
+   Off:=Head*HD; Big:=-MaxLongint;
+   (* how well each earlier place answers this one, in 1024ths *)
+   for J:=0 to P do begin
+    with PScaleArr(Ks[Z])^[J] do
+     V:=MulShr(DotS8I16(PS8Arr(@Kc[Z]^[J*D+Off]),PQVec(@Qq^[Off])^,HD),M,Sh+6-Sq);
+    Bs^[J]:=V; if V>Big then Big:=V
+   end;
+   Esum:=0; Wm:=0;
+   for J:=0 to P do begin
+    V:=ExpOf(Big-Bs^[J],3); Esum:=Esum+V;
+    V:=V*(PLongArr(Vs[Z])^[J] shr Vsh); Bs^[J]:=V; if V>Wm then Wm:=V
+   end;
+   Sw:=0; while (Wm shr Sw)>32767 do Inc(Sw);
+   for J:=0 to P do Ww^[J]:=Bs^[J] shr Sw;
+   Recip(127*Esum,Rm,Rs);
+   for I:=0 to HD-1 do
+    Ba^[Off+I]:=MulShr(DotStride(PS8Arr(@Vc[Z]^[Off+I]),D,Ww^,P+1),Rm,Rs-Sw-Vsh)
+  end;
+  S:=QuantFix(Ba^,D,Xq); MatFix(Wo[Z],Xq,S,Bt^);
+  for I:=0 to D-1 do Bx^[I]:=Bx^[I]+Bt^[I];
+  NormFix(Bx^,G2[Z],Bh^); S:=QuantFix(Bh^,D,Xq); MatFix(F1[Z],Xq,S,Bm);
+  Acc:=0;
+  for I:=0 to HID-1 do if Bm[I]<0 then Bm[I]:=0 else Acc:=Acc+Bm[I] shr 8;
+  LayerLvl[Z]:=Acc div HID;
+  S:=QuantFix(Bm,HID,Xq); MatFix(F2[Z],Xq,S,Bt^);
+  for I:=0 to D-1 do Bx^[I]:=Bx^[I]+Bt^[I]
+ end;
+ NormFix(Bx^,Gf,Bh^); S:=QuantFix(Bh^,D,Xq); MatFix(Emb,Xq,S,Score^)
+end;
+
+function Chosen(Tok:Integer):Integer;
+var I,Best:Integer; Sum:Longint;
+begin
+ Best:=0; for I:=1 to VOCAB-1 do if Score^[I]>Score^[Best] then Best:=I;
+ Sum:=0; for I:=0 to VOCAB-1 do Sum:=Sum+ExpOf(Score^[Best]-Score^[I],9);
+ LastPct:=(100*ExpOf(Score^[Best]-Score^[Tok],9)) div Sum;
+ Chosen:=Tok
+end;
+function Pick:Integer;
+var I,Best,Selected:Integer; Sum,Cum,R:Longint;
+begin
+ Best:=0; for I:=1 to VOCAB-1 do if Score^[I]>Score^[Best] then Best:=I;
+ Selected:=Best;
+ if Creativity>0 then begin
+  (* a letter's chance: exp of how far it is behind the best, over
+     Creativity/5; letters under 0.15 are left out *)
+  Sum:=0;
+  for I:=0 to VOCAB-1 do begin
+   Bs^[I]:=ExpOf((Score^[Best]-Score^[I])*5 div Creativity,9);
+   if Bs^[I]<4916 then Bs^[I]:=0; Sum:=Sum+Bs^[I]
+  end;
+  R:=MulShr(Sum,Random(10000),4); Cum:=0;
+  I:=0;
+  while I<VOCAB do begin
+   Cum:=Cum+Bs^[I];
+   if (Bs^[I]>0) and (R<MulShr(Cum,10000,4)) then begin Selected:=I; I:=VOCAB end
+   else Inc(I)
+  end
+ end;
+ Pick:=Chosen(Selected)
+end;
+{$ENDIF}
 (* The best choice, and the best of the rest. *)
 procedure TopTwo(var Best,Second:Integer);
 var I:Integer;
@@ -613,7 +996,7 @@ begin
 end;
 
 procedure NoteDoubt(At:Integer);
-var Best,Second,I,J:Integer; Gap:Single;
+var Best,Second,I,J:Integer; Gap:{$IFDEF FLOATGLUE}Single{$ELSE}Longint{$ENDIF};
 begin
  TopTwo(Best,Second); Gap:=Score^[Best]-Score^[Second];
  for I:=1 to MAXDOUBT do if (Doubt[I].At=0) or (Gap<Doubt[I].Gap) then begin
@@ -635,7 +1018,7 @@ begin
  Tok:=Pick; N:=1;
  while not Allowed(Answer,Tok) do begin
   if N=MAXTRY then begin PickGuided:=-1; Exit end;
-  Inc(N); Score^[Tok]:=-1e30; Tok:=Pick
+  Inc(N); Score^[Tok]:={$IFDEF FLOATGLUE}-1e30{$ELSE}RULEDOUT{$ENDIF}; Tok:=Pick
  end;
  PickGuided:=Tok
 end;

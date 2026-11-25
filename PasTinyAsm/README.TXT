@@ -4,7 +4,7 @@ Files: MAKECOM.EXE, MAKECOM.HLP, ASK.SCR, EXPERTS.CAT, ROUTER.BIN,
 SCREEN.BIN, SOUND.BIN, TEXT.BIN, TASKS.BIN, SLOTS.BIN, RECIPES.BIN,
 EXPORT.EXE.
 Keep them in one directory.  Needs a 386 and about 590 KB of free
-conventional memory.  A coprocessor is optional.
+conventional memory.  A coprocessor is not used.
 
   C:\ASM> MAKECOM
   type:  make screen flash, play sound      and press Enter
