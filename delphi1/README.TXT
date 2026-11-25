@@ -54,12 +54,14 @@ Running
   640 x 480 screen it opens maximised.
 
 Speed
-  The default integer engine does the heavy work (about 350,000
-  multiply-adds per letter) as 8-bit x 16-bit integer arithmetic in 8086
-  assembler, so it does not need a maths coprocessor. Without one,
-  Windows emulates the remaining floating point (WIN87EM.DLL), which is
-  still noticeable. Run TINY /BENCH to see the speed of your machine;
-  it also says whether a coprocessor was found.
+  The default integer engine works in whole numbers only: the heavy
+  work (about 350,000 multiply-adds per letter) is 8-bit x 16-bit
+  integer arithmetic in 8086 assembler, and everything between is 32-bit
+  whole numbers, as in the DOS version. While it thinks, and while the
+  monitor is drawn, no coprocessor and no emulator (WIN87EM.DLL) is used.
+  /FLOAT still runs the original floating point engine. Run TINY /BENCH
+  to see the speed of your machine; it also says whether a coprocessor
+  was found.
 
   Windows 3.1 multitasks cooperatively: TINY lets other programs run after
   every letter, and closing the window stops it at once.
@@ -74,12 +76,13 @@ What was tested (on a modern Linux PC, as Delphi 1 was not available)
     Integer) with range and overflow checks: all 60 test questions give
     exactly the same answers as the original C program, for both the
     integer engine and the float engine (creativity 0).
-  - The whole program compiled for 16-bit Windows (Win16, large model)
+  - (Before the integer engine was made whole-number only, and not
+    repeated since:) the whole program compiled for 16-bit Windows (Win16, large model)
     with Free Pascal's i8086 compiler, including the 8086 assembler
     kernels; the generated code assembles without errors.
   - Built with Delphi 1: the command-line compiler (DCC, Delphi Compiler
     Version 8.0) compiles and links the whole program without errors
-    under a DOS emulator; TINY.EXE comes to 50,432 bytes.
+    under a DOS emulator; TINY.EXE comes to 57,088 bytes.
   - Not tested: running TINY.EXE under Windows 3.1.
 
   Floating point on a real 386/486 rounds slightly differently from a
