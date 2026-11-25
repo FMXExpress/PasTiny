@@ -121,7 +121,7 @@ begin
 end;
 function NowUs:Longint;
 var T1,T2,Elapsed:Longint; Lo,Hi:Byte; Count:Word;
- Stamp:Extended;
+ Sub:Longint;
 begin
  repeat
   T1:=BiosTicks; OutByte($43,0); Lo:=InByte($40); Hi:=InByte($40);
@@ -131,9 +131,10 @@ begin
  if T1<LastTicks then EpochTicks:=EpochTicks-$1800B0;
  LastTicks:=T1; Elapsed:=T1-EpochTicks;
  (* Modular microseconds: interval consumers handle the signed wrap. *)
- Stamp:=(Elapsed*65536.0+(65535.0-Count))*1000000.0/1193182.0;
- while Stamp>2147483647.0 do Stamp:=Stamp-4294967296.0;
- NowUs:=Trunc(Stamp)
+ (* A timer tick is 54925.4 microseconds and a count of the timer chip
+    0.8381; in whole numbers, which wrap around as the stamp is meant to. *)
+ Sub:=65535-Longint(Count);
+ NowUs:=Elapsed*54925+(Elapsed*4) div 10+(Sub*8381) div 10000
 end;
 function NowMs:Longint;
 var T1,T2,Elapsed:Longint; Lo,Hi:Byte; Count:Word;
@@ -144,7 +145,10 @@ begin
  Count:=Word(Lo)+Word(Hi)*256;
  if T1<LastTicks then EpochTicks:=EpochTicks-$1800B0;
  LastTicks:=T1; Elapsed:=T1-EpochTicks;
- NowMs:=Trunc((Elapsed*65536.0+(65535.0-Count))*1000.0/1193182.0)
+ (* A timer tick is 54.9254 milliseconds and the timer chip counts 1193.182
+    times in one; in whole numbers, good for the 24 days a tick count lasts. *)
+ NowMs:=Elapsed*54+(Elapsed div 10000)*9254+((Elapsed mod 10000)*9254) div 10000+
+        ((65535-Longint(Count))*1000) div 1193182
 end;
 function KeyPressed:Boolean;
 var R:Registers;

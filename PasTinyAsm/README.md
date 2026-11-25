@@ -401,7 +401,9 @@ How this came about. The first version was trained on fixed phrases and scored 7
 
 So more wordings make the experts right on more phrasings, but do not make them understand new ones. The plan is printed before anything runs, so a wrong call is visible. [`training/gen_asm.py`](training/gen_asm.py) holds all the wordings; `tests/test_asm.py --models --show` lists the wrong calls.
 
-**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (95,376 bytes, the default streaming edition). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
+**No floating point.** The engine works in whole numbers only, as PasTiny's does (see [the parent README](../README.md#fpu-disabled-the-all-integer-engine)), and the panel and the clock were changed to match, so nothing in the program uses a coprocessor or Turbo Pascal's emulator, which is no longer linked in. The banner says `FPU not used`. Old and new write the same lines for the 3,000 requests of the score sheets and for the DOS transcripts. In DOSBox-X as a 386 at 50,000 cycles with the FPU off, a session of two requests took 11.3 s from start to finish against 64.4 s. The program is 7.6 KB smaller and has about 10 KB more memory free: the resident edition had 1,624 bytes of heap left with a model loaded and now has 11,576. `/DOLDGLUE` builds the earlier engine. These are emulator figures, not measurements on a real 386.
+
+**Under DOS.** `bin/MAKECOM.EXE` is the Turbo Pascal 7 build (93,504 bytes, the default streaming edition). In DOSBox-X with an emulated FPU it ran four request files, and every program it wrote was then run. What each printed is in [`evidence/OUTPUTS.TXT`](evidence/OUTPUTS.TXT).
 
 | Request | The program printed |
 |---|---|

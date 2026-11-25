@@ -6,7 +6,7 @@ const
  (42,26,4),(40,45,54),(13,16,28),(18,34,63),(18,63,42),(10,57,63),
  (63,22,34),(63,18,58),(63,54,14),(60,62,63));
 const MonitorX=61; InputWidth=54;
-var ChatX,ChatY:Integer; Peak:array[0..5] of Single;
+var ChatX,ChatY:Integer; Peak:array[0..5] of Longint;
  Heat:array[0..17] of Byte; HeatCount,Letters:Integer; LastQuestion:String[MAXQ];
  SoundOn,VoiceOn:Boolean;
 
@@ -135,10 +135,11 @@ begin
  TextAttr:=Color; PutS(S); ChatX:=WhereX; ChatY:=WhereY; Flush
 end;
 
-procedure Meter(X,Y,N:Integer; Value:Single; Color:Byte);
+(* A bar N cells long, Num/Den of it filled, in half cells. *)
+procedure Meter(X,Y,N:Integer; Num,Den:Longint; Color:Byte);
 var I,Filled:Integer;
 begin
- Filled:=Trunc(Value*N*2);
+ if Den>0 then Filled:=(Num*N*2) div Den else Filled:=0;
  for I:=0 to N-1 do
   if 2*I+2<=Filled then At(X+I,Y,Color,#219)
   else if 2*I+1=Filled then At(X+I,Y,Color,#221)
@@ -156,7 +157,7 @@ procedure RecordConfidence;
 begin
  if HeatCount=18 then Move(Heat[1],Heat[0],17)
  else Inc(HeatCount);
- Heat[HeatCount-1]:=Trunc(100*LastConf)
+ Heat[HeatCount-1]:=LastPct
 end;
 
 procedure ExpertStatus;
@@ -180,20 +181,20 @@ begin
 end;
 
 procedure Monitor;
-var I:Integer; V:Single; S:String; Color, Confidence:Byte; Glyph:Char;
+var I:Integer; Rate:Longint; S:String; Color, Confidence:Byte; Glyph:Char;
 begin
  At(MonitorX,3,8,'LAYER ACTIVITY');
  for I:=0 to L-1 do if I<6 then begin
   At(MonitorX,4+I,11,'L'+Chr(49+I));
-  if LayerAct[I]>Peak[I] then Peak[I]:=LayerAct[I];
-  V:=0; if Peak[I]>0 then V:=LayerAct[I]/Peak[I];
+  if LayerLvl[I]>Peak[I] then Peak[I]:=LayerLvl[I];
   if Odd(I) then Color:=11 else Color:=10;
-  Meter(MonitorX+3,4+I,15,V,Color); Peak[I]:=Peak[I]*0.995
+  Meter(MonitorX+3,4+I,15,LayerLvl[I],Peak[I],Color);
+  Peak[I]:=Peak[I]-(Peak[I]+199) div 200         (* the peak sinks by a 200th a letter *)
  end;
  Confidence:=0;
  if HeatCount>0 then Confidence:=Heat[HeatCount-1];
  At(MonitorX,10,8,'CONFIDENCE');
- Meter(MonitorX,11,13,Confidence/100,ConfidenceColor(Confidence));
+ Meter(MonitorX,11,13,Confidence,100,ConfidenceColor(Confidence));
  Str(Confidence:3,S); At(MonitorX+13,11,15,' '+S+'%');
  At(MonitorX,12,8,'LAST LETTERS');
  for I:=0 to 17 do begin
@@ -208,7 +209,10 @@ begin
  end;
  At(MonitorX,14,8,'SPEED');
  S:=' --.-';
- if (Letters>0) and (Last>T) then Str((1000.0*Letters)/(Last-T):5:1,S);
+ if (Letters>0) and (Last>T) then begin      (* letters a second, in tenths *)
+  Rate:=(Longint(10000)*Letters+(Last-T) div 2) div (Last-T);
+  Str(Rate div 10:3,S); S:=S+'.'+Chr(48+Rate mod 10)
+ end;
  At(MonitorX,15,7,S+' letters/s  '); Flush
 end;
 

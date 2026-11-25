@@ -30,4 +30,18 @@ Answers: the 60 reference questions give the reference answers in the
 TNYINT, TNYOLD, FLOATMATH and NOASM builds under DOS, and in the Free
 Pascal int, float, debug and noasm builds on the host.
 
+THE OTHER TWO PROGRAMS, FPU DISABLED (OFF.CON)
+  PasTinyMoE SPEC100, the eleven questions of CHECK.IN, 210 letters
+  written; the sum of the "answer ms" lines
+    new       59371 ms
+    old      389795 ms
+  whole run by the clock on the wall, emulator start included
+    new        63.1 s
+    old       393.4 s
+  PasTinyAsm MAKECOM (streaming edition), two requests, six lines of
+  program written; whole run by the clock on the wall
+    new        11.3 s
+    old        64.4 s
+  The answers and the programs written are the same, old and new.
+
 These are emulator comparisons, not physical Pocket386 measurements.

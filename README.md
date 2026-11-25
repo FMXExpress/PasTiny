@@ -102,6 +102,8 @@ The default engine now does everything in whole numbers. Before, only the dot pr
 
 That is about six times faster without a coprocessor, and the same speed as with one (15.62 s for the five questions with the FPU on, against 15.33 s for the old engine). All 60 reference answers are unchanged in every build. Start-up needs no floating point either: the exponential table is in the program (`EXPTAB.INC`) and the file's scales are taken apart bit by bit. The figures below this section were measured before the change and are kept as they were. Emulator figures, not Pocket386 measurements; raw logs in [BENCH/INTGLUE.TXT](BENCH/INTGLUE.TXT).
 
+PasTinyMoE and PasTinyAsm have the same engine. In the same emulator without a coprocessor, the 100-specialist program wrote its eleven check answers (210 letters) in 59.4 s of answering time against 389.8 s, and PasTinyAsm ran a two-request session from start to finish in 11.3 s against 64.4 s; both give the answers they gave before. PasTinyAsm has no floating point left anywhere, so Turbo Pascal's emulator is no longer part of it. Not converted: the Free Pascal DOS build (`BIN/DOS`, `TINYPAS.ZIP`), which was not rebuilt, and the Delphi 1 port.
+
 ### FPU disabled
 
 One run per version of **“what is 7 times 8”**, 34 character tokens. This shorter workload keeps the software-float runs practical. These are seconds for that single question, not the five-question averages above.

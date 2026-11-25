@@ -7,7 +7,7 @@ dosbox=${DOSBOX_X:-dosbox-x}
 root=$(pwd)
 mkdir -p build
 stage=$(mktemp -d "$root/build/tp7.XXXXXX")
-cp "$TP7_DIR/TPC.EXE" "$TP7_DIR/TURBO.TPL" *.PAS BUILD.BAT "$stage"
+cp "$TP7_DIR/TPC.EXE" "$TP7_DIR/TURBO.TPL" *.PAS *.INC BUILD.BAT "$stage"
 python3 - "$stage" <<'PY'
 from pathlib import Path
 from zipfile import ZipFile
